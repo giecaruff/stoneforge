@@ -1,2 +1,2 @@
-# appy-geo
-Algoritmos, métodos e equações de geofísica do appy
+# amegpy - algorithms, methods and equations for geophysics
+Algoritmos, métodos e equações de geofísica
