@@ -4,7 +4,7 @@ import pytest
     
 def velocity_si(sonic_transit):
 
-    """Convert the velocity in International System (I.S.).
+    """Convert the velocity to International System (I.S.).
 
     Parameters
     ----------
@@ -24,7 +24,7 @@ def velocity_si(sonic_transit):
 
 def vagarosity_sl(velocity):
 
-    """Convert the sonic_transit time in standard log system (us/ft) .
+    """Convert the sonic transit time to standard log system (us/ft) .
 
     Parameters
     ----------
@@ -44,7 +44,7 @@ def vagarosity_sl(velocity):
 
 def density_si(bulk_density):
 
-    """Convert the density in International System (I.S.).
+    """Convert the density to International System (I.S.).
 
     Parameters
     ----------
@@ -64,7 +64,7 @@ def density_si(bulk_density):
 
 def density_sl(density):
 
-    """Convert the density time in standard log system (g/cm3) .
+    """Convert the density time to standard log system (g/cm3) .
 
     Parameters
     ----------
