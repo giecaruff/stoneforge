@@ -1,5 +1,5 @@
 import logging
-#import pytest
+import pytest
 
     
 def velocity_si(sonic_transit):
