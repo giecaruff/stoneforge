@@ -27,3 +27,4 @@ def water_saturation(rw,rt,phi,a,m,n):
     sw = ((a*rw)/(phi**m*rt))**(1./n)
 
     return sw
+    

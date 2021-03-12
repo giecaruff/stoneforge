@@ -1,7 +1,8 @@
 import numpy as np
 import pytest
-def phiRHOB(rhob, rhom, rhof, vsh, depth, top, bottom):
+def phiRHOB(rhob, rhom, rhof, vsh):
     """Estimate the porosity from the bulk density.
+
     Parameters
     ----------
     rhob : array_like
@@ -12,12 +13,7 @@ def phiRHOB(rhob, rhom, rhof, vsh, depth, top, bottom):
         Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).
     vsh:array_like
         Shale volume log.
-    depth : array_like
-        Depth log corresponding to the GR data.        
-    top : int, float
-        Top of range to be calculated.
-    bottom : int, float
-        Bottom of range to be calculated.        
+       
     Returns
     -------
     phiDtotal : array_like
@@ -26,17 +22,16 @@ def phiRHOB(rhob, rhom, rhof, vsh, depth, top, bottom):
         Effective porosity and shale free for the aimed interval using the bulk density.        
     """
 
-    interval = (depth > top) & (depth < bottom)
-
-    phiDtotal = (rhom - rhob[interval])/ (rhom - rhof)
+    phiDtotal = (rhom - rhob)/ (rhom - rhof)
     phiDeff = phiDtotal - vsh*0.3
     phiDtotal = np.where(phiDtotal <= 0., 0.,phiDtotal)
     phiDeff = np.where(phiDeff <= 0., 0.,phiDeff)
 
     return phiDtotal, phiDeff
 
-def phiNPHI(nphi, phi_nsh, vsh, depth, top, bottom):
+def phiNPHI(nphi, phi_nsh, vsh):
     """Estimate the effective porosity from the neutron log.
+
     Parameters
     ----------
     nphi : array_like
@@ -45,12 +40,7 @@ def phiNPHI(nphi, phi_nsh, vsh, depth, top, bottom):
         Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.
     vsh: int, float
         Total volume of shale in the rock, chosen the most representativev
-    depth : array_like
-        Depth log corresponding to the GR data.        
-    top : int, float
-        Top of range to be calculated.
-    bottom : int, float
-        Bottom of range to be calculated.        
+   
     Returns
     -------
 
@@ -58,19 +48,16 @@ def phiNPHI(nphi, phi_nsh, vsh, depth, top, bottom):
         Effective porosity from the neutron log for the aimed interval.
     """
 
-    interval = (depth > top) & (depth < bottom)
-
-    phin = nphi[interval] - (vsh*phi_nsh)
+    phin = nphi - (vsh*phi_nsh)
     # phin_cor = phin_cor + (0.04*phin_cor) -> isso seria a correção da matriz
 
     phin = np.where(phin <= 0., 0.,phin)
 
     return phin
 
-
-
 def phiEff(phiRHOB, phiNPHI):
     """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity.
+
     Parameters
     ----------
     phiRHOB : array_like
@@ -89,9 +76,9 @@ def phiEff(phiRHOB, phiNPHI):
 
     return phie    
 
-
 def phiSonic(dt, dtma, dtf):
     """Estimate the Porosity from sonic using the Wyllie time-average equatio (http://dx.doi.org/10.1190/1.1438217).
+
     Parameters
     ----------
     dt : array_like

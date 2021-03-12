@@ -1,7 +1,8 @@
 import numpy as np
 import pytest
-def VShale_Linear(gr, grmin, grmax, depth, top, bottom):
+def vshale_linear(gr, grmin, grmax):
     """Estimate the shale volume from the linear model.
+
     Parameters
     ----------
     gr : array_like
@@ -9,26 +10,44 @@ def VShale_Linear(gr, grmin, grmax, depth, top, bottom):
     grmin : int, float
         Clean sand GR value.
     grmax : int, float
-        Shale/clay value.
-    depth : array_like
-        Depth log corresponding to the GR data.        
-    top : int, float
-        Top of range to be calculated.
-    bottom : int, float
-        Bottom of range to be calculated.        
+        Shale/clay value. 
+
     Returns
     -------
-    VShale_Lin : array_like
+    vshale : array_like
         Shale Volume for the aimed interval using the Linear method.
     """ 
 
-    interval = (depth > top) & (depth < bottom)
-    VShale_Lin = (gr[interval] - grmin) / (grmax - grmin)
+    vshale = (gr - grmin) / (grmax - grmin)
 
-    return VShale_Lin
+    return vshale
 
-def VShale_Larionov(gr, grmin, grmax, depth, top, bottom, tertiary=True):
-    """Estimate the shale volume from the Larionov model for Tertiary or older rocks.
+def vshale_larionov(gr, grmin, grmax):
+    """Estimate the shale volume from the Larionov model.
+
+    Parameters
+    ----------
+    gr : array_like
+        Gamma Ray log.
+    grmin : int, float
+        Clean sand GR value.
+    grmax : int, float
+        Shale/clay value.  
+
+    Returns
+    -------
+    vshale : array_like
+        Shale Volume for the aimed interval using the Larionov method.
+    """
+
+    igr = (gr - grmin) / (grmax - grmin)
+    vshale = 0.33 * (2. ** (2. * igr) - 1)
+
+    return vshale
+
+def vshale_larionov_terciary(gr, grmin, grmax):
+    """Estimate the shale volume from the Larionov model for Tertiary rocks.
+
     Parameters
     ----------
     gr : array_like
@@ -37,26 +56,14 @@ def VShale_Larionov(gr, grmin, grmax, depth, top, bottom, tertiary=True):
         Clean sand GR value.
     grmax : int, float
         Shale/clay value.
-    depth : array_like
-        Depth log corresponding to the GR data.        
-    top : int, float
-        Top of range to be calculated.
-    bottom : int, float
-        Bottom of range to be calculated.  
-    tertiary: boolean 
-        Choose whether it will be the account for Tertiary or older rocks  .            
+         
     Returns
     -------
-    VShale_Lari : array_like
+    vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
     """
-    interval = (depth > top) & (depth < bottom)
 
-    if tertiary == True:
-        igr = (gr[interval] - grmin) / (grmax - grmin)
-        VShale_Lari = 0.083 * (2 ** (3.7 * igr) - 1)
-    else:
-        igr = (gr[interval] - grmin) / (grmax - grmin)
-        VShale_Lari = 0.33 * (2. ** (2. * igr) - 1)
+    igr = (gr - grmin) / (grmax - grmin)
+    vshale = 0.083 * (2 ** (3.7 * igr) - 1)
 
-    return VShale_Lari
+    return vshale    
