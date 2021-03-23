@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+
 def phi_rhob(rhob, rhom, rhof, vsh):
     """Estimate the porosity from the bulk density.
 
@@ -30,7 +31,8 @@ def phi_rhob(rhob, rhom, rhof, vsh):
 
     return phid_total, phid_eff
 
-def phi_nphi(nphi, phi_nsh, vsh):
+
+def phi_nphi(nphi, nphi_sh, vsh):
     """Estimate the effective porosity from the neutron log.
 
     Parameters
@@ -49,12 +51,13 @@ def phi_nphi(nphi, phi_nsh, vsh):
         Effective porosity from the neutron log for the aimed interval.
     """
 
-    phin = nphi - (vsh * phi_nsh)
+    phin = nphi - (vsh * nphi_sh)
     # phin_cor = phin_cor + (0.04*phin_cor) -> isso seria a correção da matriz
 
     phin = np.where(phin <= 0., 0., phin)
 
     return phin
+
 
 def phi_eff(phi_rhob, phi_nphi):
     """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity.
@@ -76,6 +79,7 @@ def phi_eff(phi_rhob, phi_nphi):
     phie = np.where(phie <= 0., 0., phie)
 
     return phie    
+
 
 def phi_sonic(dt, dtma, dtf):
     """Estimate the Porosity from sonic using the Wyllie time-average equatio (http://dx.doi.org/10.1190/1.1438217).
@@ -99,4 +103,30 @@ def phi_sonic(dt, dtma, dtf):
     phidt = (dt - dtma) / (dtf - dtma)
     phidt = np.where(phidt <= 0., 0., phidt)
 
-    return phidt 
+    return phidt
+
+
+def phie_gaymard(phid, phin):
+    """Estimate the effective porosity using Gaymard-Poupon [1]_ method.
+
+    Parameters
+    ----------
+    phid : array_like
+        Density porosity (porosity calculated using density log)
+    phin : int, float
+        Neutron porosity (porosity calculated using neutron log)
+
+    Returns
+    -------
+    phie : array_like
+        Effective porosity using Gaymard-Poupon method
+    
+    References
+    ----------
+    .. [1] Gaymard, R., and A. Poupon. "Response Of Neutron And Formation
+    Density Logs In Hydrocarbon Bearing Formations." The Log Analyst 9 (1968).
+    """
+
+    phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
+
+    return phie
