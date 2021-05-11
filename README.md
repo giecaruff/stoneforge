@@ -1,2 +1,3 @@
-# amegpy - algorithms, methods and equations for geophysics
-Algoritmos, métodos e equações de geofísica
+# StoneForge
+  
+  Algorithms, methods and equations for geophysics
