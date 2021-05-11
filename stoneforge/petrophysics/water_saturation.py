@@ -146,8 +146,8 @@ def fertl(rw, rt, phi, a, m, vsh, alpha):
 
     References
     ----------
-    .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells. In SPWLA 16th
-    Annual Logging Symposium. OnePetro.
+    .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
+       In SPWLA 16th Annual Logging Symposium. OnePetro.
     """
 
     sw_fertl = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
@@ -163,7 +163,7 @@ _sw_methods = {
     "fertl": fertl
 }
 
-def water_saturation(rw, rt, phi, a, m, n, vsh, rsh, alpha, method=None):
+def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
     """Compute water saturation from resistivity log.
 
     This is a facade for the methods:
@@ -178,21 +178,23 @@ def water_saturation(rw, rt, phi, a, m, n, vsh, rsh, alpha, method=None):
     rw : int, float
         Water resistivity.
     rt : array_like
-        True resistivity.    
+        True resistivity.
     phi : array_like
-        Porosity (must be effective).         
+        Porosity (must be effective).
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
     n : int, float
-        Saturation exponent.
+        Saturation exponent. Required if `method` is "archie", "simandoux" or
+        "indonesia".
     vsh : array_like
-        Clay volume log.
+        Clay volume log. Required if `method` is "simandoux", "indonesia" or
+        "fertl".
     rsh : float
-        Clay resistivity.
+        Clay resistivity. Required if `method` is "simandoux" or "indonesia".
     alpha : array_like
-        Alpha parameter from Fertl equation.
+        Alpha parameter from Fertl equation. Required if `method` is "fertl"
     method : str, optional
         Name of the method to be used.  Should be one of
             - 'archie'
@@ -206,26 +208,24 @@ def water_saturation(rw, rt, phi, a, m, n, vsh, rsh, alpha, method=None):
     water_saturation : array_like
         Water saturation for the aimed interval using the specific method.
     """
-
-    if method is None:
-        method = "archie"
-
+    options = {}
+    
+    required = []
     if method is "archie":
-
-        fun = _sw_methods[method]
-        return fun(rw, rt, phi, a, m, n)
-
+        required = ["n"]
     elif method is "simandoux":
-
-        fun = _sw_methods[method]
-        return fun(rw, rt, phi, a, m, n, vsh, rsh)
-
+        required = ["n", "vsh", "rsh"]
     elif method is "indonesia":
-
-        fun = _sw_methods[method]
-        return fun(rw, rt, phi, a, m, n, vsh, rsh)
-
+        required = ["n", "vsh", "rsh"]
     elif method is "fertl":
+        required = ["vsh", "alpha"]
+    
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+    
+    fun = _sw_methods[method]
 
-        fun = _sw_methods[method]
-        return fun(rw, rt, phi, a, m, vsh, alpha)
+    return fun(rw, rt, phi, a, m, **options)
