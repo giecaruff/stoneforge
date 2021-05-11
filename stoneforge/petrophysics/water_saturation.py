@@ -3,7 +3,7 @@ from numpy import clip
 
 
 def archie(rw,rt,phi,a,m,n):
-    """Estimate the Water Saturation from Archie equation [1].
+    """Estimate the Water Saturation from Archie [1]_ equation.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def archie(rw,rt,phi,a,m,n):
     References
     ----------
 
-    [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
+    .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
     """
 
@@ -40,7 +40,7 @@ def archie(rw,rt,phi,a,m,n):
 
 
 def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
-    """Estimate water saturation from Simandoux equation [1].
+    """Estimate water saturation from Simandoux [1]_ equation.
 
     Parameters
     ----------
@@ -69,7 +69,7 @@ def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
     References
     ----------
 
-    [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
+    .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
     saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
     du Patrole 18(Supplemen-tary Issue):193
     """
@@ -81,7 +81,7 @@ def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
 
 
 def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
-    """Estimate water saturation from Poupon-Leveaux (Indonesia) equation [1].
+    """Estimate water saturation from Poupon-Leveaux (Indonesia) [1]_ equation.
 
     Parameters
     ----------
@@ -109,8 +109,7 @@ def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
 
     References
     ----------
-
-    [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
+    .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
     The Log Analyst, 12, 1-2.
     """
 
@@ -121,7 +120,7 @@ def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
 
 
 def fertl(rw, rt, phi, a, m, vsh, alpha):
-    """Estimate water saturation from Fertl equation [1].
+    """Estimate water saturation from Fertl [1]_ equation.
 
     Parameters
     ----------
@@ -147,7 +146,7 @@ def fertl(rw, rt, phi, a, m, vsh, alpha):
 
     References
     ----------
-    [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells. In SPWLA 16th
+    .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells. In SPWLA 16th
     Annual Logging Symposium. OnePetro.
     """
 
@@ -155,3 +154,78 @@ def fertl(rw, rt, phi, a, m, vsh, alpha):
     sw_fertl = clip(sw_fertl, 0., 1.)
 
     return sw_fertl
+
+
+_sw_methods = {
+    "archie": archie,
+    "simandoux": simandoux,
+    "indonesia": indonesia,
+    "fertl": fertl
+}
+
+def water_saturation(rw, rt, phi, a, m, n, vsh, rsh, alpha, method=None):
+    """Compute water saturation from resistivity log.
+
+    This is a facade for the methods:
+        - archie
+        - simandoux
+        - indonesia
+        - fertl
+
+    Parameters
+    ----------
+
+    rw : int, float
+        Water resistivity.
+    rt : array_like
+        True resistivity.    
+    phi : array_like
+        Porosity (must be effective).         
+    a : int, float
+        Tortuosity factor.
+    m : int, float
+        Cementation exponent.
+    n : int, float
+        Saturation exponent.
+    vsh : array_like
+        Clay volume log.
+    rsh : float
+        Clay resistivity.
+    alpha : array_like
+        Alpha parameter from Fertl equation.
+    method : str, optional
+        Name of the method to be used.  Should be one of
+            - 'archie'
+            - 'simandoux'
+            - 'indonesia'
+            - 'fertl
+        If not given, default method is 'archie'
+
+    Returns
+    -------
+    water_saturation : array_like
+        Water saturation for the aimed interval using the specific method.
+    """
+
+    if method is None:
+        method = "archie"
+
+    if method is "archie":
+
+        fun = _sw_methods[method]
+        return fun(rw, rt, phi, a, m, n)
+
+    elif method is "simandoux":
+
+        fun = _sw_methods[method]
+        return fun(rw, rt, phi, a, m, n, vsh, rsh)
+
+    elif method is "indonesia":
+
+        fun = _sw_methods[method]
+        return fun(rw, rt, phi, a, m, n, vsh, rsh)
+
+    elif method is "fertl":
+
+        fun = _sw_methods[method]
+        return fun(rw, rt, phi, a, m, vsh, alpha)
