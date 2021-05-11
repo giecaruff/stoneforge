@@ -39,7 +39,7 @@ def archie(rw,rt,phi,a,m,n):
     return sw_archie
 
 
-def simandoux(rw, rt, phi, a, m, vsh, rsh):
+def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
     """Estimate water saturation from Simandoux equation [1].
 
     Parameters
@@ -54,6 +54,8 @@ def simandoux(rw, rt, phi, a, m, vsh, rsh):
         Tortuosity factor.
     m : int, float
         Cementation exponent.
+    n : int, float
+        Saturation exponent.
     vsh : array_like
         Clay volume log.
     rsh : float
@@ -72,7 +74,7 @@ def simandoux(rw, rt, phi, a, m, vsh, rsh):
     du Patrole 18(Supplemen-tary Issue):193
     """
 
-    sw_simandoux = (a*rw / 2*(phi**m))*(((vsh/rsh)**2 + (4*(phi**m) / a*rw*rt))**0.5 - (vsh/rsh))
+    sw_simandoux = ((a*rw / rt*(phi**m)) + (a*rw/(phi**m) * vsh/2*rsh)**2)**(1/n) - (a*rw/(phi**m) * vsh/2*rsh)
     sw_simandoux = clip(sw_simandoux, 0., 1.)
 
     return sw_simandoux
@@ -112,7 +114,7 @@ def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
     The Log Analyst, 12, 1-2.
     """
 
-    sw_indonesia = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh)/(rsh)**0.5) + (phi**m / a*rw)))**(2/n)
+    sw_indonesia = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
     sw_indonesia = clip(sw_indonesia, 0., 1.)
 
     return sw_indonesia
