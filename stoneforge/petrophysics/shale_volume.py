@@ -109,7 +109,7 @@ _vshale_methods = {
 }
 
 
-def vshale(gr, grmin, grmax, method=None):
+def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) -> np.ndarray:
     """Compute the shale volume from gamma ray log.
 
     This is a façade for the methods:
