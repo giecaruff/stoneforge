@@ -31,7 +31,7 @@ def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     return igr
 
 
-def vshale_linear(gr, grmin, grmax):
+def vshale_linear(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Estimate the shale volume from the linear model.
 
     Parameters
