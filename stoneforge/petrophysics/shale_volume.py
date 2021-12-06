@@ -78,7 +78,7 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
     return vshale
 
 
-def vshale_larionov_terciary(gr, grmin, grmax):
+def vshale_larionov_terciary(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Estimate the shale volume from the Larionov model for Tertiary rocks.
 
     Parameters
