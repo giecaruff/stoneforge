@@ -78,7 +78,7 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
     return vshale
 
 
-def vshale_larionov_old(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
+def vshale_larionov_terciary(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Estimate the shale volume from the Larionov model for Tertiary rocks.
 
     Parameters
@@ -105,7 +105,7 @@ def vshale_larionov_old(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.nda
 _vshale_methods = {
     "linear": vshale_linear,
     "larionov": vshale_larionov,
-    "larionov_old": vshale_larionov_old,
+    "larionov_terciary": vshale_larionov_terciary,
 }
 
 
@@ -115,7 +115,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
     This is a façade for the methods:
         - vshale_linear
         - vshale_larionov
-        - vshale_larionov_old
+        - vshale_larionov_terciary
 
     Parameters
     ----------
@@ -129,7 +129,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
         Name of the method to be used.  Should be one of
             - 'linear'
             - 'larionov'
-            - 'larionov_old'
+            - 'larionov_terciary'
         If not given, default method is 'linear'
 
     Returns
