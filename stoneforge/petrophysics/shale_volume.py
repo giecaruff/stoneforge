@@ -54,7 +54,7 @@ def vshale_linear(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     return vshale
 
 
-def vshale_larionov(gr, grmin, grmax):
+def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Estimate the shale volume from the Larionov model.
 
     Parameters
