@@ -101,11 +101,59 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
 
     return vshale
 
+def vshale_clavier(gr: npt.ArrayLike, grmin: float, grmax: float):
+    """Estimate the shale volume from the Clavier model.
+
+    Parameters
+    ----------
+    gr : array_like
+        Gamma Ray log.
+    grmin : int, float
+        Clean sand GR value.
+    grmax : int, float
+        Shale/clay value.
+         
+    Returns
+    -------
+    vshale : array_like
+        Shale Volume for the aimed interval using the Clavier method.
+    """
+    
+    igr = gammarayindex(gr, grmin, grmax)
+    vshale = 1.7 - np.sqrt(3.38 - (igr + 0.7) ** 2)
+
+    return vshale
+
+def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
+    """Estimate the shale volume from the Stieber model.
+
+    Parameters
+    ----------
+    gr : array_like
+        Gamma Ray log.
+    grmin : int, float
+        Clean sand GR value.
+    grmax : int, float
+        Shale/clay value.
+         
+    Returns
+    -------
+    vshale : array_like
+        Shale Volume for the aimed interval using the Stieber method.
+    """
+    
+    igr = gammarayindex(gr, grmin, grmax)
+    vshale = igr / (3 - 2 * igr)
+
+    return vshale
+
 
 _vshale_methods = {
     "linear": vshale_linear,
     "larionov": vshale_larionov,
     "larionov_old": vshale_larionov_old,
+    "clavier": vshale_clavier,
+    "stieber": vshale_stieber,
 }
 
 
