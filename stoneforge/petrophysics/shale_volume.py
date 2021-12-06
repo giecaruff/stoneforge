@@ -21,6 +21,10 @@ def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     
     """
 
+    if grmin == grmax:
+        msg = "The value of grmin is equal to the value of grmax. Division by zero encountered"
+        raise ValueError(msg)
+
     igr = (gr - grmin) / (grmax - grmin)
     igr = np.clip(igr, 0.0, 1.0)
 
