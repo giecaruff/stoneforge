@@ -139,6 +139,10 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
     """
     if method is None:
         method = "linear"
+
+    if method not in _vshale_methods:
+        msg = f"Method not found: {method}"
+        raise ValueError(msg)
     
     fun = _vshale_methods[method]
 
