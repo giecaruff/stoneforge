@@ -1,8 +1,8 @@
 import numpy as np
-import pytest
+import numpy.typing as npt
 
 
-def gammarayindex(gr, grmin, grmax):
+def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Calculates the gamma ray index.
 
     Parameters
