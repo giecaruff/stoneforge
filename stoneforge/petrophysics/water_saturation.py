@@ -211,13 +211,13 @@ def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
     options = {}
     
     required = []
-    if method is "archie":
+    if method == "archie":
         required = ["n"]
-    elif method is "simandoux":
+    elif method == "simandoux":
         required = ["n", "vsh", "rsh"]
-    elif method is "indonesia":
+    elif method == "indonesia":
         required = ["n", "vsh", "rsh"]
-    elif method is "fertl":
+    elif method == "fertl":
         required = ["vsh", "alpha"]
     
     for arg in required:
