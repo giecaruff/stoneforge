@@ -2,18 +2,18 @@ import numpy as np
 import numpy.typing as npt
 
 
-def archie(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float, a: float,
+def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
            m: float, n: float) -> np.ndarray:
     """Estimate the Water Saturation from Archie's [1]_ equation.
 
     Parameters
     ----------
+    rw : int, float
+        Water resistivity.  
     rt : array_like
         Formation resistivity.    
     phi : array_like
         Porosity.   
-    rw : int, float
-        Water resistivity.      
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -32,30 +32,31 @@ def archie(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
     """
     sw = ((a*rw) / (phi**m * rt))**(1/n)
+
     return sw
 
 
-def simandoux(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
-              rw: float, a: float, m: float, n: float,
+def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
+              m: float, n: float, vsh: npt.ArrayLike,
               rsh: float) -> np.ndarray:
     """Estimate water saturation from Simandoux [1]_ equation.
 
     Parameters
     ----------
+    rw : int, float
+        Water resistivity.
     rt : array_like
         True resistivity.    
     phi : array_like
         Porosity.
-    vsh : array_like
-        Clay volume log.
-    rw : int, float
-        Water resistivity.        
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
     n : int, float
         Saturation exponent.
+    vsh : array_like
+        Clay volume log.
     rsh : int, float
         Clay resistivity.
 
@@ -70,27 +71,29 @@ def simandoux(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
     saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
     du Patrole 18(Supplemen-tary Issue):193
     """
-
-    sw = ((a*rw / rt*(phi**m)) + (a*rw/(phi**m) * vsh/2*rsh)**2)**(1/n) - (a*rw/(phi**m) * vsh/2*rsh)
+    C = (1 - vsh) * a * rw / phi**m
+    D = C * vsh / (2*rsh)
+    E = C / rt
+    sw = ((D**2 + E)**0.5 - D)**(2/n)
 
     return sw
 
 
-def indonesia(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
-              rw: float, a: float, m: float, n: float,
+def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
+              m: float, n: float, vsh: npt.ArrayLike,
               rsh: float) -> np.ndarray:
     """Estimate water saturation from Poupon-Leveaux (Indonesia) [1]_ equation.
 
     Parameters
     ----------
+    rw : int, float
+        Water resistivity.  
     rt : array_like
         True resistivity.    
     phi : array_like
         Porosity.     
     vsh : array_like
         Clay volume log.
-    rw : int, float
-        Water resistivity.    
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -110,27 +113,25 @@ def indonesia(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
     .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
     The Log Analyst, 12, 1-2.
     """
-
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
 
     return sw
 
 
-def fertl(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike, rw: float,
-          a: float, m: float, alpha: float) -> np.ndarray:
+def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
+          m: float, vsh: npt.ArrayLike, alpha: float) -> np.ndarray:
     """Estimate water saturation from Fertl [1]_ equation.
 
     Parameters
     ----------
-
+    rw : int, float
+        Water resistivity.
     rt : array_like
         True resistivity.    
     phi : array_like
         Porosity (must be effective).  
     vsh : array_like
         Clay volume log.     
-    rw : int, float
-        Water resistivity.  
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -148,7 +149,6 @@ def fertl(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike, rw: float,
     .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
        In SPWLA 16th Annual Logging Symposium. OnePetro.
     """
-
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
 
     return sw
@@ -161,7 +161,7 @@ _sw_methods = {
     "fertl": fertl
 }
 
-def water_saturation(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float,
+def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
                      a: float, m: float, method: str = "archie",
                      **kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
@@ -174,12 +174,12 @@ def water_saturation(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float,
 
     Parameters
     ----------
+    rw : int, float
+        Water resistivity.
     rt : array_like
         True resistivity.
     phi : array_like
         Porosity (must be effective).
-    rw : int, float
-        Water resistivity.
     a : int, float
         Tortuosity factor.
     m : int, float
