@@ -164,6 +164,8 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
         - vshale_linear
         - vshale_larionov
         - vshale_larionov_old
+        - vshale_clavier
+        - vshale_stieber
 
     Parameters
     ----------
@@ -178,12 +180,14 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
             - 'linear'
             - 'larionov'
             - 'larionov_old'
+            - 'clavier'
+            - 'stieber'
         If not given, default method is 'linear'
 
     Returns
     -------
     vshale : array_like
-        Shale Volume for the aimed interval using the Larionov method.
+        Shale Volume for the aimed interval using defined method.
     """
     if method is None:
         method = "linear"
