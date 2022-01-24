@@ -160,7 +160,7 @@ _vshale_methods = {
 def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) -> np.ndarray:
     """Compute the shale volume from gamma ray log.
 
-    This is a façade for the methods:
+    This is a facade for the methods:
         - vshale_linear
         - vshale_larionov
         - vshale_larionov_old
@@ -187,7 +187,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
     Returns
     -------
     vshale : array_like
-        Shale Volume for the aimed interval using defined method.
+        Shale Volume for the aimed interval using the defined method.
     """
     if method is None:
         method = "linear"

@@ -1,18 +1,19 @@
-from numpy import clip
-#import pytest
+import numpy as np
+import numpy.typing as npt
 
 
-def archie(rw,rt,phi,a,m,n):
-    """Estimate the Water Saturation from Archie [1]_ equation.
+def archie(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float, a: float,
+           m: float, n: float) -> np.ndarray:
+    """Estimate the Water Saturation from Archie's [1]_ equation.
 
     Parameters
     ----------
-    rw : array_like
-        Water resistivity.
     rt : array_like
-        True resistivity.    
+        Formation resistivity.    
     phi : array_like
-        Porosity (must be effective).         
+        Porosity.   
+    rw : int, float
+        Water resistivity.      
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -22,43 +23,42 @@ def archie(rw,rt,phi,a,m,n):
 
     Returns
     -------
-
     sw : array_like
         Water saturation from Archie equation.
 
     References
     ----------
-
     .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
     """
 
-    sw_archie = ((a*rw)/(phi**m * rt))**(1./n)
-    sw_archie = clip(sw_archie, 0., 1.)
+    sw = ((a*rw)/(phi**m * rt))**(1./n)
 
-    return sw_archie
+    return sw
 
 
-def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
+def simandoux(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
+              rw: float, a: float, m: float, n: float,
+              rsh: float) -> np.ndarray:
     """Estimate water saturation from Simandoux [1]_ equation.
 
     Parameters
     ----------
-    rw : int, float
-        Water resistivity.
     rt : array_like
         True resistivity.    
     phi : array_like
-        Porosity (must be effective).         
+        Porosity.
+    vsh : array_like
+        Clay volume log.
+    rw : int, float
+        Water resistivity.        
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
     n : int, float
         Saturation exponent.
-    vsh : array_like
-        Clay volume log.
-    rsh : float
+    rsh : int, float
         Clay resistivity.
 
     Returns
@@ -68,37 +68,37 @@ def simandoux(rw, rt, phi, a, m, n, vsh, rsh):
 
     References
     ----------
-
     .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
     saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
     du Patrole 18(Supplemen-tary Issue):193
     """
 
-    sw_simandoux = ((a*rw / rt*(phi**m)) + (a*rw/(phi**m) * vsh/2*rsh)**2)**(1/n) - (a*rw/(phi**m) * vsh/2*rsh)
-    sw_simandoux = clip(sw_simandoux, 0., 1.)
+    sw = ((a*rw / rt*(phi**m)) + (a*rw/(phi**m) * vsh/2*rsh)**2)**(1/n) - (a*rw/(phi**m) * vsh/2*rsh)
 
-    return sw_simandoux
+    return sw
 
 
-def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
+def indonesia(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike,
+              rw: float, a: float, m: float, n: float,
+              rsh: float) -> np.ndarray:
     """Estimate water saturation from Poupon-Leveaux (Indonesia) [1]_ equation.
 
     Parameters
     ----------
-    rw : int, float
-        Water resistivity.
     rt : array_like
         True resistivity.    
     phi : array_like
-        Porosity (must be effective).         
+        Porosity.     
+    vsh : array_like
+        Clay volume log.
+    rw : int, float
+        Water resistivity.    
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
     n : int, float
         Saturation exponent.
-    vsh : array_like
-        Clay volume log.
     rsh : float
         Clay resistivity.
 
@@ -113,30 +113,31 @@ def indonesia(rw, rt, phi, a, m, n, vsh, rsh):
     The Log Analyst, 12, 1-2.
     """
 
-    sw_indonesia = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
-    sw_indonesia = clip(sw_indonesia, 0., 1.)
+    sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
 
-    return sw_indonesia
+    return sw
 
 
-def fertl(rw, rt, phi, a, m, vsh, alpha):
+def fertl(rt: npt.ArrayLike, phi: npt.ArrayLike, vsh: npt.ArrayLike, rw: float,
+          a: float, m: float, alpha: float) -> np.ndarray:
     """Estimate water saturation from Fertl [1]_ equation.
 
     Parameters
     ----------
-    rw : int, float
-        Water resistivity.
+
     rt : array_like
         True resistivity.    
     phi : array_like
-        Porosity (must be effective).         
+        Porosity (must be effective).  
+    vsh : array_like
+        Clay volume log.     
+    rw : int, float
+        Water resistivity.  
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
-    vsh : array_like
-        Clay volume log.
-    alpha : array_like
+    alpha : int, float
         Alpha parameter from Fertl equation.
 
     Returns
@@ -150,10 +151,9 @@ def fertl(rw, rt, phi, a, m, vsh, alpha):
        In SPWLA 16th Annual Logging Symposium. OnePetro.
     """
 
-    sw_fertl = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
-    sw_fertl = clip(sw_fertl, 0., 1.)
+    sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
 
-    return sw_fertl
+    return sw
 
 
 _sw_methods = {
@@ -206,7 +206,7 @@ def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
     Returns
     -------
     water_saturation : array_like
-        Water saturation for the aimed interval using the specific method.
+        Water saturation for the aimed interval using the defined method.
     """
     options = {}
     
