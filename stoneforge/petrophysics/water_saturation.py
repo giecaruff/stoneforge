@@ -31,9 +31,7 @@ def archie(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float, a: float,
     .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
     """
-
-    sw = ((a*rw)/(phi**m * rt))**(1./n)
-
+    sw = ((a*rw) / (phi**m * rt))**(1/n)
     return sw
 
 
@@ -163,7 +161,9 @@ _sw_methods = {
     "fertl": fertl
 }
 
-def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
+def water_saturation(rt: npt.ArrayLike, phi: npt.ArrayLike, rw: float,
+                     a: float, m: float, method: str = "archie",
+                     **kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
 
     This is a facade for the methods:
@@ -174,13 +174,12 @@ def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
 
     Parameters
     ----------
-
-    rw : int, float
-        Water resistivity.
     rt : array_like
         True resistivity.
     phi : array_like
         Porosity (must be effective).
+    rw : int, float
+        Water resistivity.
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -207,6 +206,8 @@ def water_saturation(rw, rt, phi, a, m, method="archie", **kwargs):
     -------
     water_saturation : array_like
         Water saturation for the aimed interval using the defined method.
+
+
     """
     options = {}
     

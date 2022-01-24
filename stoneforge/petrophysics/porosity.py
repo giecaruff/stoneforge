@@ -1,9 +1,9 @@
 import numpy as np
-import pytest
+import numpy.typing as npt
 
 
-def phi_rhob(rhob, rhom, rhof, vsh):
-    """Estimate the porosity from the bulk density.
+def phi_rhob(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
+    """Estimate the porosity from the bulk density log [1]_.
 
     Parameters
     ----------
@@ -13,72 +13,82 @@ def phi_rhob(rhob, rhom, rhof, vsh):
         Matrix density.
     rhof : int, float
         Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).
-    vsh:array_like
-        Shale volume log.
        
     Returns
     -------
-    phid_total : array_like
+    phi : array_like
         Total porosity for the aimed interval using the bulk density.
-    phid_eff : array_like
-        Effective porosity and shale free for the aimed interval using the bulk density.        
+
+    References
+    ----------      
+    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
+    principles of petrophysics. Elsevier.
+
     """
+    phi = (rhom - rhob) / (rhom - rhof)
 
-    phid_total = (rhom - rhob) / (rhom - rhof)
-    phid_eff = phid_total - vsh * 0.3
-    phid_total = np.where(phid_total <= 0., 0., phid_total)
-    phid_eff = np.where(phid_eff <= 0., 0.,phid_eff)
-
-    return phid_total, phid_eff
+    return phi
 
 
-def phi_nphi(nphi, nphi_sh, vsh):
-    """Estimate the effective porosity from the neutron log.
+def phi_nphi(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
+             nphi_sh: float) -> np.ndarray:
+    """Estimate the effective porosity from the neutron log [1]_.
 
     Parameters
     ----------
     nphi : array_like
         neutron log.
+    vsh : array_like
+        Total volume of shale in the rock, chosen the most representative.
     phi_nsh : int, float
         Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.
-    vsh: int, float
-        Total volume of shale in the rock, chosen the most representative.
-   
+
     Returns
     -------
-
     phin : array_like
         Effective porosity from the neutron log for the aimed interval.
+
+    References
+    ----------
+    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
+    principles of petrophysics. Elsevier.
+
     """
-
     phin = nphi - (vsh * nphi_sh)
-    # phin_cor = phin_cor + (0.04*phin_cor) -> isso seria a correção da matriz
-
-    phin = np.where(phin <= 0., 0., phin)
 
     return phin
 
 
-def phi_eff(phi_rhob, phi_nphi):
-    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity.
+def phi_neu_den(phid: npt.ArrayLike, phin: npt.ArrayLike,
+                squared: bool = False) -> np.ndarray:
+    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity [1]_.
 
     Parameters
     ----------
-    phi_rhob : array_like
+    phid : array_like
         Effective porosity and shale free for the aimed interval using the bulk density.
-    phi_nphi : array_like
+    phin : array_like
         Effective porosity from the neutron log for the aimed interval.
+
     Returns
     -------
-
     phie : array_like
         Effective porosity from the Bulk Density porosity and Neutron porosity mean.
+
+    References
+    ----------
+    TODO
+
     """
+    if squared == False:
+        phi = (phid + phin) / 2
+    elif squared == True:
+        phi = np.sqrt( (phid**2 + phin**2) / 2)
 
-    phie = (phi_rhob + phi_nphi) / 2
-    phie = np.where(phie <= 0., 0., phie)
+    return phi  
 
-    return phie    
+
+#TODO phit -> phie (clay volume correction)
 
 
 def phi_sonic(dt, dtma, dtf):
@@ -95,13 +105,15 @@ def phi_sonic(dt, dtma, dtf):
               
     Returns
     -------
-
     phidt : array_like
         Porosity from sonic.
-    """
 
+    References
+    ----------
+    TODO
+
+    """
     phidt = (dt - dtma) / (dtf - dtma)
-    phidt = np.where(phidt <= 0., 0., phidt)
 
     return phidt
 
@@ -125,8 +137,8 @@ def phie_gaymard(phid, phin):
     ----------
     .. [1] Gaymard, R., and A. Poupon. "Response Of Neutron And Formation
     Density Logs In Hydrocarbon Bearing Formations." The Log Analyst 9 (1968).
-    """
 
+    """
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
 
     return phie
