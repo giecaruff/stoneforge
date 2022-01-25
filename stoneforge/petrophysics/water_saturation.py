@@ -171,7 +171,7 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
                      **kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
 
-    This is a facade for the methods:
+    This is a façade for the methods:
         - archie
         - simandoux
         - indonesia
