@@ -1,8 +1,16 @@
 import unittest
-from water_saturation import water_saturation
+import sys
+import os
 
 
-class SWTest(unittest.TestCase):
+if __package__:
+    from ..petrophysics.water_saturation import water_saturation
+else:
+    sys.path.append(os.path.dirname(__file__) + '/..')
+    from petrophysics.water_saturation import water_saturation
+
+
+class SwTest(unittest.TestCase):
     def test_archie(self):
         self.assertAlmostEqual(water_saturation(rw=0.9, rt=20, phi=0.33,
                                                 a=0.62, m=2.15, n=2.0,

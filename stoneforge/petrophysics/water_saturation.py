@@ -230,3 +230,4 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     fun = _sw_methods[method]
 
     return fun(rw, rt, phi, a, m, **options)
+    
