@@ -30,6 +30,7 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     ----------
     .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
+
     """
     sw = ((a*rw) / (phi**m * rt))**(1/n)
 
@@ -70,6 +71,7 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
     saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
     du Patrole 18(Supplemen-tary Issue):193
+
     """
     C = (1 - vsh) * a * rw / phi**m
     D = C * vsh / (2*rsh)
@@ -112,6 +114,7 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     ----------
     .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
     The Log Analyst, 12, 1-2.
+
     """
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
 
@@ -148,6 +151,7 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     ----------
     .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
        In SPWLA 16th Annual Logging Symposium. OnePetro.
+
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
 
@@ -160,6 +164,7 @@ _sw_methods = {
     "indonesia": indonesia,
     "fertl": fertl
 }
+
 
 def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
                      a: float, m: float, method: str = "archie",
@@ -207,7 +212,6 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     water_saturation : array_like
         Water saturation for the aimed interval using the defined method.
 
-
     """
     options = {}
     
@@ -230,4 +234,3 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     fun = _sw_methods[method]
 
     return fun(rw, rt, phi, a, m, **options)
-    

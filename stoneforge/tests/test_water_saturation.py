@@ -25,5 +25,8 @@ class SwTest(unittest.TestCase):
                                                 rsh=4.0), 0.82, places=2)
 
 
+    #TODO: unit test for Indonesia and Fertl methods
+
+
 if __name__ == '__main__':
     unittest.main()
