@@ -20,7 +20,6 @@ def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
         The gamma ray index varying between 0.0 (clean sand) and 1.0 (shale).
     
     """
-
     if grmin == grmax:
         msg = "Division by zero. The value of grmin is equal to the value of grmax."
         raise ZeroDivisionError(msg)
@@ -47,8 +46,8 @@ def vshale_linear(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Linear method.
-    """ 
 
+    """ 
     vshale = gammarayindex(gr, grmin, grmax)
 
     return vshale
@@ -70,8 +69,8 @@ def vshale_larionov_old(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.nda
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
-    """
 
+    """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.33 * (2. ** (2. * igr) - 1)
 
@@ -94,12 +93,13 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
-    """
 
+    """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.083 * (2 ** (3.7 * igr) - 1)
 
     return vshale
+
 
 def vshale_clavier(gr: npt.ArrayLike, grmin: float, grmax: float):
     """Estimate the shale volume from the Clavier model.
@@ -117,12 +117,13 @@ def vshale_clavier(gr: npt.ArrayLike, grmin: float, grmax: float):
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Clavier method.
-    """
     
+    """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 1.7 - np.sqrt(3.38 - (igr + 0.7) ** 2)
 
     return vshale
+
 
 def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     """Estimate the shale volume from the Stieber model.
@@ -140,10 +141,55 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Stieber method.
+
     """
-    
     igr = gammarayindex(gr, grmin, grmax)
     vshale = igr / (3 - 2 * igr)
+
+    return vshale
+
+
+def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float,
+                   cl1_d: float, cl2_n: float, cl2_d: float, clay_n: float,
+                   clay_d: float) -> np.ndarray:
+    """Estimates the shale volume from neutron and density logs method [1]_.
+
+    Parameters
+    ----------
+    neu : array_like
+        Neutron porosity log.
+    den : array_like
+        Bulk density log.
+    cl1_n : int, float
+        Neutron porosity value from clean point 1.
+    cl1_d : int, float
+        Bulk density value from clean point 1.
+    cl2_n : int, float
+        Neutron porosity value from clean point 2.
+    cl2_d : int, float
+        Bulk density value from clean point 2.
+    clay_n : int, float
+        Neutron porosity value from clay point.
+    clay_d : int, float
+        Bulk density value from clay point.
+
+    Returns
+    -------
+    vshale : array_like
+        Shale volume from neutron and density logs method.
+
+    References
+    ----------
+    .. [1] Bhuyan, K., & Passey, Q. R. (1994). Clay estimation from GR and 
+    neutron-density porosity logs. In SPWLA 35th Annual Logging Symposium. 
+    OnePetro.
+
+    """
+    x1 = (cl2_d - cl1_d) * (neu - cl1_n)
+    x2 = (den - cl1_d) * (cl2_n - cl1_n)
+    x3 = (cl2_d - cl1_d) * (clay_n - cl1_n)
+    x4 = (clay_d - cl1_d) * (cl2_n - cl1_n)
+    vshale = (x1-x2) / (x3-x4)
 
     return vshale
 
@@ -164,6 +210,8 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
         - vshale_linear
         - vshale_larionov
         - vshale_larionov_old
+        - vshale_clavier
+        - vshale_stieber
 
     Parameters
     ----------
@@ -178,12 +226,14 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
             - 'linear'
             - 'larionov'
             - 'larionov_old'
+            - 'clavier'
+            - 'stieber'
         If not given, default method is 'linear'
 
     Returns
     -------
     vshale : array_like
-        Shale Volume for the aimed interval using the Larionov method.
+        Shale Volume for the aimed interval using the defined method.
     """
     if method is None:
         method = "linear"
