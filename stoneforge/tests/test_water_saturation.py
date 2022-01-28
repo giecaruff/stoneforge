@@ -1,4 +1,4 @@
-import unittest
+
 import sys
 import os
 
@@ -10,23 +10,24 @@ else:
     from petrophysics.water_saturation import water_saturation
 
 
-class SwTest(unittest.TestCase):
-    def test_archie(self):
-        self.assertAlmostEqual(water_saturation(rw=0.9, rt=20, phi=0.33,
-                                                a=0.62, m=2.15, n=2.0,
-                                                method="archie"), 0.55,
-                                                places=2)
+def test_archie():
+    assert round(water_saturation(rw=0.9, rt=20, phi=0.33,
+                                a=0.62, m=2.15, n=2.0,
+                                method="archie"),2) == 0.55
 
+def test_simandoux():
+    assert round(water_saturation(rw=0.015, rt=1.0, phi=0.11,
+                                a=0.62, m=2.15, n=2.0,
+                                method="simandoux", vsh=0.33,
+                                            rsh=4.0),2) == 0.82
 
-    def test_simandoux(self):
-        self.assertAlmostEqual(water_saturation(rw=0.015, rt=1.0, phi=0.11,
-                                                a=0.62, m=2.15, n=2.0,
-                                                method="simandoux", vsh=0.33,
-                                                rsh=4.0), 0.82, places=2)
+def test_indonesia(): 
+    assert round(water_saturation(rw=17, rt=14.0, phi=0.23,
+                                a=1.00, m=1.8, n=2.0,
+                                method="indonesia", vsh=0.19,
+                                rsh=4.0),2) == 0.22
 
-
-    #TODO: unit test for Indonesia and Fertl methods
-
-
-if __name__ == '__main__':
-    unittest.main()
+def test_fertl(): 
+    assert round(water_saturation(rw=0.015, rt=1.0, phi=0.11,
+                                a=0.62, m=2.15, alpha=0.30,
+                                method="fertl", vsh=0.33),2) == 0.63
