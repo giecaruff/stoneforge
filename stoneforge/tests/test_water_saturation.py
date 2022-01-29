@@ -31,3 +31,4 @@ def test_fertl():
     assert round(water_saturation(rw=0.015, rt=1.0, phi=0.11,
                                 a=0.62, m=2.15, alpha=0.30,
                                 method="fertl", vsh=0.33),2) == 0.63
+
