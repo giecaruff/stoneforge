@@ -92,7 +92,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
 
 def sonic_porosity(dt, dtma, dtf):
-    """Estimate the Porosity from sonic using the Wyllie time-average equatio (http://dx.doi.org/10.1190/1.1438217).
+    """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
 
     Parameters
     ----------
@@ -110,7 +110,7 @@ def sonic_porosity(dt, dtma, dtf):
 
     References
     ----------
-    TODO
+    .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
     """
     phidt = (dt - dtma) / (dtf - dtma)
