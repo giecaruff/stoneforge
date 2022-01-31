@@ -2,7 +2,7 @@ import numpy as np
 import numpy.typing as npt
 
 
-def phi_rhob(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
+def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
 
     Parameters
@@ -30,7 +30,7 @@ def phi_rhob(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     return phi
 
 
-def phi_nphi(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
+def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
              nphi_sh: float) -> np.ndarray:
     """Estimate the effective porosity from the neutron log [1]_.
 
@@ -59,7 +59,7 @@ def phi_nphi(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     return phin
 
 
-def phi_neu_den(phid: npt.ArrayLike, phin: npt.ArrayLike,
+def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
                 squared: bool = False) -> np.ndarray:
     """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity [1]_.
 
@@ -91,8 +91,8 @@ def phi_neu_den(phid: npt.ArrayLike, phin: npt.ArrayLike,
 #TODO phit -> phie (clay volume correction)
 
 
-def phi_sonic(dt, dtma, dtf):
-    """Estimate the Porosity from sonic using the Wyllie time-average equatio (http://dx.doi.org/10.1190/1.1438217).
+def sonic_porosity(dt, dtma, dtf):
+    """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
 
     Parameters
     ----------
@@ -110,7 +110,7 @@ def phi_sonic(dt, dtma, dtf):
 
     References
     ----------
-    TODO
+    .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
     """
     phidt = (dt - dtma) / (dtf - dtma)
@@ -118,7 +118,7 @@ def phi_sonic(dt, dtma, dtf):
     return phidt
 
 
-def phie_gaymard(phid, phin):
+def gaymard_porosity(phid, phin):
     """Estimate the effective porosity using Gaymard-Poupon [1]_ method.
 
     Parameters
@@ -142,3 +142,86 @@ def phie_gaymard(phid, phin):
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
 
     return phie
+
+
+_porosity_methods = {
+    "density": density_porosity,
+    "neutron": neutron_porosity,
+    "neutron-density": neutron_density_porosity,
+    "sonic": sonic_porosity,
+    "gaymard": gaymard_porosity
+}
+
+
+def porosity(method: str = "density", **kwargs):
+    """Compute porosity from well logs.
+
+    This is a façade for the methods:
+        - density
+        - neutron
+        - neutron-density
+        - sonic
+        - gaymard
+
+    Parameters
+    ----------
+    rhob : array_like
+        Bulk density log. Required if `method` is "denisty".
+    rhom : int, float
+        Matrix density. Required if `method` is "denisty".
+    rhof : int, float
+        Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud). Required if `method` is "denisty".
+    nphi : array_like
+        Neutron log. Required if `method` is "neutron".
+    vsh : array_like
+        Total volume of shale in the rock, chosen the most representative. Required if `method` is "neutron".
+    phi_nsh : int, float
+        Apparent porosity read in the shales on and under the layer under study and with the same values used in φN. Required if `method` is "neutron".
+    dt : array_like
+        Sonic log reading (acoustic transit time (μsec/ft)). Required if `method` is "sonic".
+    dtma : int, float
+        Acoustic transit time of the matrix (μsec/ft). Required if `method` is "sonic".
+    dtf : int, float
+        Acoustic transit time of the fluids, usually water (μsec/ft). Required if `method` is "sonic".
+    phid : array_like
+        Density porosity (porosity calculated using density log). Required if `method` is "neutron-density" or "gaymard.
+    phin : int, float
+        Neutron porosity (porosity calculated using neutron log). Required if `method` is "neutron-density" or "gaymard.
+    method : str, optional
+        Name of the method to be used.  Should be one of
+            - 'density'
+            - 'neutron'
+            - 'neutron-density'
+            - 'sonic'
+            - 'gaymard'
+        If not given, default method is 'density'
+
+    Returns
+    -------
+    phi : array_like
+        Porosity log using the defined method.
+
+    """
+    options = {}
+
+    required = []
+    if method == "density":
+        required = ["rhob", "rhom", "rhof"]
+    elif method == "neutron":
+        required = ["nphi", "vsh", "nphi_sh"]
+    elif method == "neutron-density":
+        required = ["phid", "phin"]
+    elif method == "sonic":
+        required = ["dt", "dtma", "dtf"]
+    elif method == "gaymard":
+        required = ["phid", "phin"]
+
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+
+    fun = _porosity_methods[method]
+
+    return fun(**options)
