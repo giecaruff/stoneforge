@@ -2,7 +2,7 @@ import numpy as np
 import numpy.typing as npt
 
 
-def phi_rhob(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
+def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
 
     Parameters
@@ -30,7 +30,7 @@ def phi_rhob(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     return phi
 
 
-def phi_nphi(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
+def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
              nphi_sh: float) -> np.ndarray:
     """Estimate the effective porosity from the neutron log [1]_.
 
@@ -59,7 +59,7 @@ def phi_nphi(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     return phin
 
 
-def phi_neu_den(phid: npt.ArrayLike, phin: npt.ArrayLike,
+def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
                 squared: bool = False) -> np.ndarray:
     """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity [1]_.
 
@@ -91,7 +91,7 @@ def phi_neu_den(phid: npt.ArrayLike, phin: npt.ArrayLike,
 #TODO phit -> phie (clay volume correction)
 
 
-def phi_sonic(dt, dtma, dtf):
+def sonic_porosity(dt, dtma, dtf):
     """Estimate the Porosity from sonic using the Wyllie time-average equatio (http://dx.doi.org/10.1190/1.1438217).
 
     Parameters
@@ -118,7 +118,7 @@ def phi_sonic(dt, dtma, dtf):
     return phidt
 
 
-def phie_gaymard(phid, phin):
+def gaymard_porosity(phid, phin):
     """Estimate the effective porosity using Gaymard-Poupon [1]_ method.
 
     Parameters
