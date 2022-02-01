@@ -1,40 +1,38 @@
-import logging
-import pytest
+import numpy as np
+import numpy.typing as npt
+from typing import Union
 
 
-def Kdry(porosity, Ks, KsatA, KfluidA):
-    """Calculate the dry-rock bulk modulus using Gassmann's equation (1951).
+def Kdry(phi: Union[float, npt.ArrayLike], Ks: Union[float, npt.ArrayLike],
+         KsatA: Union[float, npt.ArrayLike],
+         KfluidA: Union[float, npt.ArrayLike]) -> np.ndarray:
+    """Calculate the dry-rock bulk modulus using Gassmann's [1]_ equation .
 
     Parameters
     ----------
-    porosity : int, float, array_like
-        Porosity value or log with values between 0 and 1.
+    phi : float, array_like
+        Porosity value or log.
 
-    Ks : int, float, array_like
-        Bulk modulus of solid phase in Pascal.
+    Ks : float, array_like
+        Bulk modulus of solid phase.
 
-    KsatA : int, float, array_like
-        Bulk modulus of the rock saturated with fluid A in Pascal.
+    KsatA : float, array_like
+        Bulk modulus of the rock saturated with fluid.
 
-    KfluidA : int, float, array_like
-        Bulk modulus of the fluid A in Pascal.
+    KfluidA : float, array_like
+        Bulk modulus of the fluid A.
 
     Returns
     -------
-    Kdry : int, float, array_like
-        Dry-rock bulk modulus in Pascal.
+    Kdry : float, array_like
+        Dry-rock bulk modulus.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
     """
-
-    if (porosity < 0.0) or (porosity > 1.0):
-        msg = "There are invalid values of porosity log."
-        logging.warning(msg)
-
-    if (Ks < 10**5) or (KsatA < 10**5) or (KfluidA < 10**5):
-        # Just to warn. If True, the unity maybe is in GPa.
-        msg = "The unity of Ks, KsatA and KfluidA should be in Pascal."
-        logging.warning(msg)
-
-    phi = porosity
     Kdry_num = 1 - (1 - phi) * (KsatA/Ks) - (phi * KsatA/KfluidA)
     Kdry_den = 1 + phi - (phi*Ks / KfluidA) - (KsatA/Ks)
     Kdry = Ks * (Kdry_num / Kdry_den)
@@ -42,42 +40,38 @@ def Kdry(porosity, Ks, KsatA, KfluidA):
     return Kdry
     
 
-def Ksat(porosity, Ks, Kdry, KfluidB):
-    """Calculate the bulk modulus of the rock saturated with fluid B.
+def Ksat(phi: Union[float, npt.ArrayLike], Ks: Union[float, npt.ArrayLike],
+         Kdry: Union[float, npt.ArrayLike],
+         KfluidB: Union[float, npt.ArrayLike]) -> np.ndarray:
+    """Calculate the bulk modulus of the rock saturated with fluid B [1]_.
 
     Parameters
     ----------
-    porosity : int, float, array_like
+    phi : float, array_like
         Porosity value or log with values between 0 and 1.
 
-    Ks : int, float, array_like
+    Ks : float, array_like
         Bulk modulus of solid phase in Pascal.
 
-    Kdry : int, float, array_like
+    Kdry : float, array_like
         Bulk modulus of the dry-rock in Pascal.
 
-    KfluidB : int, float, array_like
+    KfluidB : float, array_like
         Bulk modulus of the fluid B in Pascal.
 
     Returns
     -------
-    Ksat : int, float, array_like
-        Bulk modulus of the rock saturated with fluid B in Pascal.
+    Ksat : float, array_like
+        Bulk modulus of the rock saturated with fluid B.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
     """
-    
-    if (porosity < 0.0) or (porosity > 1.0):
-        msg = "There are invalid values of porosity log."
-        logging.warning(msg)
-
-    if (Ks < 10**5) or (Kdry < 10**5) or (KfluidB < 10**5):
-        # Just to warn. If True, the unity maybe is in GPa.
-        msg = "The unity of Ks, Kdry and KfluidB should be in Pascal."
-        logging.warning(msg)
-
-    phi = porosity
     Ksat_num = phi*Kdry - (1 + phi)*(KfluidB * Kdry / Ks) + KfluidB
     Ksat_den = (1 - phi)*KfluidB + phi*Ks - (KfluidB * Kdry / Ks)
     Ksat = Ks * (Ksat_num / Ksat_den)
 
     return Ksat
-
