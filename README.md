@@ -1,5 +1,7 @@
 # StoneForge
   
+  ![example workflow](https://github.com/giecaruff/stoneforge/actions/workflows/CI.yml/badge.svg)
+  
   Algorithms, methods and equations for geophysics
   
   
