@@ -105,7 +105,8 @@ def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
     References
     ----------
     .. [1] Avseth, Per, Tapan Mukerji, and Gary Mavko. Quantitative seismic
-    interpretation: Applying rock physics tools to reduce interpretation risk. Cambridge university press, 2010.
+    interpretation: Applying rock physics tools to reduce interpretation risk.
+    Cambridge university press, 2010.
 
     """
     A = ksatA / (ks - ksatA)
