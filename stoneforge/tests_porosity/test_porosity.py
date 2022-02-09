@@ -1,6 +1,7 @@
 # %%
 import sys
 import os
+import numpy as np
 
 
 if __package__:
@@ -30,5 +31,22 @@ def test_gaymard():
     assert round(porosity(phid = 0.14, phin = 0.10,
                         method = "gaymard"),2) == 0.12
 
+np.random.seed(99)
+
+lista = []
+for i in range(10):
+    phid = np.random.uniform(low=0.0, high=1.0, size=None)
+    phin = np.random.uniform(low=0.0, high=1.0, size=None)
+    lista.append((phid, phin))
+
+
+@pytest.mark.parametrize("phid, phin",lista)
+def test_gaymard(phid, phin):
+    assert porosity(phid = phid, phin = phin,
+                        method = "gaymard") == 0.12
+
+            
+
 
 #TODO: pytest for the rest of porosity
+# %%
