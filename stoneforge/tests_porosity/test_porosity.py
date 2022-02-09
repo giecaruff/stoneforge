@@ -2,6 +2,7 @@
 import sys
 import os
 import numpy as np
+import pytest
 
 
 if __package__:
@@ -33,17 +34,18 @@ def test_gaymard():
 
 np.random.seed(99)
 
-lista = []
-for i in range(10):
+values = []
+for i in range(30):
     phid = np.random.uniform(low=0.0, high=1.0, size=None)
     phin = np.random.uniform(low=0.0, high=1.0, size=None)
-    lista.append((phid, phin))
+    values.append((phid, phin))
 
 
-@pytest.mark.parametrize("phid, phin",lista)
+@pytest.mark.parametrize("phid, phin",values)
 def test_gaymard(phid, phin):
-    assert porosity(phid = phid, phin = phin,
-                        method = "gaymard") == 0.12
+    p = porosity(phid = phid, phin = phin,
+                        method = "gaymard")
+    assert p >= 0 and p <= 1
 
             
 
