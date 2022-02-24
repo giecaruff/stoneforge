@@ -3,7 +3,7 @@ import sys
 import os
 import numpy as np
 import pytest
-
+import warnings
 
 if __package__:
     from ..petrophysics.porosity import porosity
@@ -12,43 +12,97 @@ else:
     from petrophysics.porosity import porosity
 
 
-def test_density():
-    assert round(porosity(rhob = 2.43, rhom = 2.65, rhof = 1.10,
-                        method = "density"),2) == 0.14
-
-def test_neutron():
-    assert round(porosity(nphi = 0.18, vsh = 0.30, nphi_sh = 0.27,
-                        method = "neutron"),2) == 0.10
-
-def test_neutron_density():
-    assert round(porosity(phid = 0.14, phin = 0.10, squared = False,
-                        method = "neutron-density"),2) == 0.12
-
-def test_sonic():
-    assert round(porosity(dt = 80.0, dtma = 55.5, dtf = 185.0,
-                        method = "sonic"),2) == 0.19
-
-def test_gaymard():
-    assert round(porosity(phid = 0.14, phin = 0.10,
-                        method = "gaymard"),2) == 0.12
-
 np.random.seed(99)
 
-values = []
-for i in range(30):
+density_values = []
+for i in range(15):
+    rhob = np.random.uniform(low=1.0, high=3.0, size=None)
+    rhom = np.random.uniform(low=1.0, high=2.5, size=None)
+    rhof = np.random.uniform(low=1.0, high=2.0, size=None)
+    density_values.append((rhob, rhom, rhof))
+
+@pytest.mark.parametrize("rhob, rhom, rhof", density_values)
+def test_density(rhob, rhom, rhof):
+    p = porosity(rhob = rhob, rhom = rhom, rhof = rhof,
+                        method = "density")
+    assert p >= 0 and p <= 1
+#def test_density():
+    #assert round(porosity(rhob = 2.43, rhom = 1.10, rhof = 1.10,
+                        #method = "density"),2) == 0.14
+
+neutron_values = []
+for i in range(15):
+    nphi = np.random.uniform(low=1.0, high=3.0, size=None)
+    vsh = np.random.uniform(low=1.0, high=2.5, size=None)
+    nphi_sh = np.random.uniform(low=1.0, high=2.0, size=None)
+    neutron_values.append((nphi, vsh, nphi_sh))
+
+@pytest.mark.parametrize("nphi, vsh, nphi_sh", neutron_values)
+def test_neutron(nphi, vsh, nphi_sh):
+    p = porosity(nphi = nphi, vsh = vsh, nphi_sh = nphi_sh,
+                        method = "neutron")
+    assert p >= 0 and p <= 1
+#def test_neutron():
+    #assert round(porosity(nphi = 0.18, vsh = 0.30, nphi_sh = 0.27,
+                        #method = "neutron"),2) == 0.10
+
+not_squared_neutron_density_values = []
+for i in range(15):
     phid = np.random.uniform(low=0.0, high=1.0, size=None)
     phin = np.random.uniform(low=0.0, high=1.0, size=None)
-    values.append((phid, phin))
+    not_squared_neutron_density_values.append((phid, phin))
 
+@pytest.mark.parametrize("phid, phin", not_squared_neutron_density_values)
+def test_neutron(phid, phin):
+    p = porosity(phid = phid, phin = phin, squared = False,
+                        method = "neutron-density")
+    assert p >= 0 and p <= 1
 
-@pytest.mark.parametrize("phid, phin",values)
+squared_neutron_density_values = []
+for i in range(15):
+    phid = np.random.uniform(low=0.0, high=1.0, size=None)
+    phin = np.random.uniform(low=0.0, high=1.0, size=None)
+    squared_neutron_density_values.append((phid, phin))
+
+@pytest.mark.parametrize("phid, phin", squared_neutron_density_values)
+def test_neutron_squared(phid, phin):
+    p = porosity(phid = phid, phin = phin, squared = True,
+                        method = "neutron-density")
+    assert p >= 0 and p <= 1
+#def test_neutron_density():
+    #assert round(porosity(phid = 0.14, phin = 0.10, squared = False,
+                        #method = "neutron-density"),2) == 0.12
+
+sonic_values = []
+for i in range(15):
+    dt = np.random.uniform(low=50.0, high=100.0, size=None)
+    dtma = np.random.uniform(low=10.0, high=100.0, size=None)
+    dtf = np.random.uniform(low=150.0, high=300.0, size=None)
+    sonic_values.append((dt, dtma, dtf))
+
+@pytest.mark.parametrize("dt, dtma, dtf", sonic_values)
+def test_sonic(dt, dtma, dtf):
+    p = porosity(dt = dt, dtma = dtma, dtf = dtf,
+                        method = "sonic")
+    assert p >= 0 and p <= 1
+#def test_sonic():
+    #assert round(porosity(dt = 80.0, dtma = 55.5, dtf = 185.0,
+                        #method = "sonic"),2) == 0.19
+
+gaymard_values = []
+for i in range(15):
+    phid = np.random.uniform(low=0.0, high=1.0, size=None)
+    phin = np.random.uniform(low=0.0, high=1.0, size=None)
+    gaymard_values.append((phid, phin))
+
+@pytest.mark.parametrize("phid, phin", gaymard_values)
 def test_gaymard(phid, phin):
     p = porosity(phid = phid, phin = phin,
                         method = "gaymard")
     assert p >= 0 and p <= 1
-
-            
+#def test_gaymard():
+    #assert round(porosity(phid = 0.14, phin = 0.10,
+                        #method = "gaymard"),2) == 0.12
 
 
 #TODO: pytest for the rest of porosity
-# %%

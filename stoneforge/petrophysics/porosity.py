@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.typing as npt
+import warnings
 
 
 def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
@@ -25,9 +26,20 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     principles of petrophysics. Elsevier.
 
     """
-    phi = (rhom - rhob) / (rhom - rhof)
+    if rhom <= rhof or rhom <= rhob:
+        warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
-    return phi
+        return 0
+        
+    elif rhom - rhob > rhom - rhof:
+        warnings.warn(UserWarning("phi must be a value between 0 and 1"))
+
+        return 0
+        
+    else: 
+        phi = (rhom - rhob) / (rhom - rhof)
+
+        return phi
 
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
@@ -54,9 +66,20 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     principles of petrophysics. Elsevier.
 
     """
-    phin = nphi - (vsh * nphi_sh)
+    if nphi < (vsh * nphi_sh):
+        warnings.warn(UserWarning("phin must be a positive value"))
 
-    return phin
+        return 0
+    
+    elif nphi - (vsh * nphi_sh) > 1:
+        warnings.warn(UserWarning("phin must be a value between 0 and 1"))
+
+        return 0
+
+    else:
+        phin = nphi - (vsh * nphi_sh)
+
+        return phin
 
 
 def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
@@ -81,11 +104,25 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     """
     if squared == False:
-        phi = (phid + phin) / 2
-    elif squared == True:
-        phi = np.sqrt( (phid**2 + phin**2) / 2)
+        if (phid + phin / 2) > 1:
+            warnings.warn(UserWarning("phi must be between 0 and 1"))
 
-    return phi  
+            return 0
+        else:
+            phi = (phid + phin) / 2
+
+            return phi
+
+    elif squared == True:
+        if (phid**2 + phin**2 / 2) > 1:
+            warnings.warn(UserWarning("phi must be between 0 and 1"))
+
+            return 0
+
+        else:
+            phi = np.sqrt( (phid**2 + phin**2) / 2)
+
+            return phi  
 
 
 #TODO phit -> phie (clay volume correction)
@@ -113,9 +150,20 @@ def sonic_porosity(dt, dtma, dtf):
     .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
     """
-    phidt = (dt - dtma) / (dtf - dtma)
+    if dt <= dtma or dtf <= dtma:
+        warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
-    return phidt
+        return 0
+
+    elif dt - dtma > dtf - dtma:
+        warnings.warn(UserWarning("phidt must be between 0 and 1"))
+
+        return 0
+
+    else:
+        phidt = (dt - dtma) / (dtf - dtma)
+
+        return phidt
 
 
 def gaymard_porosity(phid, phin):
