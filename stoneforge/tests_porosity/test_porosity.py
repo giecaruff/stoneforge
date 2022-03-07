@@ -18,7 +18,7 @@ density_values = []
 for i in range(15):
     rhob = np.random.uniform(low=1.0, high=3.0, size=None)
     rhom = np.random.uniform(low=1.0, high=2.5, size=None)
-    rhof = np.random.uniform(low=1.0, high=2.0, size=None)
+    rhof = np.random.uniform(low=0.0, high=1.10, size=None)
     density_values.append((rhob, rhom, rhof))
 
 @pytest.mark.parametrize("rhob, rhom, rhof", density_values)
@@ -26,6 +26,7 @@ def test_density(rhob, rhom, rhof):
     p = porosity(rhob = rhob, rhom = rhom, rhof = rhof,
                         method = "density")
     assert p >= 0 and p <= 1
+
 #def test_density():
     #assert round(porosity(rhob = 2.43, rhom = 1.10, rhof = 1.10,
                         #method = "density"),2) == 0.14
@@ -53,7 +54,7 @@ for i in range(15):
     not_squared_neutron_density_values.append((phid, phin))
 
 @pytest.mark.parametrize("phid, phin", not_squared_neutron_density_values)
-def test_neutron(phid, phin):
+def test_neutron_density(phid, phin):
     p = porosity(phid = phid, phin = phin, squared = False,
                         method = "neutron-density")
     assert p >= 0 and p <= 1
@@ -65,7 +66,7 @@ for i in range(15):
     squared_neutron_density_values.append((phid, phin))
 
 @pytest.mark.parametrize("phid, phin", squared_neutron_density_values)
-def test_neutron_squared(phid, phin):
+def test_neutron_density_squared(phid, phin):
     p = porosity(phid = phid, phin = phin, squared = True,
                         method = "neutron-density")
     assert p >= 0 and p <= 1
@@ -104,5 +105,27 @@ def test_gaymard(phid, phin):
     #assert round(porosity(phid = 0.14, phin = 0.10,
                         #method = "gaymard"),2) == 0.12
 
+unique_density_value = []
+rhob = 2.60
+rhom = 1.10
+rhof = 1.10
+unique_density_value.append((rhob, rhom, rhof))
 
+@pytest.mark.parametrize("rhob, rhom, rhof", unique_density_value)
+def test_unique_density(rhob, rhom, rhof):
+    p = porosity(rhob = 2.60, rhom = 1.10, rhof = 1.10,
+                        method = "density")
+    assert p >= 0 and p <= 1
+
+unique_sonic_value = []
+dt = 75.0
+dtma = 100.0
+dtf = 100.0
+unique_sonic_value.append((dt, dtma, dtf))
+
+@pytest.mark.parametrize("dt, dtma, dtf", unique_sonic_value)
+def test_unique_sonic(dt, dtma, dtf):
+    p = porosity(dt = 75.0, dtma = 100.0, dtf = 100.0,
+                        method = "sonic")
+    assert p >= 0 and p <= 1    
 #TODO: pytest for the rest of porosity
