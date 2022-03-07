@@ -26,8 +26,21 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     principles of petrophysics. Elsevier.
 
     """
-    if rhom <= rhof or rhom <= rhob:
+    try:        
+        phi = (rhom - rhob) / (rhom - rhof)
+
+        return 0
+
+    except ZeroDivisionError:
+        warnings.warn(UserWarning("this will result in a divison by 0"))
+        print("This will result in a division by zero")
+        return 0
+
+
+    if rhom < rhof or rhom <= rhob:
         warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
+
+        phi = (rhom - rhob) / (rhom - rhof)
 
         return 0
         
@@ -40,7 +53,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         phi = (rhom - rhob) / (rhom - rhof)
 
         return phi
-
+    
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
              nphi_sh: float) -> np.ndarray:
@@ -150,6 +163,17 @@ def sonic_porosity(dt, dtma, dtf):
     .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
     """
+
+    try:        
+        phidt = (dt - dtma) / (dtf - dtma)
+
+        return 0
+
+    except ZeroDivisionError:
+        warnings.warn(UserWarning("this will result in a divison by 0"))
+        print("This will result in a division by zero")
+        return 0
+
     if dt <= dtma or dtf <= dtma:
         warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
