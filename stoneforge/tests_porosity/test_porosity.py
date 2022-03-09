@@ -30,9 +30,9 @@ def test_density(rhob, rhom, rhof):
 
 neutron_values = []
 for i in range(15):
-    nphi = np.random.uniform(low=1.0, high=3.0, size=None)
-    vsh = np.random.uniform(low=1.0, high=2.5, size=None)
-    nphi_sh = np.random.uniform(low=1.0, high=2.0, size=None)
+    nphi = np.random.uniform(low=0.0, high=1.0, size=None)
+    vsh = np.random.uniform(low=0.0, high=1.0, size=None)
+    nphi_sh = np.random.uniform(low=0.0, high=1.0, size=None)
     neutron_values.append((nphi, vsh, nphi_sh))
 
 @pytest.mark.parametrize("nphi, vsh, nphi_sh", neutron_values)
