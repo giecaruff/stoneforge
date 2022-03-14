@@ -14,12 +14,10 @@ else:
 
 np.random.seed(99)
 
-density_values = []
-for i in range(15):
-    rhob = np.random.uniform(low=1.0, high=3.0, size=None)
-    rhom = np.random.uniform(low=1.0, high=2.5, size=None)
-    rhof = np.random.uniform(low=0.0, high=1.10, size=None)
-    density_values.append((rhob, rhom, rhof))
+rhob = np.random.uniform(low=1.0, high=3.0, size=15)
+rhom = np.random.uniform(low=1.0, high=2.5, size=15)
+rhof = np.random.uniform(low=0.0, high=1.10, size=15)
+density_values = np.array([rhob, rhom, rhof]).T
 
 @pytest.mark.parametrize("rhob, rhom, rhof", density_values)
 def test_density(rhob, rhom, rhof):
@@ -28,12 +26,10 @@ def test_density(rhob, rhom, rhof):
     assert p >= 0 and p <= 1
 
 
-neutron_values = []
-for i in range(15):
-    nphi = np.random.uniform(low=0.0, high=1.0, size=None)
-    vsh = np.random.uniform(low=0.0, high=1.0, size=None)
-    nphi_sh = np.random.uniform(low=0.0, high=1.0, size=None)
-    neutron_values.append((nphi, vsh, nphi_sh))
+nphi = np.random.uniform(low=0.0, high=1.0, size=15)
+vsh = np.random.uniform(low=0.0, high=1.0, size=15)
+nphi_sh = np.random.uniform(low=0.0, high=1.0, size=15)
+neutron_values = np.array([nphi, vsh, nphi_sh]).T
 
 @pytest.mark.parametrize("nphi, vsh, nphi_sh", neutron_values)
 def test_neutron(nphi, vsh, nphi_sh):
@@ -42,11 +38,9 @@ def test_neutron(nphi, vsh, nphi_sh):
     assert p >= 0 and p <= 1
 
 
-not_squared_neutron_density_values = []
-for i in range(15):
-    phid = np.random.uniform(low=0.0, high=1.0, size=None)
-    phin = np.random.uniform(low=0.0, high=1.0, size=None)
-    not_squared_neutron_density_values.append((phid, phin))
+phid = np.random.uniform(low=0.0, high=1.0, size=15)
+phin = np.random.uniform(low=0.0, high=1.0, size=15)
+not_squared_neutron_density_values = np.array([phid, phin]).T
 
 @pytest.mark.parametrize("phid, phin", not_squared_neutron_density_values)
 def test_neutron_density(phid, phin):
@@ -55,11 +49,9 @@ def test_neutron_density(phid, phin):
     assert p >= 0 and p <= 1
 
 
-squared_neutron_density_values = []
-for i in range(15):
-    phid = np.random.uniform(low=0.0, high=1.0, size=None)
-    phin = np.random.uniform(low=0.0, high=1.0, size=None)
-    squared_neutron_density_values.append((phid, phin))
+phid = np.random.uniform(low=0.0, high=1.0, size=15)
+phin = np.random.uniform(low=0.0, high=1.0, size=15)
+squared_neutron_density_values = np.array([phid, phin]).T
 
 @pytest.mark.parametrize("phid, phin", squared_neutron_density_values)
 def test_neutron_density_squared(phid, phin):
@@ -68,12 +60,10 @@ def test_neutron_density_squared(phid, phin):
     assert p >= 0 and p <= 1
 
 
-sonic_values = []
-for i in range(15):
-    dt = np.random.uniform(low=50.0, high=100.0, size=None)
-    dtma = np.random.uniform(low=10.0, high=100.0, size=None)
-    dtf = np.random.uniform(low=150.0, high=300.0, size=None)
-    sonic_values.append((dt, dtma, dtf))
+dt = np.random.uniform(low=50.0, high=100.0, size=15)
+dtma = np.random.uniform(low=10.0, high=100.0, size=15)
+dtf = np.random.uniform(low=150.0, high=300.0, size=15)
+sonic_values = np.array([dt, dtma, dtf]).T
 
 @pytest.mark.parametrize("dt, dtma, dtf", sonic_values)
 def test_sonic(dt, dtma, dtf):
@@ -82,11 +72,9 @@ def test_sonic(dt, dtma, dtf):
     assert p >= 0 and p <= 1
 
 
-gaymard_values = []
-for i in range(15):
-    phid = np.random.uniform(low=0.0, high=1.0, size=None)
-    phin = np.random.uniform(low=0.0, high=1.0, size=None)
-    gaymard_values.append((phid, phin))
+phid = np.random.uniform(low=0.0, high=1.0, size=15)
+phin = np.random.uniform(low=0.0, high=1.0, size=15)
+gaymard_values = np.array([phid, phin]).T
 
 @pytest.mark.parametrize("phid, phin", gaymard_values)
 def test_gaymard(phid, phin):

@@ -14,15 +14,14 @@ else:
 
 np.random.seed(99)
 
-archie_values = []
-for i in range(15):
-    rw = np.random.uniform(low=0.0, high=0.9, size=None)
-    rt = np.random.uniform(low=10.0, high=30.0, size=None)
-    phi = np.random.uniform(low=0.0, high=1.0, size=None)
-    a = np.random.uniform(low=0.0, high=0.62, size=None)
-    m = np.random.uniform(low=1.0, high=3.0, size=None)
-    n = np.random.uniform(low=1.0, high=2.0, size=None)
-    archie_values.append((rw, rt, phi, a, m, n))
+
+rw = np.random.uniform(low=0.0, high=0.9, size=15)
+rt = np.random.uniform(low=10.0, high=30.0, size=15)
+phi = np.random.uniform(low=0.1, high=1.0, size=15)
+a = np.random.uniform(low=0.0, high=0.62, size=15)
+m = np.random.uniform(low=1.0, high=3.0, size=15)
+n = np.random.uniform(low=1.0, high=2.0, size=15)
+archie_values = np.array([rw, rt, phi, a, m, n]).T
 
 @pytest.mark.parametrize("rw, rt, phi, a, m, n", archie_values)
 def test_archie(rw, rt, phi, a, m, n):
