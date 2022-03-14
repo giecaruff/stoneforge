@@ -1,7 +1,9 @@
-
+# %%
 import sys
 import os
-
+import numpy as np
+import pytest
+import warnings
 
 if __package__:
     from ..petrophysics.water_saturation import water_saturation
@@ -10,10 +12,28 @@ else:
     from petrophysics.water_saturation import water_saturation
 
 
-def test_archie():
-    assert round(water_saturation(rw=0.9, rt=20, phi=0.33,
-                                a=0.62, m=2.15, n=2.0,
-                                method="archie"),2) == 0.55
+np.random.seed(99)
+
+archie_values = []
+for i in range(15):
+    rw = np.random.uniform(low=0.0, high=0.9, size=None)
+    rt = np.random.uniform(low=10.0, high=30.0, size=None)
+    phi = np.random.uniform(low=0.0, high=1.0, size=None)
+    a = np.random.uniform(low=0.0, high=0.62, size=None)
+    m = np.random.uniform(low=1.0, high=3.0, size=None)
+    n = np.random.uniform(low=1.0, high=2.0, size=None)
+    archie_values.append((rw, rt, phi, a, m, n))
+
+@pytest.mark.parametrize("rw, rt, phi, a, m, n", archie_values)
+def test_archie(rw, rt, phi, a, m, n):
+    ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
+                        m = m, n = n, method = "archie")
+    assert ws >= 0 and ws <= 1
+
+#def test_archie():
+    #assert round(water_saturation(rw=0.9, rt=20, phi=0.33,
+                                #a=0.62, m=2.15, n=2.0,
+                                #method="archie"),2) == 0.55
 
 def test_simandoux():
     assert round(water_saturation(rw=0.015, rt=1.0, phi=0.11,
