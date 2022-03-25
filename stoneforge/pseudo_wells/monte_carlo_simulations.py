@@ -3,15 +3,14 @@ import numpy.typing as npt
 import scipy
 from scipy import stats
 from scipy.stats import pearsonr
-pip install scikit-gstat
 import skgstat
 from skgstat.models import spherical, exponential, gaussian
 from scipy.optimize import curve_fit
 
-# EXPERIMENTAL CORRELATION FUNCTION
-def experimental_correlation(data: npt.ArrayLike):
+
+def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
   """
-  Determines the 1D experimental correlation function for a dataset by calculating 
+  Determines the 1D experimental correlation function [1]_ for a dataset by calculating 
   the Pearson correlation coefficient for each possible separation of samples.
 
   Parameters
@@ -42,10 +41,10 @@ def experimental_correlation(data: npt.ArrayLike):
       vetor2 = []
   return(rho)
 
-# EXPERIMENTAL VARIOGRAM
-def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike):
+
+def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray:
   """
-  Determines the 1D experimental variogram of a dataset.
+  Determines the 1D experimental variogram [1]_ of a dataset.
 
   Parameters
   ----------
@@ -69,34 +68,43 @@ def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike):
   gama = (np.std(data)**2) * (1 - rho)
   return(gama)
 
-# VARIOGRAM MODEL FIT
-def analytical_variogram(distance, gama):
+
+def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str="best-fit")-> np.ndarray:
   """
-  Determines the best analytical variogram function to fit the experimental one, 
-  comparing the Gaussian, Exponential and Spherical models.
+  Fits the choosen analytical variogram function (model) to the experimental one [1]_, 
+  if no model is choosen, determines the best model to fit, comparing the Gaussian, 
+  Exponential and Spherical models [2]_.
 
   Parameters
   ----------
   distance : array_like
-        1D 
+        1D array containing all the possible distances between a pair of points
+        in the dataset. 
   
   gama : array_like
         1D experimental variogram of the data under examination.
 
+  model : str, optional
+        Analytical variogram model to be fitted.  Should be one of:
+            - "exponential": fits the exponential model
+            - "gaussian": fits the gaussian model
+            - "spherical": fits the spherical model
+            - "best-fit": fits the three models above and verifies which one produces
+              the smallest error.
+        If not given, default method is "best-fit".
+
   Returns
   -------
-  model : array_like
-        1D analytical variogram that produces the best fit for the experimental variogram.
-  
+  modeled_variogram : array_like
+        The variogram model that has been choosen, or the variogram model that fits the
+        best the experimental one.
+
   References
   ----------
-  .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-  properties. [S.l.]: Cambridge University Press, 2014.
+  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
   .. [2] https://mmaelicke.github.io/scikit-gstat/reference/models.html
-  .. [3] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
 
-  """
-  # VARIOGRAM MODELS 
+  """ 
   def sph(distance, range, sill):
     return spherical(distance, range, sill)
 
@@ -106,52 +114,71 @@ def analytical_variogram(distance, gama):
   def exp(distance, range, sill):
     return exponential(distance, range, sill)
 
-  # FIT
-  xi = distance
-  coeficients, cov = curve_fit(sph, distance, gama)                               
-  yi = list(map(lambda distancia: spherical(distancia, *coeficients), xi))        
-
-  xig = distance
-  coeficientsg, covg = curve_fit(gauss, distance, gama)
-  yig = list(map(lambda distancia: gaussian(distance, *coeficientsg), xig))
-
-  xie = distance
-  coeficientse, cove = curve_fit(exp, distance, gama)
-  yie = list(map(lambda distancia: exponential(distance, *coeficientse), xie))
-
-  # COMPARISON
-  ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
-  structured_field = distance <= np.max(ranges)
-
-  difference_sph = np.zeros(len(gama))
-  difference_gauss = np.zeros(len(gama))
-  difference_exp = np.zeros(len(gama))
-
-  i = 0
-  while (structured_field[i] == True):
-    i += 1
-    difference_sph[i] = gama[i] - yi[i]
-    difference_gauss[i] = gama[i] - yig[i]
-    difference_exp[i] = gama[i] - yie[i]
-
-  rmse_sph = ((np.sum(difference_sph**2))/i)**0.5
-  rmse_gaus = ((np.sum(difference_gauss**2))/i)**0.5
-  rmse_exp = ((np.sum(difference_exp**2))/i)**0.5
-
-  RMSE = np.array((rmse_sph, rmse_gaus, rmse_exp))
-  best = list(RMSE).index(np.min(RMSE))
-
-  if best == 0:
+  if model == "spherical":
+    xi = distance
+    coeficients, cov = curve_fit(sph, distance, gama)                               
+    yi = list(map(lambda distance: spherical(distance, *coeficients), xi))
     return(yi)
-  if best == 1:
+
+  elif model == "gaussian":
+    xig = distance
+    coeficientsg, covg = curve_fit(gauss, distance, gama)
+    yig = list(map(lambda distance: gaussian(distance, *coeficientsg), xig))
     return(yig)
-  if best == 2:
+
+  elif model == "exponential":
+    xie = distance
+    coeficientse, cove = curve_fit(exp, distance, gama)
+    yie = list(map(lambda distance: exponential(distance, *coeficientse), xie))
     return(yie)
 
-# MODELED CORRELATION FUNCTION
-def modeled_correlation(gama: npt.ArrayLike, var: float) :
+  elif model == "best-fit":
+    xi = distance
+    coeficients, cov = curve_fit(sph, distance, gama)                               
+    yi = list(map(lambda distance: spherical(distance, *coeficients), xi))        
+
+    xig = distance
+    coeficientsg, covg = curve_fit(gauss, distance, gama)
+    yig = list(map(lambda distance: gaussian(distance, *coeficientsg), xig))
+
+    xie = distance
+    coeficientse, cove = curve_fit(exp, distance, gama)
+    yie = list(map(lambda distance: exponential(distance, *coeficientse), xie))
+
+    ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
+    structured_field = distance <= np.max(ranges)
+
+    difference_sph = np.zeros(len(gama))
+    difference_gauss = np.zeros(len(gama))
+    difference_exp = np.zeros(len(gama))
+
+    i = 0
+    while (structured_field[i] == True):
+      i += 1
+      difference_sph[i] = gama[i] - yi[i]
+      difference_gauss[i] = gama[i] - yig[i]
+      difference_exp[i] = gama[i] - yie[i]
+
+    rmse_sph = ((np.sum(difference_sph**2))/i)**0.5
+    rmse_gaus = ((np.sum(difference_gauss**2))/i)**0.5
+    rmse_exp = ((np.sum(difference_exp**2))/i)**0.5
+
+    RMSE = np.array((rmse_sph, rmse_gaus, rmse_exp))
+    best = list(RMSE).index(np.min(RMSE))
+
+    if best == 0:
+      return(yi)
+    if best == 1:
+      return(yig)
+    if best == 2:
+      return(yie)
+  else:
+    raise TypeError("model must be: exponential, gaussian, spherical or best-fit")
+
+
+def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
   """
-  Determines the 1D modeled correlation function from a variogram model.
+  Determines the 1D modeled correlation function [1]_ from a variogram model [2]_.
 
   Parameters
   ----------
@@ -169,15 +196,15 @@ def modeled_correlation(gama: npt.ArrayLike, var: float) :
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
-
+  .. [2] https://mmaelicke.github.io/scikit-gstat/reference/models.html
   """
   rho = 1 - gama/var
   return(rho)
 
-# SPACIAL SYMMETRICAL COVARIANCE MATRIX
-def cov_matrix(rho: npt.ArrayLike, var: float):
+
+def cov_matrix(rho: npt.ArrayLike, var: float)-> np.ndarray:
   """
-  Determines the 1D sptial symmetrical covariance matrix from a modeled 
+  Determines the 1D spatial symmetrical covariance matrix [1]_ from a modeled 
   correlation function.
 
   Parameters
@@ -198,21 +225,13 @@ def cov_matrix(rho: npt.ArrayLike, var: float):
   properties. [S.l.]: Cambridge University Press, 2014.
 
   """
-  cov = np.zeros((len(rho), len(rho)))
-  for i in range(len(rho)):
-      for j in range(len(rho)):
-          if i == j:
-              cov[i][j] = var*rho[0]
-          elif (j > i):
-              cov[i][j] = var*rho[j - i]
-          elif (j < i): 
-              cov[i][j] = var*rho[i - j]
+  cov = scipy.linalg.toeplitz(var*modelo)
   return(cov)
 
-# MONTE CARLO SIMULATION WITH SPATIAL CORRELATION
-def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLike):
+
+def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLike)-> np.ndarray:
   """
-  Determines n Monte Carlo Simulations (MCS) with spatial correlation for a given 
+  Determines n Monte Carlo Simulations (MCS) with spatial correlation [1]_ for a given 
   dataset. 
 
   Parameters
@@ -249,13 +268,13 @@ def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLi
 
   return(simulations)
 
-# MONTE CARLO SIMULATION WITH CORRELATED VARIABLES
+
 def MCS_correlated_variables(n: int, data1: npt.ArrayLike, data2: npt.ArrayLike,
                              smooth_data1: npt.ArrayLike, smooth_data2: npt.ArrayLike,
-                             cov: npt.ArrayLike):
+                             cov: npt.ArrayLike)-> np.ndarray:
   """
   Determines n Monte Carlo Simulations (MCS) using data1 and data2 as correlated 
-  variables.
+  variables [1]_.
 
   Parameters
   ----------
