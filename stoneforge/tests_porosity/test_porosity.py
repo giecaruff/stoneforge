@@ -3,7 +3,6 @@ import sys
 import os
 import numpy as np
 import pytest
-import warnings
 
 if __package__:
     from ..petrophysics.porosity import porosity

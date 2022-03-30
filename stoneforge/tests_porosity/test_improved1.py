@@ -71,7 +71,7 @@ config_3 = {
 not_squared_neutron_density_values = sorted_values(config_3)
 
 @pytest.mark.parametrize(not_squared_neutron_density_values[1], not_squared_neutron_density_values[0])
-def test_neutron_density(phid, phin):
+def test_neutron_density_not_squared(phid, phin):
     p = porosity(phid = phid, phin = phin, squared = False,
                         method = "neutron-density")
     assert p >= 0 and p <= 1
@@ -85,7 +85,7 @@ config_4 = {
 squared_neutron_density_values = sorted_values(config_4)
 
 @pytest.mark.parametrize(squared_neutron_density_values[1], squared_neutron_density_values[0])
-def test_neutron_density(phid, phin):
+def test_neutron_density_squared(phid, phin):
     p = porosity(phid = phid, phin = phin, squared = True,
                         method = "neutron-density")
     assert p >= 0 and p <= 1

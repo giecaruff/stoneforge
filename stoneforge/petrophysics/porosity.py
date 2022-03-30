@@ -118,7 +118,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
     """
     if squared == False:
         if (phid + phin / 2) > 1:
-            warnings.warn(UserWarning("phi must be between 0 and 1"))
+            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
             return 0
         else:
@@ -128,7 +128,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     elif squared == True:
         if (phid**2 + phin**2 / 2) > 1:
-            warnings.warn(UserWarning("phi must be between 0 and 1"))
+            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
             return 0
 
