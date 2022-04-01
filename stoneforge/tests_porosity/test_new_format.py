@@ -1,7 +1,6 @@
 # %%
 import sys
 import os
-from typing_extensions import Self
 import numpy as np
 import pytest
 
@@ -16,7 +15,7 @@ else:
 
 class Tests:
 
-    def sorted_values (configuration, size = 15, seed = 99):
+    def sorted_values (self, configuration, size = 15, seed = 99):
 
         np.random.seed(seed)
 
@@ -33,64 +32,76 @@ class Tests:
 
         return property_values,values_names
 
-    config_1 = {
-    "rhob":(0.0,1.0),
-    "rhom":(0.0,1.0),
-    "rhof":(0.0,1.0),
-    }
+    def values(self):
 
-    config_2 = {
-    "nphi":(0.0,1.0),
-    "vsh":(0.0,1.0),
-    "nphi_sh":(0.0,1.0),
-    }
-
-    config_3 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-    }
-
-    config_4 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-    }
-
-    config_5 = {
-    "dt":(50.0,100.0),
-    "dtma":(10.0,100.0),
-    "dtf":(150.0,300.0),
-    }
-
-    config_6 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-    }
-
-# ---------------------------------------------------------- #
-
-class Density(Tests):
-
-    def __init__ (self):
-        
-        self.config_1 = {
+        config_1 = {
         "rhob":(0.0,1.0),
         "rhom":(0.0,1.0),
         "rhof":(0.0,1.0),
         }
 
-        self.density_values = self.sorted_values(self.config_1)
+        config_2 = {
+        "nphi":(0.0,1.0),
+        "vsh":(0.0,1.0),
+        "nphi_sh":(0.0,1.0),
+        }
 
-    def values(self):
+        config_3 = {
+        "phid":(0.0,1.0),
+        "phin":(0.0,1.0),
+        }
 
-        @pytest.mark.parametrize(self.density_values[1], self.density_values[0])
+        config_4 = {
+        "phid":(0.0,1.0),
+        "phin":(0.0,1.0),
+        }
+
+        config_5 = {
+        "dt":(50.0,100.0),
+        "dtma":(10.0,100.0),
+        "dtf":(150.0,300.0),
+        }
+
+        config_6 = {
+        "phid":(0.0,1.0),
+        "phin":(0.0,1.0),
+        }
+
+# ---------------------------------------------------------- #
+
+
+class Density(Tests):
+
+    density_values = 0
+
+    def __init__ (self):
+        
+        config_1 = {
+        "rhob":(0.0,1.0),
+        "rhom":(0.0,1.0),
+        "rhof":(0.0,1.0),
+        }
+
+        #self.density_values = self.sorted_values(config_1)
+
+        #global density_values
+        #density_values = self.sorted_values(config_1)
+
+        Density.density_values = self.sorted_values(config_1)
+        print(Density.density_values)
+
+        density_values = self.sorted_values(config_1)
+        
+        @pytest.mark.parametrize(density_values[1], density_values[0])
+        #@pytest.mark.parametrize(self.density_values[1], self.density_values[0])
         def test_density(rhob, rhom, rhof):
             p = porosity(rhob = rhob, rhom = rhom, rhof = rhof,
                         method = "density")
             assert p >= 0 and p <= 1
 
-density_test = Density()
-density_test.values()
-print(density_test.density_values)
+def test_a():
+    a = Density()
+
 # ---------------------------------------------------------- #
 
 """ class Neutron(Tests):

@@ -35,7 +35,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         warnings.warn(UserWarning("this will result in a divison by 0"))
         print("This will result in a division by zero")
         return 0
-
+""" 
 
     if rhom < rhof or rhom <= rhob:
         warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
@@ -52,7 +52,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     else: 
         phi = (rhom - rhob) / (rhom - rhof)
 
-        return phi
+        return phi """
     
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
