@@ -1,10 +1,9 @@
 # %%
-#this test format will be deprecated
-
 import sys
 import os
 import numpy as np
 import pytest
+from parameters import Parameters
 
 if __package__:
     from ..petrophysics.porosity import porosity
@@ -13,35 +12,10 @@ else:
     from petrophysics.porosity import porosity
 
 # ---------------------------------------------------------- #
-# function
+# test functions
 
-def sorted_values (configuration, size = 15, seed = 99):
 
-    np.random.seed(seed)
-
-    # transform ["a","b","c"] into "a,b,c"
-    list_names = list(configuration.keys())
-    values_names = ','.join(list_names)
-
-    property_values = []
-    for k in configuration:
-        property = np.random.uniform(low = configuration[k][0], high = configuration[k][1], size = size)
-        property_values.append(property)
-
-    property_values = np.array(property_values).T
-
-    return property_values,values_names
-
-# ---------------------------------------------------------- #
-# where all modifications will be applied
-
-config_1 = {
-    "rhob":(0.0,1.0),
-    "rhom":(0.0,1.0),
-    "rhof":(0.0,1.0),
-}
-
-density_values = sorted_values(config_1)
+density_values = Parameters.sorted_values(Parameters.config_density)
 
 @pytest.mark.parametrize(density_values[1], density_values[0])
 def test_density(rhob, rhom, rhof):
@@ -49,28 +23,19 @@ def test_density(rhob, rhom, rhof):
                         method = "density")
     assert p >= 0 and p <= 1
 
+# -------------------------------------------------------------------------------------------------------------- #
 
-config_2 = {
-    "nphi":(0.0,1.0),
-    "vsh":(0.0,1.0),
-    "nphi_sh":(0.0,1.0),
-}
-
-neutron_values = sorted_values(config_2)
+neutron_values = Parameters.sorted_values(Parameters.config_neutron)
 
 @pytest.mark.parametrize(neutron_values[1], neutron_values[0])
 def test_neutron(nphi, vsh, nphi_sh):
     p = porosity(nphi = nphi, vsh = vsh, nphi_sh = nphi_sh,
                         method = "neutron")
-    assert p >= 0 and p <= 1
+    assert p >= 0 and p <= 1 
 
+# -------------------------------------------------------------------------------------------------------------- #
 
-config_3 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-}
-
-not_squared_neutron_density_values = sorted_values(config_3)
+not_squared_neutron_density_values = Parameters.sorted_values(Parameters.config_neutron_density)
 
 @pytest.mark.parametrize(not_squared_neutron_density_values[1], not_squared_neutron_density_values[0])
 def test_neutron_density_not_squared(phid, phin):
@@ -78,13 +43,9 @@ def test_neutron_density_not_squared(phid, phin):
                         method = "neutron-density")
     assert p >= 0 and p <= 1
 
+# -------------------------------------------------------------------------------------------------------------- #
 
-config_4 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-}
-
-squared_neutron_density_values = sorted_values(config_4)
+squared_neutron_density_values = Parameters.sorted_values(Parameters.config_neutron_density)
 
 @pytest.mark.parametrize(squared_neutron_density_values[1], squared_neutron_density_values[0])
 def test_neutron_density_squared(phid, phin):
@@ -92,14 +53,9 @@ def test_neutron_density_squared(phid, phin):
                         method = "neutron-density")
     assert p >= 0 and p <= 1
 
+# -------------------------------------------------------------------------------------------------------------- #
 
-config_5 = {
-    "dt":(50.0,100.0),
-    "dtma":(10.0,100.0),
-    "dtf":(150.0,300.0),
-}
-
-sonic_values = sorted_values(config_5)
+sonic_values = Parameters.sorted_values(Parameters.config_sonic)
 
 @pytest.mark.parametrize(sonic_values[1], sonic_values[0])
 def test_sonic(dt, dtma, dtf):
@@ -107,21 +63,17 @@ def test_sonic(dt, dtma, dtf):
                         method = "sonic")
     assert p >= 0 and p <= 1
 
+# -------------------------------------------------------------------------------------------------------------- #
 
-config_6 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-}
-
-gaymard_values = sorted_values(config_6)
+gaymard_values = Parameters.sorted_values(Parameters.config_gaymard)
 
 @pytest.mark.parametrize(gaymard_values[1], gaymard_values[0])
 def test_gaymard(phid, phin):
     p = porosity(phid = phid, phin = phin,
                         method = "gaymard")
     assert p >= 0 and p <= 1
-# ---------------------------------------------------------- #
 
+# -------------------------------------------------------------------------------------------------------------- #
 
 unique_density_value = []
 rhob = 2.60
@@ -135,6 +87,7 @@ def test_unique_density(rhob, rhom, rhof):
                         method = "density")
     assert p >= 0 and p <= 1
 
+# -------------------------------------------------------------------------------------------------------------- #
 
 unique_sonic_value = []
 dt = 75.0
@@ -148,4 +101,4 @@ def test_unique_sonic(dt, dtma, dtf):
                         method = "sonic")
     assert p >= 0 and p <= 1
 
-#TODO: pytest for the rest of porosity
+# TODO: pytest for the rest of porosity

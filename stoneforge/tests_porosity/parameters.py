@@ -4,14 +4,14 @@ import numpy as np
 # class to provide test configurations
 
 class Parameters:
-    
+
     def __init__(self):
-        pass    
-    
+        pass
+
     config_density = {
-    "rhob":(0.0,1.0),
-    "rhom":(0.0,1.0),
-    "rhof":(0.0,1.0),
+    "rhob":(1.1,5.0),
+    "rhom":(1.1,5.0),
+    "rhof":(0.0,2.65),
     }
 
     config_neutron = {
