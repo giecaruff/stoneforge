@@ -15,7 +15,7 @@ else:
 # test functions
 
 
-density_values = Parameters.sorted_values(Parameters.config_1)
+density_values = Parameters.sorted_values(Parameters.config_density)
 
 @pytest.mark.parametrize(density_values[1], density_values[0])
 def test_density(rhob, rhom, rhof):
@@ -25,7 +25,7 @@ def test_density(rhob, rhom, rhof):
 
 # ---------------------------------------------------------- #
 
-neutron_values = Parameters.sorted_values(Parameters.config_2)
+neutron_values = Parameters.sorted_values(Parameters.config_neutron)
 
 @pytest.mark.parametrize(neutron_values[1], neutron_values[0])
 def test_neutron(nphi, vsh, nphi_sh):
@@ -35,7 +35,7 @@ def test_neutron(nphi, vsh, nphi_sh):
 
 # ---------------------------------------------------------- #
 
-not_squared_neutron_density_values = Parameters.sorted_values(Parameters.config_3)
+not_squared_neutron_density_values = Parameters.sorted_values(Parameters.config_neutron_density)
 
 @pytest.mark.parametrize(not_squared_neutron_density_values[1], not_squared_neutron_density_values[0])
 def test_neutron_density_not_squared(phid, phin):
@@ -45,7 +45,7 @@ def test_neutron_density_not_squared(phid, phin):
 
 # ---------------------------------------------------------- #
 
-squared_neutron_density_values = Parameters.sorted_values(Parameters.config_4)
+squared_neutron_density_values = Parameters.sorted_values(Parameters.config_neutron_density)
 
 @pytest.mark.parametrize(squared_neutron_density_values[1], squared_neutron_density_values[0])
 def test_neutron_density_squared(phid, phin):
@@ -55,7 +55,7 @@ def test_neutron_density_squared(phid, phin):
 
 # ---------------------------------------------------------- #
 
-sonic_values = Parameters.sorted_values(Parameters.config_5)
+sonic_values = Parameters.sorted_values(Parameters.config_sonic)
 
 @pytest.mark.parametrize(sonic_values[1], sonic_values[0])
 def test_sonic(dt, dtma, dtf):
@@ -65,7 +65,7 @@ def test_sonic(dt, dtma, dtf):
 
 # ---------------------------------------------------------- #
 
-gaymard_values = Parameters.sorted_values(Parameters.config_6)
+gaymard_values = Parameters.sorted_values(Parameters.config_gaymard)
 
 @pytest.mark.parametrize(gaymard_values[1], gaymard_values[0])
 def test_gaymard(phid, phin):
