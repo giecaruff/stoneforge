@@ -8,35 +8,30 @@ class Parameters:
     def __init__(self):
         pass    
     
-    config_1 = {
+    config_density = {
     "rhob":(0.0,1.0),
     "rhom":(0.0,1.0),
     "rhof":(0.0,1.0),
     }
 
-    config_2 = {
+    config_neutron = {
     "nphi":(0.0,1.0),
     "vsh":(0.0,1.0),
     "nphi_sh":(0.0,1.0),
     }
 
-    config_3 = {
+    config_neutron_density = {
     "phid":(0.0,1.0),
     "phin":(0.0,1.0),
     }
 
-    config_4 = {
-    "phid":(0.0,1.0),
-    "phin":(0.0,1.0),
-    }
-
-    config_5 = {
+    config_sonic = {
     "dt":(50.0,100.0),
     "dtma":(10.0,100.0),
     "dtf":(150.0,300.0),
     }
 
-    config_6 = {
+    config_gaymard = {
     "phid":(0.0,1.0),
     "phin":(0.0,1.0),
     }
