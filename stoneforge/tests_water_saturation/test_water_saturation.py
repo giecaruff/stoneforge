@@ -1,7 +1,6 @@
 # %%
 import sys
 import os
-import numpy as np
 import pytest
 from parameters_ws import Parameters
 
