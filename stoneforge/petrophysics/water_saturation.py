@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.typing as npt
+import warnings
 
 
 def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
@@ -32,9 +33,20 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    sw = ((a*rw) / (phi**m * rt))**(1/n)
+    if ((a*rw) / (phi**m * rt))**(1/n) > 1:
+        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
 
-    return sw
+        return 0
+
+    elif ((a*rw) / (phi**m * rt))**(1/n) < 0:
+        warnings.warn(UserWarning("saturation of water must be a positive value "))
+
+        return 0
+
+    else:
+        sw = ((a*rw) / (phi**m * rt))**(1/n)
+
+        return sw
 
 
 def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
