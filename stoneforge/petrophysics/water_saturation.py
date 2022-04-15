@@ -34,16 +34,19 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     """
     if ((a*rw) / (phi**m * rt))**(1/n) > 1:
+
         warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
 
         return 0
 
     elif ((a*rw) / (phi**m * rt))**(1/n) < 0:
+
         warnings.warn(UserWarning("saturation of water must be a positive value "))
 
         return 0
 
     else:
+
         sw = ((a*rw) / (phi**m * rt))**(1/n)
 
         return sw
@@ -88,7 +91,22 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     C = (1 - vsh) * a * rw / phi**m
     D = C * vsh / (2*rsh)
     E = C / rt
-    sw = ((D**2 + E)**0.5 - D)**(2/n)
+
+    if ((D**2 + E)**0.5 - D)**(2/n) > 1:
+
+        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
+
+        return 0
+    
+    elif ((D**2 + E)**0.5 - D)**(2/n) < 0:
+
+        warnings.warn(UserWarning("saturation of water must be a positive value"))
+
+        return 0
+
+    else:
+
+        sw = ((D**2 + E)**0.5 - D)**(2/n)
 
     return sw
 
@@ -128,7 +146,21 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     The Log Analyst, 12, 1-2.
 
     """
-    sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
+    if ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n) > 1:
+
+        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
+
+        return 0
+    
+    elif ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n) < 0:
+
+        warnings.warn(UserWarning("saturation of water must be a positive value"))
+
+        return 0
+
+    else:
+
+        sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
 
     return sw
 
@@ -165,7 +197,21 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
        In SPWLA 16th Annual Logging Symposium. OnePetro.
 
     """
-    sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
+    if phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2)) > 1:
+
+        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
+
+        return 0
+    
+    elif phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2)) < 0:
+
+        warnings.warn(UserWarning("saturation of water must be a positive value"))
+
+        return 0
+
+    else:
+
+        sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
 
     return sw
 
