@@ -1,7 +1,8 @@
-
+# %%
 import sys
 import os
-
+import pytest
+from parameters_ws import Parameters
 
 if __package__:
     from ..petrophysics.water_saturation import water_saturation
@@ -9,8 +10,26 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/..')
     from petrophysics.water_saturation import water_saturation
 
+# -------------------------------------------------------------------------------------------------------------- #
+# test functions
 
-def test_archie():
+archie_values = Parameters.sorted_values(Parameters.config_water_saturarion)
+
+@pytest.mark.parametrize(archie_values[1], archie_values[0])
+def test_archie(rw, rt, phi, a, m, n):
+    ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
+                        m = m, n = n, method = "archie")
+    assert ws >= 0 and ws <= 1
+
+# -------------------------------------------------------------------------------------------------------------- #
+
+""" @pytest.mark.parametrize("rw, rt, phi, a, m, n", archie_values)
+def test_archie(rw, rt, phi, a, m, n):
+    ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
+                        m = m, n = n, method = "archie")
+    assert ws >= 0 and ws <= 1
+
+ def test_archie():
     assert round(water_saturation(rw=0.9, rt=20, phi=0.33,
                                 a=0.62, m=2.15, n=2.0,
                                 method="archie"),2) == 0.55
@@ -30,5 +49,5 @@ def test_indonesia():
 def test_fertl(): 
     assert round(water_saturation(rw=0.015, rt=1.0, phi=0.11,
                                 a=0.62, m=2.15, alpha=0.30,
-                                method="fertl", vsh=0.33),2) == 0.63
+                                method="fertl", vsh=0.33),2) == 0.63 """
 
