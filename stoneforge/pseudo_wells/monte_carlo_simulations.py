@@ -29,16 +29,10 @@ def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
   properties. [S.l.]: Cambridge University Press, 2014.
 
   """
-  rho = np.zeros(len(data))                                                                        
-  vetor1 = []                                                                   
-  vetor2 = [] 
-  for i in np.arange(0, len(data)-1, 1):                                     
-      for j in range(len(data) - i):        
-             vetor1.append(data[j])
-             vetor2.append(data[j + i])
-      rho[i] = pearsonr(vetor1, vetor2)[0]
-      vetor1 = []
-      vetor2 = []
+  rho = np.zeros(len(data))
+  for i in range(len(data) - 1):
+        slc = (slice(0, len(data) - i, None), slice(i, len(data), None))
+        rho[i] = pearsonr(data[slc[0]], data[slc[1]])[0]
   return(rho)
 
 
@@ -68,6 +62,70 @@ def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray
   gama = (np.std(data)**2) * (1 - rho)
   return(gama)
 
+
+def exponential_variogram_model(distance: npt.ArrayLike, range: float, sill: float, nugget: float=0)-> np.ndarray:
+  """
+  Builds a variogram following the exponential model, using the range, sill and nugget given.
+
+  Parameters
+  ----------
+  distance : array_like
+        1D array containing all the possible distances between a pair of points
+        in the dataset. 
+
+  range : float
+        The range of the variogram, or the distance where it loses the correlation 
+
+  sill : float
+        The MÁXIMO maximum value of the variogram, it is equivalent to the variance of the data 
+
+  nugget : float
+        The nugget effect, y value where the variogam begins
+
+  Returns
+  -------
+  rho : array_like
+        The variogram that follows the exponential model and has the given range, sill and nugget
+
+  References
+  ----------
+  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
+
+  """   
+  rho = nugget + sill * (1. - np.exp(-(distance/range)))
+  return(rho)
+
+def gaussian_variogram_model(distance: npt.ArrayLike, range: float, sill: float, nugget: float=0)-> np.ndarray:
+  """
+  Builds a variogram following the gaussian model, using the range, sill and nugget given.
+
+  Parameters
+  ----------
+  distance : array_like
+        1D array containing all the possible distances between a pair of points
+        in the dataset. 
+
+  range : float
+        The range of the variogram, or the distance where it loses the correlation 
+
+  sill : float
+        The MÁXIMO maximum value of the variogram, it is equivalent to the variance of the data 
+
+  nugget : float
+        The nugget effect, y value where the variogam begins
+
+  Returns
+  -------
+  rho : array_like
+        The variogram that follows the gaussian model and has the given range, sill and nugget
+
+  References
+  ----------
+  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
+
+  """   
+  rho = nugget + sill * (1. - np.exp(- (distance ** 2 / range ** 2)))
+  return(rho)
 
 def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str="best-fit")-> np.ndarray:
   """
@@ -108,12 +166,6 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   def sph(distance, range, sill):
     return spherical(distance, range, sill)
 
-  def gauss(distance, range, sill):
-    return gaussian(distance, range, sill)
-
-  def exp(distance, range, sill):
-    return exponential(distance, range, sill)
-
   if model == "spherical":
     xi = distance
     coeficients, cov = curve_fit(sph, distance, gama)                               
@@ -122,14 +174,14 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
 
   elif model == "gaussian":
     xig = distance
-    coeficientsg, covg = curve_fit(gauss, distance, gama)
-    yig = list(map(lambda distance: gaussian(distance, *coeficientsg), xig))
+    coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
+    yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
     return(yig)
 
   elif model == "exponential":
     xie = distance
-    coeficientse, cove = curve_fit(exp, distance, gama)
-    yie = list(map(lambda distance: exponential(distance, *coeficientse), xie))
+    coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
+    yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
     return(yie)
 
   elif model == "best-fit":
@@ -138,12 +190,12 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     yi = list(map(lambda distance: spherical(distance, *coeficients), xi))        
 
     xig = distance
-    coeficientsg, covg = curve_fit(gauss, distance, gama)
-    yig = list(map(lambda distance: gaussian(distance, *coeficientsg), xig))
+    coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
+    yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
 
     xie = distance
-    coeficientse, cove = curve_fit(exp, distance, gama)
-    yie = list(map(lambda distance: exponential(distance, *coeficientse), xie))
+    coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
+    yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
 
     ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
     structured_field = distance <= np.max(ranges)
