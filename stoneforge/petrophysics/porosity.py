@@ -29,7 +29,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     try:        
         phi = (rhom - rhob) / (rhom - rhof)
 
-        return 0
+        return phi
 
     except ZeroDivisionError:
         warnings.warn(UserWarning("this will result in a divison by 0"))
