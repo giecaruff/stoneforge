@@ -3,8 +3,6 @@ import numpy.typing as npt
 import scipy
 from scipy import stats
 from scipy.stats import pearsonr
-import skgstat
-from skgstat.models import spherical, exponential, gaussian
 from scipy.optimize import curve_fit
 
 
@@ -63,9 +61,9 @@ def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray
   return(gama)
 
 
-def exponential_variogram_model(distance: npt.ArrayLike, range: float, sill: float, nugget: float=0)-> np.ndarray:
+def exponential_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
   """
-  Builds a variogram following the exponential model, using the range, sill and nugget given.
+  Builds a variogram following the exponential model, using the correlation length, sill and nugget given [1]_.
 
   Parameters
   ----------
@@ -73,11 +71,11 @@ def exponential_variogram_model(distance: npt.ArrayLike, range: float, sill: flo
         1D array containing all the possible distances between a pair of points
         in the dataset. 
 
-  range : float
+  correlation_length : float
         The range of the variogram, or the distance where it loses the correlation 
 
   sill : float
-        The MÁXIMO maximum value of the variogram, it is equivalent to the variance of the data 
+        The maximum value of the variogram, it is equivalent to the variance of the data 
 
   nugget : float
         The nugget effect, y value where the variogam begins
@@ -85,19 +83,20 @@ def exponential_variogram_model(distance: npt.ArrayLike, range: float, sill: flo
   Returns
   -------
   rho : array_like
-        The variogram that follows the exponential model and has the given range, sill and nugget
+        The variogram that follows the exponential model and has the given correlation length, sill and nugget
 
   References
   ----------
-  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
+  .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
+  Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """   
-  rho = nugget + sill * (1. - np.exp(-(distance/range)))
+  rho = nugget + sill * (1. - np.exp(-(3*distance/correlation_length)))
   return(rho)
 
-def gaussian_variogram_model(distance: npt.ArrayLike, range: float, sill: float, nugget: float=0)-> np.ndarray:
+def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
   """
-  Builds a variogram following the gaussian model, using the range, sill and nugget given.
+  Builds a variogram following the gaussian model, using the correlation length, sill and nugget given [1]_.
 
   Parameters
   ----------
@@ -105,11 +104,11 @@ def gaussian_variogram_model(distance: npt.ArrayLike, range: float, sill: float,
         1D array containing all the possible distances between a pair of points
         in the dataset. 
 
-  range : float
+  correlation_length : float
         The range of the variogram, or the distance where it loses the correlation 
 
   sill : float
-        The MÁXIMO maximum value of the variogram, it is equivalent to the variance of the data 
+        The maximum value of the variogram, it is equivalent to the variance of the data 
 
   nugget : float
         The nugget effect, y value where the variogam begins
@@ -117,15 +116,63 @@ def gaussian_variogram_model(distance: npt.ArrayLike, range: float, sill: float,
   Returns
   -------
   rho : array_like
-        The variogram that follows the gaussian model and has the given range, sill and nugget
+        The variogram that follows the gaussian model and has the given correlation length, sill and nugget
 
   References
   ----------
-  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
+  .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
+  Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """   
-  rho = nugget + sill * (1. - np.exp(- (distance ** 2 / range ** 2)))
+  rho = nugget + sill * (1. - np.exp(- 3*(distance ** 2 / correlation_length ** 2)))
   return(rho)
+
+def spherical_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
+  """
+  Builds a variogram following the spherical model, using the correlation length, sill and nugget given [1]_.
+
+  Parameters
+  ----------
+  distance : array_like
+        1D array containing all the possible distances between a pair of points
+        in the dataset. 
+
+  correlation_length : float
+        The range of the variogram, or the distance where it loses the correlation 
+
+  sill : float
+        The maximum value of the variogram, it is equivalent to the variance of the data 
+
+  nugget : float
+        The nugget effect, y value where the variogam begins
+
+  Returns
+  -------
+  rho : array_like
+        The variogram that follows the spherical model and has the given correlation length, sill and nugget
+
+  References
+  ----------
+  .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
+  Examples and Algorithms. India: Wiley Blackwell, 2021.
+
+  """   
+  rho = []
+  try:
+        for i in range(len(distance)):
+              if distance[i] <= correlation_length:
+                    rho.append(nugget + sill * ((1.5 * (distance[i] / correlation_length)) - (0.5 * ((distance[i] / correlation_length) ** 3.0))))
+              else:
+                    rho.append(nugget + sill)
+        return(rho)
+  
+  except TypeError:
+        if distance <= correlation_length:
+              rho = nugget + sill * ((1.5 * (distance / correlation_length)) - (0.5 * ((distance / correlation_length) ** 3.0)))
+        else:
+              rho = nugget + sill
+        return(rho)
+
 
 def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str="best-fit")-> np.ndarray:
   """
@@ -159,17 +206,15 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
 
   References
   ----------
-  .. [1] https://mmaelicke.github.io/scikit-gstat/technical/fitting.html
-  .. [2] https://mmaelicke.github.io/scikit-gstat/reference/models.html
+  .. [1] https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html
+  .. [2] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
+  Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """ 
-  def sph(distance, range, sill):
-    return spherical(distance, range, sill)
-
   if model == "spherical":
     xi = distance
-    coeficients, cov = curve_fit(sph, distance, gama)                               
-    yi = list(map(lambda distance: spherical(distance, *coeficients), xi))
+    coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
+    yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))
     return(yi)
 
   elif model == "gaussian":
@@ -186,8 +231,8 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
 
   elif model == "best-fit":
     xi = distance
-    coeficients, cov = curve_fit(sph, distance, gama)                               
-    yi = list(map(lambda distance: spherical(distance, *coeficients), xi))        
+    coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
+    yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))        
 
     xig = distance
     coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
