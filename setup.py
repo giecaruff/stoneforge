@@ -23,5 +23,6 @@ setup(
     install_requires=[
         "numpy>=1.21, <1.22.1",
         "pytest>=6.2.2, <6.2.5",
+        "scipy>=1.4.1, <1.8.1"
     ],
 )
