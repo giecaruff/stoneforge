@@ -26,33 +26,28 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     principles of petrophysics. Elsevier.
 
     """
-    try:        
-        phi = (rhom - rhob) / (rhom - rhof)
-
-        return phi
-
-    except ZeroDivisionError:
-        warnings.warn(UserWarning("this will result in a divison by 0"))
-        print("This will result in a division by zero")
-        return 0
-""" 
-
-    if rhom < rhof or rhom <= rhob:
-        warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
-
-        phi = (rhom - rhob) / (rhom - rhof)
+    if rhom == rhof:
+        warnings.warn(UserWarning("This will result in a division by zero"))
 
         return 0
+
+    else:
+        if rhom < rhof or rhom <= rhob:
+            warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
+
+            phi = (rhom - rhob) / (rhom - rhof)
+
+            return 0
         
-    elif rhom - rhob > rhom - rhof:
-        warnings.warn(UserWarning("phi must be a value between 0 and 1"))
+        elif rhom - rhob > rhom - rhof:
+            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-        return 0
+            return 0
         
-    else: 
-        phi = (rhom - rhob) / (rhom - rhof)
+        else: 
+            phi = (rhom - rhob) / (rhom - rhof)
 
-        return phi """
+            return phi
     
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
@@ -163,31 +158,26 @@ def sonic_porosity(dt, dtma, dtf):
     .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
     """
-
-    try:        
-        phidt = (dt - dtma) / (dtf - dtma)
-
-        return 0
-
-    except ZeroDivisionError:
-        warnings.warn(UserWarning("this will result in a divison by 0"))
-        print("This will result in a division by zero")
-        return 0
-
-    if dt <= dtma or dtf <= dtma:
-        warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
-
-        return 0
-
-    elif dt - dtma > dtf - dtma:
-        warnings.warn(UserWarning("phidt must be between 0 and 1"))
+    if dtf == dtma:
+        warnings.warn(UserWarning("This will result in a division by zero"))
 
         return 0
 
     else:
-        phidt = (dt - dtma) / (dtf - dtma)
+        if dt <= dtma or dtf <= dtma:
+            warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
-        return phidt
+            return 0
+
+        elif dt - dtma > dtf - dtma:
+            warnings.warn(UserWarning("phidt must be between 0 and 1"))
+
+            return 0
+
+        else:
+            phidt = (dt - dtma) / (dtf - dtma)
+
+            return phidt
 
 
 def gaymard_porosity(phid, phin):
