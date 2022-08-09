@@ -28,25 +28,23 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     """
     if rhom == rhof:
         warnings.warn(UserWarning("This will result in a division by zero"))
-
-        return 0
+        return np.Inf
 
     else:
-        if rhom < rhof or rhom <= rhob:
-            warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
-
+        if rhom < rhof or any(rhom <= rhob):
+            warnings.warn(UserWarning("rhom must be greater than rhof and rhob, values that didn't respect that were replaced by nan"))
             phi = (rhom - rhob) / (rhom - rhof)
-
-            return 0
+            phi = np.where(phi>0, phi, np.nan)
+            return phi
         
-        elif rhom - rhob > rhom - rhof:
-            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
-
-            return 0
+        elif any(rhom - rhob > rhom - rhof):
+            warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
+            phi = (rhom - rhob) / (rhom - rhof)
+            phi = np.where(phi<1, phi, np.nan)
+            return phi
         
         else: 
             phi = (rhom - rhob) / (rhom - rhof)
-
             return phi
     
 
@@ -74,19 +72,20 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     principles of petrophysics. Elsevier.
 
     """
-    if nphi < (vsh * nphi_sh):
-        warnings.warn(UserWarning("phin must be a positive value"))
-
-        return 0
+    if any(nphi < (vsh * nphi_sh)):
+        warnings.warn(UserWarning("phin must be a positive value, values that didn't respect that were replaced by nan"))
+        phin = nphi - (vsh * nphi_sh)
+        phin = np.where(phin>0, phin, np.nan)
+        return phin
     
-    elif nphi - (vsh * nphi_sh) > 1:
-        warnings.warn(UserWarning("phin must be a value between 0 and 1"))
-
-        return 0
+    elif any(nphi - (vsh * nphi_sh) > 1):
+        warnings.warn(UserWarning("phin must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
+        phin = nphi - (vsh * nphi_sh)
+        phin = np.where(phin<1, phin, np.nan)
+        return phin
 
     else:
         phin = nphi - (vsh * nphi_sh)
-
         return phin
 
 
@@ -112,24 +111,24 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     """
     if squared == False:
-        if (phid + phin / 2) > 1:
-            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
-
-            return 0
+        if any((phid + phin / 2) > 1):
+            warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
+            phi = (phid + phin) / 2
+            phi = np.where(phi<1, phi, np.nan)
+            return phi
         else:
             phi = (phid + phin) / 2
-
             return phi
 
     elif squared == True:
-        if (phid**2 + phin**2 / 2) > 1:
-            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
-
-            return 0
+        if any((phid**2 + phin**2 / 2) > 1):
+            warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
+            phi = np.sqrt((phid**2 + phin**2) / 2)
+            phi = np.where(phi<1, phi, np.nan)
+            return phi
 
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
-
             return phi  
 
 
@@ -160,23 +159,23 @@ def sonic_porosity(dt, dtma, dtf):
     """
     if dtf == dtma:
         warnings.warn(UserWarning("This will result in a division by zero"))
-
-        return 0
+        return np.Inf
 
     else:
-        if dt <= dtma or dtf <= dtma:
-            warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
+        if any(dt <= dtma) or dtf <= dtma:
+            warnings.warn(UserWarning("dt and dtf must be greater than dtma, values that didn't respect that were replaced by nan"))
+            phidt = (dt - dtma) / (dtf - dtma)
+            phidt = np.where(phidt>0, phidt, np.nan)
+            return phidt
 
-            return 0
-
-        elif dt - dtma > dtf - dtma:
-            warnings.warn(UserWarning("phidt must be between 0 and 1"))
-
-            return 0
+        elif any(dt - dtma > dtf - dtma):
+            warnings.warn(UserWarning("phidt must be between 0 and 1, values that didn't respect that were replaced by nan"))
+            phidt = (dt - dtma) / (dtf - dtma)
+            phidt = np.where(phidt<1, phidt, np.nan)
+            return phidt
 
         else:
             phidt = (dt - dtma) / (dtf - dtma)
-
             return phidt
 
 
