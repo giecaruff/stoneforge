@@ -17,6 +17,7 @@ import numpy.typing as npt
 #from stoneforge.petrophysics import porosity
 
 well = las2.read('../datasets/DP1.las')
+#well = las2.read('7-MP-22-BA.las')
 DP1_DATA = {} # data information from DP1 welllog
 
 
@@ -140,9 +141,33 @@ plt.show()
 
 RHOB_C = well_DP1_c["RHOB"]["data"] - yn + np.mean(well_DP1_c["RHOB"]["data"])
 
+# %%
+
 import porosity
+import shale_volume
 
 PHID = porosity.porosity("density", rhob = RHOB_C, rhom = 2.65, rhof = 1.10)
+VSH = shale_volume.vshale(gr = well_DP1_c["GR"]["data"], grmin = 0.0, grmax = 150.0, method = "linear")
+
+# %%
+
+PHIN = porosity.porosity("neutron", nphi = well_DP1_c["NPHI"]["data"]/100. + 0.15, vsh = VSH, nphi_sh = 0.481)
+#print(well_DP1_c["NPHI"]["data"]/100.)
+print(PHIN)
+
+# %%
+
+PHIND = porosity.porosity("neutron-density", phid = PHID, phin = PHIN)
+print(PHIND)
+
+# %%
+
+PHIT = porosity.porosity(method = "sonic", dt = well_DP1["DT"]["data"], dtma = 55.5, dtf = 185)
+print(PHIT)
+
+# %%
+
+
 
 # %%
 

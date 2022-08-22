@@ -2,7 +2,6 @@ import numpy as np
 import numpy.typing as npt
 import warnings
 
-
 def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
 
@@ -29,20 +28,18 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     if rhom == rhof:
         warnings.warn(UserWarning("This will result in a division by zero"))
 
-        return 0
+        return np.nan
 
     else:
-        if rhom < rhof or rhom <= rhob:
+        if any(rhom < rhof or rhom <= rhob):
             warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
-            phi = (rhom - rhob) / (rhom - rhof)
-
-            return 0
+            return (rhom - rhob) / (rhom - rhof)
         
-        elif rhom - rhob > rhom - rhof:
+        elif any(rhom - rhob > rhom - rhof):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-            return 0
+            return (rhom - rhob) / (rhom - rhof)
         
         else: 
             phi = (rhom - rhob) / (rhom - rhof)
@@ -74,15 +71,15 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     principles of petrophysics. Elsevier.
 
     """
-    if nphi < (vsh * nphi_sh):
+    if any(nphi < (vsh * nphi_sh)):
         warnings.warn(UserWarning("phin must be a positive value"))
 
-        return 0
+        return nphi - (vsh * nphi_sh)
     
-    elif nphi - (vsh * nphi_sh) > 1:
+    elif any(nphi - (vsh * nphi_sh) > 1):
         warnings.warn(UserWarning("phin must be a value between 0 and 1"))
 
-        return 0
+        return nphi - (vsh * nphi_sh)
 
     else:
         phin = nphi - (vsh * nphi_sh)
@@ -112,20 +109,20 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     """
     if squared == False:
-        if (phid + phin / 2) > 1:
+        if any((phid + phin / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-            return 0
+            return (phid + phin) / 2
         else:
             phi = (phid + phin) / 2
 
             return phi
 
     elif squared == True:
-        if (phid**2 + phin**2 / 2) > 1:
+        if any((phid**2 + phin**2 / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-            return 0
+            return np.sqrt( (phid**2 + phin**2) / 2)
 
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
@@ -137,6 +134,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
 
 def sonic_porosity(dt, dtma, dtf):
+
     """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
 
     Parameters
@@ -161,18 +159,18 @@ def sonic_porosity(dt, dtma, dtf):
     if dtf == dtma:
         warnings.warn(UserWarning("This will result in a division by zero"))
 
-        return 0
+        return np.nan
 
     else:
-        if dt <= dtma or dtf <= dtma:
+        if any(dt <= dtma) or any(dtf <= dtma):
             warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
-            return 0
+            return (dt - dtma) / (dtf - dtma)
 
-        elif dt - dtma > dtf - dtma:
+        elif any(dt - dtma > dtf - dtma):
             warnings.warn(UserWarning("phidt must be between 0 and 1"))
 
-            return 0
+            return (dt - dtma) / (dtf - dtma)
 
         else:
             phidt = (dt - dtma) / (dtf - dtma)

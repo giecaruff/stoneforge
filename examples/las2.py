@@ -19,6 +19,9 @@ _default_cell_format = "{:<8.4f}"
 _line_regex = re.compile(
     r"(?P<mnemonic>[^\.]+)\.(?P<unit>\S*)(?P<value>.*):(?P<description>.*)"
 )
+
+print(_line_regex)
+
 _line_elements = ["mnemonic", "unit", "value", "description"]
 
 _sections = {
@@ -49,6 +52,8 @@ def _parse_line(line):
         raise LAS2Error("'{}' is not a valid LAS 2.0 line.".format(line))
 
     parsed_lines = {k: v.strip() for k, v in match.groupdict().items()}
+    #parsed_lines.replace(/[^a-zA-Z0-9 ]/g, "")
+    #print(parsed_lines)
 
     return parsed_lines
 
