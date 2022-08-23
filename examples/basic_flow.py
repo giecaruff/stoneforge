@@ -12,7 +12,7 @@ from cProfile import label
 import las2 # local las2 read
 import numpy as np
 import matplotlib.pyplot as plt
-import numpy.typing as npt 
+import numpy.typing as npt
 
 #from stoneforge.petrophysics import porosity
 
