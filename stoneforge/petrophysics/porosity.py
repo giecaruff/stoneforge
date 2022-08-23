@@ -31,7 +31,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         return np.nan
 
     else:
-        if any(rhom < rhof) or rhom <= rhob:
+        if rhom < rhof or any(rhom <= rhob):
             warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
             return (rhom - rhob) / (rhom - rhof)
