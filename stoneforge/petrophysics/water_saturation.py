@@ -33,15 +33,15 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    if ((a*rw) / (phi**m * rt))**(1/n) > 1:
+    if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
         warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
 
-        return 0
+        return ((a*rw) / (phi**m * rt))**(1/n)
 
-    elif ((a*rw) / (phi**m * rt))**(1/n) < 0:
+    elif any(((a*rw) / (phi**m * rt))**(1/n) < 0):
         warnings.warn(UserWarning("saturation of water must be a positive value "))
 
-        return 0
+        return ((a*rw) / (phi**m * rt))**(1/n)
 
     else:
         sw = ((a*rw) / (phi**m * rt))**(1/n)

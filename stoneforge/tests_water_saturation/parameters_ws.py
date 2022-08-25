@@ -9,27 +9,32 @@ class Parameters:
         pass
 
     config_water_saturarion = {
-    "rw":(1.1,5.0),
-    "rt":(1.1,5.0),
-    "phi":(0.0,2.65),
-    "a":(0.0,1.0),
-    "m":(0.0,1.0),
-    "n":(0.0,1.0),
+    "rw":(1.1,5.0,"f"),
+    "rt":(1.1,5.0,"c"),
+    "phi":(0.0,2.65,"c"),
+    "a":(0.0,1.0,"f"),
+    "m":(0.0,1.0,"f"),
+    "n":(0.0,1.0,"f"),
     }
 
-    def sorted_values (configuration, size = 15, seed = 99):
+    def sorted_values (configuration, size = 15, curve_size = 30, seed = 99):
 
-        np.random.seed(seed)
+            np.random.seed(seed)
 
-        # transform ["a","b","c"] into "a,b,c"
-        list_names = list(configuration.keys())
-        values_names = ','.join(list_names)
+            list_names = list(configuration.keys())
+            values_names = ','.join(list_names)
 
-        properties_values = []
-        for k in configuration:
-            properties = np.random.uniform(low = configuration[k][0], high = configuration[k][1], size = size)
-            properties_values.append(properties)
+            properties_values = []
+            for k in configuration:
+                if configuration[k][2] == "f":
+                    properties = np.random.uniform(low = configuration[k][0], high = configuration[k][1], size = size)
+                    properties_values.append(properties)
+                if configuration[k][2] == "c":
+                    curves = []
+                    for i in range(size):
+                        curves.append(np.random.uniform(low = configuration[k][0], high = configuration[k][1], size = curve_size))
+                    properties_values.append(curves)
 
-        properties_values = np.array(properties_values).T
+            properties_values = list(map(list, zip(*properties_values)))
 
-        return properties_values,values_names
+            return properties_values,values_names

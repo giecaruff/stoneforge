@@ -11,7 +11,7 @@ classifiers = [
 
 setup(
     name="stoneforge",
-    version="0.1.0",
+    version="0.1.2",
     author="GIECAR - UFF",
     url="https://github.com/giecaruff/stoneforge",
     description="Geophysics equations, algorithms and methods",
