@@ -3,7 +3,7 @@ import numpy.typing as npt
 import warnings
 
 
-def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
+def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float, depth:npt.ArrayLike=[]) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
 
     Parameters
@@ -14,6 +14,8 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         Matrix density.
     rhof : int, float
         Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).
+    depth : array_like, optional
+        depth array from the well, used to indicate the depths where there are unexpected values of porosity (negative or greater than 1)
        
     Returns
     -------
@@ -31,25 +33,30 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         return np.Inf
 
     else:
+        phi = (rhom - rhob) / (rhom - rhof)
+
         if rhom < rhof or any(rhom <= rhob):
             warnings.warn(UserWarning("rhom must be greater than rhof and rhob, values that didn't respect that were replaced by nan"))
-            phi = (rhom - rhob) / (rhom - rhof)
             phi = np.where(phi>0, phi, np.nan)
-            return phi
         
-        elif any(rhom - rhob > rhom - rhof):
+        if any(rhom - rhob > rhom - rhof):
             warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
-            phi = (rhom - rhob) / (rhom - rhof)
             phi = np.where(phi<1, phi, np.nan)
-            return phi
-        
-        else: 
-            phi = (rhom - rhob) / (rhom - rhof)
-            return phi
+            
+        if len(depth) != 0:
+          aux_boolean = np.isnan(phi)
+          indexes = np.where(aux_boolean==True)
+          lista_de_nans = []
+          for i in range(len(indexes)):
+            lista_de_nans = (depth[indexes[i]])
+          if len(lista_de_nans) != 0:
+            print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+
+        return phi
     
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
-             nphi_sh: float) -> np.ndarray:
+             nphi_sh: float, depth:npt.ArrayLike=[]) -> np.ndarray:
     """Estimate the effective porosity from the neutron log [1]_.
 
     Parameters
@@ -60,7 +67,9 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
         Total volume of shale in the rock, chosen the most representative.
     phi_nsh : int, float
         Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.
-
+    depth : array_like, optional
+        depth array from the well, used to indicate the depths where there are unexpected values of porosity (negative or greater than 1)
+       
     Returns
     -------
     phin : array_like
@@ -72,25 +81,30 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     principles of petrophysics. Elsevier.
 
     """
+    phin = nphi - (vsh * nphi_sh)
+
     if any(nphi < (vsh * nphi_sh)):
         warnings.warn(UserWarning("phin must be a positive value, values that didn't respect that were replaced by nan"))
-        phin = nphi - (vsh * nphi_sh)
         phin = np.where(phin>0, phin, np.nan)
-        return phin
     
-    elif any(nphi - (vsh * nphi_sh) > 1):
+    if any(nphi - (vsh * nphi_sh) > 1):
         warnings.warn(UserWarning("phin must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
-        phin = nphi - (vsh * nphi_sh)
         phin = np.where(phin<1, phin, np.nan)
-        return phin
 
-    else:
-        phin = nphi - (vsh * nphi_sh)
-        return phin
+    if len(depth) != 0:
+      aux_boolean = np.isnan(phin)
+      indexes = np.where(aux_boolean==True)
+      lista_de_nans = []
+      for i in range(len(indexes)):
+        lista_de_nans = (depth[indexes[i]])
+      if len(lista_de_nans) != 0:
+        print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+
+    return phin
 
 
 def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
-                squared: bool = False) -> np.ndarray:
+                squared: bool = False, depth:npt.ArrayLike=[]) -> np.ndarray:
     """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity [1]_.
 
     Parameters
@@ -99,7 +113,9 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
         Effective porosity and shale free for the aimed interval using the bulk density.
     phin : array_like
         Effective porosity from the neutron log for the aimed interval.
-
+    depth : array_like, optional
+        depth array from the well, used to indicate the depths where there are unexpected values of porosity (negative or greater than 1)
+    
     Returns
     -------
     phie : array_like
@@ -111,31 +127,33 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     """
     if squared == False:
+        phi = (phid + phin) / 2
         if any((phid + phin / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
-            phi = (phid + phin) / 2
-            phi = np.where(phi<1, phi, np.nan)
-            return phi
-        else:
-            phi = (phid + phin) / 2
-            return phi
+            phi = np.where(phi>0, phi, np.nan)
 
     elif squared == True:
+        phi = np.sqrt( (phid**2 + phin**2) / 2)
         if any((phid**2 + phin**2 / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1, values that didn't respect that were replaced by nan"))
-            phi = np.sqrt((phid**2 + phin**2) / 2)
             phi = np.where(phi<1, phi, np.nan)
-            return phi
 
-        else:
-            phi = np.sqrt( (phid**2 + phin**2) / 2)
-            return phi  
+    if len(DEPTH) != 0:
+      aux_boolean = np.isnan(phi)
+      indexes = np.where(aux_boolean==True)
+      lista_de_nans = []
+      for i in range(len(indexes)):
+        lista_de_nans = (DEPTH[indexes[i]])
+      if len(lista_de_nans) != 0:
+        print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+
+    return phi  
 
 
 #TODO phit -> phie (clay volume correction)
 
 
-def sonic_porosity(dt, dtma, dtf):
+def sonic_porosity(dt, dtma, dtf, depth:npt.ArrayLike=[]):
     """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
 
     Parameters
@@ -146,7 +164,9 @@ def sonic_porosity(dt, dtma, dtf):
         Acoustic transit time of the matrix (μsec/ft)
     dtf : int, float
         Acoustic transit time of the fluids, usually water (μsec/ft)
-              
+    depth : array_like, optional
+        depth array from the well, used to indicate the depths where there are unexpected values of porosity (negative or greater than 1)
+                  
     Returns
     -------
     phidt : array_like
@@ -162,22 +182,26 @@ def sonic_porosity(dt, dtma, dtf):
         return np.Inf
 
     else:
+        phidt = (dt - dtma) / (dtf - dtma)
+
         if any(dt <= dtma) or dtf <= dtma:
             warnings.warn(UserWarning("dt and dtf must be greater than dtma, values that didn't respect that were replaced by nan"))
-            phidt = (dt - dtma) / (dtf - dtma)
             phidt = np.where(phidt>0, phidt, np.nan)
-            return phidt
 
-        elif any(dt - dtma > dtf - dtma):
+        if any(dt - dtma > dtf - dtma):
             warnings.warn(UserWarning("phidt must be between 0 and 1, values that didn't respect that were replaced by nan"))
-            phidt = (dt - dtma) / (dtf - dtma)
             phidt = np.where(phidt<1, phidt, np.nan)
-            return phidt
 
-        else:
-            phidt = (dt - dtma) / (dtf - dtma)
-            return phidt
-
+        if len(DEPTH) != 0:
+          aux_boolean = np.isnan(phidt)
+          indexes = np.where(aux_boolean==True)
+          lista_de_nans = []
+          for i in range(len(indexes)):
+            lista_de_nans = (DEPTH[indexes[i]])
+          if len(lista_de_nans) != 0:
+            print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+    
+    return phidt
 
 def gaymard_porosity(phid, phin):
     """Estimate the effective porosity using Gaymard-Poupon [1]_ method.
