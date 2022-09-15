@@ -203,8 +203,8 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   modeled_variogram : array_like
         The variogram model that has been choosen, or the variogram model that fits the
         best the experimental one.
-  range : float
-        The range of the modeled variogram.
+  coeficients : array_like
+        The range, sill and nugget optimal values for the modeled variogram.
 
   References
   ----------
@@ -217,19 +217,19 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     xi = distance
     coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
     yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))
-    return(yi,coeficients[0])
+    return(yi,coeficients)
 
   elif model == "gaussian":
     xig = distance
     coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
     yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
-    return(yig,coeficientsg[0])
+    return(yig,coeficientsg)
 
   elif model == "exponential":
     xie = distance
     coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
     yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
-    return(yie,coeficientse[0])
+    return(yie,coeficientse)
 
   elif model == "best-fit":
     xi = distance
@@ -266,11 +266,11 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     best = list(RMSE).index(np.min(RMSE))
 
     if best == 0:
-      return(yi,coeficients[0])
+      return(yi,coeficients)
     if best == 1:
-      return(yig,coeficientsg[0])
+      return(yig,coeficientsg)
     if best == 2:
-      return(yie,coeficientse[0])
+      return(yie,coeficientse)
   else:
     raise TypeError("model must be: exponential, gaussian, spherical or best-fit")
 
