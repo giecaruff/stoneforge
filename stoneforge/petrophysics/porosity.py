@@ -51,6 +51,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float, depth:npt.Ar
             lista_de_nans = (depth[indexes[i]])
           if len(lista_de_nans) != 0:
             print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+            return phi, lista_de_nans
 
         return phi
     
@@ -99,6 +100,7 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
         lista_de_nans = (depth[indexes[i]])
       if len(lista_de_nans) != 0:
         print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+        return phin, lista_de_nans
 
     return phin
 
@@ -146,6 +148,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
         lista_de_nans = (DEPTH[indexes[i]])
       if len(lista_de_nans) != 0:
         print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+        return phi, lista_de_nans
 
     return phi  
 
@@ -200,6 +203,7 @@ def sonic_porosity(dt, dtma, dtf, depth:npt.ArrayLike=[]):
             lista_de_nans = (DEPTH[indexes[i]])
           if len(lista_de_nans) != 0:
             print( "These depths returned values for porosity that were not between 0 and 1: \n",lista_de_nans)
+            return phidt, lista_de_nans
     
     return phidt
 
