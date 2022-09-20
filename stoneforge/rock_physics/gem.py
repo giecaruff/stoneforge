@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 
-from elastic_constants import poisson
+from rock_physics.elastic_constants import poisson
 
 
 def hertz_mindlin(k: float, g: float, n: float, phic: float,
@@ -54,7 +54,7 @@ def soft_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the mineral.
     g : int, float
         Shear modulus of the mineral.
-    phi : int, float, array_like
+    phi : float, array_like
         Porosity value or log.
     phic : float
         Critical porosity.
@@ -96,7 +96,7 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the mineral.
     g : int, float
         Shear modulus of the mineral.
-    phi : int, float, array_like
+    phi : float, array_like
         Porosity value or log.
     phic : float
         Critical porosity.
@@ -122,21 +122,36 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     properties. [S.l.]: Cambridge University Press, 2014.
 
     """
-
-    kconst, gconst = np.zeros(phi.shape), np.zeros(phi.shape)
+    if isinstance(phi, float):
+        kconst, gconst = np.zeros((1)), np.zeros((1))
+    else:
+        kconst, gconst = np.zeros(phi.shape), np.zeros(phi.shape)
+    
     soft_domain = phi < phib
     cement_domain = phi >= phib
 
     kcem, gcem = contact_cement(k, g, phi, phic, n, kc, gc)
     kend, gend = contact_cement(k, g, phib, phic, n, kc, gc)
-    kconst[cement_domain], gconst[cement_domain] = kcem[cement_domain], gcem[cement_domain]
-
-    kb, gb = kend, gend
-    zb = (gb/6) * (9*kb + 8*gb)/(kb + 2*gb)
-    kco = ((phi/phib)/(kb + 4/3* gb) + (1 - phi/phib)/(k + 4/3*gb))**-1 - 4/3 * gb
-    gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
-    kconst[soft_domain], gconst[soft_domain] = kco[soft_domain], gco[soft_domain]
     
+    if not isinstance(phi, float):
+        kconst[cement_domain], gconst[cement_domain] = kcem[cement_domain], gcem[cement_domain]
+        
+        kb, gb = kend, gend
+        zb = (gb/6) * (9*kb + 8*gb)/(kb + 2*gb)
+        kco = ((phi/phib)/(kb + 4/3* gb) + (1 - phi/phib)/(k + 4/3*gb))**-1 - 4/3 * gb
+        gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
+        kconst[soft_domain], gconst[soft_domain] = kco[soft_domain], gco[soft_domain]    
+    
+    else:
+        if cement_domain:
+            kconst, gconst = kcem, gcem
+        else:
+            kb, gb = kend, gend
+            zb = (gb/6) * (9*kb + 8*gb)/(kb + 2*gb)
+            kco = ((phi/phib)/(kb + 4/3* gb) + (1 - phi/phib)/(k + 4/3*gb))**-1 - 4/3 * gb
+            gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
+            kconst, gconst = kco, gco
+
     return kconst, gconst
 
 
@@ -150,7 +165,7 @@ def stiff_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the mineral.
     g : int, float
         Shear modulus of the mineral.
-    phi : int, float, array_like
+    phi : float, array_like
         Porosity value or log.
     phic : float
         Critical porosity.
@@ -191,7 +206,7 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the mineral.
     g : int, float
         Shear modulus of the mineral.
-    phi : int, float, array_like
+    phi : float, array_like
         Porosity value or log.
     phic : float
         Critical porosity.
