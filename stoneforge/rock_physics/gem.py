@@ -293,6 +293,8 @@ def gem(k: float, g: float, phi: npt.ArrayLike, phic: float, n: float,
         Bulk modulus of the cementing mineral.
     gc : int, float
         Shear modulus of the cementing mineral.
+    phib : float
+        Porosity where the cement effect starts.
 
     method : str, optional
         Name of the method to be used. Must be one of
@@ -359,6 +361,8 @@ def gem_model(k: float, g: float, phic: float, n: float,
         Bulk modulus of the cementing mineral.
     gc : int, float
         Shear modulus of the cementing mineral.
+    phib : float
+        Porosity where the cement effect starts.
 
     method : str, optional
         Name of the method to be used. Must be one of
