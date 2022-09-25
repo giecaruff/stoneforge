@@ -8,10 +8,10 @@ def round_values(depth_step):
 def get_tvdss(measured_depth_data, rotary_table, topography_or_water_blade):
 
     if topography_or_water_blade is not None:
-        correction_parameter = well_rotation_table + topography_or_water_blade
+        correction_parameter = rotary_table + topography_or_water_blade
     else:
-        correction_parameter = well_rotation_table
-    tvdss_data = [correct_step_value(correction_parameter, i) for i in measured_depth_well_log.data]
-    tvdss_data = [round_values(i) for i in true_vertical_depth_sub_sea_data]
+        correction_parameter = rotary_table
+    tvdss_data = [correct_step_value(correction_parameter, i) for i in measured_depth_data]
+    tvdss_data = [round_values(i) for i in tvdss_data]
 
-    return true_vertical_depth_sub_sea_data
+    return tvdss_data
