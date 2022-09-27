@@ -4,7 +4,7 @@ import numpy.typing as npt
 
 def kdry(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
          kfluidA: npt.ArrayLike) -> np.ndarray:
-    """Calculate the dry-rock bulk modulus using Gassmann's [1]_ equation .
+    """Calculate the dry-rock bulk modulus using Gassmann' [1]_ equation .
 
     Parameters
     ----------
@@ -77,7 +77,7 @@ def ksat(phi: npt.ArrayLike, ks: npt.ArrayLike, kdry: npt.ArrayLike,
 def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
                   kfluidA: npt.ArrayLike,
                   kfluidB: npt.ArrayLike) -> np.ndarray:
-    """Fluid substitution using Gassmann's equation without calculating 
+    """Fluid substitution using Gassmann' equation without calculating 
     dry-rock bulk modulus [1]_.
 
     Parameters
@@ -106,7 +106,7 @@ def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
     ----------
     .. [1] Avseth, Per, Tapan Mukerji, and Gary Mavko. Quantitative seismic
     interpretation: Applying rock physics tools to reduce interpretation risk.
-    Cambridge university press, 2010.
+    Cambridge university press, 2005.
 
     """
     A = ksatA / (ks - ksatA)
@@ -127,11 +127,12 @@ _gassmann_equations = {
 
 def gassmann(phi: npt.ArrayLike, ks: npt.ArrayLike,
              method: str = "ksat_direct", **kwargs) -> np.ndarray:
-    """Compute Gassmann's equations.
+    """Compute Gassmann' equations.
 
     This is a façade for the methods:
         - kdry
         - ksat
+        - gassmann_subs
 
     Parameters
     ----------
@@ -184,21 +185,183 @@ def gassmann(phi: npt.ArrayLike, ks: npt.ArrayLike,
     return fun(phi, ks, **options)
 
 
-#TODO
-def mdry():
-    pass
+def mdry(phi: npt.ArrayLike, ms: npt.ArrayLike, msatA: npt.ArrayLike,
+         kfluidA: npt.ArrayLike) -> np.ndarray:
+    """Calculate the dry-rock compressional modulus using Mavko' [1]_ equation .
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity log.
+
+    ms : array_like
+        Compressional modulus of solid phase.
+
+    msatA : array_like
+        Compressional modulus of the rock saturated with fluid A.
+
+    kfluidA : array_like
+        Bulk modulus of the fluid A.
+
+    Returns
+    -------
+    mdry : array_like
+        Dry-rock compressional modulus.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
+    """
+    mdry_num = 1 - (1 - phi) * (msatA/ms) - (phi * msatA/kfluidA)
+    mdry_den = 1 + phi - (phi * ms/kfluidA) - (msatA/ms)
+    mdry = ms * (mdry_num / mdry_den)
+
+    return mdry
 
 
-#TODO
-def msat():
-    pass
+def msat(phi: npt.ArrayLike, ms: npt.ArrayLike, mdry: npt.ArrayLike,
+         kfluidB: npt.ArrayLike) -> np.ndarray:
+    """Calculate the compressional modulus of the rock saturated with fluid B [1]_.
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity log.
+
+    ms : array_like
+        Compressional modulus of solid phase.
+
+    mdry : array_like
+        Compressional modulus of the dry-rock.
+
+    kfluidB : array_like
+        Bulk modulus of the fluid B.
+
+    Returns
+    -------
+    msat : array_like
+        Compressional modulus of the rock saturated with fluid B.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
+    """
+    msat_num = phi*mdry - (1 + phi) * (kfluidB * mdry/ms) + kfluidB
+    msat_den = (1 - phi) * kfluidB + (phi*ms) - (kfluidB * mdry/ms)
+    msat = ms * (msat_num / msat_den)
+
+    return msat
 
 
-#TODO
-def mavko_subs():
-    pass
+def mavko_subs(phi: npt.ArrayLike, ms: npt.ArrayLike, msatA: npt.ArrayLike,
+                  kfluidA: npt.ArrayLike,
+                  kfluidB: npt.ArrayLike) -> np.ndarray:
+    """Fluid substitution using Mavko' equation without calculating 
+    dry-rock bulk modulus [1]_.
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity log.
+
+    ms : array_like
+        Compressional modulus of solid phase.
+
+    msatA : array_like
+        Compressional modulus of the rock saturated with fluid A.
+
+    kfluidA : array_like
+        Bulk modulus of the fluid A.
+
+    kfluidB : array_like
+        Bulk modulus of the fluid B.
+
+    Returns
+    -------
+    msat : array_like
+        Compressional modulus of rock saturated with fluid B.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
+    """
+    A = msatA / (ms - msatA)
+    B = kfluidA / (phi*(ms - kfluidA))
+    C = kfluidB / (phi*(ms - kfluidB))
+    D = A - B + C
+    msat = D*ms / (1 + D)
+
+    return msat
 
 
-#TODO
-def mavko():
-    pass
+_mavko_equations = {
+    "mdry": mdry,
+    "msat": msat,
+    "mavko_subs": mavko_subs
+}
+
+
+def mavko(phi: npt.ArrayLike, ms: npt.ArrayLike,
+             method: str = "msat_direct", **kwargs) -> np.ndarray:
+    """Compute Mavko' equations.
+
+    This is a façade for the methods:
+        - mdry
+        - msat
+        - mavko_subs
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity log.
+    ms : array_like 
+        Compressional modulus of solid phase.
+    mdry : array_like
+        Compressional modulus of the dry-rock. Required if `method` is msat.
+    msatA : array_like
+        Compressional modulus of the rock saturated with fluid A. Required if method is
+        `msat` or `mavko_subs`.
+    kfluidA : array_like
+        Bulk modulus of the fluid A. Required if method is `mdry` or
+        `mavko_subs`.
+    kfluidB : array_like 
+        Bulk modulus of the fluid B. Required if method is `msat` or
+        `mavko_subs`.
+    method : str, optional
+        Name of the method to be used. Should be one of
+            - 'mdry'
+            - 'msat'
+            - 'msat_direct'
+        If not given, default method is 'mavko_subs'.
+
+    Returns
+    -------
+    msat : array_like
+        Compressional modulus of the rock saturated with fluid B.
+    
+    """
+    options = {}
+
+    required = []
+    if method == "mdry":
+        required = ["msatA", "kfluidA"]
+    elif method == "msat":
+        required = ["mdry", "kfluidB"]
+    elif method == "mavko_subs":
+        required = ["msatA", "kfluidA", "kfluidB"]
+
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+
+    fun = _mavko_equations[method]
+
+    return fun(phi, ms, **options)
