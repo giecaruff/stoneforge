@@ -266,11 +266,11 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     best = list(RMSE).index(np.min(RMSE))
 
     if best == 0:
-      return(model, yi,coeficients)
+      return("spherical", yi,coeficients)
     if best == 1:
-      return(model, yig,coeficientsg)
+      return("gaussian", yig,coeficientsg)
     if best == 2:
-      return(model, yie,coeficientse)
+      return("exponential", yie,coeficientse)
   else:
     raise TypeError("model must be: exponential, gaussian, spherical or best-fit")
 
