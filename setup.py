@@ -25,6 +25,9 @@ setup(
         "pytest>=6.2.2, <6.2.5",
         "scipy>=1.4.1, <1.8.1",
         "scikit-learn==0.23.2",
-
+        #"matplotlib", ### TO REMOVE BEFORE MERGE!
+        #"pandas", ### TO REMOVE BEFORE MERGE!
+        #"jupyter", ### TO REMOVE BEFORE MERGE!
+        #"seaborn" ### TO REMOVE BEFORE MERGE!
     ],
 )

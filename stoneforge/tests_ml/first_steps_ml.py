@@ -28,7 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 # %%
 
-machine_learning.settings(method = "GaussianNB", path = "ml_sets")
+machine_learning.settings(method = "GaussianNB", path = "ml_sets", priors=[0.33, 0.33, 0.34])
 
 # %%
 
