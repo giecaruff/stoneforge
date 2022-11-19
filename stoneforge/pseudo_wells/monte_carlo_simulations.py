@@ -213,23 +213,23 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """ 
-  if model == "spherical":
+  """if model == "spherical":
     xi = distance
     coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
     yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))
-    return(model, yi,coeficients)
+    return(yi,coeficients)
 
   elif model == "gaussian":
     xig = distance
     coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
     yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
-    return(model, yig,coeficientsg)
+    return(yig,coeficientsg)
 
   elif model == "exponential":
     xie = distance
     coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
     yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
-    return(model, yie,coeficientse)
+    return(yie,coeficientse)
 
   elif model == "best-fit":
     xi = distance
@@ -266,14 +266,71 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     best = list(RMSE).index(np.min(RMSE))
 
     if best == 0:
-      return("spherical", yi,coeficients)
+      return(yi,coeficients)
     if best == 1:
-      return("gaussian", yig,coeficientsg)
+      return(yig,coeficientsg)
     if best == 2:
-      return("exponential", yie,coeficientse)
+      return(yie,coeficientse)
   else:
-    raise TypeError("model must be: exponential, gaussian, spherical or best-fit")
+    raise TypeError("model must be: exponential, gaussian, spherical or best-fit")"""
 
+  model_data = []
+
+  xi = distance
+  coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
+  yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))        
+  spherical_data = ("spherical", yi, coeficients)
+  #spherical_data = (0, yi, coeficients)
+
+  xig = distance
+  coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
+  yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
+  gaussian_data = ("gaussian", yig, coeficientsg)
+  #gaussian_data = (1, yig, coeficientsg)
+
+  xie = distance
+  coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
+  yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
+  exponential_data = ("exponential", yie, coeficientse)
+  #exponential_data = (2, yie, coeficientse)
+
+  ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
+  structured_field = distance <= np.max(ranges)
+
+  difference_sph = np.zeros(len(gama))
+  difference_gauss = np.zeros(len(gama))
+  difference_exp = np.zeros(len(gama))
+
+  i = 0
+  while (structured_field[i] == True):
+    i += 1
+    difference_sph[i] = gama[i] - yi[i]
+    difference_gauss[i] = gama[i] - yig[i]
+    difference_exp[i] = gama[i] - yie[i]
+
+  rmse_sph = ((np.sum(difference_sph**2))/i)**0.5
+  rmse_gaus = ((np.sum(difference_gauss**2))/i)**0.5
+  rmse_exp = ((np.sum(difference_exp**2))/i)**0.5
+
+  RMSE = np.array((rmse_sph, rmse_gaus, rmse_exp))
+  best = list(RMSE).index(np.min(RMSE))
+
+  if best == 0:
+    model_data.append(spherical_data)
+    model_data.append(gaussian_data)
+    model_data.append(exponential_data)
+    #return("spherical", yi,coeficients)
+  if best == 1:
+    model_data.append(gaussian_data)
+    model_data.append(spherical_data)
+    model_data.append(exponential_data)  
+    #return("gaussian", yig,coeficientsg)
+  if best == 2:
+    model_data.append(exponential_data)
+    model_data.append(spherical_data)
+    model_data.append(gaussian_data)
+    #return("exponential", yie,coeficientse)
+  return model_data
 
 def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
   """
