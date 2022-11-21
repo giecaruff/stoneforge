@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path = "", **kwargs) -> np.ndarray:
 
-    naive = pickle.load(open(path+"\\gaussian_naive_bayes_fit_property.pkl", 'rb'))
+    naive = pickle.load(open(path+"gaussian_naive_bayes_fit_property.pkl", 'rb'))
 
     return naive.predict(x, **kwargs)
 
