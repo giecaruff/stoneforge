@@ -279,20 +279,17 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   xi = distance
   coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
   yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))        
-  spherical_data = ("spherical", yi, coeficients)
-  #spherical_data = (0, yi, coeficients)
+  spherical_data = ["spherical", yi, coeficients, False]
 
   xig = distance
   coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
   yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
-  gaussian_data = ("gaussian", yig, coeficientsg)
-  #gaussian_data = (1, yig, coeficientsg)
+  gaussian_data = ["gaussian", yig, coeficientsg, False]
 
   xie = distance
   coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
   yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
-  exponential_data = ("exponential", yie, coeficientse)
-  #exponential_data = (2, yie, coeficientse)
+  exponential_data = ["exponential", yie, coeficientse, False]
 
   ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
   structured_field = distance <= np.max(ranges)
@@ -316,20 +313,25 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   best = list(RMSE).index(np.min(RMSE))
 
   if best == 0:
-    model_data.append(spherical_data)
+    spherical_data[3] = True
+    """model_data.append(spherical_data)
     model_data.append(gaussian_data)
-    model_data.append(exponential_data)
-    #return("spherical", yi,coeficients)
+    model_data.append(exponential_data)"""
   if best == 1:
-    model_data.append(gaussian_data)
+    gaussian_data[3] = True
+    """model_data.append(gaussian_data)
     model_data.append(spherical_data)
-    model_data.append(exponential_data)  
-    #return("gaussian", yig,coeficientsg)
+    model_data.append(exponential_data)  """
   if best == 2:
-    model_data.append(exponential_data)
+    exponential_data[3] = True
+    """model_data.append(exponential_data)
     model_data.append(spherical_data)
-    model_data.append(gaussian_data)
-    #return("exponential", yie,coeficientse)
+    model_data.append(gaussian_data)"""
+
+  model_data.append(spherical_data)
+  model_data.append(gaussian_data)
+  model_data.append(exponential_data)
+
   return model_data
 
 def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
