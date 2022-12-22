@@ -171,7 +171,7 @@ print(PHIT)
 
 # %%
 
-fig, ax = plt.subplots(1, 3)
+fig, ax = plt.subplots(1, 4)
 fig.set_size_inches(12, 12)
 
 ax[0].plot(well_DP1_c["RHOB"]["data"], well_DP1_c["DEPT"]["data"], color='red')
@@ -197,8 +197,16 @@ ax[2].invert_yaxis()
 ax[2].set_yticklabels([])
 ax[2].grid()
 
+ax[3].plot(PHIN, well_DP1_c["DEPT"]["data"], color='k')
+ax[3].set_title("PHIN")
+ax[3].set_xlabel("-")
+ax[3].invert_yaxis()
+ax[3].set_yticklabels([])
+ax[3].grid()
+
 # %%
 
-
+for w in well_DP1_c:
+    print(w)
 
 # %%
