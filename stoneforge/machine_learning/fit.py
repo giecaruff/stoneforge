@@ -33,5 +33,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
 
     if method == "GaussianNB":
         fun = _fit_methods[method]
+    else:
+        print("Indicates the machine learning method")
         
     fun(X, y, path, **kwargs)

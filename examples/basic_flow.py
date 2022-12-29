@@ -167,10 +167,6 @@ print(PHIT)
 
 # %%
 
-
-
-# %%
-
 fig, ax = plt.subplots(1, 3)
 fig.set_size_inches(12, 12)
 
@@ -199,6 +195,8 @@ ax[2].grid()
 
 # %%
 
-
+from water_saturation import archie
 
 # %%
+
+sw = archie()
