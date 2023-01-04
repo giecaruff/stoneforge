@@ -11,3 +11,6 @@ def settings(method: str = "GaussianNB", path = "", **kwargs):
 
     if method == "GaussianNB":
         saves(kwargs, path+"\\gaussian_naive_bayes_settings")
+
+    if method == "DecisionTreeClassifier":
+        saves(kwargs, path+"\\decision_tree_classifier_settings")
