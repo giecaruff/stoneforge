@@ -14,3 +14,21 @@ def settings(method: str = "GaussianNB", path = "", **kwargs):
 
     if method == "DecisionTreeClassifier":
         saves(kwargs, path+"\\decision_tree_classifier_settings")
+
+    if method == "SVC":
+        saves(kwargs, path+"\\support_vector_machine_settings")
+
+    if method == "LogisticRegression":
+        saves(kwargs, path+"\\logistic_regression_settings")
+
+    if method == "LogisticRegression":
+        saves(kwargs, path+"\\logistic_regression_settings")
+
+    if method == "KNeighborsClassifier":
+        saves(kwargs, path+'\\k_nearest_neighbors_settings')
+
+    if method == "RandomForestClassifier":
+        saves(kwargs, path+'\\randon_florest_settings')
+
+    if method == "XGBClassifier":
+        saves(kwargs, path+'\\xgboost_settings')
