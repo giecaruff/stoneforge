@@ -126,7 +126,7 @@ _gassmann_equations = {
 
 
 def gassmann(phi: npt.ArrayLike, ks: npt.ArrayLike,
-             method: str = "ksat_direct", **kwargs) -> np.ndarray:
+             method: str = "gassmann_subs", **kwargs) -> np.ndarray:
     """Compute Gassmann' equations.
 
     This is a façade for the methods:
@@ -308,7 +308,7 @@ _mavko_equations = {
 
 
 def mavko(phi: npt.ArrayLike, ms: npt.ArrayLike,
-             method: str = "msat_direct", **kwargs) -> np.ndarray:
+             method: str = "mavko_subs", **kwargs) -> np.ndarray:
     """Compute Mavko' equations.
 
     This is a façade for the methods:
