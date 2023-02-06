@@ -213,23 +213,23 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """ 
-  """if model == "spherical":
+  if model == "spherical":
     xi = distance
     coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
     yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))
-    return(yi,coeficients)
+    return ["spherical", yi, coeficients, False]
 
   elif model == "gaussian":
     xig = distance
     coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
     yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
-    return(yig,coeficientsg)
+    return ["gaussian", yig, coeficientsg, False]
 
   elif model == "exponential":
     xie = distance
     coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
     yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
-    return(yie,coeficientse)
+    return ["exponential", yie, coeficientse, False]
 
   elif model == "best-fit":
     xi = distance
@@ -266,73 +266,14 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
     best = list(RMSE).index(np.min(RMSE))
 
     if best == 0:
-      return(yi,coeficients)
-    if best == 1:
-      return(yig,coeficientsg)
-    if best == 2:
-      return(yie,coeficientse)
+      return ["spherical", yi, coeficients, True]
+    elif best == 1:
+      return ["gaussian", yig, coeficientsg, False]
+    elif best == 2:
+      return ["exponential", yie, coeficientse, False]
   else:
-    raise TypeError("model must be: exponential, gaussian, spherical or best-fit")"""
+    raise TypeError("model must be: exponential, gaussian, spherical or best-fit")
 
-  model_data = []
-
-  xi = distance
-  coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
-  yi = list(map(lambda distance: spherical_variogram_model(distance, *coeficients), xi))        
-  spherical_data = ["spherical", yi, coeficients, False]
-
-  xig = distance
-  coeficientsg, covg = curve_fit(gaussian_variogram_model, distance, gama)
-  yig = list(map(lambda distance: gaussian_variogram_model(distance, *coeficientsg), xig))
-  gaussian_data = ["gaussian", yig, coeficientsg, False]
-
-  xie = distance
-  coeficientse, cove = curve_fit(exponential_variogram_model, distance, gama)
-  yie = list(map(lambda distance: exponential_variogram_model(distance, *coeficientse), xie))
-  exponential_data = ["exponential", yie, coeficientse, False]
-
-  ranges = np.array([coeficients[0],coeficientsg[0],coeficientse[0]])
-  structured_field = distance <= np.max(ranges)
-
-  difference_sph = np.zeros(len(gama))
-  difference_gauss = np.zeros(len(gama))
-  difference_exp = np.zeros(len(gama))
-
-  i = 0
-  while (structured_field[i] == True):
-    i += 1
-    difference_sph[i] = gama[i] - yi[i]
-    difference_gauss[i] = gama[i] - yig[i]
-    difference_exp[i] = gama[i] - yie[i]
-
-  rmse_sph = ((np.sum(difference_sph**2))/i)**0.5
-  rmse_gaus = ((np.sum(difference_gauss**2))/i)**0.5
-  rmse_exp = ((np.sum(difference_exp**2))/i)**0.5
-
-  RMSE = np.array((rmse_sph, rmse_gaus, rmse_exp))
-  best = list(RMSE).index(np.min(RMSE))
-
-  if best == 0:
-    spherical_data[3] = True
-    """model_data.append(spherical_data)
-    model_data.append(gaussian_data)
-    model_data.append(exponential_data)"""
-  if best == 1:
-    gaussian_data[3] = True
-    """model_data.append(gaussian_data)
-    model_data.append(spherical_data)
-    model_data.append(exponential_data)  """
-  if best == 2:
-    exponential_data[3] = True
-    """model_data.append(exponential_data)
-    model_data.append(spherical_data)
-    model_data.append(gaussian_data)"""
-
-  model_data.append(spherical_data)
-  model_data.append(gaussian_data)
-  model_data.append(exponential_data)
-
-  return model_data
 
 def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
   """
