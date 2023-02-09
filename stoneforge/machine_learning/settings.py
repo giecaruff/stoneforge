@@ -21,8 +21,8 @@ def settings(method: str = "GaussianNB", path = "", **kwargs):
     if method == "LogisticRegression":
         saves(kwargs, path+"\\logistic_regression_settings")
 
-    if method == "LogisticRegression":
-        saves(kwargs, path+"\\logistic_regression_settings")
+    #if method == "LogisticRegression":
+    #    saves(kwargs, path+"\\logistic_regression_settings")
 
     if method == "KNeighborsClassifier":
         saves(kwargs, path+'\\k_nearest_neighbors_settings')
