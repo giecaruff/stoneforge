@@ -18,7 +18,7 @@ def reuss(f, m):
         Reuss bound.
     
     """
-    r = 1 / np.sum(f/m)
+    r = 1 / np.sum(f/m, axis=0)
     return r
 
 
@@ -39,7 +39,7 @@ def voigt(f, m):
         Voigt bound.
     
     """
-    v = np.sum(f*m)
+    v = np.sum(f*m, axis=0)
     return v
 
 
@@ -60,7 +60,7 @@ def hill(f, m):
         Hill average.
     
     """
-    r = 1 / np.sum(f/m)
-    v = np.sum(f*m)
+    r = 1 / np.sum(f/m, axis=0)
+    v = np.sum(f*m, axis=0)
     h = (r+v)/2
     return h
