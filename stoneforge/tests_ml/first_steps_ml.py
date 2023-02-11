@@ -1,4 +1,10 @@
 # %%
+
+# conda create -n forgeml python=3.8.8 pip & conda activate forgeml
+# conda install -c anaconda jupyter
+# para remover ambiente
+# -> conda env remove -n forgeml
+
 import numpy as np
 import sys
 import os
@@ -32,10 +38,10 @@ machine_learning.settings(method = "GaussianNB", path = "ml_sets", priors=[0.33,
 
 # %%
 
-machine_learning.fit(method = "GaussianNB", path = "ml_sets", X = X_train, y = y_train)
+machine_learning.fit(method = "GaussianNB", path = "ml_sets\\", X = X_train, y = y_train)
 
 # %%
 
-classification = machine_learning.predict(method = "GaussianNB", path = "ml_sets", x = X_test)
+classification = machine_learning.predict(method = "GaussianNB", path = "ml_sets\\", x = X_test)
 
 # %%
