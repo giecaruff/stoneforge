@@ -76,7 +76,7 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
 def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    f = open(path + '\\k_nearest_neighbors.json')
+    f = open(path + '\\k_nearest_neighbors_settings.json')
 
     settings = json.load(f)
 
@@ -90,7 +90,7 @@ def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
 def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    f = open(path + '\\random_florest.json')
+    f = open(path + '\\random_florest_settings.json')
 
     settings = json.load(f)
 
@@ -104,7 +104,7 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.nda
 
 def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    f = open(path + '\\xgboost.json')
+    f = open(path + '\\xgboost_settings.json')
 
     settings = json.load(f)
 
@@ -126,7 +126,7 @@ _fit_methods = {
     'XGBClassifier': xgboost
     }
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = "", **kwargs):
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
 
     if method == "GaussianNB":
@@ -136,9 +136,9 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
     if method == "SVM":
         fun = _fit_methods[method]
     if method == "LogisticRegression":
-        fun = _fit_methods(method)
+        fun = _fit_methods[method]
     if method == "KNeighborsClassifier":
-        fun = _fit_methods(method)
+        fun = _fit_methods[method]
     if method == "RandomForestClassifier":
         fun = _fit_methods[method]
     if method == "XGBClassifier":

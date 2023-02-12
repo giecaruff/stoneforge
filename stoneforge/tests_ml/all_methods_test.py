@@ -86,16 +86,18 @@ print(np.shape(mega_data))
 
 y = mega_data[:,-1]
 X = np.delete(mega_data,(-1), axis=1)
+#X = np.array(X, dtype='float')
+#y = np.array(y, dtype='int')
 
 # %%
 
-machine_learning.settings(method = "GaussianNB")
-machine_learning.settings(method = "DecisionTreeClassifier")
-machine_learning.settings(method = "SVM")
-machine_learning.settings(method = "LogisticRegression")
-machine_learning.settings(method = "KNeighborsClassifier")
-machine_learning.settings(method = "RandomForestClassifier")
-machine_learning.settings(method = "XGBClassifier")
+machine_learning.settings(method = "GaussianNB", path='_ml_project')
+machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project')
+machine_learning.settings(method = "SVM", path='_ml_project')
+machine_learning.settings(method = "LogisticRegression", path='_ml_project')
+machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
+machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
+machine_learning.settings(method = "XGBClassifier", path='_ml_project')
 
 # %%
 
@@ -111,21 +113,37 @@ for i in x_r:
 
 # %%
 
-machine_learning.fit(X,y,method = "GaussianNB", path = ".")
-#machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = ".")
-#machine_learning.fit(X,y,method = "SVM", path = ".")
-#machine_learning.fit(X,y,method = "LogisticRegression", path = ".")
-#machine_learning.fit(X,y,method = "KNeighborsClassifier", path = ".")
-#machine_learning.fit(X,y,method = "RandomForestClassifier", path = ".")
-#machine_learning.fit(X,y,method = "XGBClassifier", path = ".")
+machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
+machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
+machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
+machine_learning.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
+machine_learning.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
+machine_learning.fit(X,y,method = "XGBClassifier", path = "_ml_project")
 
 # %%
 
 class_db = {}
 
 for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "",)
+    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
 
 a.return_curve(class_db)
+
+
+# %%
+
+machine_learning.settings(method = "GaussianNB")
+machine_learning.fit(X,y,method = "GaussianNB")
+
+for x in x_db:
+    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB")
+    
 
 # %%
