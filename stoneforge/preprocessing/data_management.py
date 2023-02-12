@@ -66,12 +66,15 @@ class project():
 
     # ============================================ #
 
-    def data_replacement(self,ref):
+    def data_replacement(self,ref,forced = True):
+
+        mnemonics_list = list(ref.keys())
 
         new_well_data = {}
         for i in self.well_data:
             new_well_data[i] = {}
             local = {}
+
             for j in self.well_data[i]:
                 new_mnemonic = self._find_mnemonic(j,ref)
                 if new_mnemonic:
@@ -91,7 +94,7 @@ class project():
 
     # ============================================ #
 
-    def convert_into_matrix(self):
+    def convert_into_matrix(self,reference_mnemonics=False):
         """
         converts an manly dictionary database into an
         matrix database with tree values: 
@@ -104,7 +107,12 @@ class project():
             units = []
             mnemonics = []
             well = {}
-            for j in self.well_data[i]:
+            if reference_mnemonics:
+                well_data = reference_mnemonics
+            else:
+                well_data = self.well_data[i]
+
+            for j in well_data:
                 data.append(self.well_data[i][j]['data'])
                 units.append(self.well_data[i][j]['unit'])
                 mnemonics.append(j)

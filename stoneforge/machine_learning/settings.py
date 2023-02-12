@@ -15,7 +15,7 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
     if method == "DecisionTreeClassifier":
         saves(kwargs, path+"\\decision_tree_classifier_settings")
 
-    if method == "SVC":
+    if method == "SVM":
         saves(kwargs, path+"\\support_vector_machine_settings")
 
     if method == "LogisticRegression":

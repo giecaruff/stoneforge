@@ -119,7 +119,7 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 _fit_methods = {
     "GaussianNB": gaussian_naive_bayes,
     "DecisionTreeClassifier": decision_tree_classifier,
-    "SVC": support_vector_machine,
+    "SVM": support_vector_machine,
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
@@ -133,7 +133,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         fun = _fit_methods[method]
     if method == "DecisionTreeClassifier":
         fun = _fit_methods[method]
-    if method == "SVC":
+    if method == "SVM":
         fun = _fit_methods[method]
     if method == "LogisticRegression":
         fun = _fit_methods(method)

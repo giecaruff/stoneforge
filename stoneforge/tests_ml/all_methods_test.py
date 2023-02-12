@@ -23,7 +23,7 @@ else:
 
 # %%
 
-project = preprocessing.project("D:\\appy_projetos\\pocos")
+project = preprocessing.project("D:\\appy_projetos\\wells")
 project.import_folder()
 project.import_several_wells()
 
@@ -35,23 +35,18 @@ mnemonics_replacement = {
     'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHOZ","RHLA","RHBA","RHLA3","RHBA4"],
     'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
-    'NPHI':['NPHI']
+    'NPHI':['NPHI'],
+    'Lithology':['Lith_new']
 }
+
+ref_mnemonics = list(mnemonics_replacement.keys())
+
 project.data_replacement(mnemonics_replacement)
-project.convert_into_matrix()
+project.convert_into_matrix(ref_mnemonics)
 
 # %%
 
-for i in project.well_data:
-    #print(np.shape(project.well_data[i]['data']))
-    print(i)
-    break
-
-print(project.well_data['4-BRSA-879D-BA'])
-print(project.well_data['4-BRSA-879D-BA']['data'][0])
-#print(np.shape(project.well_data['4-BRSA-879D-BA']['data']))
-
-b = np.delete(project.well_data['4-BRSA-879D-BA']['data'], -2, axis=0)
+b = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
 print(b,np.shape(b))
 
 mnem = ['DEPTH', 'GR', 'CAL', 'RES', 'RHOB']
@@ -63,32 +58,74 @@ project.well_data['test']['data'] = b
 project.well_data['test']['units'] = unit
 project.well_data['test']['mnemonics'] = mnem
 
-print(project.well_data)
-
 project.shape_check(mnemonics_replacement)
 
 # %%
 
-#print(project.well_names_las)
+tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
 
-def well_training_split(well_names,well_database):
+mega_data = preprocessing.data_assemble(tw_data,'data')
+print(np.shape(mega_data))
 
-    all_wells = set(well_database.keys())
-    v_wells = set(well_names)
-    t_wells = all_wells - v_wells
+# %%
 
-    t_database = {}
-    for w in list(t_wells):
-        t_database[w] = well_database[w]
+print(ref_mnemonics)
 
-    v_database = {}
-    for w in list(v_wells):
-        v_database[w] = well_database[w]
+def _remove_dummies(data):
+    data_1 = np.array(data).T
+    data_2 = data_1[~np.isnan(data_1).any(axis=1)]
 
-    return (t_database,v_database)
+    return data_2
 
-tw_data,vw_data = well_training_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
+mega_data = _remove_dummies(mega_data)
 
-print(vw_data)
+print(np.shape(mega_data))
+#print(vw_data['7-MP-22-BA']['data'])
+
+# %%
+
+y = mega_data[:,-1]
+X = np.delete(mega_data,(-1), axis=1)
+
+# %%
+
+machine_learning.settings(method = "GaussianNB")
+machine_learning.settings(method = "DecisionTreeClassifier")
+machine_learning.settings(method = "SVM")
+machine_learning.settings(method = "LogisticRegression")
+machine_learning.settings(method = "KNeighborsClassifier")
+machine_learning.settings(method = "RandomForestClassifier")
+machine_learning.settings(method = "XGBClassifier")
+
+# %%
+
+a = preprocessing.predict_processing(vw_data,'data')
+x_r= a.matrix_values()
+
+y_vdb = {}
+x_db = {}
+for i in x_r:
+    y_vdb[i] = x_r[i][:,-1]
+    x_db[i] = np.delete(x_r[i],(-1), axis=1)
+
+
+# %%
+
+machine_learning.fit(X,y,method = "GaussianNB", path = ".")
+#machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = ".")
+#machine_learning.fit(X,y,method = "SVM", path = ".")
+#machine_learning.fit(X,y,method = "LogisticRegression", path = ".")
+#machine_learning.fit(X,y,method = "KNeighborsClassifier", path = ".")
+#machine_learning.fit(X,y,method = "RandomForestClassifier", path = ".")
+#machine_learning.fit(X,y,method = "XGBClassifier", path = ".")
+
+# %%
+
+class_db = {}
+
+for x in x_db:
+    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "",)
+
+a.return_curve(class_db)
 
 # %%
