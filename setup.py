@@ -11,7 +11,7 @@ classifiers = [
 
 setup(
     name="stoneforge",
-    version="0.1.3",
+    version="0.1.4",
     author="GIECAR - UFF",
     url="https://github.com/giecaruff/stoneforge",
     description="Geophysics equations, algorithms and methods",
@@ -23,6 +23,8 @@ setup(
     install_requires=[
         "numpy>=1.21, <1.22.1",
         "pytest>=6.2.2, <6.2.5",
-        "scipy>=1.4.1, <1.8.1"
+        "scipy>=1.4.1, <1.8.1",
+        "scikit-learn>=0.22.1, <0.24.2",
+        "xgboost==1.4.0"
     ],
 )
