@@ -24,7 +24,7 @@ jobs:
       run: pip install pytest
 
     - name: Install scikit-learn
-      run: pip scikit-learn 
+      run: pip install scikit-learn 
       
     - name: Test with pytest
       run: |
