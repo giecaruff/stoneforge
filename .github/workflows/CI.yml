@@ -24,7 +24,10 @@ jobs:
       run: pip install pytest
 
     - name: Install scikit-learn
-      run: pip install scikit-learn 
+      run: pip install scikit-learn
+
+    - name: Install xgboost
+      run: pip install xgboost 
       
     - name: Test with pytest
       run: |
