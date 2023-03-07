@@ -3,6 +3,7 @@
 import numpy as np
 import sys
 import os
+import pandas
 
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -23,9 +24,12 @@ else:
 
 # %%
 
-project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
+
+print(project.well_names_paths)
+
 
 #%%
 

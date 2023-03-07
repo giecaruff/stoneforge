@@ -25,7 +25,8 @@ class predict_processing:
 
         clean_data = {}
         for i in self.data:
-           clean_data[i] = _remove_dummies(self.data[i][self.data_key])
+           
+           clean_data[i] = self._remove_dummies(self.data[i][self.data_key])
 
         return clean_data
 
@@ -42,6 +43,12 @@ class predict_processing:
             curves[i] = curve
 
         return curves
+    
+    def _remove_dummies(self,data):
+        data_1 = np.array(data).T
+        data_2 = data_1[~np.isnan(data_1).any(axis=1)]
+
+        return data_2
 
 def well_train_test_split(well_names,well_database):
 

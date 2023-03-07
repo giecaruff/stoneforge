@@ -3,6 +3,7 @@ import platform
 import pickle
 import json
 import os
+import pandas
 
 from . import las2
 
@@ -142,6 +143,7 @@ class project():
 
         self.well_data = well_data
 
+    # ============================================ #
         
 
 
