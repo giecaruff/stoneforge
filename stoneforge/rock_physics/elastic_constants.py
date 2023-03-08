@@ -102,7 +102,7 @@ def compressional_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike, k: npt.Ar
     Returns
     -------
     VP : array_like, float
-        Compressional wave velocity data km/s².
+        Compressional wave velocity data in km/s².
     ----------
 
     References
@@ -115,6 +115,36 @@ def compressional_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike, k: npt.Ar
     VP = (A / rhob)**0.5
 
     return VP
+
+def compressional_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
+    """
+     Computes the Compressional modulus using density and compressional wave velocity
+
+    Parameters
+    rhob : array_like, float
+        Density data in g/cm³.
+
+    vp: array_like, float
+        Compressional wave velocity in km/s².
+
+
+    Returns
+    -------
+    M : array_like, float
+        Compressional modulus data kg/m³.
+    ----------
+
+    References
+    ----------
+    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
+    Cambridge University Press.
+
+    """
+    M = rhob * (vp)**2
+
+    return M
+
+                          
 
 
 def poisson(method: str, **kwargs):
