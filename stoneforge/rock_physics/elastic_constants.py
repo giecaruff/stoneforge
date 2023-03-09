@@ -118,24 +118,21 @@ def compressional_wave_velocity(method: str, **kwargs):
      Computes the compressional wave velocity.
 
     Parameters
-    Parameters
     method : str
         The two elastic moduli used to the estimation. Should be one of:
             - "rhob_and_g_and_k" for density and shear moduli and bolk moduli
             - "rhob_and_m" for density and compressional modulus
     ----------
+    Returns
+    -------
+    VP : int, float, array_like
+        compressional wave velocity.
 
     References
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
-        if method == "k_and_g":
-        required = ["k", "g"]
-        for arg in required:
-            if arg not in kwargs:
-                msg = f"Missing required argument for method '{method}': '{arg}'"
-                raise TypeError(msg)
-        return (3*kwargs["k"] - 2*kwargs["g"]) / (6*kwargs["k"] + 2*kwargs["g"])
+  
 
     """
     if method == "rhob_and_g_and_k":
