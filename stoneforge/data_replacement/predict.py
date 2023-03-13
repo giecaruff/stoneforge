@@ -2,98 +2,99 @@ import numpy as np
 import numpy.typing as npt
 import pickle
 import warnings
-
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.svm import SVC
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+import json
 
 from sklearn.linear_model import LinearRegression
-
-def simple_linear_regression_replacement(x: npt.ArrayLike, path, **kwargs):
-
-    slregression = pickle.load(open(path+"\\simple_linear_regression_fit_property.pkl", 'rb'))
-
-    return slregression.predict(x, **kwargs)
-
-def gaussian_naive_bayes(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
-
-    naive = pickle.load(open(path+"\\gaussian_naive_bayes_fit_property.pkl", 'rb'))
-
-    return naive.predict(x, **kwargs)
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import PolynomialFeatures
+from xgboost import XGBRegressor
+import lightgbm as lgb
+from catboost.core import CatBoostRegressor
 
 
-def decision_tree_classifier(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs):
 
-    d_treec = pickle.load(open(path+"\\decision_tree_classifier_fit_property.pkl", 'rb'))
+    slregression = pickle.load(open(path+"\\linear_regression_fit_property.pkl", 'rb'))
+    f = open(path + '\\polinomial_settings.json')
+    pol_settings = json.load(f)
 
-    return d_treec.predict(x, **kwargs)
+    pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
+    x_poly = pol_degree.fit_transform(x)
+
+    return slregression.predict(x_poly , **kwargs)
 
 
-def support_vector_machine(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def support_vector_replacement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    svm = pickle.load(open(path+"\\support_vector_machine_fit_property.pkl", 'rb'))
+    svnegression = pickle.load(open(path+"\\support_vector_fit_property.pkl", 'rb'))
+
+    return svnegression.predict(x, **kwargs)
+
+
+def decision_tree_replacement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+
+    d_treec_regression = pickle.load(open(path+"\\decision_tree_fit_property.pkl", 'rb'))
+
+    return d_treec_regression.predict(x, **kwargs)
+
+
+def random_florest_replecement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+
+    randomregression = pickle.load(open(path+"\\random_florest_fit_property.pkl", 'rb'))
     
-    return svm.predict(x, **kwargs)
+    return randomregression.predict(x, **kwargs)
 
 
-def logistic_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def xgboost_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    logistic = pickle.load(open(path+"\\logistic_regression_fit_property.pkl", 'rb'))
+    xgboostregression = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
 
-    return logistic.predict(x,**kwargs)
+    return xgboostregression.predict(x,**kwargs)
 
 
-def k_nearest_neighbors(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    knn = pickle.load(open(path+"\\k_nearest_neighbors_fit_property.pkl", 'rb'))
+    lightregression = pickle.load(open(path+"\\lightgbm_fit_property.pkl", 'rb'))
     
-    return knn.predict(x,**kwargs)
+    return lightregression.predict(x,**kwargs)
 
-def random_florest(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    d_florest = pickle.load(open(path+"\\random_florest_fit_property.pkl", 'rb'))
+    catregression = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
-    return d_florest.predict(x,**kwargs)
-
-def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
-
-    xg = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
-    
-    return xg.predict(x,**kwargs)
+    return d_florestcatregression.predict(x,**kwargs)
 
 
 
 _predict_methods = {
-    "simple_linear_regression": simple_linear_regression_replacement,
-    "GaussianNB": gaussian_naive_bayes,
-    "DecisionTreeClassifier": decision_tree_classifier,
-    "SVM": support_vector_machine,
-    "LogisticRegression": logistic_regression,
-    "KNeighborsClassifier": k_nearest_neighbors,
-    "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost
+    "linear_regression": linear_regression_replacement,
+    "suporte_vector_regression": support_vector_replacement,
+    "decision_tree_regression": decision_tree_replacement,
+    "random_florest_regression": random_florest_replecement,
+    "xgboost_regression": xgboost_replacement,
+    "lightgbm_regression": lightgbm_replacement,
+    "catboost_regression": lightgbm_replacement,
     }
 
 
-def predict(x: npt.ArrayLike, method: str = "simple_linear_regression", path = ".", **kwargs):
+def predict(x: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
 
-    if method == "simple_linear_regression":
+    if method == "linear_regression":
         fun = _predict_methods[method]
-    if method == "DecisionTreeClassifier":
+    if method == "suporte_vector_regression":
         fun = _predict_methods[method]
-    if method == "SVM":
+    if method == "decision_tree_regression":
         fun = _predict_methods[method]
-    if method == "LogisticRegression":
+    if method == "random_florest_regression":
         fun = _predict_methods[method]
-    if method == "KNeighborsClassifier":
+    if method == "xgboost_regression":
         fun = _predict_methods[method]
-    if method == "RandomForestClassifier":
+    if method == "lightgbm_regression":
         fun= _predict_methods[method]
-    if method == "XGBClassifier":
+    if method == "catboost_regression":
         fun= _predict_methods[method]
 
     return fun(x, path, **kwargs)
