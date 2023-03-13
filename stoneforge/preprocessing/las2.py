@@ -20,8 +20,6 @@ _line_regex = re.compile(
     r"(?P<mnemonic>[^\.]+)\.(?P<unit>\S*)(?P<value>.*):(?P<description>.*)"
 )
 
-print(_line_regex)
-
 _line_elements = ["mnemonic", "unit", "value", "description"]
 
 _sections = {
