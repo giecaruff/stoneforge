@@ -4,12 +4,19 @@ import pickle
 import json
 import warnings
 
-from sklearn.naive_bayes import GaussianNB
+
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
+import lightgbm as lgb
+from catboost.core import CatBoostRegressor
+
+
+from sklearn.preprocessing import PolynomialFeatures
+
+from sklearn.linear_model import LinearRegression
 from xgboost import XGBClassifier
 
 def saves(file, name):
@@ -17,133 +24,136 @@ def saves(file, name):
         pickle.dump(file, write_file)
 
 
-#Naive Bayes
-def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+#Simple Linear Regression
+def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
-    f = open(path + '\\gaussian_naive_bayes_settings.json')
+    f1 = open(path + '\\linear_regression_settings.json')
+    f2 = open(path + '\\polinomial_settings.json')
 
-    settings = json.load(f)
+    settings = json.load(f1)
+    pol_settings = json.load(f2)
 
-    naive = GaussianNB(**settings)
+    pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
+    X_poly = pol_degree.fit_transform(X)
 
-    naive.fit(X, y, **kwargs)
+    slregression = LinearRegression(**settings)
+    slregression.fit(X_poly, y, **kwargs)
+
+    saves(slregression, path+"\\linear_regression_fit_property")
     
-    saves(naive, path+"\\gaussian_naive_bayes_fit_property")
 
 
-#Arvore de decisões 
-def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    f = open(path + '\\decision_tree_classifier_settings.json')
+
+
+def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+
+    f = open(path + '\\support_vector_settings.json')
 
     settings = json.load(f)
 
-    d_treec = DecisionTreeClassifier(**settings)
+    svn = SVC(**settings)
 
-    d_treec.fit(X, y, **kwargs)
+    svn.fit(X, y, **kwargs)
     
-    saves(d_treec, path+"\\decision_tree_classifier_fit_property")
+    saves(svn, path+"\\suporte_vector_fit_property")
 
 
-#Maquina de Vetores de Suporte
-def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    f = open(path + '\\support_vector_machine_settings.json')
+def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
-    settings = json.load(f)
-
-    svm = SVC(**settings)
-
-    svm.fit(X, y, **kwargs)
-
-    saves(svm, path+"\\support_vector_machine_fit_property")
-
-
-#Regressão Logistica
-def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
-
-    f = open(path + '\\logistic_regression_settings.json')
+    f = open(path + '\\decision_tree_settings.json')
 
     settings = json.load(f)
 
-    logistic = LogisticRegression(**settings)
+    decisontree = DecisionTreeClassifier(**settings)
 
-    logistic.fit(X, y, **kwargs)
+    decisontree.fit(X, y, **kwargs)
+    
+    saves(decisontree, path+"\\decision_tree_fit_property")
 
-    saves(logistic, path+"\\logistic_regression_fit_property")
 
-#APRENDIZAGEM BASEADA EM INSTÂNCIAS 
-
-def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
-
-    f = open(path + '\\k_nearest_neighbors_settings.json')
-
-    settings = json.load(f)
-
-    knn = KNeighborsClassifier(**settings)
-
-    knn.fit(X, y, **kwargs)
-
-    saves(knn, path+"\\k_nearest_neighbors_fit_property")
-
-#Arvore Aleatoria
-
-def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\random_florest_settings.json')
 
     settings = json.load(f)
 
-    d_florest = RandomForestClassifier(**settings)
+    random =  RandomForestClassifier(**settings)
 
-    d_florest.fit(X, y, **kwargs)
+    random.fit(X, y, **kwargs)
+    
+    saves(random, path+"\\random_florest_fit_property")
 
-    saves(d_florest, path+"\\random_florest_fit_property")
 
-#XGBOOST
-
-def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\xgboost_settings.json')
 
     settings = json.load(f)
 
-    xg = XGBClassifier(**settings)
+    xgboost =  XGBClassifier(**settings)
 
-    xg.fit(X, y, **kwargs)
+    xgboost.fit(X, y, **kwargs)
+    
+    saves(xgboost, path+"\\xgboost_fit_property") 
 
-    saves(xg, path+"\\xgboost_fit_property")
 
+def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+
+    f = open(path + '\\lightgbm_florest_settings.json')
+
+    settings = json.load(f)
+
+    light =  lgb(**settings)
+
+    light.fit(X, y, **kwargs)
+    
+    saves(light, path+"\\lightgbm_replacement_fit_property")  
+
+
+
+def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+
+    f = open(path + '\\catboost_florest_settings.json')
+
+    settings = json.load(f)
+
+    cat =  CatBoostRegressor(**settings)
+
+    cat.fit(X, y, **kwargs)
+    
+    saves(cat, path+"\\catboost_florest_fit_property")
 
 
 _fit_methods = {
-    "GaussianNB": gaussian_naive_bayes,
-    "DecisionTreeClassifier": decision_tree_classifier,
-    "SVM": support_vector_machine,
-    "LogisticRegression": logistic_regression,
-    "KNeighborsClassifier": k_nearest_neighbors,
-    "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost
+    "linear_regression": linear_regression_replacement,
+    "support_vector": suporte_vector_replacement,
+    "decisoon_tree": decision_tree_replacement,
+    "random_florest": random_florest_replecement,
+    "xgboost": xgboost_replacement,
+    "light": lightgbm_replacement,
+    "cat": catboost_replecement
     }
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
 
-    if method == "GaussianNB":
+    if method == "linear_regression":
         fun = _fit_methods[method]
-    if method == "DecisionTreeClassifier":
         fun = _fit_methods[method]
-    if method == "SVM":
+    if method == "support_vector":
         fun = _fit_methods[method]
-    if method == "LogisticRegression":
+    if method == "decisoon_tree":
         fun = _fit_methods[method]
-    if method == "KNeighborsClassifier":
+    if method == "random_florest":
         fun = _fit_methods[method]
-    if method == "RandomForestClassifier":
+    if method == "xgboost":
         fun = _fit_methods[method]
-    if method == "XGBClassifier":
+    if method == "light":
         fun = _fit_methods[method]
+    if method == "cat":
+        fun = _fit_methods[method]
+
     
-    
-        
     fun(X, y, path, **kwargs)
