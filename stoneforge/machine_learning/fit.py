@@ -86,7 +86,7 @@ def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
     saves(knn, path+"\\k_nearest_neighbors_fit_property")
 
-#Rnaodm Forest
+#Random Forest
 
 def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
