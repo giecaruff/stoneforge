@@ -31,13 +31,13 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         return np.nan
 
     else:
-        if rhom < rhof or any(rhom <= rhob):
+        if any(rhom < rhof or rhom <= rhob):
             warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
             return (rhom - rhob) / (rhom - rhof)
         
         elif any(rhom - rhob > rhom - rhof):
-            warnings.warn(UserWarning("rhob value is lower than rhof"))
+            warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
             return (rhom - rhob) / (rhom - rhof)
         
@@ -162,13 +162,13 @@ def sonic_porosity(dt, dtma, dtf):
         return np.nan
 
     else:
-        if any(dt <= dtma) or dtf <= dtma:
+        if any(dt <= dtma) or any(dtf <= dtma):
             warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
             return (dt - dtma) / (dtf - dtma)
 
         elif any(dt - dtma > dtf - dtma):
-            warnings.warn(UserWarning("dt value is greather than dtf"))
+            warnings.warn(UserWarning("phidt must be between 0 and 1"))
 
             return (dt - dtma) / (dtf - dtma)
 
