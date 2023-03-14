@@ -14,7 +14,7 @@ else:
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions
 
-archie_values = parameters_ws.Parameters.sorted_values(parameters_ws.Parameters.config_water_saturarion)
+archie_values = parameters_ws.Parameters.sorted_values(parameters_ws.Parameters.config_archie)
 
 @pytest.mark.parametrize(archie_values[1], archie_values[0])
 def test_archie(rw, rt, phi, a, m, n):
