@@ -45,7 +45,7 @@ def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kw
 
 
 
-
+#Suporte Vector 
 def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\support_vector_settings.json')
@@ -60,6 +60,7 @@ def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
 
 
 
+#Decison Tree
 def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\decision_tree_settings.json')
@@ -73,6 +74,9 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs
     saves(decisontree, path+"\\decision_tree_fit_property")
 
 
+
+
+#Random Florest
 def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\random_florest_settings.json')
@@ -86,6 +90,9 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
     saves(random, path+"\\random_florest_fit_property")
 
 
+
+
+#XgBoost
 def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\xgboost_settings.json')
@@ -99,6 +106,10 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
     saves(xgboost, path+"\\xgboost_fit_property") 
 
 
+
+
+
+#LightGBM
 def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\lightgbm_florest_settings.json')
@@ -113,6 +124,8 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
 
 
+
+#CatBoost
 def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\catboost_florest_settings.json')
@@ -126,6 +139,10 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
     saves(cat, path+"\\catboost_florest_fit_property")
 
 
+
+
+
+
 _fit_methods = {
     "linear_regression": linear_regression_replacement,
     "support_vector": suporte_vector_replacement,
@@ -135,6 +152,9 @@ _fit_methods = {
     "light": lightgbm_replacement,
     "cat": catboost_replecement
     }
+
+
+
 
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
