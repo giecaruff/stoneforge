@@ -171,7 +171,7 @@ def compressional_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
     Returns
     -------
     M : array_like, float
-        Compressional modulus data kg/m³.
+        Compressional modulus data Pascal (Pa).
     ----------
 
     References
