@@ -19,6 +19,8 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     settings = json.load(f)
 
     naive = GaussianNB(**settings)
+    #x_treino, x_teste, y_treino, y_teste = train_test_split(X, y, test_size = test_size, random_state = random_state)
+    #sklearn.metrics.confusion_matrix( y_treino, y_teste, *, labels=None, sample_weight=None, normalize=None)
 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
@@ -64,6 +66,7 @@ def validation(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", 
     X_norm = StandardScaler().fit_transform(X)
         
     fun(X_norm, y, path, n_splits, random_state, **kwargs)
+
 
 
 

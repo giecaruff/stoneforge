@@ -25,7 +25,8 @@ else:
 
 # %%
 
-project = preprocessing.project("D:\\appy_projetos\\wells")
+#project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -95,6 +96,33 @@ X = np.delete(mega_data,(-1), axis=1)
 #y = np.array(y, dtype='int')
 # %%
 
-machine_learning.validation(X, y, random_state = 2,n_splits = 10, path = "_ml_project")
+a = preprocessing.predict_processing(vw_data,'data')
+x_r= a.matrix_values()
 
+y_vdb = {}
+x_db = {}
+for i in x_r:
+    y_vdb[i] = x_r[i][:,-1]
+    x_db[i] = np.delete(x_r[i],(-1), axis=1)
+
+machine_learning.validation(X, y, random_state = 2,n_splits = 10, path = "_ml_project")
+machine_learning.settings(method = "GaussianNB", path='_ml_project')
+machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+class_db = {}
+
+for x in x_db:
+    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
+# %%
+y_m = class_db['7-MP-50D-BA']
+
+# %%
+print(y_m, len(y_m))
+print(y, len(y))
+
+
+machine_learning.evaluation(y,y,"_ml_project")
+
+#print(json_dict)
+# %%
+len(a.return_curve(class_db)['7-MP-50D-BA'])
 # %%
