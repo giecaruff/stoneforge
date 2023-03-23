@@ -11,7 +11,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from autosklearn.classification import AutoSklearnClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
 
 
 def saves(file, name):
@@ -181,6 +184,8 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         fun = _fit_methods[method]
     #if method == "AutoML":
         #fun = _fit_methods[method]
-    
+
+    X_norm = StandardScaler().fit_transform(X)
+
         
-    fun(X, y, path, **kwargs)
+    fun(X_norm, y, path, **kwargs)

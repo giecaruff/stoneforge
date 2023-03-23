@@ -10,8 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from autosklearn.classification import AutoSklearnClassifier
-
+from sklearn.preprocessing import StandardScaler
 
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
@@ -110,4 +109,6 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
     #if method == "AutoML":
         #fun = _predict_methods[method]
 
-    return fun(x, path, **kwargs)
+    x_norm = StandardScaler().fit_transform(x)
+
+    return fun(x_norm, path, **kwargs)
