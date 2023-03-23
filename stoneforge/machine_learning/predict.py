@@ -60,11 +60,19 @@ def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return xg.predict(x,**kwargs)
 
-def aautoml(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    auto = pickle.load(open(path+"\\automl_fit_property.pkl", 'rb'))
+    xg = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
-    return auto.predict(x,**kwargs)
+    return cb.predict(x,**kwargs)
+
+#def aautoml(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+
+    #auto = pickle.load(open(path+"\\automl_fit_property.pkl", 'rb'))
+    
+    #return auto.predict(x,**kwargs)
+
+
 
 
 
@@ -76,7 +84,8 @@ _predict_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'AutomlClassifier': automl 
+    'CatBoost': catboost
+    #'AutomlClassifier': automl 
     }
 
 
@@ -96,7 +105,9 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
         fun= _predict_methods[method]
     if method == "XGBClassifier":
         fun= _predict_methods[method]
-    if method == "AutoML":
-        fun = _predict_methods[method]
+    if method == "CatBoost":
+        fun= _predict_methods[method]
+    #if method == "AutoML":
+        #fun = _predict_methods[method]
 
     return fun(x, path, **kwargs)

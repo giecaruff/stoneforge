@@ -116,20 +116,35 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
     saves(xg, path+"\\xgboost_fit_property")
 
+#CatBoost
 
-#AutoML
+def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-def automl(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
-
-    f = open(path + '\\automl_settings.json')
+    f = open(path + '\\catboost_settings.json')
 
     settings = json.load(f)
 
-    xg = AutomlClassifier(**settings)
+    cb = CatBoostClassifier(**settings)
 
-    xg.fit(X, y, **kwargs)
+    cb.fit(X, y, **kwargs)
 
-    saves(xg, path+"\\automl_fit_property")
+    saves(cb, path+"\\catboost_fit_property")
+
+
+
+#AutoML
+
+#def automl(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+
+    #f = open(path + '\\automl_settings.json')
+
+    #settings = json.load(f)
+
+    #xg = AutomlClassifier(**settings)
+
+    #xg.fit(X, y, **kwargs)
+
+    #saves(xg, path+"\\automl_fit_property")
 
 
 
@@ -141,7 +156,8 @@ _fit_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'AutomlClassifier': automl 
+    'CatBoost': catboost
+    #'AutomlClassifier': automl 
     }
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
@@ -161,9 +177,10 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         fun = _fit_methods[method]
     if method == "XGBClassifier":
         fun = _fit_methods[method]
-    if method == "AutoML":
+    if method == "CatBoost":
         fun = _fit_methods[method]
-    
+    #if method == "AutoML":
+        #fun = _fit_methods[method]
     
         
     fun(X, y, path, **kwargs)
