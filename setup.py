@@ -27,7 +27,8 @@ setup(
         "scikit-learn==0.23.2",
         "xgboost==1.4.0",
         "catboost==1.0.6",
-        "lightgbm==3.3.2"
+        "lightgbm==3.3.2",
+        "auto-sklearn==0.12.5"
         
         #"matplotlib", ### TO REMOVE BEFORE MERGE!
         #"pandas", ### TO REMOVE BEFORE MERGE!

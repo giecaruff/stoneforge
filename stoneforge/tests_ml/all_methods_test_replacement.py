@@ -63,6 +63,7 @@ project.well_data['test']['mnemonics'] = mnem
 
 project.shape_check(mnemonics_replacement)
 
+
 # %%
 
 tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
@@ -88,6 +89,7 @@ data_replacement.settings(method = "linear_regression", path='_ml_project', degr
 #machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
 #machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
 #machine_learning.settings(method = "XGBClassifier", path='_ml_project')
+
 
 # %%
 

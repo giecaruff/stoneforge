@@ -31,7 +31,7 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> 
     saves(naive, path+"\\gaussian_naive_bayes_fit_property")
 
 
-#Arvore de decisões 
+#Decision Tree 
 def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
     f = open(path + '\\decision_tree_classifier_settings.json')
@@ -45,7 +45,7 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs)
     saves(d_treec, path+"\\decision_tree_classifier_fit_property")
 
 
-#Maquina de Vetores de Suporte
+#Support Machine Vector
 def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
     f = open(path + '\\support_vector_machine_settings.json')
@@ -59,7 +59,7 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -
     saves(svm, path+"\\support_vector_machine_fit_property")
 
 
-#Regressão Logistica
+#Logistic Regression
 def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
     f = open(path + '\\logistic_regression_settings.json')
@@ -72,7 +72,7 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
     saves(logistic, path+"\\logistic_regression_fit_property")
 
-#APRENDIZAGEM BASEADA EM INSTÂNCIAS 
+# K-nearest Neighbors
 
 def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
@@ -86,7 +86,7 @@ def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
     saves(knn, path+"\\k_nearest_neighbors_fit_property")
 
-#Arvore Aleatoria
+#Random Forest
 
 def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 

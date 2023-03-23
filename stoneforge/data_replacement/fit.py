@@ -45,8 +45,8 @@ def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kw
 
 
 
-
-def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+#Suporte Vector 
+def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\support_vector_settings.json')
 
@@ -60,7 +60,8 @@ def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
 
 
 
-def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+#Decison Tree
+def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\decision_tree_settings.json')
 
@@ -73,7 +74,10 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs
     saves(decisontree, path+"\\decision_tree_fit_property")
 
 
-def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+
+
+#Random Florest
+def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\random_florest_settings.json')
 
@@ -86,7 +90,10 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
     saves(random, path+"\\random_florest_fit_property")
 
 
-def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+
+
+#XgBoost
+def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\xgboost_settings.json')
 
@@ -99,7 +106,11 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs)
     saves(xgboost, path+"\\xgboost_fit_property") 
 
 
-def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+
+
+
+#LightGBM
+def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\lightgbm_florest_settings.json')
 
@@ -113,7 +124,9 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs)
 
 
 
-def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) 
+
+#CatBoost
+def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
 
     f = open(path + '\\catboost_florest_settings.json')
 
@@ -124,6 +137,10 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs)
     cat.fit(X, y, **kwargs)
     
     saves(cat, path+"\\catboost_florest_fit_property")
+
+
+
+
 
 
 _fit_methods = {
@@ -137,11 +154,14 @@ _fit_methods = {
     }
 
 
+
+
+
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
 
     if method == "linear_regression":
         fun = _fit_methods[method]
-       fun = _fit_methods[method]
+        fun = _fit_methods[method]
     if method == "support_vector":
         fun = _fit_methods[method]
     if method == "decisoon_tree":
