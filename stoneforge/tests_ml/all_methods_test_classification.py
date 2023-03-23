@@ -24,7 +24,8 @@ else:
 
 # %%
 
-project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+project = preprocessing.project("D:\\appy_projetos\\wells")
+#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -106,14 +107,13 @@ machine_learning.settings(method = "XGBClassifier", path='_ml_project')
 # %%
 
 a = preprocessing.predict_processing(vw_data,'data')
-x_r= a.matrix_values()
+x_r = a.matrix_values()
 
 y_vdb = {}
 x_db = {}
 for i in x_r:
     y_vdb[i] = x_r[i][:,-1]
     x_db[i] = np.delete(x_r[i],(-1), axis=1)
-
 
 # %%
 
@@ -131,14 +131,15 @@ class_db = {}
 
 for x in x_db:
     class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
 
 a.return_curve(class_db)
+
 
 
 # %%
@@ -149,5 +150,28 @@ machine_learning.fit(X,y,method = "GaussianNB")
 for x in x_db:
     class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB")
     
+
+# %%
+
+print(y,len(y))
+
+# %%
+
+class_db['7-MP-50D-BA']
+
+# %%
+
+aa = a.return_curve(class_db)
+
+print(class_db['7-MP-22-BA'],len(class_db['7-MP-22-BA']))
+print(y_vdb['7-MP-22-BA'],len(y_vdb['7-MP-22-BA']))
+# %%
+
+a = 0
+for i in range(len(class_db['7-MP-22-BA'])):
+    if class_db['7-MP-22-BA'][i] == y_vdb['7-MP-22-BA'][i]:
+        a += 1
+
+print(a)
 
 # %%
