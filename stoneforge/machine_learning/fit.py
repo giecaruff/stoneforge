@@ -11,6 +11,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from autosklearn.classification import AutoSklearnClassifier
+
 
 def saves(file, name):
     with open(name + ".pkl", "wb") as write_file:
@@ -115,6 +117,21 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
     saves(xg, path+"\\xgboost_fit_property")
 
 
+#AutoML
+
+def automl(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+
+    f = open(path + '\\automl_settings.json')
+
+    settings = json.load(f)
+
+    xg = AutomlClassifier(**settings)
+
+    xg.fit(X, y, **kwargs)
+
+    saves(xg, path+"\\automl_fit_property")
+
+
 
 _fit_methods = {
     "GaussianNB": gaussian_naive_bayes,
@@ -123,7 +140,8 @@ _fit_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost
+    'XGBClassifier': xgboost,
+    'AutomlClassifier': automl 
     }
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
@@ -142,6 +160,8 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
     if method == "RandomForestClassifier":
         fun = _fit_methods[method]
     if method == "XGBClassifier":
+        fun = _fit_methods[method]
+    if method == "AutoML":
         fun = _fit_methods[method]
     
     

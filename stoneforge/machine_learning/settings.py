@@ -30,3 +30,6 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
 
     if method == "XGBClassifier":
         saves(kwargs, path+'\\xgboost_settings')
+    
+    if method == "AutoML":
+        saves(kwargs, path+'\\automl_settings')

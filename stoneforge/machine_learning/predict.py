@@ -10,6 +10,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from autosklearn.classification import AutoSklearnClassifier
+
 
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
@@ -58,6 +60,12 @@ def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return xg.predict(x,**kwargs)
 
+def aautoml(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+
+    auto = pickle.load(open(path+"\\automl_fit_property.pkl", 'rb'))
+    
+    return auto.predict(x,**kwargs)
+
 
 
 _predict_methods = {
@@ -67,7 +75,8 @@ _predict_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost
+    'XGBClassifier': xgboost,
+    'AutomlClassifier': automl 
     }
 
 
@@ -87,5 +96,7 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
         fun= _predict_methods[method]
     if method == "XGBClassifier":
         fun= _predict_methods[method]
+    if method == "AutoML":
+        fun = _predict_methods[method]
 
     return fun(x, path, **kwargs)
