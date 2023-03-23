@@ -28,7 +28,7 @@ setup(
         "xgboost==1.4.0",
         "catboost==1.0.6",
         "lightgbm==3.3.2",
-        "catboost==0.26.1"
+        #"catboost==0.26.1"
         #"auto-sklearn==0.12.5"
         
         #"matplotlib", ### TO REMOVE BEFORE MERGE!
