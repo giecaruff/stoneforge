@@ -66,7 +66,7 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, r
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(svm, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\support_vector_machine_settings', result)
 
 #LogisticRegression
 def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -82,7 +82,8 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, rand
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(logistic, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\logistic_regression_settings', result)
+
 
 #KNeighborsClassifier
 def  k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -98,7 +99,7 @@ def  k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(knn, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\k_nearest_neighbors_settings', result)
 
 #RandomForestClassifier
 def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -114,7 +115,7 @@ def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_s
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(random, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\\random_florest_settings', result)
 
 #XGBClassifier
 def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -130,7 +131,8 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(xgboost, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\\xgboost_settings', result)
+
 
 #XGBClassifier
 def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -146,7 +148,7 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(cat, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\\catboost_settings', result)
 
 
 
