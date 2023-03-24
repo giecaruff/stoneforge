@@ -112,9 +112,6 @@ for x in x_v:
 print("lithology for classified 7-MP-22-BA well",class_db['7-MP-22-BA'],len(class_db['7-MP-22-BA']))
 print("lithology for original 7-MP-22-BA well",y_v['7-MP-22-BA'],len(y_v['7-MP-22-BA']))
 
-
-# %%
-
 # %%
 
 print(class_db['7-MP-22-BA'],len(class_db['7-MP-22-BA']))

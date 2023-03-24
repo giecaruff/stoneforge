@@ -31,13 +31,11 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     settings = json.load(f)
 
     naive = GaussianNB(**settings)
-    #x_treino, x_teste, y_treino, y_teste = train_test_split(X, y, test_size = test_size, random_state = random_state)
-    #sklearn.metrics.confusion_matrix( y_treino, y_teste, *, labels=None, sample_weight=None, normalize=None)
 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(naive, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\gaussian_naive_bayes_settings', result)
 
 
 #Decision Tree Classifier
@@ -48,13 +46,11 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits,
     settings = json.load(f)
 
     tree = DecisionTreeClassifier(**settings)
-    #x_treino, x_teste, y_treino, y_teste = train_test_split(X, y, test_size = test_size, random_state = random_state)
-    #sklearn.metrics.confusion_matrix( y_treino, y_teste, *, labels=None, sample_weight=None, normalize=None)
 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(tree, X, y, cv = kfold)
-    print(result)
+    np.save(path + '\\decision_tree_classifier_settings', result)
 
 #svm
 def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
