@@ -4,11 +4,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import json
+import pickle
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import StandardScaler
+
 from . import fit
-from sklearn.preprocessing import StandardScaler
 
 
 #Naive Bayes
@@ -25,7 +25,9 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(naive, X, y, cv = kfold)
-    print(result)
+
+    np.save(path + '\\gaussian_naive_bayes_settings.json', result)
+
 
 
 _fit_methods = {

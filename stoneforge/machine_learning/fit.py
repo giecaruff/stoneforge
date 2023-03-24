@@ -14,6 +14,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
 
 
 
@@ -165,6 +166,7 @@ _fit_methods = {
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
+    le = LabelEncoder()
 
     if method == "GaussianNB":
         fun = _fit_methods[method]
@@ -186,6 +188,6 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         #fun = _fit_methods[method]
 
     X_norm = StandardScaler().fit_transform(X)
-
+    y_encoded = le.fit_transform(y)
         
-    fun(X_norm, y, path, **kwargs)
+    fun(X_norm, y_encoded, path, **kwargs)

@@ -72,6 +72,7 @@ tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA
 mega_data = preprocessing.data_assemble(tw_data,'data')
 print(np.shape(mega_data))
 
+
 # %%
 
 print(ref_mnemonics)
@@ -89,10 +90,25 @@ print(np.shape(mega_data))
 
 # %%
 
+from sklearn.preprocessing import LabelEncoder
+
 y = mega_data[:,-1]
 X = np.delete(mega_data,(-1), axis=1)
 #X = np.array(X, dtype='float')
 #y = np.array(y, dtype='int')
+
+y1 = [49., 25., 54., 57., 49.]
+y2 = [25., 54., 57., 49.]
+y3 = [25., 57., 49.]
+
+tr3 = [0, 3, 1]
+#tr3 = [0, 2, 1]
+
+le = LabelEncoder()
+print(le.fit_transform(y1))
+print(le.fit_transform(y2))
+print(le.fit_transform(y3))
+print(le.fit_transform(tr3))
 
 # %%
 

@@ -1,10 +1,16 @@
 import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_recall_fscore_support
 import pickle
+from sklearn.preprocessing import LabelEncoder
 
 def saves(file, name):
     with open(name + ".pkl", "wb") as write_file:
         pickle.dump(file, write_file)
+
+def encoded(y):
+
+    le = LabelEncoder()
+    return le.fit_transform(y)
 
 def evaluation(y_m, y, path):
 

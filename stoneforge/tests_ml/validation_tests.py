@@ -1,4 +1,5 @@
 # %%
+### Validation tests for ml methods
 
 import numpy as np
 import sys
@@ -24,16 +25,18 @@ else:
 
 
 # %%
+### Importing well data
 
 project = preprocessing.project("D:\\appy_projetos\\wells")
 #project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
-print(project.well_names_paths)
+print("project data paths:",project.well_names_paths)
 
 
 #%%
+### Setting mnemonics for machine learning (choosing mnemonics and replace similar ones)
 
 mnemonics_replacement = {
     'DEPTH':['DEPTH'],
@@ -47,35 +50,22 @@ mnemonics_replacement = {
 
 ref_mnemonics = list(mnemonics_replacement.keys())
 
+print("mnemonics of reference",ref_mnemonics)
+
 project.data_replacement(mnemonics_replacement)
 project.convert_into_matrix(ref_mnemonics)
 
 # %%
-
-b = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
-print(b,np.shape(b))
-
-mnem = ['DEPTH', 'GR', 'CAL', 'RES', 'RHOB']
-unit = ['M', 'gAPI', 'in', 'ohm.m', 'g/cm3']
-
-project.well_data['test'] = {}
-
-project.well_data['test']['data'] = b
-project.well_data['test']['units'] = unit
-project.well_data['test']['mnemonics'] = mnem
-
-project.shape_check(mnemonics_replacement)
-
-# %%
+### Spliting data (by wells) into training (tw_data) and validation (vw_data)
+### also incorporating all the training data into a single matrix
 
 tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
 
 mega_data = preprocessing.data_assemble(tw_data,'data')
-print(np.shape(mega_data))
+print("training matrix shape:",np.shape(mega_data))
 
 # %%
-
-print(ref_mnemonics)
+### Removing dummies from data
 
 def _remove_dummies(data):
     data_1 = np.array(data).T
@@ -85,39 +75,58 @@ def _remove_dummies(data):
 
 mega_data = _remove_dummies(mega_data)
 
-print(np.shape(mega_data))
-#print(vw_data['7-MP-22-BA']['data'])
+print("training matrix shape (without dummies):",np.shape(mega_data))
 
 # %%
+### Selecting lithology (target) and well log data (forecasters) for training
 
 y = mega_data[:,-1]
 X = np.delete(mega_data,(-1), axis=1)
-#X = np.array(X, dtype='float')
-#y = np.array(y, dtype='int')
+
 # %%
+### preprocessing data for training
 
-a = preprocessing.predict_processing(vw_data,'data')
-x_r= a.matrix_values()
+data_processing = preprocessing.predict_processing(vw_data,'data')
+xy_raw = data_processing.matrix_values()
 
-y_vdb = {}
-x_db = {}
-for i in x_r:
-    y_vdb[i] = x_r[i][:,-1]
-    x_db[i] = np.delete(x_r[i],(-1), axis=1)
+y_v = {} # target data for validation
+x_v = {} # forecasters data for validation
+for well in xy_raw:
+    y_v[well] = xy_raw[well][:,-1]
+    x_v[well] = np.delete(xy_raw[well],(-1), axis=1)
+
+# %%
+###  Validation, training of data and classification
 
 machine_learning.validation(X, y, random_state = 2,n_splits = 10, path = "_ml_project")
 machine_learning.settings(method = "GaussianNB", path='_ml_project')
 machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+
 class_db = {}
-
-for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
-# %%
-y_m = class_db['7-MP-50D-BA']
+for x in x_v:
+    class_db[x] = machine_learning.predict(x_v[x], method = "GaussianNB", path = "_ml_project")
 
 # %%
-print(y_m, len(y_m))
-print(y, len(y))
+### Method evaluation after classification
+
+print("lithology for classified 7-MP-22-BA well",class_db['7-MP-22-BA'],len(class_db['7-MP-22-BA']))
+print("lithology for original 7-MP-22-BA well",y_v['7-MP-22-BA'],len(y_v['7-MP-22-BA']))
+
+
+# %%
+
+# %%
+
+print(class_db['7-MP-22-BA'],len(class_db['7-MP-22-BA']))
+print(y_v['7-MP-22-BA'],len(y_v['7-MP-22-BA']))
+# %%
+
+a = 0
+for i in range(len(class_db['7-MP-22-BA'])):
+    if class_db['7-MP-22-BA'][i] == y_v['7-MP-22-BA'][i]:
+        a += 1
+
+print(a)
 
 
 machine_learning.evaluation(y,y,"_ml_project")
