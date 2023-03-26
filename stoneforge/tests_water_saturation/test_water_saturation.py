@@ -23,33 +23,32 @@ def test_archie(rw, rt, phi, a, m, n):
     assert any(ws >= 0) and any(ws <= 1)
 
 # -------------------------------------------------------------------------------------------------------------- #
-"""
-simandoux_values = Parameters.sorted_values(Parameters.config_simandoux)
+
+simandoux_values = parameters_ws.Parameters.sorted_values(parameters_ws.Parameters.config_simandoux)
 
 @pytest.mark.parametrize(simandoux_values[1], simandoux_values[0])
 def test_simandoux(rw, rt, phi, a, m, n, vsh, rsh):
     ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
                         m = m, n = n, vsh = vsh, rsh = rsh, method = "simandoux")
-    assert ws >= 0 and ws <= 1
+    assert any(ws >= 0) and any(ws <= 1)
 
 # -------------------------------------------------------------------------------------------------------------- #
 
-indonesia_values = Parameters.sorted_values(Parameters.config_indonesia)
+indonesia_values = parameters_ws.Parameters.sorted_values(parameters_ws.Parameters.config_indonesia)
 
 @pytest.mark.parametrize(indonesia_values[1], indonesia_values[0])
 def test_indonesia(rw, rt, phi, a, m, n, vsh, rsh):
     ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
                         m = m, n = n, vsh = vsh, rsh = rsh, method = "indonesia")
-    assert ws >= 0 and ws <= 1
+    assert any(ws >= 0) and any(ws <= 1)
 
 # -------------------------------------------------------------------------------------------------------------- #
 
-fertl_values = Parameters.sorted_values(Parameters.config_fertl)
+fertl_values = parameters_ws.Parameters.sorted_values(parameters_ws.Parameters.config_fertl)
 
 @pytest.mark.parametrize(fertl_values[1], fertl_values[0])
 def test_fertl(rw, rt, phi, a, m, alpha, vsh):
     ws = water_saturation(rw = rw, rt = rt, phi = phi, a = a,
                         m = m, alpha = alpha, vsh = vsh, method = "fertl")
-    assert ws >= 0 and ws <= 1
+    assert any(ws >= 0) and any(ws <= 1)
 
-"""
