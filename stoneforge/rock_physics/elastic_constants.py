@@ -108,7 +108,7 @@ def shear_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike):
     Cambridge University Press.
 
     """
-    VS = (rhob / u)**0.5
+    VS = (u / rhob)**0.5
 
     return VS
 

@@ -2,6 +2,13 @@ import numpy as np
 import numpy.typing as npt
 import warnings
 
+def check_saturation_range(sw: np.darray):
+    if np.any(sw > 1):
+        warnings.warn(UserWarning("Water saturation must be a value between 0 and 1."))
+    elif np.any(sw < 0):
+        warnings.warn(UserWarning("Water saturation must be a positive value."))
+    
+
 
 def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
            m: float, n: float) -> np.ndarray:
@@ -9,17 +16,17 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     Parameters
     ----------
-    rw : int, float
+    rw : float
         Water resistivity.  
     rt : array_like
         Formation resistivity.    
     phi : array_like
         Porosity.   
-    a : int, float
+    a : float
         Tortuosity factor.
-    m : int, float
+    m : float
         Cementation exponent.
-    n : int, float
+    n : float
         Saturation exponent.
 
     Returns
@@ -33,20 +40,10 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
-        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
+    sw = ((a * rw) / (phi ** m * rt)) ** (1/n)
+    check_saturation_range(sw)
 
-        return ((a*rw) / (phi**m * rt))**(1/n)
 
-    elif any(((a*rw) / (phi**m * rt))**(1/n) < 0):
-        warnings.warn(UserWarning("saturation of water must be a positive value "))
-
-        return ((a*rw) / (phi**m * rt))**(1/n)
-
-    else:
-        sw = ((a*rw) / (phi**m * rt))**(1/n)
-
-        return sw
 
 
 def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
@@ -89,6 +86,8 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     D = C * vsh / (2*rsh)
     E = C / rt
     sw = ((D**2 + E)**0.5 - D)**(2/n)
+    check_saturation_range(sw)
+
 
     return sw
 
@@ -129,6 +128,9 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     """
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
+    check_saturation_range(sw)
+
+    
 
     return sw
 
@@ -166,6 +168,8 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
+    check_saturation_range(sw)
+
 
     return sw
 
