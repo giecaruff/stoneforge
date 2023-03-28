@@ -2,7 +2,7 @@ import numpy as np
 import numpy.typing as npt
 import warnings
 
-def check_saturation_range(sw: np.darray):
+def check_saturation_range(sw: np.ndarray):
     if np.any(sw > 1):
         warnings.warn(UserWarning("Water saturation must be a value between 0 and 1."))
     elif np.any(sw < 0):
