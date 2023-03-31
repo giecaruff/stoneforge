@@ -151,7 +151,7 @@ def compressional_wave_velocity(method: str, **kwargs):
             if arg not in kwargs:
                 msg = f"Missing required argument for method '{method}': '{arg}'"
                 raise TypeError(msg)
-        VP = (kwargs["m"]/kwargs["rhob"])
+        VP = (kwargs["m"]/kwargs["rhob"])**0.5
         return VP
 
 
