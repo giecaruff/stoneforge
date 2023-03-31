@@ -24,8 +24,8 @@ else:
 
 # %%
 
-project = preprocessing.project("D:\\appy_projetos\\wells")
-#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+#project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -147,7 +147,7 @@ class_db = {}
 
 for x in x_db:
     class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
     #class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
     #class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
     #class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")

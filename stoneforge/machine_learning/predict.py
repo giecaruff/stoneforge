@@ -11,7 +11,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.preprocessing import StandardScaler
-
+from catboost import CatBoostClassifier
+from sklearn.preprocessing import LabelEncoder
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
@@ -109,6 +110,14 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
     #if method == "AutoML":
         #fun = _predict_methods[method]
 
-    x_norm = StandardScaler().fit_transform(x)
+    #x_norm = StandardScaler().fit_transform(x)
 
-    return fun(x_norm, path, **kwargs)
+    scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
+    le = pickle.load(open(path+"\\LabelEncoded.pkl", 'rb'))
+    #scaler.fit(x)
+
+    x_norm = scaler.transform(x)
+    y = fun(x_norm, path, **kwargs)
+    y_decoded = le.inverse_transform(y)
+
+    return y_decoded

@@ -115,7 +115,7 @@ def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_s
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(random, X, y, cv = kfold)
-    np.save(path + '\\\random_florest_settings', result)
+    np.save(path + '\\random_florest_settings', result)
 
 #XGBClassifier
 def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -131,7 +131,7 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(xgboost, X, y, cv = kfold)
-    np.save(path + '\\\xgboost_settings', result)
+    np.save(path + '\\xgboost_settings', result)
 
 
 #XGBClassifier
@@ -148,7 +148,7 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(cat, X, y, cv = kfold)
-    np.save(path + '\\\catboost_settings', result)
+    np.save(path + '\\catboost_settings', result)
 
 
 

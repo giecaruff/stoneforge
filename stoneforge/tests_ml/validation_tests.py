@@ -27,8 +27,8 @@ else:
 # %%
 ### Importing well data
 
-project = preprocessing.project("D:\\appy_projetos\\wells")
-#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+#project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 

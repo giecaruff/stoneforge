@@ -167,7 +167,7 @@ _fit_methods = {
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
-    le = LabelEncoder()
+    
 
     if method == "GaussianNB":
         fun = _fit_methods[method]
@@ -188,7 +188,16 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
     #if method == "AutoML":
         #fun = _fit_methods[method]
 
-    X_norm = StandardScaler().fit_transform(X)
-    y_encoded = le.fit_transform(y)
+    scaler = StandardScaler()
+    scaler.fit(X)
+    X_norm = scaler.transform(X)
+    saves(scaler, path+"\\scaler")
+
+    # TODO: repass to preprocessing due to the sobreposition of processes
+    
+    le = LabelEncoder()
+    le.fit(y)
+    y_encoded = le.transform(y)
+    saves(le, path+"\\LabelEncoded")
         
     fun(X_norm, y_encoded, path, **kwargs)
