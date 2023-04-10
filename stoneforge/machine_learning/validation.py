@@ -161,7 +161,7 @@ _fit_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'CatBoost': catboost
+    'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
 
@@ -183,7 +183,7 @@ def validation(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", 
         fun = _fit_methods[method]
     if method == "XGBClassifier":
         fun = _fit_methods[method]
-    if method == "CatBoost":
+    if method == "CatBoostClassifier":
         fun = _fit_methods[method]
     #if method == "AutoML":
         #fun = _fit_methods[method]

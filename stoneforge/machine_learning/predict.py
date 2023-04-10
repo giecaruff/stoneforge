@@ -62,7 +62,7 @@ def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
 def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    xg = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
+    cb = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
     return cb.predict(x,**kwargs)
 
@@ -84,7 +84,7 @@ _predict_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'CatBoost': catboost
+    'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
 
@@ -105,7 +105,7 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
         fun= _predict_methods[method]
     if method == "XGBClassifier":
         fun= _predict_methods[method]
-    if method == "CatBoost":
+    if method == "CatBoostClassifier":
         fun= _predict_methods[method]
     #if method == "AutoML":
         #fun = _predict_methods[method]

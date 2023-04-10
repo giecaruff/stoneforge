@@ -3,7 +3,7 @@
 import numpy as np
 import sys
 import os
-import pandas
+import pandas 
 
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -110,6 +110,7 @@ print(le.fit_transform(y2))
 print(le.fit_transform(y3))
 print(le.fit_transform(tr3))
 
+
 # %%
 
 machine_learning.settings(method = "GaussianNB", path='_ml_project')
@@ -134,12 +135,14 @@ for i in x_r:
 # %%
 
 machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
-machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
+machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
 machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
 machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-machine_learning.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
-machine_learning.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
-machine_learning.fit(X,y,method = "XGBClassifier", path = "_ml_project")
+machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
+machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
+machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
+machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_project")
+
 
 # %%
 
@@ -148,11 +151,13 @@ class_db = {}
 for x in x_db:
     class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
     class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
-    #class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
+    class_db[x] = machine_learning.predict(x_db[x], method = "CatBoostClassifier", path = "_ml_project")
+
 
 a.return_curve(class_db)
 
