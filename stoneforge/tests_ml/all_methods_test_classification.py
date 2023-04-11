@@ -24,8 +24,8 @@ else:
 
 # %%
 
-#project = preprocessing.project("D:\\appy_projetos\\wells")
-project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+project = preprocessing.project("D:\\appy_projetos\\wells")
+#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -120,6 +120,7 @@ machine_learning.settings(method = "LogisticRegression", path='_ml_project')
 machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
 machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
 machine_learning.settings(method = "XGBClassifier", path='_ml_project')
+machine_learning.settings(method = "CatBoostClassifier", path='_ml_project')
 
 # %%
 
@@ -134,14 +135,16 @@ for i in x_r:
 
 # %%
 
-machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
-machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
-machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+#machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
+#machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
+#machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
+
 machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "CatBoostClassifier", path = "_ml_project")
 
 
 # %%
@@ -165,11 +168,11 @@ a.return_curve(class_db)
 
 # %%
 
-machine_learning.settings(method = "GaussianNB")
-machine_learning.fit(X,y,method = "GaussianNB")
+machine_learning.settings(method = "CatBoostClassifier")
+machine_learning.fit(X,y,method = "CatBoostClassifier")
 
 for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB")
+    class_db[x] = machine_learning.predict(x_db[x], method = "CatBoostClassifier")
     
 
 # %%

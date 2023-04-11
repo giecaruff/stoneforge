@@ -168,9 +168,8 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.n
 def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
     if gs:
-        parameters =  {'n_estimators': [100],
-        'learning_rate': [0.5],
-        'subsample': [0.5,0.7,1.0],
+        parameters =  {'n_estimators': [100,150,200],
+        'learning_rate': [0.3,0.5,0.7],
         'max_depth':[5,10,15,30,50,70,100]}
 
         cat = CatBoostClassifier()
@@ -188,8 +187,6 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.
     cb.fit(X, y, **kwargs)
 
     saves(cb, path+"\\catboost_fit_property")
-
-
 
 #AutoML
 
