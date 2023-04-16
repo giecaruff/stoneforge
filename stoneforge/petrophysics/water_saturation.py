@@ -40,8 +40,9 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    sw = ((a * rw) / (phi ** m * rt)) ** (1/n)
+    sw = ((a * rw) / ((phi ** m) * rt)) ** (1/n)
     check_saturation_range(sw)
+    return sw
 
 
 
