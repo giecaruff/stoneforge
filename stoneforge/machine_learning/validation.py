@@ -134,7 +134,7 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     np.save(path + '\\xgboost_settings', result)
 
 
-#XGBClassifier
+#catboost
 def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
 
     f = open(path + '\\catboost_settings.json')
@@ -149,8 +149,6 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
 
     result = cross_val_score(cat, X, y, cv = kfold)
     np.save(path + '\\catboost_settings', result)
-
-
 
 
 _fit_methods = {

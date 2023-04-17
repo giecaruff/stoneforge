@@ -140,6 +140,8 @@ class project():
         for i in self.well_data:
             if np.shape(self.well_data[i]['data'])[0] == value:
                 well_data[i] = self.well_data[i]
+            else:
+                print("well: '{}'".format(i),"because it has less logs")
 
         self.well_data = well_data
 
