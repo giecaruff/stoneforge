@@ -41,7 +41,9 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     """
     sw = ((a * rw) / (phi ** m * rt)) ** (1/n)
+    print('larger than 1 values', np.sum(sw > 1))
     check_saturation_range(sw)
+    return sw
 
 
 
