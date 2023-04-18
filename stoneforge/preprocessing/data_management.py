@@ -127,6 +127,24 @@ class project():
 
     # ============================================ #
 
+    def class_counts(self,class_value,seed = 99):
+
+        np.random.seed(seed)
+
+        n_class = list(set(class_value))
+        class_count = {}
+        for c in n_class:
+            class_count[c] = {}
+            class_count[c]['name'] = c
+            class_count[c]['color'] = str(tuple(np.random.choice(range(256), size=3)))
+            counts = 0
+            for i in class_value:
+                if i == c:
+                    counts += 1
+            class_count[c]['value'] = counts
+
+        return class_count
+
     def shape_check(self,ref):
         """
          If an well has less mnemonics than the others,
