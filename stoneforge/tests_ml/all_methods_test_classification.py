@@ -119,42 +119,7 @@ for i in lito_values:
 
 # %%
 
-def class_counts(class_value,class_dict = False,seed = 99):
-
-        np.random.seed(seed)
-
-        n_class = list(set(class_value))
-        class_count = {}
-        for c in n_class:
-            name = c
-            r = lambda: np.random.randint(0,255)
-            color = '#%02X%02X%02X' % (r(),r(),r())
-            class_count[c] = {}
-            if class_dict:
-                substitution_dict = 0
-                for i in lito_values:
-                    if i["code"] == c:
-                        substitution_dict = i
-                        name = substitution_dict['name']
-                        color = substitution_dict['patch_property']['color']
-                class_count[c]['name'] = name
-                class_count[c]['color'] = color
-            else:
-                class_count[c]['name'] = name
-                class_count[c]['color'] = color
-            counts = 0
-            for i in class_value:
-                if i == c:
-                    counts += 1
-            class_count[c]['value'] = counts
-
-        return class_count
-
-print(class_counts(y,class_dict = lito_values))
-
-# %%
-
-project.class_counts(y)
+print(project.class_counts(y,class_dict = lito_values))
 
 # %%
 

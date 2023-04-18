@@ -127,21 +127,36 @@ class project():
 
     # ============================================ #
 
-    def class_counts(self,class_value,seed = 99):
+    def class_counts(self,class_value,class_dict = False,seed = 99):
 
         np.random.seed(seed)
 
         n_class = list(set(class_value))
-        class_count = {}
+        class_count = []
         for c in n_class:
-            class_count[c] = {}
-            class_count[c]['name'] = c
-            class_count[c]['color'] = str(tuple(np.random.choice(range(256), size=3)))
+            name = c
+            r = lambda: np.random.randint(0,255)
+            color = '#%02X%02X%02X' % (r(),r(),r())
+            values_dictionary = {}
+            values_dictionary['value'] = c
+            if class_dict:
+                substitution_dict = 0
+                for i in class_dict:
+                    if i["code"] == c:
+                        substitution_dict = i
+                        name = substitution_dict['name']
+                        color = substitution_dict['patch_property']['color']
+                values_dictionary['name'] = name
+                values_dictionary['color'] = color
+            else:
+                values_dictionary['name'] = name
+                values_dictionary['color'] = color
             counts = 0
             for i in class_value:
                 if i == c:
                     counts += 1
-            class_count[c]['value'] = counts
+            values_dictionary['count'] = counts
+            class_count.append(values_dictionary)
 
         return class_count
 
