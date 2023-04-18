@@ -49,6 +49,7 @@ ref_mnemonics = list(mnemonics_replacement.keys())
 project.data_replacement(mnemonics_replacement)
 project.convert_into_matrix(ref_mnemonics)
 
+#Histograma
 # %%
 
 b = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
@@ -71,7 +72,7 @@ tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA
 
 mega_data = preprocessing.data_assemble(tw_data,'data')
 print(np.shape(mega_data))
-
+#Tamanho teste x treino 
 
 # %%
 
@@ -89,7 +90,7 @@ print(np.shape(mega_data))
 #print(vw_data['7-MP-22-BA']['data'])
 
 # %%
-
+#Opção se vai querer ou não fazer a redimensionamento do dado
 from sklearn.preprocessing import LabelEncoder
 
 y = mega_data[:,-1]
@@ -112,15 +113,15 @@ print(le.fit_transform(tr3))
 
 
 # %%
-
+#Aqui o usuario precisa escolher 1. se ele vai querer utilizar a pseuda automatização
 machine_learning.settings(method = "GaussianNB", path='_ml_project')
-machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project')
-machine_learning.settings(method = "SVM", path='_ml_project')
-machine_learning.settings(method = "LogisticRegression", path='_ml_project')
-machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
-machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
-machine_learning.settings(method = "XGBClassifier", path='_ml_project')
-machine_learning.settings(method = "CatBoostClassifier", path='_ml_project')
+machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project',max_depth = 3, criterion = 'gini')
+#machine_learning.settings(method = "SVM", path='_ml_project')
+#machine_learning.settings(method = "LogisticRegression", path='_ml_project')
+#machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
+#machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
+#machine_learning.settings(method = "XGBClassifier", path='_ml_project')
+#machine_learning.settings(method = "CatBoostClassifier", path='_ml_project')
 
 
 # %%
@@ -136,14 +137,14 @@ for i in x_r:
 
 # %%
 
-machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
-machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
-machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
-machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
+#machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
+#machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
+#machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
+#machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_project")
 
 
 # %%
@@ -151,14 +152,14 @@ machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_pr
 class_db = {}
 
 for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
     class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "CatBoostClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
+    #class_db[x] = machine_learning.predict(x_db[x], method = "CatBoostClassifier", path = "_ml_project")
 
 
 a.return_curve(class_db)

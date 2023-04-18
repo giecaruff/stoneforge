@@ -3,6 +3,17 @@ import numpy.typing as npt
 import json
 import warnings
 
+ML_METHODS = [
+    "GaussianNB",
+    "DecisionTreeClassifier",
+    "SVM",
+    "LogisticRegression",
+    "KNeighborsClassifier",
+    "RandomForestClassifier",
+    'XGBClassifier',
+    'CatBoostClassifier'
+]
+
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
