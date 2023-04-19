@@ -44,6 +44,8 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
 
     if method == "CatBoostClassifier":
         saves(kwargs, path+'\\catboost_settings')
+
+    saves(ML_METHODS, path+'\\all_methods')
     
     #if method == "AutoML":
         #saves(kwargs, path+'\\automl_settings')

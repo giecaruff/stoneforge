@@ -117,8 +117,6 @@ lito_values = [{
 for i in lito_values:
     print(i["code"])
 
-# %%
-
 print(project.class_counts(y,class_dict = lito_values))
 
 # %%
@@ -146,8 +144,6 @@ for well in xy_raw:
 # %%
 for w in tw_data:
     print(w)
-
-# %%
 
 machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
 #machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
