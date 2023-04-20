@@ -31,7 +31,7 @@ project.import_several_wells()
 
 print(project.well_names_paths)
 
-
+#Na proxima janela tem que aparecer o histograma
 #%%
 
 mnemonics_replacement = {
@@ -67,12 +67,12 @@ project.well_data['test']['mnemonics'] = mnem
 project.shape_check(mnemonics_replacement)
 
 # %%
+#Tamanho teste x treino 
 
 tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
 
 mega_data = preprocessing.data_assemble(tw_data,'data')
 print(np.shape(mega_data))
-#Tamanho teste x treino 
 
 # %%
 
@@ -91,6 +91,7 @@ print(np.shape(mega_data))
 
 # %%
 #Opção se vai querer ou não fazer a redimensionamento do dado
+
 from sklearn.preprocessing import LabelEncoder
 
 y = mega_data[:,-1]
@@ -113,14 +114,14 @@ print(le.fit_transform(tr3))
 
 
 # %%
-#Aqui o usuario precisa escolher 1. se ele vai querer utilizar a pseuda automatização
+#Aqui o usuario precisa escolher 1. Escolher o métodos, 2. se ele vai querer utilizar o pseudo automatização; 3.Se não quiser, ajustar os parametros que ele quer utlizar
 machine_learning.settings(method = "GaussianNB", path='_ml_project')
 machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project',max_depth = 3, criterion = 'gini')
 #machine_learning.settings(method = "SVM", path='_ml_project')
 #machine_learning.settings(method = "LogisticRegression", path='_ml_project')
-#machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
-#machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
-#machine_learning.settings(method = "XGBClassifier", path='_ml_project')
+machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project', n_neighbors = np.arange(3,61,2), weights = uniform , p = np.arange(1,6))
+#achine_learning.settings(method = "RandomForestClassifier", path='_ml_project', n_estimators =  100, learning_rate = 0.5, max_depth =  5 )
+#machine_learning.settings(method = "XGBClassifier", path='_ml_project', n_estimators =  100, learning_rate = 0.5, max_depth =  5 ))
 #machine_learning.settings(method = "CatBoostClassifier", path='_ml_project')
 
 
@@ -136,6 +137,7 @@ for i in x_r:
     x_db[i] = np.delete(x_r[i],(-1), axis=1)
 
 # %%
+#Rodar o metodo
 
 #machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
 machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
