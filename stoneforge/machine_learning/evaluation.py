@@ -2,20 +2,15 @@ import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_recall_fscore_support
 #import pickle
 import json
-from sklearn.preprocessing import LabelEncoder
 
 #def saves(file, name):
 #    with open(name + ".pkl", "wb") as write_file:
 #        pickle.dump(file, write_file)
 
-def saves(file, name):
+def _saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
 
-def encoded(y):
-
-    le = LabelEncoder()
-    return le.fit_transform(y)
 
 def evaluation(y_m, y, decimals = 3, path = '.'):
 
@@ -44,4 +39,4 @@ def evaluation(y_m, y, decimals = 3, path = '.'):
         cm.append(list(values))
     json_dict['confusion_matrix'] = cm
 
-    saves(json_dict, path+'\\evaluation_metrics')
+    _saves(json_dict, path+'\\evaluation_metrics')

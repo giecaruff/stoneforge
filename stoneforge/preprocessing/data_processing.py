@@ -1,5 +1,3 @@
-
-
 from sklearn.model_selection import train_test_split
 import numpy as np
 
@@ -43,6 +41,19 @@ class predict_processing:
             curves[i] = curve
 
         return curves
+    
+    def train_test_split(self, X, y, test_size = 0.30, random_state = 99):
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+        curves = {
+            "X_train":X_train,
+            "X_test":X_test,
+            "y_train":y_train,
+            "y_test":y_test
+        }
+
+        return curves
+
     
     def _remove_dummies(self,data):
         data_1 = np.array(data).T

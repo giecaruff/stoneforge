@@ -73,9 +73,6 @@ def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     #return auto.predict(x,**kwargs)
 
 
-
-
-
 _predict_methods = {
     "GaussianNB": gaussian_naive_bayes,
     "DecisionTreeClassifier": decision_tree_classifier,
