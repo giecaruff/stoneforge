@@ -138,7 +138,7 @@ class project():
             r = lambda: np.random.randint(0,255)
             color = '#%02X%02X%02X' % (r(),r(),r())
             values_dictionary = {}
-            values_dictionary['value'] = c
+            values_dictionary['value'] = str(c)
             if class_dict:
                 substitution_dict = 0
                 for i in class_dict:
@@ -155,7 +155,7 @@ class project():
             for i in class_value:
                 if i == c:
                     counts += 1
-            values_dictionary['count'] = counts
+            values_dictionary['count'] = str(counts)
             class_count.append(values_dictionary)
 
         return class_count
