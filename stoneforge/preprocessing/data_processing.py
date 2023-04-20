@@ -9,6 +9,7 @@ class predict_processing:
         self.idx = {}
         self.clean_data = {}
 
+
     def _nan_idx(self):
 
         for i in self.data:
@@ -17,6 +18,7 @@ class predict_processing:
                 if not np.isnan(self.data[i][self.data_key].T[j]).any():
                     local.append(j)
             self.idx[i] = local
+
 
     def matrix_values(self):
         self._nan_idx()
@@ -27,6 +29,7 @@ class predict_processing:
            clean_data[i] = self._remove_dummies(self.data[i][self.data_key])
 
         return clean_data
+
 
     def return_curve(self,y):
 
@@ -42,6 +45,7 @@ class predict_processing:
 
         return curves
     
+
     def train_test_split(self, X, y, test_size = 0.30, random_state = 99):
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
@@ -51,7 +55,6 @@ class predict_processing:
             "y_train":y_train,
             "y_test":y_test
         }
-
         return curves
 
     

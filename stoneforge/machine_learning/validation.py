@@ -101,6 +101,7 @@ def  k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     result = cross_val_score(knn, X, y, cv = kfold)
     np.save(path + '\\k_nearest_neighbors_settings', result)
 
+
 #RandomForestClassifier
 def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
 
@@ -116,6 +117,7 @@ def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_s
 
     result = cross_val_score(random, X, y, cv = kfold)
     np.save(path + '\\random_florest_settings', result)
+
 
 #XGBClassifier
 def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -162,6 +164,7 @@ _fit_methods = {
     'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
+
 
 def validation(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", n_splits = 30, random_state = 5, **kwargs):
 

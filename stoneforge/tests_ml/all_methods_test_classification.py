@@ -23,7 +23,6 @@ else:
     import preprocessing
 
 # %%
-
 project = preprocessing.project("D:\\appy_projetos\\wells")
 #project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
@@ -102,7 +101,7 @@ lito_values = [{
         "hatchcolor": "#000000"
     }
     },
-{
+    {
     "name": "ARENITO ARGILOSO",
     "short_name": "ARL",
     "code": 25,
@@ -183,9 +182,13 @@ machine_learning.fit(X,y,method = "DecisionTreeClassifier")
 for well in x_db:
     class_db[well] = machine_learning.predict(x_db[well], method = "DecisionTreeClassifier")
 
-
 # %%
 
 machine_learning.evaluation(class_db['7-MP-50D-BA'],y_db['7-MP-50D-BA'],decimals=5)
+
+# %%
+
+print(class_db['7-MP-50D-BA'])
+print(y_db['7-MP-50D-BA'])
 
 # %%

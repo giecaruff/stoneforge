@@ -18,15 +18,13 @@ from sklearn.preprocessing import LabelEncoder
 from catboost import CatBoostClassifier
 from sklearn.model_selection import GridSearchCV
 
-
-
 def saves(file, name):
     with open(name + ".pkl", "wb") as write_file:
         pickle.dump(file, write_file)
 
 
 #Naive Bayes
-def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **kwargs) -> np.ndarray:
 
     f = open(path + '\\gaussian_naive_bayes_settings.json')
 
@@ -63,7 +61,7 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = Fals
 
 
 #Support Machine Vector
-def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **kwargs) -> np.ndarray:
 
     f = open(path + '\\support_vector_machine_settings.json')
 
@@ -77,7 +75,7 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -
 
 
 #Logistic Regression
-def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **kwargs) -> np.ndarray:
 
     f = open(path + '\\logistic_regression_settings.json')
 
@@ -89,8 +87,8 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> n
 
     saves(logistic, path+"\\logistic_regression_fit_property")
 
-# K-nearest Neighbors
 
+# K-nearest Neighbors
 def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -113,9 +111,9 @@ def k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **
     
     saves(knn, path+"\\k_nearest_neighbors_fit_property")
 
-#Random Forest
 
-def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path,gs =False, **kwargs) -> np.ndarray:
+#Random Forest
+def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, gs =False, **kwargs) -> np.ndarray:
     
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -137,9 +135,9 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path,gs =False, **kwargs)
 
     saves(d_florest, path+"\\random_florest_fit_property")
 
-#XGBOOST
 
-def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+#XGBOOST
+def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
 
     if gs:
         parameters =  {'n_estimators': [100],
@@ -163,9 +161,9 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.n
 
     saves(xg, path+"\\xgboost_fit_property")
 
-#CatBoost
 
-def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+#CatBoost
+def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
 
     if gs:
         parameters =  {'n_estimators': [100,150,200],
@@ -176,7 +174,6 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.
 
         bestcat = GridSearchCV(cat,parameters,scoring='accuracy')
         bestcat.fit(X,y)
-        #bestcat = bestcat.best_params_
         settings = bestcat.best_params_
 
     if not gs:
@@ -187,21 +184,6 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.
     cb.fit(X, y, **kwargs)
 
     saves(cb, path+"\\catboost_fit_property")
-
-#AutoML
-
-#def automl(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs) -> np.ndarray:
-
-    #f = open(path + '\\automl_settings.json')
-
-    #settings = json.load(f)
-
-    #xg = AutomlClassifier(**settings)
-
-    #xg.fit(X, y, **kwargs)
-
-    #saves(xg, path+"\\automl_fit_property")
-
 
 
 _fit_methods = {
@@ -216,9 +198,8 @@ _fit_methods = {
     #'AutomlClassifier': automl 
     }
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
-    
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
 
     if method == "GaussianNB":
         fun = _fit_methods[method]
