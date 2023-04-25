@@ -21,7 +21,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from catboost import CatBoostClassifier
 
-
+def saves(file, name):
+    with open(name+'.json', 'w') as write_file:
+        json.dump(file, write_file)
 
 #Naive Bayes
 def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -35,8 +37,9 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(naive, X, y, cv = kfold)
-    np.save(path + '\\gaussian_naive_bayes_settings', result)
-
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 #Decision Tree Classifier
 def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -50,7 +53,9 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits,
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(tree, X, y, cv = kfold)
-    np.save(path + '\\decision_tree_classifier_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 #svm
 def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -66,7 +71,9 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, r
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(svm, X, y, cv = kfold)
-    np.save(path + '\\support_vector_machine_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 #LogisticRegression
 def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -82,7 +89,9 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, rand
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(logistic, X, y, cv = kfold)
-    np.save(path + '\\logistic_regression_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 
 #KNeighborsClassifier
@@ -99,7 +108,9 @@ def  k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(knn, X, y, cv = kfold)
-    np.save(path + '\\k_nearest_neighbors_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 
 #RandomForestClassifier
@@ -116,7 +127,9 @@ def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_s
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(random, X, y, cv = kfold)
-    np.save(path + '\\random_florest_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 
 #XGBClassifier
@@ -133,7 +146,9 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(xgboost, X, y, cv = kfold)
-    np.save(path + '\\xgboost_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 
 #catboost
@@ -150,7 +165,9 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
     kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
 
     result = cross_val_score(cat, X, y, cv = kfold)
-    np.save(path + '\\catboost_settings', result)
+    mean_result = {}
+    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
+    saves(mean_result,path + '\\mean_accuracy')
 
 
 _fit_methods = {
