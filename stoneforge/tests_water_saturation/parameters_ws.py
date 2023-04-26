@@ -11,10 +11,10 @@ class Parameters:
     config_water_saturarion = {
     "rw":(1.1,5.0,"f"),
     "rt":(1.1,5.0,"c"),
-    "phi":(0.0,2.65,"c"),
+    "phi":(0.0,1.0,"c"),
     "a":(0.0,1.0,"f"),
-    "m":(0.0,1.0,"f"),
-    "n":(0.0,1.0,"f"),
+    "m":(1.0,4.0,"f"),
+    "n":(2.0,3.0,"f"),
     }
 
     def sorted_values (configuration, size = 15, curve_size = 30, seed = 99):

@@ -1,5 +1,6 @@
 import numpy as np
 import numpy.typing as npt
+import warnings
 
 
 def kdry(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
@@ -110,6 +111,10 @@ def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
 
     """
     A = ksatA / (ks - ksatA)
+
+
+ 
+
     B = kfluidA / (phi*(ks - kfluidA))
     C = kfluidB / (phi*(ks - kfluidB))
     D = A - B + C

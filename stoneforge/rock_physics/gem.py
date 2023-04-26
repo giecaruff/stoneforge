@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 
-from rock_physics.elastic_constants import poisson
+from stoneforge.rock_physics.elastic_constants import poisson
 
 
 def hertz_mindlin(k: float, g: float, n: float, phic: float,
