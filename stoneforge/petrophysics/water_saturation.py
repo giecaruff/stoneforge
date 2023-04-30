@@ -2,6 +2,13 @@ import numpy as np
 import numpy.typing as npt
 import warnings
 
+# Make anomalous water saturation values larger than 1 be one
+def correct_range(sw: np.ndarray):
+    sw[sw > 1] = 1
+    return sw
+
+
+
 def check_saturation_range(sw: np.ndarray):
     if np.any(sw > 1):
         warnings.warn(UserWarning("Water saturation must be a value between 0 and 1."))
@@ -40,9 +47,12 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    sw = ((a * rw) / (phi ** m * rt)) ** (1/n)
-    print('larger than 1 values', np.sum(sw > 1))
+    sw = ((a * rw) / ((phi ** m) * rt)) ** (1/n)
+
     check_saturation_range(sw)
+
+    sw = correct_range(sw)
+
     return sw
 
 
@@ -88,7 +98,11 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     D = C * vsh / (2*rsh)
     E = C / rt
     sw = ((D**2 + E)**0.5 - D)**(2/n)
+ 
     check_saturation_range(sw)
+
+    sw = correct_range(sw)
+   
 
 
     return sw
@@ -132,6 +146,8 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
     check_saturation_range(sw)
 
+    sw = correct_range(sw)
+
     
 
     return sw
@@ -171,6 +187,8 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
     check_saturation_range(sw)
+
+    sw = correct_range(sw)
 
 
     return sw
@@ -251,4 +269,6 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     
     fun = _sw_methods[method]
 
-    return fun(rw, rt, phi, a, m, **options)
+    sw = fun(rw, rt, phi, a, m, **options)
+    sw = correct_range(sw)
+    return sw
