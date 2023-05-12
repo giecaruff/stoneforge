@@ -39,4 +39,7 @@ def evaluation(y_m, y, decimals = 3, path = '.'):
         cm.append(list(values))
     json_dict['confusion_matrix'] = cm
 
-    _saves(json_dict, path+'\\evaluation_metrics')
+    if path:
+        _saves(json_dict, path+'\\evaluation_metrics')
+    if not path:
+        return json_dict

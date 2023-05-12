@@ -39,7 +39,10 @@ def gaussian_naive_bayes(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     result = cross_val_score(naive, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 #Decision Tree Classifier
 def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -55,7 +58,10 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits,
     result = cross_val_score(tree, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 #svm
 def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -73,7 +79,10 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, r
     result = cross_val_score(svm, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 #LogisticRegression
 def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
@@ -91,7 +100,10 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, rand
     result = cross_val_score(logistic, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 
 #KNeighborsClassifier
@@ -110,7 +122,10 @@ def  k_nearest_neighbors(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, ran
     result = cross_val_score(knn, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 
 #RandomForestClassifier
@@ -129,7 +144,10 @@ def  random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_s
     result = cross_val_score(random, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 
 #XGBClassifier
@@ -148,7 +166,10 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     result = cross_val_score(xgboost, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 
 #catboost
@@ -167,7 +188,10 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
     result = cross_val_score(cat, X, y, cv = kfold)
     mean_result = {}
     mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    saves(mean_result,path + '\\mean_accuracy')
+    if path:
+        saves(mean_result,path + '\\mean_accuracy')
+    if not path:
+        return mean_result
 
 
 _fit_methods = {
