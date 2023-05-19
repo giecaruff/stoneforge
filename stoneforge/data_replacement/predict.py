@@ -65,7 +65,7 @@ def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     catregression = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
-    return d_florestcatregression.predict(x,**kwargs)
+    return catregression.predict(x,**kwargs)
 
 
 

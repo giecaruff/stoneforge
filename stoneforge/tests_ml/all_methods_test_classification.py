@@ -23,8 +23,8 @@ else:
     import preprocessing
 
 # %%
-project = preprocessing.project("D:\\appy_projetos\\wells")
-#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+#project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -190,5 +190,10 @@ machine_learning.evaluation(class_db['7-MP-50D-BA'],y_db['7-MP-50D-BA'],decimals
 
 print(class_db['7-MP-50D-BA'])
 print(y_db['7-MP-50D-BA'])
+
+# %%
+print(list(set(y_db['7-MP-50D-BA'])))
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+confusion_matrix(class_db['7-MP-50D-BA'], y_db['7-MP-50D-BA'], labels = np.array(list(set(y_db['7-MP-50D-BA']))))
 
 # %%

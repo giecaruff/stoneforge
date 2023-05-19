@@ -5,6 +5,16 @@ import warnings
 
 # TODO: if method is not listed do not execute and gives error to the user
 
+LR_METHODS = [
+    "decision_tree_regression",
+    "suporte_vector_regression",
+    "linear_regression",
+    "random_forest_regression",
+    'lightgbm_regression',
+    'xgboost_regression'
+    'catboost_regression'
+]
+
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
@@ -32,17 +42,19 @@ def settings(method: str = "linear_regression", path = ".", **kwargs):
     if method == "decision_tree_regression":
         saves(kwargs, path+"\\decision_tree_settings")
 
-    if method == "random_florest_regression":
-        saves(kwargs, path+"\\random_florest_settings")
+    if method == "random_forest_regression":
+        saves(kwargs, path+"\\random_forest_settings")
 
     if method == "xgboost_regression":
-        saves(kwargs, path+"\\xgboost_settings")
+        saves(kwargs, path+"\\xgboost_regression_settings")
 
     if method == "lightgbm_regression":
-        saves(kwargs, path+"\\lightgbm_florest_settings")
+        saves(kwargs, path+"\\lightgbm_settings")
 
     if method == "catboost_regression":
-        saves(kwargs, path+"\\catboost_florest_settings")
+        saves(kwargs, path+"\\catboost_settings")
+
+    saves(LR_METHODS, path+'\\all_methods')
 
 
 

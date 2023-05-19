@@ -34,7 +34,7 @@ def evaluation(y_m, y, decimals = 3, path = '.'):
     json_dict['precision_recall_fscore'] = prf
     
     cm = []
-    for i in list(confusion_matrix(y_m,y)):
+    for i in list(confusion_matrix(y_m,y, labels = np.array(lito))):
         values = np.array(i,dtype='str')
         cm.append(list(values))
     json_dict['confusion_matrix'] = cm

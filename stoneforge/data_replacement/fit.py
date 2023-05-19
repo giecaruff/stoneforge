@@ -166,38 +166,37 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
         settings = bestcatr.best_params_
 
     if not gs:
-        f = open(path + '\\catboost_florest_settings.json')
+        f = open(path + '\\catboost_settings.json')
         settings = json.load(f)
     
     cb = CatBoostRegressor(**settings)
     cb.fit(X, y, **kwargs)
 
-    saves(cb, path+"\\catboost_florest_fit_property")
+    saves(cb, path+"\\catboost_fit_property")
 
 
 
 _fit_methods = {
     "linear_regression": linear_regression_replacement,
+    "linear_regression": linear_regression_replacement,
     "support_vector": suporte_vector_replacement,
-    "decisoon_tree": decision_tree_replacement,
+    "decision_tree": decision_tree_replacement,
     "random_florest": random_florest_replecement,
     "xgboost": xgboost_replacement,
     "light": lightgbm_replacement,
-    "cat": catboost_replecement
+    "catboost": catboost_replecement
     }
-
-
-
 
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
 
-    if method == "linear_regression":
+    if method == "linear_regression_simple":
         fun = _fit_methods[method]
+    if method == "linear_regression_polynomial":
         fun = _fit_methods[method]
     if method == "support_vector":
         fun = _fit_methods[method]
-    if method == "decisoon_tree":
+    if method == "decision_tree":
         fun = _fit_methods[method]
     if method == "random_florest":
         fun = _fit_methods[method]

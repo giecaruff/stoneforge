@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 if __package__:
     from ..data_replacement import *
 else:
-    print('passed ml')
+    print('passed lr')
     sys.path.append(os.path.dirname(__file__) + '/..')
     import data_replacement
 
@@ -81,14 +81,13 @@ print(np.shape(mega_data))
 # %%
 
 # data_replacement.settings(method = "linear_regression", path='_ml_project') # for the case there is polynomial 1D
-data_replacement.settings(method = "linear_regression", path='_ml_project', degree = 2)
-
-#machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project')
-#machine_learning.settings(method = "SVM", path='_ml_project')
-#machine_learning.settings(method = "LogisticRegression", path='_ml_project')
-#machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
-#machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
-#machine_learning.settings(method = "XGBClassifier", path='_ml_project')
+#data_replacement.settings(method = "linear_regression", path='_ml_project', degree = 2)
+#data_replacement.settings(method = "DecisionTreeClassifier", path='_ml_project')
+#data_replacement.settings(method = "SVM", path='_ml_project')
+#data_replacement.settings(method = "LogisticRegression", path='_ml_project')
+#data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
+#data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
+data_replacement.settings(method = "xgboost_regression", path='_lr_project')
 
 
 # %%
@@ -104,18 +103,18 @@ print(mnemonics)
 y = mega_data[:,1] # 1 for RHOB 
 X = np.delete(mega_data,(1), axis=1) # 1 for RHOB also
 print(X)
-#X = np.array(X, dtype='float') 
-#y = np.array(y, dtype='int')
+X = np.array(X, dtype='float') 
+y = np.array(y, dtype='int')
 
 # %%
 
-data_replacement.fit(X,y,method = "linear_regression", path = "_ml_project")
-#machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
-#machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
-#machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-#machine_learning.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
-#machine_learning.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
-#machine_learning.fit(X,y,method = "XGBClassifier", path = "_ml_project")
+#data_replacement.fit(X,y,method = "linear_regression", path = "_ml_project")
+#data_replacement.fit(X,y,method = "decision_tree", gs = True, path = "_ml_project")
+#data_replacement.fit(X,y,method = "SVM", path = "_ml_project")
+#data_replacement.fit(X,y,method = "LogisticRegression", path = "_ml_project")
+#data_replacement.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
+#data_replacement.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
+data_replacement.fit(X,y,method = "xgboost_regression", path = '_lr_project')
 
 # %%
 
@@ -141,7 +140,7 @@ for w in vw_data:
     n_x_data = []
     for i in intersection:
         n_x_data.append(x[i])
-    predictment = data_replacement.predict(n_x_data, method = "linear_regression", path = "_ml_project")
+    predictment = data_replacement.predict(n_x_data, method = "linear_regression", path = "lr_project")
     print(predictment)
     break
 
@@ -168,24 +167,24 @@ for well in x_r:
 class_db = {}
 
 for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "SVM", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
-    class_db[x] = machine_learning.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "SVM", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
+    class_db[x] = data_replacement.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
 
 a.return_curve(class_db)
 
 
 # %%
 
-machine_learning.settings(method = "GaussianNB")
-machine_learning.fit(X,y,method = "GaussianNB")
+data_replacement.settings(method = "GaussianNB")
+data_replacement.fit(X,y,method = "GaussianNB")
 
 for x in x_db:
-    class_db[x] = machine_learning.predict(x_db[x], method = "GaussianNB")
+    class_db[x] = data_replacement.predict(x_db[x], method = "GaussianNB")
     
 
 # %%
