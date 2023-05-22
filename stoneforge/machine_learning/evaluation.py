@@ -27,7 +27,7 @@ def evaluation(y_m, y, decimals = 3, path = '.'):
     json_dict['facies'] = lito
 
     prf = []
-    for i in list(precision_recall_fscore_support(y_m,ylabels = np.array(lito))):
+    for i in list(precision_recall_fscore_support(y_m,y, labels = np.array(lito))):
         values = np.round(i,decimals)
         values = np.array(values,dtype='str')
         prf.append(list(values))

@@ -144,10 +144,10 @@ for well in xy_raw:
 for w in tw_data:
     print(w)
 
-machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
+#machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
 #machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
 #machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
-#machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
+machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
 #machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
 #machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
 #machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
