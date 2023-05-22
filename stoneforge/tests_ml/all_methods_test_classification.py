@@ -197,3 +197,5 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 confusion_matrix(class_db['7-MP-50D-BA'], y_db['7-MP-50D-BA'], labels = np.array(list(set(y_db['7-MP-50D-BA']))))
 
 # %%
+print(classification_report(class_db['7-MP-50D-BA'], y_db['7-MP-50D-BA'] ,labels = np.array(list(set(y_db['7-MP-50D-BA'])))))
+# %%

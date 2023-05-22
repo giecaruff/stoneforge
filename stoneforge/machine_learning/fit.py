@@ -42,7 +42,8 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = Fals
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         decisiontree = DecisionTreeClassifier()
 
@@ -53,6 +54,8 @@ def decision_tree_classifier(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = Fals
     if not gs:
         f = open(path + '\\decision_tree_classifier_settings.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     d_treec = DecisionTreeClassifier(**settings)
     d_treec.fit(X, y, **kwargs)
@@ -66,6 +69,8 @@ def support_vector_machine(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False,
     f = open(path + '\\support_vector_machine_settings.json')
 
     settings = json.load(f)
+    if not settings:
+        settings['random_state'] = 99
 
     svm = SVC(**settings)
 
@@ -80,6 +85,8 @@ def logistic_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False, **
     f = open(path + '\\logistic_regression_settings.json')
 
     settings = json.load(f)
+    if not settings:
+        settings['random_state'] = 99
 
     logistic = LogisticRegression(**settings)
 
@@ -117,7 +124,8 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, gs =False, **kwargs
     
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         randomflorest = RandomForestClassifier()
 
@@ -129,6 +137,8 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, gs =False, **kwargs
     if not gs:
         f = open(path + '\\random_florest_settings.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     d_florest = RandomForestClassifier(**settings)
     d_florest.fit(X, y, **kwargs)
@@ -142,7 +152,8 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.
     if gs:
         parameters =  {'n_estimators': [100],
         'learning_rate': [0.5],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         xgb = XGBClassifier()
 
@@ -168,7 +179,8 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np
     if gs:
         parameters =  {'n_estimators': [100,150,200],
         'learning_rate': [0.3,0.5,0.7],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_seed':[99]}
 
         cat = CatBoostClassifier()
 
@@ -179,6 +191,8 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np
     if not gs:
         f = open(path + '\\catboost_settings.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     cb = CatBoostClassifier(**settings)
     cb.fit(X, y, **kwargs)
