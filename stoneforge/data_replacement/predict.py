@@ -15,7 +15,7 @@ import lightgbm as lgb
 from catboost.core import CatBoostRegressor
 
 
-def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs):
+def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     slregression = pickle.load(open(path+"\\linear_regression_fit_property.pkl", 'rb'))
     f = open(path + '\\polinomial_settings.json')
@@ -71,6 +71,7 @@ def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
 _predict_methods = {
     "linear_regression": linear_regression_replacement,
+    "linear_regression": linear_regression_replacement,
     "suporte_vector_regression": support_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
     "random_florest_regression": random_florest_replecement,
@@ -82,7 +83,9 @@ _predict_methods = {
 
 def predict(x: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
 
-    if method == "linear_regression":
+    if method == "linear_regression_simple":
+        fun = _predict_methods[method]
+    if method == "linear_regression_polynomial":
         fun = _predict_methods[method]
     if method == "suporte_vector_regression":
         fun = _predict_methods[method]
@@ -97,4 +100,17 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression", path = ".", **k
     if method == "catboost_regression":
         fun= _predict_methods[method]
 
-    return fun(x, path, **kwargs)
+    scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
+    scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))
+    #y_scalerp = pickle.load(open(path+"\\y_scalerp.pkl", 'rb'))
+    #scaler.fit(x)
+
+    x_norm = scaler.transform(x)
+    x_norm = scalerp.transform(x_norm)
+
+    y = fun(x_norm, path, **kwargs)
+
+    #y_norm = scaler.transform(y)
+    #y_norm = scalerp.transform(y_norm)
+
+    return y

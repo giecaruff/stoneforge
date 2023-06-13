@@ -1,1 +1,1 @@
-["GaussianNB", "DecisionTreeClassifier", "SVM", "LogisticRegression", "KNeighborsClassifier", "RandomForestClassifier", "XGBClassifier", "CatBoostClassifier"]
+["decision_tree_regression", "suporte_vector_regression", "linear_regression", "random_forest_regression", "lightgbm_regression", "xgboost_regressioncatboost_regression"]

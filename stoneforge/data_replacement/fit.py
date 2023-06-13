@@ -8,14 +8,19 @@ import warnings
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestRegressor
 import lightgbm as LGBMRegressor
 from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from xgboost import XGBClassifier
+from xgboost import XGBRegressor
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import MinMaxScaler
+
 
 
 def saves(file, name):
@@ -47,6 +52,8 @@ def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
     f = open(path + '\\support_vector_settings.json')
 
     settings = json.load(f)
+    if not settings:
+        settings['random_state'] = 99
 
     svn = SVC(**settings)
 
@@ -61,7 +68,8 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, 
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         decisiontree = DecisionTreeRegressor()
 
@@ -72,6 +80,8 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, 
     if not gs:
         f = open(path + '\\decision_tree_replacement.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     d_treer = DecisionTreeRegressor(**settings)
     d_treer.fit(X, y, **kwargs)
@@ -84,7 +94,8 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         randomflorest = RandomForestRegressor()
 
@@ -94,7 +105,9 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True
 
     if not gs:
         f = open(path + '\\random_florest_settings.json')
-        settings = json.load(f)
+        setting = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     d_florestc = RandomForestRegressor(**settings)
     d_florestc.fit(X, y, **kwargs)
@@ -110,7 +123,7 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
         'learning_rate': [0.5],
         'max_depth':[5,10,15,30,50,70,100]}
 
-        xgb = XGBClassifier()
+        xgb = XGBRegressor()
 
         bestxgbc = GridSearchCV(xgb,parameters,scoring='accuracy')
         bestxgbc.fit(X,y)
@@ -118,10 +131,10 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
         settings = bestxgbc.best_params_
 
     if not gs:
-        f = open(path + '\\xgboost_settings.json')
+        f = open(path + '\\xgboost_regression_settings.json')
         settings = json.load(f)
     
-    xg = XGBClassifier(**settings)
+    xg = XGBRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
     saves(xg, path+"\\xgboost_fit_property")
@@ -132,7 +145,8 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
     if gs:
         parameters =  {'n_estimators': [100],
         'learning_rate': [0.5],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         lghtr = LGBMRegressor()
 
@@ -144,11 +158,13 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
     if not gs:
         f = open(path + '\\lightgbm_florest_settings.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
-    xg = XGBClassifier(**settings)
+    xg = LGBMRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
-    saves(xg, path+"\\ightgbm_replacement_fit_property")
+    saves(xg, path+"\\lightgbm_replacement_fit_property")
 
 #CatBoost
 def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
@@ -156,7 +172,8 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
     if gs:
         parameters =  {'n_estimators': [100,150,200],
         'learning_rate': [0.3,0.5,0.7],
-        'max_depth':[5,10,15,30,50,70,100]}
+        'max_depth':[5,10,15,30,50,70,100],
+        'random_state':[99]}
 
         cat = CatBoostRegressor()
 
@@ -168,6 +185,8 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
     if not gs:
         f = open(path + '\\catboost_settings.json')
         settings = json.load(f)
+        if not settings:
+            settings['random_state'] = 99
     
     cb = CatBoostRegressor(**settings)
     cb.fit(X, y, **kwargs)
@@ -179,12 +198,12 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
 _fit_methods = {
     "linear_regression": linear_regression_replacement,
     "linear_regression": linear_regression_replacement,
-    "support_vector": suporte_vector_replacement,
-    "decision_tree": decision_tree_replacement,
-    "random_florest": random_florest_replecement,
-    "xgboost": xgboost_replacement,
-    "light": lightgbm_replacement,
-    "catboost": catboost_replecement
+    "suporte_vector_regression": suporte_vector_replacement,
+    "decision_tree_regression": decision_tree_replacement,
+    "random_florest_regression": random_florest_replecement,
+    "xgboost_regression": xgboost_replacement,
+    "lightgbm_regression": lightgbm_replacement,
+    "catboost_regression": catboost_replecement
     }
 
 
@@ -194,17 +213,45 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", 
         fun = _fit_methods[method]
     if method == "linear_regression_polynomial":
         fun = _fit_methods[method]
-    if method == "support_vector":
+    if method == "suporte_vector_regression":
         fun = _fit_methods[method]
-    if method == "decision_tree":
+    if method == "decision_tree_regression":
         fun = _fit_methods[method]
-    if method == "random_florest":
+    if method == "random_florest_regression":
         fun = _fit_methods[method]
-    if method == "xgboost":
+    if method == "xgboost_regression":
         fun = _fit_methods[method]
-    if method == "light":
+    if method == "lightgbm_regression":
         fun = _fit_methods[method]
-    if method == "cat":
+    if method == "catboost_regression":
         fun = _fit_methods[method]
+
+
+    scaler = MinMaxScaler()
+    scaler.fit(X)
+    X_norm = scaler.transform(X)
+    saves(scaler, path+"\\scaler")
+    
+    #Normalization adjusts the values of a variable to a specific range.
+
+    scalerp = StandardScaler()
+    scalerp.fit(X_norm)
+    X_norm = scaler.transform(X_norm)
+    saves(scalerp, path+"\\scalerp")
+    
+    #Standardization transforms the data in such a way that it has a mean of zero and a standard deviation of one.
+
+    # TODO: repass to preprocessing due to the sobreposition of processes
+
+    #scaler = MinMaxScaler()
+    #scaler.fit(y)
+    #y_norm = scaler.transform(y)
+    #saves(scaler, path+"\\y_scaler")
         
-    fun(X, y, path, **kwargs)
+    #scalerp = StandardScaler()
+    #scalerp.fit(y_norm)
+    #y_norm = scaler.transform(y_norm)
+    #saves(scalerp, path+"\\y_scalerp")
+    
+
+    fun(X_norm, y, path, **kwargs)

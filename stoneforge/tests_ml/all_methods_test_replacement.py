@@ -80,14 +80,14 @@ print(np.shape(mega_data))
 
 # %%
 
-# data_replacement.settings(method = "linear_regression", path='_ml_project') # for the case there is polynomial 1D
+#data_replacement.settings(method = "linear_regression", path='_ml_project') # for the case there is polynomial 1D
 #data_replacement.settings(method = "linear_regression", path='_ml_project', degree = 2)
 #data_replacement.settings(method = "DecisionTreeClassifier", path='_ml_project')
 #data_replacement.settings(method = "SVM", path='_ml_project')
 #data_replacement.settings(method = "LogisticRegression", path='_ml_project')
 #data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
 #data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
-data_replacement.settings(method = "xgboost_regression", path='_lr_project')
+data_replacement.settings(method = "xgboost_regression", path='_ml_project')
 
 
 # %%
@@ -104,7 +104,8 @@ y = mega_data[:,1] # 1 for RHOB
 X = np.delete(mega_data,(1), axis=1) # 1 for RHOB also
 print(X)
 X = np.array(X, dtype='float') 
-y = np.array(y, dtype='int')
+y = np.array(y, dtype='float')
+print(y)
 
 # %%
 
@@ -114,7 +115,7 @@ y = np.array(y, dtype='int')
 #data_replacement.fit(X,y,method = "LogisticRegression", path = "_ml_project")
 #data_replacement.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
 #data_replacement.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
-data_replacement.fit(X,y,method = "xgboost_regression", path = '_lr_project')
+data_replacement.fit(X,y,method = "xgboost_regression", path = '_ml_project')
 
 # %%
 
@@ -134,15 +135,20 @@ for w in vw_data:
             is_not_nan_x.append(i)
     is_nan_y = set(is_nan_y)
     is_not_nan_x = set(is_not_nan_x)
+
     intersection = is_not_nan_x.intersection(is_nan_y)
-    #print(list(intersection))
+    print(list(intersection))
 
     n_x_data = []
+    y_original = []
     for i in intersection:
+        y_original.append(y[i])
         n_x_data.append(x[i])
-    predictment = data_replacement.predict(n_x_data, method = "linear_regression", path = "lr_project")
-    print(predictment)
+    predictment = data_replacement.predict(n_x_data, method = "xgboost_regression", path = "_ml_project")
+    print("RHOB",predictment)
+    print(y_original)
     break
+
 
 # %%
 
