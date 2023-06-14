@@ -24,7 +24,8 @@ else:
 
 # %%
 
-project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+project = preprocessing.project("D:\\appy_projetos\\wells")
+#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -118,13 +119,47 @@ print(y)
 data_replacement.fit(X,y,method = "xgboost_regression", path = '_ml_project')
 
 # %%
+import matplotlib.pyplot as plt
+pre_pros = preprocessing.predict_processing(vw_data,'data')
+xy_raw = pre_pros.matrix_values()
+
+y_db = {}
+x_db = {}
+for w in xy_raw:
+    #print( xy_raw[w])
+    y_db[w] = xy_raw[w][:,1]
+    x_db[w] = np.delete(xy_raw[w],(1), axis=1)
+    print(x_db)
+    ym_db = data_replacement.predict(x_db[w], method = "xgboost_regression", path = "_ml_project")
+    plt.plot(ym_db, y_db[w],'.')
+    plt.grid()
+    plt.show()
+
+# %%
+
+class_db = {}
+
+for well in x_db:
+    class_db[well] = data_replacement.predict(x_db[well], method = "xgboost_regression", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "GaussianNB", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "DecisionTreeClassifier", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "SVM", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "LogisticRegression", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "KNeighborsClassifier", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "RandomForestClassifier", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "XGBClassifier", path = "_ml_project")
+    #class_db[well] = machine_learning.predict(x_db[well], method = "CatBoostClassifier", path = "_ml_project")
+
+pre_pros.return_curve(class_db)
+
+# %%
 
 #a = preprocessing.predict_processing(vw_data,'data')
 
 for w in vw_data:
     x = np.delete(vw_data[w]['data'].T,(1), axis=1)
-    #print(w,x)
     y = vw_data[w]['data'].T[:,1]
+    print(len(y))
     is_nan_y = []
     is_not_nan_x = []
     for i in range(len(y)):
@@ -136,6 +171,9 @@ for w in vw_data:
     is_nan_y = set(is_nan_y)
     is_not_nan_x = set(is_not_nan_x)
 
+    l_data = vw_data[w]['data']
+    c_data = a._remove_dummies(l_data)
+
     intersection = is_not_nan_x.intersection(is_nan_y)
     print(list(intersection))
 
@@ -145,10 +183,9 @@ for w in vw_data:
         y_original.append(y[i])
         n_x_data.append(x[i])
     predictment = data_replacement.predict(n_x_data, method = "xgboost_regression", path = "_ml_project")
-    print("RHOB",predictment)
-    print(y_original)
+    print("RHOB",len(predictment))
+    print(len(c_data[:,1]))
     break
-
 
 # %%
 
