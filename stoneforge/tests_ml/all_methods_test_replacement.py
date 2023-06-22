@@ -24,8 +24,8 @@ else:
 
 # %%
 
-project = preprocessing.project("D:\\appy_projetos\\wells")
-#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+#project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
 
@@ -39,8 +39,8 @@ mnemonics_replacement = {
     'GR':['GR'],
     #'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHOZ","RHLA","RHBA","RHLA3","RHBA4"],
-    'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
-    #'NPHI':['NPHI'],
+    #'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
+    'NPHI':['NPHI'],
 }
 
 ref_mnemonics = list(mnemonics_replacement.keys())
@@ -81,14 +81,14 @@ print(np.shape(mega_data))
 
 # %%
 
-#data_replacement.settings(method = "linear_regression", path='_ml_project') # for the case there is polynomial 1D
+data_replacement.settings(method = "linear_regression_simple", path='_ml_project') # for the case there is polynomial 1D
 #data_replacement.settings(method = "linear_regression", path='_ml_project', degree = 2)
 #data_replacement.settings(method = "DecisionTreeClassifier", path='_ml_project')
 #data_replacement.settings(method = "SVM", path='_ml_project')
 #data_replacement.settings(method = "LogisticRegression", path='_ml_project')
 #data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
 #data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
-data_replacement.settings(method = "xgboost_regression", path='_ml_project')
+#data_replacement.settings(method = "xgboost_regression", path='_ml_project')
 
 
 # %%
@@ -110,13 +110,13 @@ print(y)
 
 # %%
 
-#data_replacement.fit(X,y,method = "linear_regression", path = "_ml_project")
+data_replacement.fit(X,y,method = "linear_regression_simple", path = "_ml_project")
 #data_replacement.fit(X,y,method = "decision_tree", gs = True, path = "_ml_project")
 #data_replacement.fit(X,y,method = "SVM", path = "_ml_project")
 #data_replacement.fit(X,y,method = "LogisticRegression", path = "_ml_project")
 #data_replacement.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
 #data_replacement.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
-data_replacement.fit(X,y,method = "xgboost_regression", path = '_ml_project')
+#data_replacement.fit(X,y,method = "xgboost_regression", path = '_ml_project')
 
 # %%
 import matplotlib.pyplot as plt
@@ -130,8 +130,9 @@ for w in xy_raw:
     y_db[w] = xy_raw[w][:,1]
     x_db[w] = np.delete(xy_raw[w],(1), axis=1)
     print(x_db)
-    ym_db = data_replacement.predict(x_db[w], method = "xgboost_regression", path = "_ml_project")
+    ym_db = data_replacement.predict(x_db[w], method = "linear_regression_simple", path = "_ml_project")
     plt.plot(ym_db, y_db[w],'.')
+    #plt.plot(ym_db,'.')
     plt.grid()
     plt.show()
 

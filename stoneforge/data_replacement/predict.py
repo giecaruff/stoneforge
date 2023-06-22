@@ -70,8 +70,8 @@ def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
 
 _predict_methods = {
-    "linear_regression": linear_regression_replacement,
-    "linear_regression": linear_regression_replacement,
+    "linear_regression_simple": linear_regression_replacement,
+    "linear_regression_polynomial": linear_regression_replacement,
     "suporte_vector_regression": support_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
     "random_florest_regression": random_florest_replecement,
@@ -81,7 +81,7 @@ _predict_methods = {
     }
 
 
-def predict(x: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
+def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
 
     if method == "linear_regression_simple":
         fun = _predict_methods[method]

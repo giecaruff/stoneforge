@@ -196,8 +196,8 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
 
 
 _fit_methods = {
-    "linear_regression": linear_regression_replacement,
-    "linear_regression": linear_regression_replacement,
+    "linear_regression_simple": linear_regression_replacement,
+    "linear_regression_polynomial": linear_regression_replacement,
     "suporte_vector_regression": suporte_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
     "random_florest_regression": random_florest_replecement,
@@ -207,8 +207,9 @@ _fit_methods = {
     }
 
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", path = ".", **kwargs):
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
 
+    print(method)
     if method == "linear_regression_simple":
         fun = _fit_methods[method]
     if method == "linear_regression_polynomial":
@@ -226,6 +227,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", 
     if method == "catboost_regression":
         fun = _fit_methods[method]
 
+    # ===================================== #
 
     scaler = MinMaxScaler()
     scaler.fit(X)
@@ -234,10 +236,14 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", 
     
     #Normalization adjusts the values of a variable to a specific range.
 
+    # ===================================== #
+
     scalerp = StandardScaler()
     scalerp.fit(X_norm)
     X_norm = scaler.transform(X_norm)
     saves(scalerp, path+"\\scalerp")
+
+    # ===================================== #
     
     #Standardization transforms the data in such a way that it has a mean of zero and a standard deviation of one.
 
@@ -255,3 +261,4 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression", 
     
 
     fun(X_norm, y, path, **kwargs)
+    #fun(X, y, path, **kwargs)
