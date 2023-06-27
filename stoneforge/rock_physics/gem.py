@@ -196,7 +196,7 @@ def stiff_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
 
 
 def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
-                   n: float, kc: float, gc: float) -> np.ndarray:
+                   n: float, kc: float, gc: float, deposition_type: str = 'grain_surface') -> np.ndarray:
     """Computes the elastic moduli of the rock using the contact cement
     model [1]_.
 
@@ -216,6 +216,8 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the cementing mineral.
     gc : int, float
         Shear modulus of the cementing mineral.
+    gc : deposition_type
+        Cement deposition framework: grain_surface or grain_contact
 
     Returns
     -------
@@ -235,7 +237,10 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     
     Lbn = (2 * gc / (np.pi * g)) * (((1 - v) * (1 - vc)) / (1 - 2 * vc))
     Lbt = gc/(np.pi * g)
-    alpha = ((2 * (phic - phi)) / (3 * (1 - phic)))**0.5
+    if deposition_type == 'grain_surface':
+        alpha = ((2 * (phic - phi)) / (3 * (1 - phic)))**0.5
+    elif deposition_type == 'grain_contact':
+        alpha = 2*(((phic - phi) / (3 * n * (1 - phic)))**0.25)
     
     At = (-10**-2) * (2.26 * v**2 + 2.07 * v + 2.3) * Lbt**(0.079 * v**2 + 0.1754 * v - 1.342)
     Bt = (0.0573 * v**2 + 0.0937 * v + 0.202) * Lbt**(0.0274 * v**2 + 0.0529 * v - 0.8765)
