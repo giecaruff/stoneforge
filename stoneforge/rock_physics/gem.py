@@ -86,7 +86,7 @@ def soft_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
 
 
 def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
-              n: float, kc: float, gc: float, phib: float) -> np.ndarray:
+              n: float, kc: float, gc: float, phib: float, deposition_type: str = 'grain_surface') -> np.ndarray:
     """Computes the elastic moduli of the rock using the constant cement
     model [1]_.
 
@@ -108,6 +108,8 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Shear modulus of the cementing mineral.
     phib : float
         Porosity where the cement effect starts.
+    deposition_type : str
+        Cement deposition framework: grain_surface or grain_contact
 
     Returns
     -------
@@ -130,8 +132,8 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     soft_domain = phi < phib
     cement_domain = phi >= phib
 
-    kcem, gcem = contact_cement(k, g, phi, phic, n, kc, gc)
-    kend, gend = contact_cement(k, g, phib, phic, n, kc, gc)
+    kcem, gcem = contact_cement(k, g, phi, phic, n, kc, gc, deposition_type)
+    kend, gend = contact_cement(k, g, phib, phic, n, kc, gc, deposition_type)
     
     if not isinstance(phi, float):
         kconst[cement_domain], gconst[cement_domain] = kcem[cement_domain], gcem[cement_domain]
@@ -216,7 +218,7 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         Bulk modulus of the cementing mineral.
     gc : int, float
         Shear modulus of the cementing mineral.
-    gc : deposition_type
+    deposition_type : str
         Cement deposition framework: grain_surface or grain_contact
 
     Returns
