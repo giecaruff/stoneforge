@@ -3,7 +3,8 @@
 import numpy as np
 import sys
 import os
-import pandas 
+import pandas
+import matplotlib.pyplot as plt
 
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
@@ -35,10 +36,11 @@ print(project.well_names_paths)
 mnemonics_replacement = {
     'DEPTH':['DEPTH'],
     'GR':['GR'],
-    'CAL':['CAL','DCAL','HCAL','CALI'],
-    'RHOB':["RHOB","RHLA","RHBA","RHLA3","RHBA4"],
+    #'CAL':['CAL','DCAL','HCAL','CALI'],
+    #'RHOB':["RHOB","RHLA","RHBA","RHLA3","RHBA4"],
     'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
-    'NPHI':['NPHI'],
+    'DT':["DT"],
+    #'NPHI':['NPHI'],
     'Lithology':['Lith_new']
 }
 
@@ -46,21 +48,6 @@ ref_mnemonics = list(mnemonics_replacement.keys())
 
 project.data_replacement(mnemonics_replacement)
 project.convert_into_matrix(ref_mnemonics)
-
-# %%
-
-well_test = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
-print(well_test,np.shape(well_test))
-
-mnem = ['DEPTH', 'GR', 'CAL', 'RES', 'RHOB']
-unit = ['M', 'gAPI', 'in', 'ohm.m', 'g/cm3']
-
-project.well_data['test'] = {}
-
-project.well_data['test']['data'] = well_test
-project.well_data['test']['units'] = unit
-project.well_data['test']['mnemonics'] = mnem
-
 project.shape_check(mnemonics_replacement)
 
 # %%
@@ -90,112 +77,151 @@ X = np.delete(mega_data,(-1), axis=1)
 
 # %%
 
-lito_values = [{
-    "name": "ARENITO",
-    "short_name": "ARN",
-    "code": 49,
-    "patch_property": {
-        "color": "#ffff3f",
-        "hatch": ".",
-        "alpha": 1.0,
-        "hatchcolor": "#000000"
-    }
-    },
-    {
-    "name": "ARENITO ARGILOSO",
-    "short_name": "ARL",
-    "code": 25,
-    "patch_property": {
-        "color": "#7eff00",
-        "hatch": ".",
-        "alpha": 1.0,
-        "hatchcolor": "#000000"
-    }
-    }]
+GR = X[:,1]
+print(GR, len(GR))
 
-for i in lito_values:
-    print(i["code"])
-
-print(project.class_counts(y,class_dict = lito_values))
+# %%
+# Ordem crescente
+oGR = np.array(sorted(GR))
+print(oGR)
 
 # %%
 
-machine_learning.settings(method = "GaussianNB", path='_ml_project')
-machine_learning.settings(method = "DecisionTreeClassifier", path='_ml_project')
-machine_learning.settings(method = "SVM", path='_ml_project')
-machine_learning.settings(method = "LogisticRegression", path='_ml_project')
-machine_learning.settings(method = "KNeighborsClassifier", path='_ml_project')
-machine_learning.settings(method = "RandomForestClassifier", path='_ml_project')
-machine_learning.settings(method = "XGBClassifier", path='_ml_project')
-machine_learning.settings(method = "CatBoostClassifier", path='_ml_project')
+moGR = []
+for i in range(1,len(oGR)):
+    moGR.append( (oGR[i - 1] + oGR[i])/2. )
+print(len(moGR),moGR)
 
 # %%
 
-pre_pros = preprocessing.predict_processing(vw_data,'data')
-xy_raw = pre_pros.matrix_values()
+mxGR = []
+mnGR = []
+n = 26000 # 26000
+print(moGR[n])
+for i in range(len(oGR)):
+    v = oGR[i]
+    if v < moGR[n]:
+        mnGR.append(i)
+    if v > moGR[n]:
+        mxGR.append(i)
 
-y_db = {}
-x_db = {}
-for well in xy_raw:
-    y_db[well] = xy_raw[well][:,-1]
-    x_db[well] = np.delete(xy_raw[well],(-1), axis=1)
-
-# %%
-for w in tw_data:
-    print(w)
-
-#machine_learning.fit(X,y,method = "GaussianNB", path = "_ml_project")
-#machine_learning.fit(X,y,method = "DecisionTreeClassifier", gs = True, path = "_ml_project")
-#machine_learning.fit(X,y,method = "DecisionTreeClassifier", path = "_ml_project")
-machine_learning.fit(X,y,method = "SVM", path = "_ml_project")
-#machine_learning.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-#machine_learning.fit(X,y,method = "KNeighborsClassifier", gs = True, path = "_ml_project")
-#machine_learning.fit(X,y,method = "RandomForestClassifier", gs = True, path = "_ml_project")
-#machine_learning.fit(X,y,method = "XGBClassifier",gs = True, path = "_ml_project")
-
-#machine_learning.fit(X,y,method = "CatBoostClassifier",gs = True, path = "_ml_project")
-#machine_learning.fit(X,y,method = "CatBoostClassifier", path = "_ml_project")
+print(len(mnGR),mnGR)
+print(len(mxGR),mxGR)
 
 # %%
 
-class_db = {}
+mxl = y[mxGR]
+mnl = y[mnGR]
+print(mnl, len(mnl))
+print(mxl, len(mxl))
 
-for well in x_db:
-    class_db[well] = machine_learning.predict(x_db[well], method = "GaussianNB", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "DecisionTreeClassifier", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "SVM", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "LogisticRegression", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "KNeighborsClassifier", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "RandomForestClassifier", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "XGBClassifier", path = "_ml_project")
-    class_db[well] = machine_learning.predict(x_db[well], method = "CatBoostClassifier", path = "_ml_project")
+def dict_count(values, perc = 1):
 
-pre_pros.return_curve(class_db)
+    val = list(set(values))
+    n = len(values)
+    f_dict = {}
+    for v in val:
+        data = []
+        for i in values:
+            if i == v:
+                data.append(1)
+        f_dict[v] = round(perc*sum(data)/n,4)
 
-# %%
+    return f_dict
 
-class_db = {}
-
-machine_learning.settings(method = "DecisionTreeClassifier")
-machine_learning.fit(X,y,method = "DecisionTreeClassifier")
-
-for well in x_db:
-    class_db[well] = machine_learning.predict(x_db[well], method = "DecisionTreeClassifier")
-
-# %%
-
-machine_learning.evaluation(class_db['7-MP-50D-BA'],y_db['7-MP-50D-BA'],decimals=5)
+vmnl = dict_count(mnl)
+vmxl = dict_count(mxl)
+print(vmnl)
+print(vmxl)
 
 # %%
 
-print(class_db['7-MP-50D-BA'])
-print(y_db['7-MP-50D-BA'])
+def gini (dict):
+
+    sm = []
+    for k in dict:
+        dv = dict[k]
+        sm.append(dv*(1 - dv))
+
+    return sum(sm)
+
+gmnl = gini(vmnl)
+gmxl = gini(vmxl)
+
+print(gmnl)
+print(gmxl)
 
 # %%
-print(list(set(y_db['7-MP-50D-BA'])))
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-confusion_matrix(class_db['7-MP-50D-BA'], y_db['7-MP-50D-BA'], labels = np.array(list(set(y_db['7-MP-50D-BA']))))
+
+def h_calc(ne,nd,nm,ge,gd):
+
+    return ( (ne/nm)*ge + (nd/nm)*gd )
+
+h_val = h_calc(len(mnl),len(mxl),len(oGR),gmnl,gmxl)
+
+print(h_val)
 
 # %%
-print(classification_report(class_db['7-MP-50D-BA'], y_db['7-MP-50D-BA'] ,labels = np.array(list(set(y_db['7-MP-50D-BA'])))))
+
+def dict_count(values, perc = 1):
+
+    val = list(set(values))
+    n = len(values)
+    f_dict = {}
+    for v in val:
+        data = []
+        for i in values:
+            if i == v:
+                data.append(1)
+        f_dict[v] = round(perc*sum(data)/n,4)
+
+    return f_dict
+
+# ================================================== #
+
+def gini (dict):
+
+    sm = []
+    for k in dict:
+        dv = dict[k]
+        sm.append(dv*(1 - dv))
+
+    return sum(sm)
+
+# ================================================== #
+
+def sch_calculate(X_data):
+
+    n = len(X_data[:,0])
+    
+    shape = np.shape(X_data)
+    for j in range(shape[1]):
+        oGR = X_data[:,j]
+        
+        for i in range(1,len(oGR)):
+            v = (oGR[i - 1] + oGR[i])/2.
+            mxGR = []
+            mnGR = []
+            for ii in range(len(oGR)):
+                if v < oGR[ii]:
+                    mnGR.append(ii)
+                if v > oGR[ii]:
+                    mxGR.append(ii)
+
+            mxl = y[mxGR]
+            mnl = y[mnGR]
+            
+            vmnl = dict_count(mnl)
+            vmxl = dict_count(mxl)
+                
+            gmnl = gini(vmnl)
+            gmxl = gini(vmxl)
+
+            h_val = h_calc(len(mnl),len(mxl),len(oGR),gmnl,gmxl)
+            #moGR.append( (oGR[i - 1] + oGR[i])/2. )
+
+        print(X_data[:,i])
+
+#sch_calculate(X)
+
 # %%
