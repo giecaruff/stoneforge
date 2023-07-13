@@ -25,7 +25,7 @@ else:
 # %%
 
 #project = preprocessing.project("D:\\appy_projetos\\wells")
-project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\wells")
 project.import_folder()
 project.import_several_wells()
 
@@ -99,6 +99,7 @@ for i in mnemonics_replacement:
 
 print(mnemonics)
 
+
 # %%
 
 y = mega_data[:,1] # 1 for RHOB 
@@ -152,7 +153,6 @@ for well in x_db:
     #class_db[well] = machine_learning.predict(x_db[well], method = "CatBoostClassifier", path = "_ml_project")
 
 pre_pros.return_curve(class_db)
-
 # %%
 
 #a = preprocessing.predict_processing(vw_data,'data')
