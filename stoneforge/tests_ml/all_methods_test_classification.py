@@ -220,8 +220,8 @@ def sch_calculate(X_data):
             h_val = h_calc(len(mnl),len(mxl),len(oGR),gmnl,gmxl)
             #moGR.append( (oGR[i - 1] + oGR[i])/2. )
 
-        print(X_data[:,i])
+        print(j,X_data[:,i])
 
-#sch_calculate(X)
+sch_calculate(X)
 
 # %%
