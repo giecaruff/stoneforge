@@ -45,48 +45,32 @@ def DEM(Km, Gm, Ki, Gi, alphai, phii, phi0=0.0, r=1000, phitol=1.0E-10, gamma=0.
     ci = fraci*alphai/r
     n = int(np.ceil((np.log(1.0-phi)-np.log(1.0-phi0))/np.sum(np.log(1.0-ci))))
     m = len(alphai)
-    
-    def func(r):
-        f = np.empty(m)
-        f[0] = np.log(alphai[0]/r[0]) + np.log(1.0 - phi0/phi) - np.log(1 - ((1.0 - phi)/(1.0 - phi0))**(1.0/n))
-        for j in range(1, m):
-            f[j] = f[j-1] + np.log(alphai[j]/r[j]) + np.log(r[j-1]/alphai[j-1] - fraci[j-1])
-        return f
-    
-    def fprime(r):
-        jac = np.diag(-1.0/r)
-        for j in range(0, m-1):
-            jac[j+1:, j] = -1.0/r[j] + 1.0/(r[j] - fraci[j]*alphai[j])
-        
-        return jac
-    
-    r0 = r*np.ones(m)
-    
-    ri = fsolve(func, r0, fprime=fprime, factor=0.1)
-    
-    ci = fraci*alphai/ri
-    
-    thetai = theta(alphai)
-    fi = f(alphai, thetai)
-    
-    K = np.empty(n)
-    G = np.empty(n)
-    phi = np.empty(n)
 
-    K_ = Km
-    G_ = Gm
-    phi_ = phi0
-    
-    for i in range(n):
-        dphi = ci[0]*(1.0 - phi_)
-        K_, G_ = KG(K_, G_, Ki[0], Gi[0], ci[0], thetai[0], fi[0])
-        phi_ += dphi
-        for j in range(1, m):
-            dphi *= ci[j]*(1.0 - ci[j-1])/ci[j-1]
-            K_, G_ = KG(K_, G_, Ki[j], Gi[j], ci[j], thetai[j], fi[j])
-            phi_ += dphi
-        K[i] = K_
-        G[i] = G_
-        phi[i] = phi_
-    
-    return K, G, phi
+# Matrix properties
+Km = 77.0 #GPa
+Gm = 32.0 #Gpa
+rhom = 2.71
+
+# Fluid properties
+Kf = 3.0
+rhof = 1.0
+
+# Porosity
+phimax = 0.4
+
+# Inclusion properties
+# In this example a mixture of three inclusion types are used:
+# - 30% of 0.02 aspect ratio
+# - 50% of 0.15 aspect ratio
+# - 20% of 0.80 aspect ratio
+alphas = np.array([0.01, 0.15, 0.8])
+volumes = np.array([0.3, 0.5, 0.2])*phimax
+
+# Dry inclusions
+Kis = np.zeros(len(alphas), dtype=float)
+Gis = np.zeros(len(alphas), dtype=float)
+
+# The DEM function returns the bulk and shear moduli along with the porosity array to match them.
+# The porosity array is not regularly spaced. If you need so, you should reinterpolate
+K, G, phi = DEM(Km, Gm, Kis, Gis, alphas, volumes)
+print('K', K, 'len(K)', len(K), G, phi)

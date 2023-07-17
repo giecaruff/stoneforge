@@ -358,7 +358,7 @@ def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLi
   return(simulations)
 
 
-def MCS_correlated_variables(n: int, data1: npt.ArrayLike, data2: npt.ArrayLike,
+def p(n: int, data1: npt.ArrayLike, data2: npt.ArrayLike,
                              smooth_data1: npt.ArrayLike, smooth_data2: npt.ArrayLike,
                              cov: npt.ArrayLike)-> np.ndarray:
   """
