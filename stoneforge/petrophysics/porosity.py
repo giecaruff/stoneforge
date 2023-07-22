@@ -2,6 +2,11 @@ import numpy as np
 import numpy.typing as npt
 import warnings
 
+# Make anomalous water saturation values larger than 1 be one
+def correct_range(phi: np.ndarray):
+    phi[phi < 0] = 0
+    return phi
+
 def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
 
@@ -34,17 +39,19 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         if rhom < rhof or any(rhom <= rhob):
             warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
-            return (rhom - rhob) / (rhom - rhof)
+            phi = (rhom - rhob) / (rhom - rhof)
         
         elif any(rhom - rhob > rhom - rhof):
             warnings.warn(UserWarning("rhob value is lower than rhof"))
 
-            return (rhom - rhob) / (rhom - rhof)
+            phi = (rhom - rhob) / (rhom - rhof)
         
         else: 
             phi = (rhom - rhob) / (rhom - rhof)
 
-            return phi
+    phi = correct_range(phi)
+    return phi
+
     
 
 def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
@@ -74,17 +81,19 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     if any(nphi < (vsh * nphi_sh)):
         warnings.warn(UserWarning("phin must be a positive value"))
 
-        return nphi - (vsh * nphi_sh)
+        phin = nphi - (vsh * nphi_sh)
     
     elif any(nphi - (vsh * nphi_sh) > 1):
         warnings.warn(UserWarning("phin must be a value between 0 and 1"))
 
-        return nphi - (vsh * nphi_sh)
+        phin = nphi - (vsh * nphi_sh)
 
     else:
         phin = nphi - (vsh * nphi_sh)
 
-        return phin
+    phin = correct_range(phin)
+    return phin
+
 
 
 def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
@@ -112,22 +121,26 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
         if any((phid + phin / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-            return (phid + phin) / 2
+            phi =  (phid + phin) / 2
         else:
             phi = (phid + phin) / 2
 
-            return phi
 
     elif squared == True:
         if any((phid**2 + phin**2 / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
 
-            return np.sqrt( (phid**2 + phin**2) / 2)
+            phi = np.sqrt( (phid**2 + phin**2) / 2)
 
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
 
-            return phi  
+    phi = correct_range(phi)
+    return phi
+
+ 
+        
+  
 
 
 #TODO phit -> phie (clay volume correction)
@@ -165,17 +178,19 @@ def sonic_porosity(dt, dtma, dtf):
         if any(dt <= dtma) or dtf <= dtma:
             warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
 
-            return (dt - dtma) / (dtf - dtma)
+            phidt = (dt - dtma) / (dtf - dtma)
 
         elif any(dt - dtma > dtf - dtma):
             warnings.warn(UserWarning("dt value is greather than dtf"))
 
-            return (dt - dtma) / (dtf - dtma)
+            phidt = (dt - dtma) / (dtf - dtma)
 
         else:
             phidt = (dt - dtma) / (dtf - dtma)
 
-            return phidt
+        
+    phidt = correct_range(phidt)
+    return phidt
 
 
 def gaymard_porosity(phid, phin):
@@ -201,7 +216,9 @@ def gaymard_porosity(phid, phin):
     """
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
 
+    phie = correct_range(phie)
     return phie
+
 
 
 _porosity_methods = {
