@@ -1,6 +1,7 @@
 """
 From Berryman 1980
 """
+import numpy.typing as npt
 
 import numpy as np
 from scipy.optimize import fsolve
@@ -39,6 +40,38 @@ def KG(Km, Gm, Ki, Gi, ci, theta, f):
     
     return K, G
 
+def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, k: npt.ArrayLike, g: npt.ArrayLike, alphas: npt.ArrayLike):
+    """
+    Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity log.
+
+    ks : array_like
+        Bulk modulus of solid phase.
+
+    k : array_like
+        Inclusions bulk modulus.
+
+    g : array_like
+        Inclusions shear modulus.
+
+    Returns
+    -------
+    k_kt : array_like
+        Bulk modulus.
+    g_kt : array_like
+        Shear modulus.
+
+    References
+    ----------
+    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
+    properties. [S.l.]: Cambridge University Press, 2014.
+
+    """
+
 def DEM(Km, Gm, Ki, Gi, alphai, phii, phi0=0.0, r=1000, phitol=1.0E-10, gamma=0.01):
     phi = np.sum(phii)
     fraci = phii/np.sum(phi)
@@ -73,4 +106,3 @@ Gis = np.zeros(len(alphas), dtype=float)
 # The DEM function returns the bulk and shear moduli along with the porosity array to match them.
 # The porosity array is not regularly spaced. If you need so, you should reinterpolate
 K, G, phi = DEM(Km, Gm, Kis, Gis, alphas, volumes)
-print('K', K, 'len(K)', len(K), G, phi)
