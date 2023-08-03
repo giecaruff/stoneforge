@@ -2,7 +2,7 @@
 From Berryman 1980
 """
 import numpy.typing as npt
-
+import warnings
 import numpy as np
 from scipy.optimize import fsolve
 
@@ -40,7 +40,7 @@ def KG(Km, Gm, Ki, Gi, ci, theta, f):
     
     return K, G
 
-def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, k: npt.ArrayLike, g: npt.ArrayLike, alphas: npt.ArrayLike):
+def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: float, g: float, alpha: float):
     """
     Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
 
@@ -52,11 +52,17 @@ def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, k: npt.ArrayLike, g: np
     ks : array_like
         Bulk modulus of solid phase.
 
-    k : array_like
-        Inclusions bulk modulus.
+    gs : array_like
+        Shear modulus of solid phase.
 
-    g : array_like
-        Inclusions shear modulus.
+    k : float
+        Inclusion bulk modulus.
+
+    g : float
+        Inclusion shear modulus.
+
+    alpha : float
+        Inclusion aspect ratios.
 
     Returns
     -------
@@ -71,6 +77,13 @@ def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, k: npt.ArrayLike, g: np
     properties. [S.l.]: Cambridge University Press, 2014.
 
     """
+    theta = alpha*(np.arccos(alpha) - alpha*np.sqrt(1.0 - alpha*alpha))/(1.0 - alpha*alpha)**(3.0/2.0)
+    f =  alpha*alpha*(3.0*theta - 2.0)/(1.0 - alpha*alpha)
+
+    A = g/gs - 1.0
+    B = (k/ks - g/gs)/3.0
+    
+
 
 def DEM(Km, Gm, Ki, Gi, alphai, phii, phi0=0.0, r=1000, phitol=1.0E-10, gamma=0.01):
     phi = np.sum(phii)
