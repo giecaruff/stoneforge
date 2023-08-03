@@ -27,20 +27,8 @@ def PQ(A, B, R, theta, f):
     Q = 2.0/F3 + 1.0/F4 + (F4*F5 + F6*F7 - F8*F9)/(F2*F4)
     return P, Q
 
-def KG(Km, Gm, Ki, Gi, ci, theta, f):
-    A = Gi/Gm - 1.0
-    B = (Ki/Km - Gi/Gm)/3.0
-    R = Gm/(Km + (4.0/3.0)*Gm)
-    Fm = (Gm/6.0)*(9.0*Km + 8.0*Gm)/(Km + 2.0*Gm)
-    
-    P, Q = PQ(A, B, R, theta, f)
 
-    K = Km - (Km + (4.0/3.0)*Gm)*ci*(Km - Ki)*P/3.0/(Km + (4.0/3.0)*Gm + ci*(Km - Ki)*P/3.0)
-    G = Gm - (Gm + Fm)*ci*(Gm - Gi)*Q/5.0/(Gm + Fm + ci*(Gm - Gi)*Q/5.0)
-    
-    return K, G
-
-def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: float, g: float, alpha: float):
+def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: float, g: float, alpha: float):
     """
     Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
 
@@ -82,40 +70,11 @@ def Kuster_Toksoz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: f
 
     A = g/gs - 1.0
     B = (k/ks - g/gs)/3.0
+    R = gs/(ks + (4.0/3.0)*gs)
+    P, Q = PQ(A, B, R, theta, f)
+    k_kt = phi*(k - ks)*P
+    g_kt = phi*(g - gs)*Q
+
+    return k_kt, g_kt
     
 
-
-def DEM(Km, Gm, Ki, Gi, alphai, phii, phi0=0.0, r=1000, phitol=1.0E-10, gamma=0.01):
-    phi = np.sum(phii)
-    fraci = phii/np.sum(phi)
-    ci = fraci*alphai/r
-    n = int(np.ceil((np.log(1.0-phi)-np.log(1.0-phi0))/np.sum(np.log(1.0-ci))))
-    m = len(alphai)
-
-# Matrix properties
-Km = 77.0 #GPa
-Gm = 32.0 #Gpa
-rhom = 2.71
-
-# Fluid properties
-Kf = 3.0
-rhof = 1.0
-
-# Porosity
-phimax = 0.4
-
-# Inclusion properties
-# In this example a mixture of three inclusion types are used:
-# - 30% of 0.02 aspect ratio
-# - 50% of 0.15 aspect ratio
-# - 20% of 0.80 aspect ratio
-alphas = np.array([0.01, 0.15, 0.8])
-volumes = np.array([0.3, 0.5, 0.2])*phimax
-
-# Dry inclusions
-Kis = np.zeros(len(alphas), dtype=float)
-Gis = np.zeros(len(alphas), dtype=float)
-
-# The DEM function returns the bulk and shear moduli along with the porosity array to match them.
-# The porosity array is not regularly spaced. If you need so, you should reinterpolate
-K, G, phi = DEM(Km, Gm, Kis, Gis, alphas, volumes)
