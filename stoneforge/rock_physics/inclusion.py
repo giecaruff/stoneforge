@@ -67,14 +67,19 @@ def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: 
     """
     theta = alpha*(np.arccos(alpha) - alpha*np.sqrt(1.0 - alpha*alpha))/(1.0 - alpha*alpha)**(3.0/2.0)
     f =  alpha*alpha*(3.0*theta - 2.0)/(1.0 - alpha*alpha)
-
     A = g/gs - 1.0
     B = (k/ks - g/gs)/3.0
     R = gs/(ks + (4.0/3.0)*gs)
+    Fm = (gs/6.0)*(9.0*ks + 8.0*gs)/(ks + 2.0*gs)
     P, Q = PQ(A, B, R, theta, f)
-    k_kt = phi*(k - ks)*P
-    g_kt = phi*(g - gs)*Q
+ 
 
-    return k_kt, g_kt
+
+    K = ks - (ks + (4.0/3.0)*gs)*phi*(ks - k)*P/3.0/(ks + (4.0/3.0)*gs + phi*(ks - k)*P/3.0)
+    G = gs - (gs + Fm)*phi*(gs - g)*Q/5.0/(gs + Fm + phi*(gs - g)*Q/5.0)
+
+   
+
+    return K, G
     
 
