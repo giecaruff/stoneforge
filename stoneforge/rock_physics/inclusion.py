@@ -84,7 +84,7 @@ def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: 
    
  
   
-    #K = ks - (ks + (4.0/3.0)*gs)*phi*(ks - k)*P/3.0/(ks + (4.0/3.0)*gs + phi*(ks - k)*P/3.0)
+    K = ks - (ks + (4.0/3.0)*gs)*phi*(ks - k)*P/3.0/(ks + (4.0/3.0)*gs + phi*(ks - k)*P/3.0)
     G = gs - (gs + Fm)*phi*(gs - g)*Q/5.0/(gs + Fm + phi*(gs - g)*Q/5.0)
 
 
