@@ -21,7 +21,7 @@ def saves(file, name):
 
 def settings(method: str = "linear_regression", path = ".", **kwargs):
 
-    if method == "linear_regression":
+    if method == "linear_regression" or method == "linear_regression_simple" or method  =="linear_regression_polynomial":
         new_settings = {}
         if not 'degree' in kwargs:
             saves({'degree':1}, path+"\\polinomial_settings")
