@@ -19,7 +19,7 @@ setup(
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
-    python_requires=">=3.9.13",
+    python_requires=">=3.8.8",
     install_requires=[
         "numpy>=1.21, <1.22.1",
         "pytest>=6.2.2, <6.2.5",
@@ -27,6 +27,9 @@ setup(
         "scikit-learn>=0.22.1, <0.24.2",
         "xgboost==1.4.0",
         "matplotlib>=3.5.0, <3.5.3",
-        "jupyter==1.0.0"
+        "jupyter==1.0.0",
+        "dash>=1.20.0, <1.21.0",
+        "plotly>=5.1.0, <5.2.1",
+        "pandas==1.5.2"
     ],
 )
