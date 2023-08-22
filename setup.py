@@ -30,6 +30,8 @@ setup(
         "jupyter==1.0.0",
         "dash>=1.20.0, <1.21.0",
         "plotly>=5.1.0, <5.2.1",
-        "pandas==1.5.2"
+        "pandas==1.5.2",
+        "catboost==1.0.6",
+        "lightgbm==3.3.2"
     ],
 )
