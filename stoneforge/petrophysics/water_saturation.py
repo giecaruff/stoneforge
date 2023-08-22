@@ -3,12 +3,11 @@ import numpy.typing as npt
 import warnings
 from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_rage
 
+
 # Make anomalous water saturation values larger than 1 be one
 def correct_range(sw: np.ndarray):
     sw[sw > 1] = 1
     return sw
-
-
 
 def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
            m: float, n: float) -> np.ndarray:
@@ -16,17 +15,17 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     Parameters
     ----------
-    rw : float
+    rw : int, float
         Water resistivity.  
     rt : array_like
         Formation resistivity.    
     phi : array_like
         Porosity.   
-    a : float
+    a : int, float
         Tortuosity factor.
-    m : float
+    m : int, float
         Cementation exponent.
-    n : float
+    n : int, float
         Saturation exponent.
 
     Returns
@@ -40,13 +39,14 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
-    sw = ((a * rw) / ((phi ** m) * rt)) ** (1/n)
+    if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
+        warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
+        return ((a*rw) / (phi**m * rt))**(1/n)
 
-    sw = correct_petrophysic_estimation_rage(sw)
-
-    return sw
-
-
+    else:
+        sw = ((a*rw) / (phi**m * rt))**(1/n)
+        sw = correct_petrophysic_estimation_rage(sw)
+        return sw
 
 
 def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
@@ -90,8 +90,8 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     E = C / rt
     sw = ((D**2 + E)**0.5 - D)**(2/n)
 
-
     sw = correct_petrophysic_estimation_rage(sw)
+
 
     return sw
 
@@ -132,11 +132,8 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     """
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
-
-
     sw = correct_petrophysic_estimation_rage(sw)
 
-    
 
     return sw
 
@@ -175,6 +172,7 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
     sw = correct_petrophysic_estimation_rage(sw)
+
 
     return sw
 
@@ -253,6 +251,7 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         options[arg] = kwargs[arg]
     
     fun = _sw_methods[method]
+
 
     sw = fun(rw, rt, phi, a, m, **options)
     

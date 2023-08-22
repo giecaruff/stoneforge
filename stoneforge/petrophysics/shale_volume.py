@@ -154,9 +154,9 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     return vshale
 
 
-def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
-                   cl1_d: float = 2.65, cl2_n: float = 1.00, cl2_d: float = 1.10, clay_n: float = 0.47,
-                   clay_d: float = 2.71) -> np.ndarray:
+def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float,
+                   cl1_d: float, cl2_n: float, cl2_d: float, clay_n: float,
+                   clay_d: float) -> np.ndarray:
     """Estimates the shale volume from neutron and density logs method [1]_.
 
     Parameters
@@ -166,17 +166,17 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
     den : array_like
         Bulk density log.
     cl1_n : int, float
-        Neutron porosity value from clean point 1 for empty matrix (NPHI_MATRIX).
+        Neutron porosity value from clean point 1.
     cl1_d : int, float
-        Bulk density value from clean point 1 for empty matrix (RHOB_MATRIX).
+        Bulk density value from clean point 1.
     cl2_n : int, float
-        Neutron porosity value from clean point 2 full porosity.
+        Neutron porosity value from clean point 2.
     cl2_d : int, float
-        Bulk density value from clean point 2 full porosity.
+        Bulk density value from clean point 2.
     clay_n : int, float
-        Neutron porosity value from clay point (NPHI_SHALE).
+        Neutron porosity value from clay point.
     clay_d : int, float
-        Bulk density value from clay point (RHOB_SHALE).
+        Bulk density value from clay point.
 
     Returns
     -------
