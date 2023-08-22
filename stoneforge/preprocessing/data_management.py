@@ -114,6 +114,7 @@ class project():
                 well_data = self.well_data[i]
 
             for j in well_data:
+                # print(i,j) - search for wells mnemonics
                 data.append(self.well_data[i][j]['data'])
                 units.append(self.well_data[i][j]['unit'])
                 mnemonics.append(j)

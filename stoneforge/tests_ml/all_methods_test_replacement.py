@@ -4,7 +4,6 @@ import numpy as np
 import sys
 import os
 import pandas
-
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 
@@ -25,7 +24,7 @@ else:
 # %%
 
 #project = preprocessing.project("D:\\appy_projetos\\wells")
-project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\wells")
+project = preprocessing.project("Y:\\appy_dados\\wells_es")
 project.import_folder()
 project.import_several_wells()
 
@@ -35,12 +34,13 @@ print(project.well_names_paths)
 #%%
 
 mnemonics_replacement = {
-    #'DEPTH':['DEPTH'],
+    'DEPTH':['DEPTH','MD'],
     'GR':['GR'],
-    #'CAL':['CAL','DCAL','HCAL','CALI'],
+    'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHOZ","RHLA","RHBA","RHLA3","RHBA4"],
-    #'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
-    'NPHI':['NPHI'],
+    'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
+    'NPHI':['NPHI','NPOR'],
+    'DT':['DT','DTCO']
 }
 
 ref_mnemonics = list(mnemonics_replacement.keys())
@@ -50,20 +50,22 @@ project.convert_into_matrix(ref_mnemonics)
 
 # %%
 
-b = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
-print(b,np.shape(b))
-
-mnem = ['DEPTH', 'GR', 'CAL', 'RES', 'RHOB']
-unit = ['M', 'gAPI', 'in', 'ohm.m', 'g/cm3']
-
-project.well_data['test'] = {}
-
-project.well_data['test']['data'] = b
-project.well_data['test']['units'] = unit
-project.well_data['test']['mnemonics'] = mnem
-
-project.shape_check(mnemonics_replacement)
-
+import matplotlib.pyplot as plt
+for i in project.well_data:
+    print(i)
+    fig, axes = plt.subplots(nrows=1, ncols=len(project.well_data[i]), figsize=(15, 5))
+    jj = 0
+    for j in project.well_data[i]:
+        print(j)
+        #x = project.well_data[i][j]['data']
+        #y = project.well_data[i][j]['data']
+        #axes[jj].plot(x, y, label='Curve 1')
+        axes[jj].set_title('Curve 1')
+        axes[jj].set_xlabel('x1')
+        axes[jj].set_ylabel('y')
+        axes[jj].legend()
+        jj += 1
+    break
 
 # %%
 
