@@ -31,9 +31,9 @@ setup(
         #"catboost==0.26.1"
         #"auto-sklearn==0.12.5"
         
-        #"matplotlib", ### TO REMOVE BEFORE MERGE!
-        #"pandas", ### TO REMOVE BEFORE MERGE!
-        #"jupyter", ### TO REMOVE BEFORE MERGE!
-        #"seaborn" ### TO REMOVE BEFORE MERGE!
+        #"matplotlib", ### TO REMOVE BEFORE MERGE!!
+        #"pandas", ### TO REMOVE BEFORE MERGE!!
+        #"jupyter", ### TO REMOVE BEFORE MERGE!!
+        #"seaborn" ### TO REMOVE BEFORE MERGE!!
     ],
 )
