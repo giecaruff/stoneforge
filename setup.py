@@ -23,6 +23,17 @@ setup(
     install_requires=[
         "numpy>=1.21, <1.22.1",
         "pytest>=6.2.2, <6.2.5",
-        "scipy>=1.4.1, <1.8.1"
+        "scipy>=1.4.1, <1.8.1",
+        "scikit-learn==0.23.2",
+        "xgboost==1.4.0",
+        "catboost==1.0.6",
+        "lightgbm==3.3.2",
+        #"catboost==0.26.1"
+        #"auto-sklearn==0.12.5"
+        
+        #"matplotlib", ### TO REMOVE BEFORE MERGE!!
+        #"pandas", ### TO REMOVE BEFORE MERGE!!
+        #"jupyter", ### TO REMOVE BEFORE MERGE!!
+        #"seaborn" ### TO REMOVE BEFORE MERGE!!
     ],
 )
