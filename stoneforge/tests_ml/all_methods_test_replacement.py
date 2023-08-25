@@ -71,7 +71,7 @@ data_replacement.settings(method = "linear_regression_simple", path='_ml_project
 #data_replacement.settings(method = "LogisticRegression", path='_ml_project')
 #data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
 #data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
-data_replacement.settings(method = "xgboost_regression", path='_ml_project')
+#data_replacement.settings(method = "xgboost_regression", path='_ml_project')
 
 
 # %%
@@ -84,7 +84,6 @@ print(X)
 X = np.array(X, dtype='float') 
 y = np.array(y, dtype='float')
 print(y)
-
 
 # %%
 
@@ -104,10 +103,11 @@ xy_raw = pre_pros.matrix_values()
 y_db = {}
 x_db = {}
 for w in xy_raw:
-    y_db[w] = xy_raw[w][:,1]
+    y_db[w] = xy_raw[w][:,-1]
     x_db[w] = np.delete(xy_raw[w],(-1), axis=1)
     x_db[w] = np.delete(x_db[w],(0), axis=1)
     print(x_db)
+    print(y_db)
     ym_db = data_replacement.predict(x_db[w], method = "linear_regression_simple", path = "_ml_project")
     plt.plot(ym_db, y_db[w],'.')
     plt.grid()

@@ -100,15 +100,16 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
     if method == "catboost_regression":
         fun= _predict_methods[method]
 
-    scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
-    scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))
-    #y_scalerp = pickle.load(open(path+"\\y_scalerp.pkl", 'rb'))
+   # scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
+    #scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))
+   # y_scalerp = pickle.load(open(path+"\\y_scalerp.pkl", 'rb'))
     #scaler.fit(x)
 
-    x_norm = scaler.transform(x)
-    x_norm = scalerp.transform(x_norm)
+    #x_normm = scaler.transform(x)
+    #x_norm = scalerp.transform(x_normm)
 
-    y = fun(x_norm, path, **kwargs)
+    #y = fun(x_norm, path, **kwargs)
+    y = fun(x, path, **kwargs)
 
     #y_norm = scaler.transform(y)
     #y_norm = scalerp.transform(y_norm)

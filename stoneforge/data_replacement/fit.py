@@ -228,20 +228,23 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
 
     # ===================================== #
-
-    scaler = MinMaxScaler()
-    scaler.fit(X)
-    X_norm = scaler.transform(X)
-    saves(scaler, path+"\\scaler")
+    #np.array(x)
+    #np.array(y)
+    #y.reshape(-1, 1)
+    # ===================================== #
+    #scaler = MinMaxScaler()
+    #scaler.fit(X)
+    #X_norm = scaler.transform(X)
+    #saves(scaler, path+"\\scaler")
     
     #Normalization adjusts the values of a variable to a specific range.
 
     # ===================================== #
 
-    scalerp = StandardScaler()
-    scalerp.fit(X_norm)
-    X_norm = scaler.transform(X_norm)
-    saves(scalerp, path+"\\scalerp")
+    #scalerp = StandardScaler()
+    #scalerp.fit(X_norm)
+    #X_norm = scaler.transform(X_norm)
+    #saves(scalerp, path+"\\scalerp")
 
     # ===================================== #
     
@@ -255,10 +258,9 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     #saves(scaler, path+"\\y_scaler")
         
     #scalerp = StandardScaler()
-    #scalerp.fit(y_norm)
-    #y_norm = scaler.transform(y_norm)
+    #scalerp.fit(y)
+    #y_norm = scaler.transform(y)
     #saves(scalerp, path+"\\y_scalerp")
-    
 
-    #fun(X_norm, y, path, **kwargs)
+    #fun(X_norm, y_norm, path, **kwargs)
     fun(X, y, path, **kwargs)
