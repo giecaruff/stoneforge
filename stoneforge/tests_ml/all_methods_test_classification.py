@@ -40,7 +40,7 @@ mnemonics_replacement = {
     'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
     'DT':["DTCO","DT"],
     'NPHI':['NPHI'],
-    'Lithology':['LITO']
+    'LITO':['LITO']
 }
 
 ref_mnemonics = list(mnemonics_replacement.keys())

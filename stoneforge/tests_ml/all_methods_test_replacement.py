@@ -35,10 +35,10 @@ print(project.well_names_paths)
 
 mnemonics_replacement = {
     'DEPTH':['DEPTH','MD'],
-    'GR':['GR'],
-    'CAL':['CAL','DCAL','HCAL','CALI'],
+    #'GR':['GR'],
+    #'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHOZ","RHLA","RHBA","RHLA3","RHBA4"],
-    'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
+    #'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
     'NPHI':['NPHI','NPOR'],
     'DT':['DT','DTCO']
 }
@@ -50,26 +50,7 @@ project.convert_into_matrix(ref_mnemonics)
 
 # %%
 
-import matplotlib.pyplot as plt
-for i in project.well_data:
-    print(i)
-    fig, axes = plt.subplots(nrows=1, ncols=len(project.well_data[i]), figsize=(15, 5))
-    jj = 0
-    for j in project.well_data[i]:
-        print(j)
-        #x = project.well_data[i][j]['data']
-        #y = project.well_data[i][j]['data']
-        #axes[jj].plot(x, y, label='Curve 1')
-        axes[jj].set_title('Curve 1')
-        axes[jj].set_xlabel('x1')
-        axes[jj].set_ylabel('y')
-        axes[jj].legend()
-        jj += 1
-    break
-
-# %%
-
-tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
+tw_data,vw_data = preprocessing.well_train_test_split(['3-BRSA-277-ESS_Default_final','3-SHEL-24-ESS_Default_final'],project.well_data)
 
 
 mega_data = preprocessing.data_assemble(tw_data,'data')
@@ -90,26 +71,20 @@ data_replacement.settings(method = "linear_regression_simple", path='_ml_project
 #data_replacement.settings(method = "LogisticRegression", path='_ml_project')
 #data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
 #data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
-#data_replacement.settings(method = "xgboost_regression", path='_ml_project')
+data_replacement.settings(method = "xgboost_regression", path='_ml_project')
 
 
 # %%
 
-mnemonics = []
-for i in mnemonics_replacement:
-    mnemonics.append(i)
-
-print(mnemonics)
-
-
-# %%
-
-y = mega_data[:,1] # 1 for RHOB 
-X = np.delete(mega_data,(1), axis=1) # 1 for RHOB also
+y = mega_data[:,-1] # 1 for RHOB
+print('aaa',mega_data[:,-1])
+X = np.delete(mega_data,(-1), axis=1) # 1 for RHOB also
+X = np.delete(X,(0), axis=1) # 1 for RHOB also
 print(X)
 X = np.array(X, dtype='float') 
 y = np.array(y, dtype='float')
 print(y)
+
 
 # %%
 
@@ -129,13 +104,12 @@ xy_raw = pre_pros.matrix_values()
 y_db = {}
 x_db = {}
 for w in xy_raw:
-    #print( xy_raw[w])
     y_db[w] = xy_raw[w][:,1]
-    x_db[w] = np.delete(xy_raw[w],(1), axis=1)
+    x_db[w] = np.delete(xy_raw[w],(-1), axis=1)
+    x_db[w] = np.delete(x_db[w],(0), axis=1)
     print(x_db)
     ym_db = data_replacement.predict(x_db[w], method = "linear_regression_simple", path = "_ml_project")
     plt.plot(ym_db, y_db[w],'.')
-    #plt.plot(ym_db,'.')
     plt.grid()
     plt.show()
 

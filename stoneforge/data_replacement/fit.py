@@ -260,5 +260,5 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     #saves(scalerp, path+"\\y_scalerp")
     
 
-    fun(X_norm, y, path, **kwargs)
-    #fun(X, y, path, **kwargs)
+    #fun(X_norm, y, path, **kwargs)
+    fun(X, y, path, **kwargs)
