@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.metrics import mean_absolute_percentage_error
+#from sklearn.metrics.mean_absolute_percentage_error
 from sklearn.metrics import mean_squared_error
 #import pickle
 import json
@@ -21,11 +21,11 @@ def evaluation(y_m, y, decimals = 3, path = '.'):
     #json_dict['confusion_matrix'] = list(confusion_matrix(y_m,y))
     #json_dict['precision_recall_fscore'] = list(precision_recall_fscore_support(y_m,y))
 
-    lito = list(set(y))
-    json_dict['facies'] = lito
+    curve = list(set(y))
+    json_dict['well_log'] = curve
 
     prf = []
-    for i in list(mean_squared_error(y_m,y, labels = np.array(lito))):
+    for i in list(mean_squared_error(y_m,y, labels = np.array(curve))):
         values = np.round(i,decimals)
         values = np.array(values,dtype='str')
         prf.append(list(values))

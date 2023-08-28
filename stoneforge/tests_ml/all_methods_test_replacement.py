@@ -132,4 +132,10 @@ class_db_full = pre_pros.return_curve(class_db)
 print(class_db_full)
 # %%
 
+for w in class_db_full:
+    print(list(class_db_full[w]))
+    break
 
+
+
+# %%
