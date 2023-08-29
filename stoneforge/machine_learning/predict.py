@@ -81,7 +81,7 @@ _predict_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'CatBoostClassifier': catboost
+    #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
 
@@ -102,8 +102,8 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", **kwargs):
         fun= _predict_methods[method]
     if method == "XGBClassifier":
         fun= _predict_methods[method]
-    if method == "CatBoostClassifier":
-        fun= _predict_methods[method]
+    #if method == "CatBoostClassifier":
+    #    fun= _predict_methods[method]
     #if method == "AutoML":
         #fun = _predict_methods[method]
 

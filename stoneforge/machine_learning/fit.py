@@ -209,7 +209,7 @@ _fit_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    'CatBoostClassifier': catboost
+    #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
 
@@ -230,8 +230,8 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         fun = _fit_methods[method]
     if method == "XGBClassifier":
         fun = _fit_methods[method]
-    if method == "CatBoostClassifier":
-        fun = _fit_methods[method]
+    #if method == "CatBoostClassifier":
+    #    fun = _fit_methods[method]
     #if method == "AutoML":
         #fun = _fit_methods[method]
 
