@@ -3,6 +3,17 @@ import numpy.typing as npt
 import json
 import warnings
 
+ML_METHODS = [
+    "GaussianNB",
+    "DecisionTreeClassifier",
+    "SVM",
+    "LogisticRegression",
+    "KNeighborsClassifier",
+    "RandomForestClassifier",
+    'XGBClassifier',
+    'CatBoostClassifier'
+]
+
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
@@ -30,3 +41,11 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
 
     if method == "XGBClassifier":
         saves(kwargs, path+'\\xgboost_settings')
+
+    if method == "CatBoostClassifier":
+        saves(kwargs, path+'\\catboost_settings')
+
+    saves(ML_METHODS, path+'\\all_methods')
+    
+    #if method == "AutoML":
+        #saves(kwargs, path+'\\automl_settings')

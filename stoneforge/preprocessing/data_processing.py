@@ -43,6 +43,24 @@ class predict_processing:
 
         return curves
 
+    def train_test_split(self, X, y, test_size = 0.30, random_state = 99):
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+        curves = {
+            "X_train":X_train,
+            "X_test":X_test,
+            "y_train":y_train,
+            "y_test":y_test
+        }
+        return curves
+
+    
+    def _remove_dummies(self,data):
+        data_1 = np.array(data).T
+        data_2 = data_1[~np.isnan(data_1).any(axis=1)]
+
+        return data_2
+
 def well_train_test_split(well_names,well_database):
 
     all_wells = set(well_database.keys())
