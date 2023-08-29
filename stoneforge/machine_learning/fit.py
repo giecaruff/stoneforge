@@ -15,7 +15,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
-from catboost import CatBoostClassifier
+#from catboost import CatBoostClassifier
 from sklearn.model_selection import GridSearchCV
 
 def saves(file, name):
@@ -174,6 +174,7 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.
 
 
 #CatBoost
+"""
 def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -198,8 +199,8 @@ def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np
     cb.fit(X, y, **kwargs)
 
     saves(cb, path+"\\catboost_fit_property")
-
-
+"""
+    
 _fit_methods = {
     "GaussianNB": gaussian_naive_bayes,
     "DecisionTreeClassifier": decision_tree_classifier,

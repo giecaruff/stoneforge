@@ -19,7 +19,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
-from catboost import CatBoostClassifier
+#from catboost import CatBoostClassifier
 
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
@@ -173,6 +173,7 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
 
 
 #catboost
+"""
 def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
 
     f = open(path + '\\catboost_settings.json')
@@ -192,7 +193,7 @@ def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, 
         saves(mean_result,path + '\\mean_accuracy')
     if not path:
         return mean_result
-
+"""
 
 _fit_methods = {
     "GaussianNB": gaussian_naive_bayes,

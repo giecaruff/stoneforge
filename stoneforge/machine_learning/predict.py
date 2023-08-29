@@ -11,7 +11,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.preprocessing import StandardScaler
-from catboost import CatBoostClassifier
+#from catboost import CatBoostClassifier
 from sklearn.preprocessing import LabelEncoder
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
@@ -60,11 +60,11 @@ def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return xg.predict(x,**kwargs)
 
-def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+#def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    cb = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
+#    cb = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
-    return cb.predict(x,**kwargs)
+#    return cb.predict(x,**kwargs)
 
 #def aautoml(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
