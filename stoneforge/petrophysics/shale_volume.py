@@ -231,8 +231,7 @@ _vshale_methods = {
 }
 
 
-def vshale(gr: npt.ArrayLike, phit: npt.ArrayLike, phie: npt.ArrayLike,
-        grmin: float, grmax: float, method: str = None) -> np.ndarray:
+def vshale(method: str = "linear", **kwargs) -> np.ndarray:
     """Compute the shale volume from gamma ray log.
 
     This is a façade for the methods:
@@ -270,13 +269,28 @@ def vshale(gr: npt.ArrayLike, phit: npt.ArrayLike, phie: npt.ArrayLike,
     vshale : array_like
         Shale Volume for the aimed interval using the defined method.
     """
-    if method is None:
-        method = "linear"
+    options = {}
 
-    if method not in _vshale_methods:
-        msg = f"Method not found: {method}"
-        raise ValueError(msg)
-    
+    required = []
+    if method == "linear":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "larionov":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "larionov_old":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "clavier":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "stieber":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "ehigie":
+        required = ["phit", "phie"]
+
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+
     fun = _vshale_methods[method]
 
-    return fun(gr, grmin, grmax)
+    return fun(**options)

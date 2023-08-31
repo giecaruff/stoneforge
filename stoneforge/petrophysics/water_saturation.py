@@ -193,15 +193,6 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     return sw
 
-
-_sw_methods = {
-    "archie": archie,
-    "simandoux": simandoux,
-    "indonesia": indonesia,
-    "fertl": fertl
-}
-
-
 def crain(phi: npt.ArrayLike, ff: npt.ArrayLike):
     """Estimate water saturation from Crain(2019)"""
     
@@ -236,10 +227,16 @@ def crain(phi: npt.ArrayLike, ff: npt.ArrayLike):
     
     return sw
 
+_sw_methods = {
+    "archie": archie,
+    "simandoux": simandoux,
+    "indonesia": indonesia,
+    "fertl": fertl,
+    "crain":crain
+}
 
-def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
-                    ff: npt.ArrayLike, a: float, m: float, method: str = "archie",
-                    **kwargs) -> np.ndarray:
+
+def water_saturation(method: str = "archie",**kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
 
     This is a façade for the methods:
@@ -294,13 +291,13 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     
     required = []
     if method == "archie":
-        required = ["n"]
+        required = ["rw","rt","phi","a","m","n"]
     elif method == "simandoux":
-        required = ["n", "vsh", "rsh"]
+        required = ["rw","rt","phi","a","m","n","vsh","rsh"]
     elif method == "indonesia":
-        required = ["n", "vsh", "rsh"]
+        required = ["rw","rt","phi","a","m","n","vsh","rsh"]
     elif method == "fertl":
-        required = ["vsh", "alpha"]
+        required = ["rw","rt","phi","a","m","vsh","alpha"]
     elif method == "crain":
         required = ["phi", "ff" ]
     
@@ -309,10 +306,8 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
             msg = f"Missing required argument for method '{method}': '{arg}'"
             raise TypeError(msg)
         options[arg] = kwargs[arg]
-    
+
     fun = _sw_methods[method]
 
-    sw = fun(rw, rt, phi, ff, a, m, **options)
-    sw = correct_range(sw)
-    return sw
+    return fun(**options)
 
