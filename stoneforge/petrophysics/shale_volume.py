@@ -149,6 +149,33 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     return vshale
 
 
+def vshale_ehigie(phit: npt.ArrayLike, phie: npt.ArrayLike):
+    """Estimate the shale volume from the Ehigie model.
+
+    Parameters
+    ----------
+    cbw : array_like
+        Clay bound water.
+    phit : int, float
+        Porosity total.
+    phie : int, float
+        Porosity effective.
+         
+    Returns
+    -------
+    vshale : array_like
+        Shale Volume for the aimed interval using the Ehigie method.
+    
+    """
+
+
+    cbw = phit - phie
+    vshale = cbw / phit
+    
+
+    return vshale
+
+
 def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
                    cl1_d: float = 2.65, cl2_n: float = 1.00, cl2_d: float = 1.10, clay_n: float = 0.47,
                    clay_d: float = 2.71) -> np.ndarray:
@@ -200,10 +227,11 @@ _vshale_methods = {
     "larionov_old": vshale_larionov_old,
     "clavier": vshale_clavier,
     "stieber": vshale_stieber,
+    "ehigie": vshale_ehigie
 }
 
 
-def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) -> np.ndarray:
+def vshale(method: str = "linear", **kwargs) -> np.ndarray:
     """Compute the shale volume from gamma ray log.
 
     This is a façade for the methods:
@@ -212,6 +240,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
         - vshale_larionov_old
         - vshale_clavier
         - vshale_stieber
+        - vshale_ehigie
 
     Parameters
     ----------
@@ -221,6 +250,10 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
         Clean sand GR value.
     grmax : int, float
         Shale/clay value.
+    phit : int, float
+        Porosity total.
+    phie : int, float
+        Porosity effective.
     method : str, optional
         Name of the method to be used.  Should be one of
             - 'linear'
@@ -228,6 +261,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
             - 'larionov_old'
             - 'clavier'
             - 'stieber'
+            - 'ehigie'
         If not given, default method is 'linear'
 
     Returns
@@ -235,13 +269,28 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
     vshale : array_like
         Shale Volume for the aimed interval using the defined method.
     """
-    if method is None:
-        method = "linear"
+    options = {}
 
-    if method not in _vshale_methods:
-        msg = f"Method not found: {method}"
-        raise ValueError(msg)
-    
+    required = []
+    if method == "linear":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "larionov":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "larionov_old":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "clavier":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "stieber":
+        required = ["gr", "grmin", "grmax"]
+    elif method == "ehigie":
+        required = ["phit", "phie"]
+
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+
     fun = _vshale_methods[method]
 
-    return fun(gr, grmin, grmax)
+    return fun(**options)
