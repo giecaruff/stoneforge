@@ -202,9 +202,44 @@ _sw_methods = {
 }
 
 
+def crain(phi: npt.ArrayLike, ff: npt.ArrayLike):
+    """Estimate water saturation from Crain(2019)"""
+    
+    """
+    phi: array_like
+    Porosity total 
+    ff: array_like 
+    Free fluid"""
+
+    """Parameters
+    ----------
+    bvi : int, float
+        Bulk volume irreducible.
+    ff : array_like
+        Free fluid.    
+    phi : array_like
+        Porosity (must be effective).  
+    sw : array_like
+        Saturation of water.     
+    
+
+    Returns
+    -------
+    crain : array_like
+        Water saturation from Crain equation."""
+    """References
+    ----------
+    .. Crain E.R. (2016) Visual Analysis Rule for Water Saturation, Petrophysical Handout."""
+   
+    bvi = phi - ff
+    sw = bvi / phi
+    
+    return sw
+
+
 def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
-                     a: float, m: float, method: str = "archie",
-                     **kwargs) -> np.ndarray:
+                    ff: npt.ArrayLike, a: float, m: float, method: str = "archie",
+                    **kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
 
     This is a façade for the methods:
@@ -212,6 +247,7 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         - simandoux
         - indonesia
         - fertl
+        - crain
 
     Parameters
     ----------
@@ -221,6 +257,8 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         True resistivity.
     phi : array_like
         Porosity (must be effective).
+    ff : array_like
+        Free fluid.
     a : int, float
         Tortuosity factor.
     m : int, float
@@ -240,7 +278,8 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
             - 'archie'
             - 'simandoux'
             - 'indonesia'
-            - 'fertl
+            - 'fertl'
+            - 'crain'
         If not given, default method is 'archie'
 
     Returns
@@ -249,6 +288,8 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         Water saturation for the aimed interval using the defined method.
 
     """
+
+
     options = {}
     
     required = []
@@ -260,6 +301,8 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         required = ["n", "vsh", "rsh"]
     elif method == "fertl":
         required = ["vsh", "alpha"]
+    elif method == "crain":
+        required = ["phi", "ff" ]
     
     for arg in required:
         if arg not in kwargs:
@@ -269,6 +312,7 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
     
     fun = _sw_methods[method]
 
-    sw = fun(rw, rt, phi, a, m, **options)
+    sw = fun(rw, rt, phi, ff, a, m, **options)
     sw = correct_range(sw)
     return sw
+
