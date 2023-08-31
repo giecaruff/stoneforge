@@ -2,15 +2,15 @@
 
 import numpy as np
 import numpy.typing as npt
-import pandas as pd
-import lasio as las
 import matplotlib.pyplot as plt
+import las2
 from stoneforge import preprocessing
 from stoneforge.petrophysics import shale_volume
 from stoneforge.petrophysics import water_saturation
+from io import StringIO
 # %%
 
-prj = preprocessing.project("C:\\Users\\graduando\\Documents\\nmr_data")
+prj = preprocessing.project("C:\\Users\\mmram\\Downloads")
 prj.import_folder()
 
 prj.import_well('3-BRSA-1053-RJS_NMR_SLB_merge')
@@ -55,4 +55,36 @@ ax[1].set_xlabel("-")
 ax[1].invert_yaxis()
 ax[1].grid()
 
+# %%
+
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['VSHALE'] = {}
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['VSHALE']['data'] = VSHALE
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['VSHALE']['unit'] = '-'
+
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['SW'] = {}
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['SW']['data'] = SW
+data['3-BRSA-1053-RJS_NMR_SLB_merge']['SW']['unit'] = '-'
+
+# %%
+
+SDATA = {}
+SDATA['well'] = [{'mnemonic': 'NULL', 'unit': '', 'value': '-999.0', 'description': ''}]
+SDATA['curve'] = []
+ALLDATA = []
+for d in data['3-BRSA-1053-RJS_NMR_SLB_merge']:
+    mnemonic = d
+    unit = data['3-BRSA-1053-RJS_NMR_SLB_merge'][d]['unit']
+    l_data = data['3-BRSA-1053-RJS_NMR_SLB_merge'][d]['data']
+    SDATA['curve'].append({'mnemonic': mnemonic, 'unit': unit, 'value': '', 'description': ''})
+    ALLDATA.append(l_data)
+SDATA['data'] = np.array(ALLDATA)
+#{'mnemonic': 'DEPT', 'unit': 'M', 'value': '', 'description': ''}
+
+# %%
+
+SDATA
+
+lasfile = StringIO()
+las2.write(lasfile, SDATA)
+print(lasfile.getvalue())
 # %%
