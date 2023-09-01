@@ -23,7 +23,7 @@ else:
     import preprocessing
 
 # %%
-project = preprocessing.project("D:\\appy_projetos\\wells")
+project = preprocessing.project("Y:\\appy_dados\\wells_es")
 #project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
 project.import_folder()
 project.import_several_wells()
@@ -33,13 +33,14 @@ print(project.well_names_paths)
 #%%
 
 mnemonics_replacement = {
-    'DEPTH':['DEPTH'],
+    'DEPTH':['DEPTH',"MD"],
     'GR':['GR'],
     'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHLA","RHBA","RHLA3","RHBA4"],
-    'RES':["ILD","HDRS","RT","AHT901","AT90","RT90"],
+    'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
+    'DT':["DTCO","DT"],
     'NPHI':['NPHI'],
-    'Lithology':['Lith_new']
+    'Lithology':['LITO']
 }
 
 ref_mnemonics = list(mnemonics_replacement.keys())
