@@ -35,7 +35,7 @@ VSHALE = shale_volume.vshale('ehigie',phit = PHIT,phie = PHIE)
 print(VSHALE)
 
 FF = data['3-BRSA-1053-RJS_NMR_SLB_merge']['CMFF']['data']
-SW = water_saturation.water_saturation( method = 'crain', phi = PHIE, ff = FF )
+SW = water_saturation.water_saturation( method = 'crain', phi = PHIT, ff = FF )
 print(SW)
 
 # %%
