@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+#from xgboost import XGBClassifier
 from sklearn.preprocessing import StandardScaler
 #from catboost import CatBoostClassifier
 from sklearn.preprocessing import LabelEncoder
@@ -54,11 +54,11 @@ def random_florest(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return d_florest.predict(x,**kwargs)
 
-def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+#def xgboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    xg = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
+#    xg = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
     
-    return xg.predict(x,**kwargs)
+#    return xg.predict(x,**kwargs)
 
 #def catboost(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
@@ -80,7 +80,7 @@ _predict_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost,
+    #'XGBClassifier': xgboost,
     #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
