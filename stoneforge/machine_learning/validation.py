@@ -14,7 +14,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+#from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -202,7 +202,7 @@ _fit_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost,
+    #'XGBClassifier': xgboost,
     #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
@@ -224,8 +224,8 @@ def validation(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", 
         fun = _fit_methods[method]
     if method == "RandomForestClassifier":
         fun = _fit_methods[method]
-    if method == "XGBClassifier":
-        fun = _fit_methods[method]
+    #if method == "XGBClassifier":
+    #    fun = _fit_methods[method]
     #if method == "CatBoostClassifier":
     #    fun = _fit_methods[method]
     #if method == "AutoML":

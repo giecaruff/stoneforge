@@ -25,7 +25,7 @@ setup(
         "pytest>=6.2.2, <6.2.5",
         "scipy>=1.4.1, <1.8.1",
         "scikit-learn>=0.22.1, <0.24.2",
-        "xgboost==1.4.0",
+        #"xgboost==1.4.0",
         "lightgbm==3.3.2"
     ],
 )

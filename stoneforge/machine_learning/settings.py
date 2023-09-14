@@ -10,7 +10,7 @@ ML_METHODS = [
     "LogisticRegression",
     "KNeighborsClassifier",
     "RandomForestClassifier",
-    'XGBClassifier',
+    #'XGBClassifier',
     'CatBoostClassifier'
 ]
 
@@ -39,8 +39,8 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
     if method == "RandomForestClassifier":
         saves(kwargs, path+'\\random_florest_settings')
 
-    if method == "XGBClassifier":
-        saves(kwargs, path+'\\xgboost_settings')
+    #if method == "XGBClassifier":
+    #    saves(kwargs, path+'\\xgboost_settings')
 
     if method == "CatBoostClassifier":
         saves(kwargs, path+'\\catboost_settings')
