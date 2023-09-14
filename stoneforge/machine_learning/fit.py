@@ -209,7 +209,7 @@ _fit_methods = {
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
     'XGBClassifier': xgboost,
-    #'CatBoostClassifier': catboost
+    #'CatBoostClassifier': catboost #
     #'AutomlClassifier': automl 
     }
 
