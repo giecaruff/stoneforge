@@ -120,6 +120,10 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# Local tests
+.ml_project
+.pkl
+
 # mypy
 .mypy_cache/
 .dmypy.json

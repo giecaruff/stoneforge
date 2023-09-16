@@ -1,11 +1,36 @@
 import numpy as np
 import numpy.typing as npt
 import warnings
+from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_rage
 
-# Make anomalous water saturation values larger than 1 be one
-def correct_range(phi: np.ndarray):
-    phi[phi < 0] = 0
-    return phi
+
+
+
+def effective_porosity(phi: npt.ArrayLike, vsh: float) -> np.ndarray:
+    """Calculate the effective porosity from the total porisity and shale volume_.
+
+    Parameters
+    ----------
+    phi : array_like
+        Bulk density log.
+    vsh : int, float
+        Matrix density.
+       
+    Returns
+    -------
+    phie : array_like
+        Total porosity for the aimed interval using the bulk density.
+
+    References
+    ----------      
+    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
+    principles of petrophysics. Elsevier.
+
+    """
+    phie = phi - vsh
+
+    phie = correct_petrophysic_estimation_rage(phie)
+    return phie
 
 def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
     """Estimate the porosity from the bulk density log [1]_.
@@ -49,7 +74,8 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
         else: 
             phi = (rhom - rhob) / (rhom - rhof)
 
-    phi = correct_range(phi)
+
+    phi = correct_petrophysic_estimation_rage(phi)
     return phi
 
     
@@ -91,7 +117,7 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     else:
         phin = nphi - (vsh * nphi_sh)
 
-    phin = correct_range(phin)
+    phin = correct_petrophysic_estimation_rage(phin)
     return phin
 
 
@@ -135,7 +161,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
 
-    phi = correct_range(phi)
+    phi = correct_petrophysic_estimation_rage(phi)
     return phi
 
  
@@ -189,7 +215,7 @@ def sonic_porosity(dt, dtma, dtf):
             phidt = (dt - dtma) / (dtf - dtma)
 
         
-    phidt = correct_range(phidt)
+    phidt = correct_petrophysic_estimation_rage(phidt)
     return phidt
 
 
@@ -216,7 +242,7 @@ def gaymard_porosity(phid, phin):
     """
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
 
-    phie = correct_range(phie)
+    phie = correct_petrophysic_estimation_rage(phie)
     return phie
 
 
@@ -226,7 +252,8 @@ _porosity_methods = {
     "neutron": neutron_porosity,
     "neutron-density": neutron_density_porosity,
     "sonic": sonic_porosity,
-    "gaymard": gaymard_porosity
+    "gaymard": gaymard_porosity,
+    "effective": effective_porosity
 }
 
 
@@ -239,6 +266,7 @@ def porosity(method: str = "density", **kwargs):
         - neutron-density
         - sonic
         - gaymard
+        - effective
 
     Parameters
     ----------
@@ -251,7 +279,7 @@ def porosity(method: str = "density", **kwargs):
     nphi : array_like
         Neutron log. Required if `method` is "neutron".
     vsh : array_like
-        Total volume of shale in the rock, chosen the most representative. Required if `method` is "neutron".
+        Total volume of shale in the rock, chosen the most representative. Required if `method` is "neutron" or "effective".
     phi_nsh : int, float
         Apparent porosity read in the shales on and under the layer under study and with the same values used in φN. Required if `method` is "neutron".
     dt : array_like
@@ -264,6 +292,8 @@ def porosity(method: str = "density", **kwargs):
         Density porosity (porosity calculated using density log). Required if `method` is "neutron-density" or "gaymard.
     phin : int, float
         Neutron porosity (porosity calculated using neutron log). Required if `method` is "neutron-density" or "gaymard.
+    phi : int, float
+        Total porisity. Required if `method` is "effective".
     method : str, optional
         Name of the method to be used.  Should be one of
             - 'density'
@@ -271,6 +301,7 @@ def porosity(method: str = "density", **kwargs):
             - 'neutron-density'
             - 'sonic'
             - 'gaymard'
+            - 'effective'
         If not given, default method is 'density'
 
     Returns
@@ -292,6 +323,8 @@ def porosity(method: str = "density", **kwargs):
         required = ["dt", "dtma", "dtf"]
     elif method == "gaymard":
         required = ["phid", "phin"]
+    elif method == "effective":
+        required = ["phi", "vsh"]
 
     for arg in required:
         if arg not in kwargs:

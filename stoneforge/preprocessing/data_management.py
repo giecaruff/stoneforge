@@ -3,6 +3,7 @@ import platform
 import pickle
 import json
 import os
+import pandas
 
 from . import las2
 
@@ -113,6 +114,7 @@ class project():
                 well_data = self.well_data[i]
 
             for j in well_data:
+                # print(i,j) - search for wells mnemonics
                 data.append(self.well_data[i][j]['data'])
                 units.append(self.well_data[i][j]['unit'])
                 mnemonics.append(j)
@@ -172,9 +174,12 @@ class project():
         for i in self.well_data:
             if np.shape(self.well_data[i]['data'])[0] == value:
                 well_data[i] = self.well_data[i]
+            else:
+                print("well: '{}'".format(i),"because it has less logs")
 
         self.well_data = well_data
 
+    # ============================================ #
         
 
 
