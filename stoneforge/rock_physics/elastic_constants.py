@@ -1,3 +1,4 @@
+import numpy.typing as npt
 
 def bulk_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike, vs: npt.ArrayLike):
      """
