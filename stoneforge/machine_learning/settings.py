@@ -11,7 +11,8 @@ ML_METHODS = [
     "KNeighborsClassifier",
     "RandomForestClassifier",
     'XGBClassifier',
-    'CatBoostClassifier'
+    'CatBoostClassifier',
+    'GradientBoostingClassifier',
 ]
 
 def saves(file, name):
@@ -39,11 +40,14 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
     if method == "RandomForestClassifier":
         saves(kwargs, path+'\\random_florest_settings')
 
-    if method == "XGBClassifier":
-        saves(kwargs, path+'\\xgboost_settings')
+   # if method == "XGBClassifier":
+       # saves(kwargs, path+'\\xgboost_settings')
 
-    if method == "CatBoostClassifier":
-        saves(kwargs, path+'\\catboost_settings')
+    #if method == "CatBoostClassifier":
+       # saves(kwargs, path+'\\catboost_settings')
+
+    if method == "GradientBoostingClassifier":
+        saves(kwargs, path+'\\gradient_settings')
 
     saves(ML_METHODS, path+'\\all_methods')
     

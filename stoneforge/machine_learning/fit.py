@@ -10,7 +10,8 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+#from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -147,7 +148,7 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, gs =False, **kwargs
 
 
 #XGBOOST
-def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
+'''def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
 
     if gs:
         parameters =  {'n_estimators': [100],
@@ -170,7 +171,35 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.
     xg = XGBClassifier(**settings)
     xg.fit(X, y, **kwargs)
 
-    saves(xg, path+"\\xgboost_fit_property")
+    saves(xg, path+"\\xgboost_fit_property")'''
+
+#GradientBoosting
+def gradient(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
+
+    if gs:
+        parameters =  {'n_estimators': [100],
+        'learning_rate': [0.5],
+        'max_depth':[5,3,10,15,30,50,70,100],
+        'random_state':[99],
+        'los':['log_loss','exponetial']}
+
+        gradient = GradientBoostingClassifier()
+
+        bestgradiente = GridSearchCV(gradient,parameters,scoring='accuracy')
+        bestgradiente.fit(X,y)
+        #bestxgb = bestxgb.best_params_
+        settings = bestgradiente.best_params_
+
+
+    if not gs:
+        f = open(path + '\\gradient_settings.json')
+        settings = json.load(f)
+    
+    grad = GradientBoostingClassifier(**settings)
+    grad.fit(X, y, **kwargs)
+
+    saves(grad, path+"\\gradient_fit_property")
+
 
 
 #CatBoost
@@ -208,7 +237,8 @@ _fit_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost,
+    #'XGBClassifier': xgboost,
+    'GradientBoostingClassifier': gradient,
     #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
@@ -228,7 +258,9 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", path = 
         fun = _fit_methods[method]
     if method == "RandomForestClassifier":
         fun = _fit_methods[method]
-    if method == "XGBClassifier":
+    #if method == "XGBClassifier":
+        #fun = _fit_methods[method]
+    if method == "GradientBoostingClassifier":
         fun = _fit_methods[method]
     #if method == "CatBoostClassifier":
     #    fun = _fit_methods[method]
