@@ -10,9 +10,10 @@ ML_METHODS = [
     "LogisticRegression",
     "KNeighborsClassifier",
     "RandomForestClassifier",
-    #'XGBClassifier',
-    'CatBoostClassifier'
 ]
+
+def methods():
+    return ML_METHODS
 
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
@@ -42,8 +43,8 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
     #if method == "XGBClassifier":
     #    saves(kwargs, path+'\\xgboost_settings')
 
-    if method == "CatBoostClassifier":
-        saves(kwargs, path+'\\catboost_settings')
+    #if method == "CatBoostClassifier":
+    #    saves(kwargs, path+'\\catboost_settings')
 
     saves(ML_METHODS, path+'\\all_methods')
     

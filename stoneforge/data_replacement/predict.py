@@ -10,9 +10,9 @@ from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
-from xgboost import XGBRegressor
+#from xgboost import XGBRegressor
 import lightgbm as lgb
-from catboost.core import CatBoostRegressor
+#from catboost.core import CatBoostRegressor
 
 
 def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
@@ -47,12 +47,13 @@ def random_florest_replecement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
     
     return randomregression.predict(x, **kwargs)
 
-
+"""
 def xgboost_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     xgboostregression = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
 
     return xgboostregression.predict(x,**kwargs)
+"""
 
 
 def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
@@ -61,13 +62,15 @@ def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return lightregression.predict(x,**kwargs)
 
+"""
+
 def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     catregression = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
     
     return catregression.predict(x,**kwargs)
 
-
+"""
 
 _predict_methods = {
     "linear_regression_simple": linear_regression_replacement,
@@ -75,9 +78,9 @@ _predict_methods = {
     "suporte_vector_regression": support_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
     "random_florest_regression": random_florest_replecement,
-    "xgboost_regression": xgboost_replacement,
+    #"xgboost_regression": xgboost_replacement,
     "lightgbm_regression": lightgbm_replacement,
-    "catboost_regression": lightgbm_replacement,
+    #"catboost_regression": lightgbm_replacement,
     }
 
 
@@ -93,12 +96,12 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
         fun = _predict_methods[method]
     if method == "random_florest_regression":
         fun = _predict_methods[method]
-    if method == "xgboost_regression":
-        fun = _predict_methods[method]
+    #if method == "xgboost_regression":
+    #    fun = _predict_methods[method]
     if method == "lightgbm_regression":
         fun= _predict_methods[method]
-    if method == "catboost_regression":
-        fun= _predict_methods[method]
+    #if method == "catboost_regression":
+    #    fun= _predict_methods[method]
 
     scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
     scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))

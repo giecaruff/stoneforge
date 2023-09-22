@@ -10,11 +10,11 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 import lightgbm as LGBMRegressor
-from catboost.core import CatBoostRegressor
+#from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from xgboost import XGBRegressor
+#from xgboost import XGBRegressor
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -29,7 +29,7 @@ def saves(file, name):
 
 
 #Simple Linear Regression
-def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     f1 = open(path + '\\linear_regression_settings.json')
     f2 = open(path + '\\polinomial_settings.json')
@@ -47,7 +47,7 @@ def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kw
     
 
 #Suporte Vector 
-def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     f = open(path + '\\support_vector_settings.json')
 
@@ -64,7 +64,7 @@ def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwarg
 
 
 #Decison Tree
-def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, **kwargs):
+def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -90,7 +90,7 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, 
 
 
 #Random Florest
-def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True,**kwargs):
+def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,**kwargs):
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -116,6 +116,7 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True
 
 
 #XgBoost
+"""
 def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -138,6 +139,8 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
     xg.fit(X, y, **kwargs)
 
     saves(xg, path+"\\xgboost_fit_property")
+
+"""
 
 #LightGBM
 def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
@@ -166,6 +169,8 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
 
     saves(xg, path+"\\lightgbm_replacement_fit_property")
 
+"""
+
 #CatBoost
 def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
@@ -193,7 +198,7 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
 
     saves(cb, path+"\\catboost_fit_property")
 
-
+"""
 
 _fit_methods = {
     "linear_regression_simple": linear_regression_replacement,
@@ -201,9 +206,9 @@ _fit_methods = {
     "suporte_vector_regression": suporte_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
     "random_florest_regression": random_florest_replecement,
-    "xgboost_regression": xgboost_replacement,
+    #"xgboost_regression": xgboost_replacement,
     "lightgbm_regression": lightgbm_replacement,
-    "catboost_regression": catboost_replecement
+    #"catboost_regression": catboost_replecement
     }
 
 
@@ -220,12 +225,12 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
     if method == "random_florest_regression":
         fun = _fit_methods[method]
-    if method == "xgboost_regression":
-        fun = _fit_methods[method]
+    #if method == "xgboost_regression":
+    #    fun = _fit_methods[method]
     if method == "lightgbm_regression":
         fun = _fit_methods[method]
-    if method == "catboost_regression":
-        fun = _fit_methods[method]
+    #if method == "catboost_regression":
+    #    fun = _fit_methods[method]
 
     # ===================================== #
 
@@ -260,5 +265,5 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     #saves(scalerp, path+"\\y_scalerp")
     
 
-    fun(X_norm, y, path, **kwargs)
-    #fun(X, y, path, **kwargs)
+    #fun(X_norm, y, path, **kwargs)
+    fun(X, y, path, **kwargs)
