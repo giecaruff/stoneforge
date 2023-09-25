@@ -1,0 +1,66 @@
+{
+    "DEPTH": [
+        "DEPTH",
+        "DEPT",
+        "MD"
+    ],
+    "GR": [
+        "GR",
+        "HGR"
+    ],
+    "CAL": [
+        "CAL",
+        "DCAL",
+        "HCAL",
+        "CALI"
+    ],
+    "RHOB": [
+        "RHOB",
+        "RHLA",
+        "RHBA",
+        "RHLA3",
+        "RHBA4"
+    ],
+    "RES": [
+        "RES",
+        "ILD",
+        "HDRS",
+        "RT",
+        "AHT901",
+        "AT90",
+        "RT90",
+        "LLD",
+        "LLM",
+        "LLS",
+        "AF90"
+    ],
+    "NPHI": [
+        "NPHI",
+        "NPOR",
+        "CN",
+        "CNC"
+    ],
+    "DT": [
+        "DT",
+        "DT4ST",
+        "DT4SR",
+        "DTCO",
+        "DTC"
+    ],
+    "VP": [
+        "VP",
+        "Vp"
+    ],
+    "VS": [
+        "VS",
+        "Vs"
+    ],
+    "DRDN": [
+        "DRDN"
+    ],
+    "PEF": [
+        "PEF",
+        "PE",
+        "PEZ"
+    ]
+}

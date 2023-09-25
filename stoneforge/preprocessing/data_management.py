@@ -113,16 +113,19 @@ class project():
             else:
                 well_data = self.well_data[i]
 
-            for j in well_data:
-                # print(i,j) - search for wells mnemonics
-                data.append(self.well_data[i][j]['data'])
-                units.append(self.well_data[i][j]['unit'])
-                mnemonics.append(j)
+            try:
+                for j in well_data:
+                    # print(i,j) - search for wells mnemonics
+                    data.append(self.well_data[i][j]['data'])
+                    units.append(self.well_data[i][j]['unit'])
+                    mnemonics.append(j)
 
-            well['mnemonics'] = mnemonics
-            well['units'] = units
-            well['data'] = np.array(data)
-            wells[i] = well
+                well['mnemonics'] = mnemonics
+                well['units'] = units
+                well['data'] = np.array(data)
+                wells[i] = well
+            except:
+                pass
 
         self.well_data = wells
 

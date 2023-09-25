@@ -41,19 +41,19 @@ def settings(method: str = "linear_regression_simple", path = ".", **kwargs):
         saves(kwargs, path+"\\support_vector_settings")
 
     if method == "decision_tree_regression":
-        saves(kwargs, path+"\\decision_tree_settings")
+        saves(kwargs, path+"\\decision_tree_regression")
 
     if method == "random_forest_regression":
         saves(kwargs, path+"\\random_forest_settings")
 
-    if method == "xgboost_regression":
-        saves(kwargs, path+"\\xgboost_regression_settings")
+    #if method == "xgboost_regression":
+    #    saves(kwargs, path+"\\xgboost_regression_settings")
 
     if method == "lightgbm_regression":
         saves(kwargs, path+"\\lightgbm_settings")
 
-    if method == "catboost_regression":
-        saves(kwargs, path+"\\catboost_settings")
+    #if method == "catboost_regression":
+    #    saves(kwargs, path+"\\catboost_settings")
 
     saves(LR_METHODS, path+'\\all_methods')
 

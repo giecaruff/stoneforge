@@ -6,6 +6,8 @@ import os
 import pandas
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+import json
+import matplotlib.pyplot as plt
 
 if __package__:
     from ..data_replacement import *
@@ -30,95 +32,67 @@ project.import_several_wells()
 
 print(project.well_names_paths)
 
-
-#%%
+#mr = open("mnemonics_replacement.json")
+#mnemonics_replacement = json.load(mr)
 
 mnemonics_replacement = {
-    'DEPTH':['DEPTH','MD'],
-    'GR':['GR'],
-    'CAL':['CAL','DCAL','HCAL','CALI'],
-    'RHOB':["RHOB","RHOZ","RHLA","RHBA","RHLA3","RHBA4"],
-    'RES':["ILD","LLD","HDRS","RT","AHT901","AT90","RT90"],
-    'NPHI':['NPHI','NPOR'],
-    'DT':['DT','DTCO']
+    "DEPTH": ["DEPTH","DEPT","MD"],
+    "VP":["VP","vp","Vp"],
+    "VS":["VS","vs","Vs"],
+    "RHOB":["RHOB","RHLA","RHBA","RHLA3","RHBA4"]
 }
 
 ref_mnemonics = list(mnemonics_replacement.keys())
+print(ref_mnemonics)
 
 project.data_replacement(mnemonics_replacement)
 project.convert_into_matrix(ref_mnemonics)
 
-# %%
-
-import matplotlib.pyplot as plt
-for i in project.well_data:
-    print(i)
-    fig, axes = plt.subplots(nrows=1, ncols=len(project.well_data[i]), figsize=(15, 5))
-    jj = 0
-    for j in project.well_data[i]:
-        print(j)
-        #x = project.well_data[i][j]['data']
-        #y = project.well_data[i][j]['data']
-        #axes[jj].plot(x, y, label='Curve 1')
-        axes[jj].set_title('Curve 1')
-        axes[jj].set_xlabel('x1')
-        axes[jj].set_ylabel('y')
-        axes[jj].legend()
-        jj += 1
-    break
+for p in project.well_names_las:
+    print("poco:",p)
 
 # %%
 
-tw_data,vw_data = preprocessing.well_train_test_split(['7-MP-22-BA','7-MP-50D-BA'],project.well_data)
-
+tw_data,vw_data = preprocessing.well_train_test_split(['3-BRSA-177-ESS_Default_final','1-BRSA-192-ESS_Default_final'],project.well_data)
 
 mega_data = preprocessing.data_assemble(tw_data,'data')
 print(np.shape(mega_data))
 
-
-# %%
 a = preprocessing.predict_processing(vw_data,'data')
 mega_data = a._remove_dummies(mega_data)
 print(np.shape(mega_data))
 
 # %%
 
-data_replacement.settings(method = "linear_regression_simple", path='_ml_project') # for the case there is polynomial 1D
-#data_replacement.settings(method = "linear_regression", path='_ml_project', degree = 2)
-#data_replacement.settings(method = "DecisionTreeClassifier", path='_ml_project')
-#data_replacement.settings(method = "SVM", path='_ml_project')
+#data_replacement.settings(method = "linear_regression_simple", path='_ml_project') # for the case there is polynomial 1D
+data_replacement.settings(method = "linear_regression_polynomial", path='_ml_project', degree = 2)
+#data_replacement.settings(method = "decision_tree_regression", path='_ml_project')
+#data_replacement.settings(method = "support_vector_regression", path='_ml_project')
+#data_replacement.settings(method = "random_forest_regression", path='_ml_project')
+#data_replacement.settings(method = "lightgbm_regression", path='_ml_project')
 #data_replacement.settings(method = "LogisticRegression", path='_ml_project')
-#data_replacement.settings(method = "KNeighborsClassifier", path='_ml_project')
-#data_replacement.settings(method = "RandomForestClassifier", path='_ml_project')
 #data_replacement.settings(method = "xgboost_regression", path='_ml_project')
 
-
 # %%
 
-mnemonics = []
-for i in mnemonics_replacement:
-    mnemonics.append(i)
-
-print(mnemonics)
-
-
-# %%
-
-y = mega_data[:,1] # 1 for RHOB 
-X = np.delete(mega_data,(1), axis=1) # 1 for RHOB also
-print(X)
+y = mega_data[:,2] # 2 for VS 
+X = np.delete(mega_data,(2), axis=1) # 2 for VS
+X = np.delete(X,(0), axis=1) # 0 for MD
+print(np.shape(X),X) # must be only VP and RHOB
 X = np.array(X, dtype='float') 
 y = np.array(y, dtype='float')
-print(y)
+print(np.shape(y),y)
 
 # %%
 
-data_replacement.fit(X,y,method = "linear_regression_simple", path = "_ml_project")
-#data_replacement.fit(X,y,method = "decision_tree", gs = True, path = "_ml_project")
-#data_replacement.fit(X,y,method = "SVM", path = "_ml_project")
+#data_replacement.fit(X,y,method = "linear_regression_simple", path = "_ml_project")
+data_replacement.fit(X,y,method = "linear_regression_polynomial", path = "_ml_project")
+#data_replacement.fit(X,y,method = "decision_tree_regression", path = "_ml_project")
+#data_replacement.fit(X,y,method = "support_vector_regression", path = "_ml_project")
 #data_replacement.fit(X,y,method = "LogisticRegression", path = "_ml_project")
-#data_replacement.fit(X,y,method = "KNeighborsClassifier", path = "_ml_project")
-#data_replacement.fit(X,y,method = "RandomForestClassifier", path = "_ml_project")
+#data_replacement.fit(X,y,method = "lightgbm_regression", path = "_ml_project")
+#data_replacement.fit(X,y,method = "random_forest_regression", path = "_ml_project")
+
 #data_replacement.fit(X,y,method = "xgboost_regression", path = '_ml_project')
 
 # %%
@@ -130,10 +104,12 @@ y_db = {}
 x_db = {}
 for w in xy_raw:
     #print( xy_raw[w])
-    y_db[w] = xy_raw[w][:,1]
-    x_db[w] = np.delete(xy_raw[w],(1), axis=1)
+    y_db[w] = xy_raw[w][:,2]
+    _xy = xy_raw[w]
+    _xy = np.delete(_xy,(2), axis=1)
+    x_db[w] = np.delete(_xy,(0), axis=1)
     print(x_db)
-    ym_db = data_replacement.predict(x_db[w], method = "linear_regression_simple", path = "_ml_project")
+    ym_db = data_replacement.predict(x_db[w], method = "linear_regression_polynomial", path = "_ml_project")
     plt.plot(ym_db, y_db[w],'.')
     #plt.plot(ym_db,'.')
     plt.grid()
@@ -144,93 +120,16 @@ for w in xy_raw:
 class_db = {}
 
 for well in x_db:
-    class_db[well] = data_replacement.predict(x_db[well], method = "xgboost_regression", path = "_ml_project")
+    class_db[well] = data_replacement.predict(x_db[well], method = "support_vector_regression", path = "_ml_project")
+    #class_db[well] = data_replacement.predict(x_db[well], method = "xgboost_regression", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "GaussianNB", path = "_ml_project")
-    #class_db[well] = machine_learning.predict(x_db[well], method = "DecisionTreeClassifier", path = "_ml_project")
+    #class_db[well] = data_replacement.predict(x_db[well], method = "decision_tree_regression", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "SVM", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "LogisticRegression", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "KNeighborsClassifier", path = "_ml_project")
-    #class_db[well] = machine_learning.predict(x_db[well], method = "RandomForestClassifier", path = "_ml_project")
+    #class_db[well] = data_replacement.predict(x_db[well], method = "random_forest_regression", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "XGBClassifier", path = "_ml_project")
     #class_db[well] = machine_learning.predict(x_db[well], method = "CatBoostClassifier", path = "_ml_project")
 
 pre_pros.return_curve(class_db)
-# %%
-
-#a = preprocessing.predict_processing(vw_data,'data')
-
-for w in vw_data:
-    x = np.delete(vw_data[w]['data'].T,(1), axis=1)
-    y = vw_data[w]['data'].T[:,1]
-    print(len(y))
-    is_nan_y = []
-    is_not_nan_x = []
-    for i in range(len(y)):
-        if np.isnan(y[i]):
-            is_nan_y.append(i)
-            #print(i)
-        if not np.isnan(x[i]).any():
-            is_not_nan_x.append(i)
-    is_nan_y = set(is_nan_y)
-    is_not_nan_x = set(is_not_nan_x)
-
-    l_data = vw_data[w]['data']
-    c_data = a._remove_dummies(l_data)
-
-    intersection = is_not_nan_x.intersection(is_nan_y)
-    print(list(intersection))
-
-    n_x_data = []
-    y_original = []
-    for i in intersection:
-        y_original.append(y[i])
-        n_x_data.append(x[i])
-    predictment = data_replacement.predict(n_x_data, method = "xgboost_regression", path = "_ml_project")
-    print("RHOB",len(predictment))
-    print(len(c_data[:,1]))
-    break
-
-# %%
-
-print(predictment)
-
-# %%
-x_r = a.matrix_values()
-
-y_vdb = {}
-x_db = {}
-for well in x_r:
-
-    print(np.shape(x_r[well]))
-    y_vdb[well] = x_r[well][:,0]
-    x_db[well] = np.delete(x_r[well],(0), axis=1)
-    print(x_db)
-    break
-
-
-# %%
-
-class_db = {}
-
-for x in x_db:
-    class_db[x] = data_replacement.predict(x_db[x], method = "GaussianNB", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "DecisionTreeClassifier", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "SVM", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "LogisticRegression", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "KNeighborsClassifier", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "RandomForestClassifier", path = "_ml_project")
-    class_db[x] = data_replacement.predict(x_db[x], method = "XGBClassifier", path = "_ml_project")
-
-a.return_curve(class_db)
-
-
-# %%
-
-data_replacement.settings(method = "GaussianNB")
-data_replacement.fit(X,y,method = "GaussianNB")
-
-for x in x_db:
-    class_db[x] = data_replacement.predict(x_db[x], method = "GaussianNB")
-    
-
 # %%

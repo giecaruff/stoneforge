@@ -6,10 +6,10 @@ import warnings
 
 
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.svm import SVC
+from sklearn.svm import SVR
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
-import lightgbm as LGBMRegressor
+import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
@@ -52,10 +52,8 @@ def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=Fals
     f = open(path + '\\support_vector_settings.json')
 
     settings = json.load(f)
-    if not settings:
-        settings['random_state'] = 99
 
-    svn = SVC(**settings)
+    svn = SVR(**settings)
 
     svn.fit(X, y, **kwargs)
     
@@ -104,15 +102,15 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=Fals
         settings = bestrf.best_params_
 
     if not gs:
-        f = open(path + '\\random_florest_settings.json')
-        setting = json.load(f)
+        f = open(path + '\\random_forest_settings.json')
+        settings = json.load(f)
         if not settings:
             settings['random_state'] = 99
     
     d_florestc = RandomForestRegressor(**settings)
     d_florestc.fit(X, y, **kwargs)
     
-    saves(d_florestc, path+"\\random_florest_fit_property")
+    saves(d_florestc, path+"\\random_forest_fit_property")
 
 
 #XgBoost
@@ -151,7 +149,7 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
         'max_depth':[5,10,15,30,50,70,100],
         'random_state':[99]}
 
-        lghtr = LGBMRegressor()
+        lghtr = lgb.LGBMRegressor()
 
         bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
         bestlight.fit(X,y)
@@ -159,12 +157,12 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
         settings = bestlight.best_params_
 
     if not gs:
-        f = open(path + '\\lightgbm_florest_settings.json')
+        f = open(path + '\\lightgbm_settings.json')
         settings = json.load(f)
         if not settings:
             settings['random_state'] = 99
     
-    xg = LGBMRegressor(**settings)
+    xg = lgb.LGBMRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
     saves(xg, path+"\\lightgbm_replacement_fit_property")
@@ -203,9 +201,9 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
 _fit_methods = {
     "linear_regression_simple": linear_regression_replacement,
     "linear_regression_polynomial": linear_regression_replacement,
-    "suporte_vector_regression": suporte_vector_replacement,
+    "support_vector_regression": suporte_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
-    "random_florest_regression": random_florest_replecement,
+    "random_forest_regression": random_florest_replecement,
     #"xgboost_regression": xgboost_replacement,
     "lightgbm_regression": lightgbm_replacement,
     #"catboost_regression": catboost_replecement
@@ -219,11 +217,11 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
     if method == "linear_regression_polynomial":
         fun = _fit_methods[method]
-    if method == "suporte_vector_regression":
+    if method == "support_vector_regression":
         fun = _fit_methods[method]
     if method == "decision_tree_regression":
         fun = _fit_methods[method]
-    if method == "random_florest_regression":
+    if method == "random_forest_regression":
         fun = _fit_methods[method]
     #if method == "xgboost_regression":
     #    fun = _fit_methods[method]
@@ -245,7 +243,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
 
     scalerp = StandardScaler()
     scalerp.fit(X_norm)
-    X_norm = scaler.transform(X_norm)
+    X_norm = scalerp.transform(X_norm)
     saves(scalerp, path+"\\scalerp")
 
     # ===================================== #
@@ -265,5 +263,5 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     #saves(scalerp, path+"\\y_scalerp")
     
 
-    #fun(X_norm, y, path, **kwargs)
-    fun(X, y, path, **kwargs)
+    fun(X_norm, y, path, **kwargs)
+    #fun(X, y, path, **kwargs)
