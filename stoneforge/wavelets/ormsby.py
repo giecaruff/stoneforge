@@ -1,4 +1,3 @@
-#Programa que implementa computacionalmente a wavelet de Ormsby
 
 import warnings
 from typing import Sequence, Tuple
@@ -20,11 +19,9 @@ def getOrmsby(f: Sequence[float] = (5,10,40,50),
               Samples: float = 71, 
               Dt: float = 4) -> Tuple[npt.ArrayLike, npt.ArrayLike]:
     r"""Ormsby wavelet
-
     Create a Ormsby wavelet given time axis ``t`` and frequency range
     defined by four frequencies which parametrize a trapezoidal shape in
     the frequency spectrum.
-
     Parameters
     ----------
     f : :obj:`tuple`, optional
@@ -33,7 +30,6 @@ def getOrmsby(f: Sequence[float] = (5,10,40,50),
         Number of samples       
     Dt : obj:`float`, optional
         Sampling in milisseconds
-
     Returns
     -------
     wav : :obj:`numpy.ndarray`
@@ -55,19 +51,5 @@ def getOrmsby(f: Sequence[float] = (5,10,40,50),
     wav   = term1/den1 - term2/den2;
     wav /= np.amax(wav)
     return t, wav
-
-time, wvlt = getOrmsby()
-plt.plot(time,wvlt)
-plt.xlabel('Tempo (s)')
-plt.ylabel('Ondaleta (w)')
-plt.grid()
-plt.show()
-    
-
-
-
-
-
-
 
 

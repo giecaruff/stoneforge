@@ -1,4 +1,3 @@
-#Programa que implementa computacionalmente a wavelet de Ricker
 
 import warnings
 from typing import Callable, Optional, Sequence, Tuple
@@ -20,9 +19,7 @@ def Ricker_Wavelet(Peak_freq: float = 30,
                    Samples: float = 71,
                    Dt: float = 4) -> Tuple[npt.ArrayLike, npt.ArrayLike]:
     r"""Ricker wavelet
-
     Create a Ricker wavelet given time axis ``t`` and central frequency ``f_0``
-
     Parameters
     ----------
     Peak_freq : :obj:`float`, optional
@@ -31,7 +28,6 @@ def Ricker_Wavelet(Peak_freq: float = 30,
         Number of samples
     Dt : :obj:`func`, optional
         Sampling in milisseconds
-
     Returns
     -------
     ricker : :obj:`numpy.ndarray`
@@ -45,11 +41,3 @@ def Ricker_Wavelet(Peak_freq: float = 30,
     t = np.concatenate((np.flipud(-t[1:]), t), axis=0)
     ricker = (1. -2.*(np.pi**2)*(Peak_freq**2)*(t**2))*np.exp(-(np.pi**2)*(Peak_freq**2)*(t**2))
     return t, ricker
-Time , Ricker_wl = Ricker_Wavelet()
-
-plt.plot(Time, Ricker_wl)
-plt.xlabel('Tempo (s)')
-plt.ylabel('Ondaleta (w)')
-plt.grid()
-plt.show()
-
