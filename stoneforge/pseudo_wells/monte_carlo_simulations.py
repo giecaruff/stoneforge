@@ -213,6 +213,7 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, model:str
   Examples and Algorithms. India: Wiley Blackwell, 2021.
 
   """ 
+  print('model', model)
   if model == "spherical":
     xi = distance
     coeficients, cov = curve_fit(spherical_variogram_model, distance, gama)                               
