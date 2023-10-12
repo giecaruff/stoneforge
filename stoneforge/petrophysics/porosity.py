@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 import warnings
-from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_rage
+from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 
 
 
@@ -29,7 +29,7 @@ def effective_porosity(phi: npt.ArrayLike, vsh: float) -> np.ndarray:
     """
     phie = phi - vsh
 
-    phie = correct_petrophysic_estimation_rage(phie)
+    phie = correct_petrophysic_estimation_range(phie)
     return phie
 
 def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarray:
@@ -75,7 +75,7 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
             phi = (rhom - rhob) / (rhom - rhof)
 
 
-    phi = correct_petrophysic_estimation_rage(phi)
+    phi = correct_petrophysic_estimation_range(phi)
     return phi
 
     
@@ -117,7 +117,7 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     else:
         phin = nphi - (vsh * nphi_sh)
 
-    phin = correct_petrophysic_estimation_rage(phin)
+    phin = correct_petrophysic_estimation_range(phin)
     return phin
 
 
@@ -161,7 +161,7 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
 
-    phi = correct_petrophysic_estimation_rage(phi)
+    phi = correct_petrophysic_estimation_range(phi)
     return phi
 
  
@@ -215,7 +215,7 @@ def sonic_porosity(dt, dtma, dtf):
             phidt = (dt - dtma) / (dtf - dtma)
 
         
-    phidt = correct_petrophysic_estimation_rage(phidt)
+    phidt = correct_petrophysic_estimation_range(phidt)
     return phidt
 
 
@@ -242,7 +242,7 @@ def gaymard_porosity(phid, phin):
     """
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
 
-    phie = correct_petrophysic_estimation_rage(phie)
+    phie = correct_petrophysic_estimation_range(phie)
     return phie
 
 
