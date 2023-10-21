@@ -3,4 +3,5 @@ from . import rock_physics  # noqa: F401
 from . import pseudo_wells  # noqa: F401
 from . import machine_learning  # noqa: F401
 from . import tvdss  # noqa: F401
+from . import mlp_classification  # noqa: F401
 
