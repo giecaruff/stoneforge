@@ -23,8 +23,8 @@ else:
     import preprocessing
 
 # %%
-project = preprocessing.project("C:\\Users\\josea\OneDrive\\Área de Trabalho\pocoss")
-#project = preprocessing.project("C:\\Users\\joseaugustodias\\Desktop\\pocos")
+#project = preprocessing.project("C:\\Users\\josea\OneDrive\\Área de Trabalho\pocoss")
+project = preprocessing.project('C:\\Users\\joseaugustodias\\Desktop\\pocos')
 project.import_folder()
 project.import_several_wells()
 
@@ -33,7 +33,7 @@ print(project.well_names_paths)
 #%%
 
 mnemonics_replacement = {
-    'DEPTH':['DEPTH',"MD"],
+    #'DEPTH':['DEPTH',"MD"],
     'GR':['GR'],
     'CAL':['CAL','DCAL','HCAL','CALI'],
     'RHOB':["RHOB","RHLA","RHBA","RHLA3","RHBA4"],
@@ -48,21 +48,7 @@ ref_mnemonics = list(mnemonics_replacement.keys())
 project.data_replacement(mnemonics_replacement)
 project.convert_into_matrix(ref_mnemonics)
 
-# %%
 
-well_test = np.delete(project.well_data['7-MP-33D-BA']['data'], -2, axis=0)
-print(well_test,np.shape(well_test))
-
-mnem = ['DEPTH', 'GR', 'CAL', 'RES', 'RHOB']
-unit = ['M', 'gAPI', 'in', 'ohm.m', 'g/cm3']
-
-project.well_data['test'] = {}
-
-project.well_data['test']['data'] = well_test
-project.well_data['test']['units'] = unit
-project.well_data['test']['mnemonics'] = mnem
-
-project.shape_check(mnemonics_replacement)
 
 # %%
 # split dataset by well

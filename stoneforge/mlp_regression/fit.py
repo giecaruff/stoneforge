@@ -4,7 +4,7 @@ import pickle
 import json
 import warnings
 
-from sklearn.neural_network import MLPClassifier
+from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
@@ -24,7 +24,7 @@ def multi_layer_perceptron(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False,
         'random_state':[99]
 }
 
-        multilayer = MLPClassifier()
+        multilayer = MLPRegressor()
         bestmlp = GridSearchCV(multilayer,parameters,scoring='accuracy')
         bestmlp.fit(X,y)
         settings = bestmlp.best_params_
@@ -35,18 +35,18 @@ def multi_layer_perceptron(X: npt.ArrayLike, y: npt.ArrayLike, path, gs = False,
         if not settings:
             settings['random_state'] = 99
     
-    mlpc = MLPClassifier(**settings)
+    mlpc = MLPRegressor(**settings)
     mlpc.fit(X, y, **kwargs)
     
     saves(mlpc, path+"\\multi_layer_perceptron_fit_property")
 
 
 _fit_methods = {
-    "MLPClassifier": multi_layer_perceptron}
+    "MLPRegressor": multi_layer_perceptron}
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "MLPClassifier", path = ".", **kwargs):
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "MLPRegressor", path = ".", **kwargs):
 
-    if method == "MLPClassifier":
+    if method == "MLPRegressor":
         fun = _fit_methods[method]
 
     scaler = StandardScaler()
