@@ -9,7 +9,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
-import lightgbm as lgb
+#import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
@@ -141,6 +141,7 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
 """
 
 #LightGBM
+"""""
 def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     if gs:
@@ -170,6 +171,7 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
 """
 
 #CatBoost
+'''''
 def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -195,8 +197,8 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
     cb.fit(X, y, **kwargs)
 
     saves(cb, path+"\\catboost_fit_property")
+'''''
 
-"""
 
 _fit_methods = {
     "linear_regression_simple": linear_regression_replacement,
@@ -205,7 +207,7 @@ _fit_methods = {
     "decision_tree_regression": decision_tree_replacement,
     "random_forest_regression": random_florest_replecement,
     #"xgboost_regression": xgboost_replacement,
-    "lightgbm_regression": lightgbm_replacement,
+    #"lightgbm_regression": lightgbm_replacement,
     #"catboost_regression": catboost_replecement
     }
 
@@ -225,8 +227,8 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
     #if method == "xgboost_regression":
     #    fun = _fit_methods[method]
-    if method == "lightgbm_regression":
-        fun = _fit_methods[method]
+    #if method == "lightgbm_regression":
+    #    fun = _fit_methods[method]
     #if method == "catboost_regression":
     #    fun = _fit_methods[method]
 

@@ -11,7 +11,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
 #from xgboost import XGBRegressor
-import lightgbm as lgb
+#import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
 
 
@@ -55,13 +55,14 @@ def xgboost_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     return xgboostregression.predict(x,**kwargs)
 """
 
-
+"""""
 def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     lightregression = pickle.load(open(path+"\\lightgbm_replacement_fit_property.pkl", 'rb'))
     
     return lightregression.predict(x,**kwargs)
 
+"""
 """
 
 def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
@@ -79,7 +80,7 @@ _predict_methods = {
     "decision_tree_regression": decision_tree_replacement,
     "random_forest_regression": random_florest_replecement,
     #"xgboost_regression": xgboost_replacement,
-    "lightgbm_regression": lightgbm_replacement,
+    #"lightgbm_regression": lightgbm_replacement,
     #"catboost_regression": lightgbm_replacement,
     }
 
