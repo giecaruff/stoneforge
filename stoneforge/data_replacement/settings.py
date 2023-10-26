@@ -7,21 +7,23 @@ import warnings
 
 LR_METHODS = [
     "decision_tree_regression",
-    "suporte_vector_regression",
-    "linear_regression",
+    "support_vector_regression",
+    "linear_regression_simple",
+    "linear_regression_polynomial",
     "random_forest_regression",
     'lightgbm_regression',
-    'xgboost_regression'
-    'catboost_regression'
 ]
+
+def methods():
+    return LR_METHODS
 
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
 
-def settings(method: str = "linear_regression", path = ".", **kwargs):
+def settings(method: str = "linear_regression_simple", path = ".", **kwargs):
 
-    if method == "linear_regression" or method == "linear_regression_simple" or method  =="linear_regression_polynomial":
+    if method == "linear_regression_simple" or method  =="linear_regression_polynomial":
         new_settings = {}
         if not 'degree' in kwargs:
             saves({'degree':1}, path+"\\polinomial_settings")
@@ -34,25 +36,24 @@ def settings(method: str = "linear_regression", path = ".", **kwargs):
                     new_settings[k] = kwargs[k]
     
         saves(new_settings, path+"\\linear_regression_settings")
-        
 
-    if method == "suporte_vector_regression":
+    if method == "support_vector_regression":
         saves(kwargs, path+"\\support_vector_settings")
 
     if method == "decision_tree_regression":
-        saves(kwargs, path+"\\decision_tree_settings")
+        saves(kwargs, path+"\\decision_tree_regression")
 
     if method == "random_forest_regression":
         saves(kwargs, path+"\\random_forest_settings")
 
-    if method == "xgboost_regression":
-        saves(kwargs, path+"\\xgboost_regression_settings")
+    #if method == "xgboost_regression":
+    #    saves(kwargs, path+"\\xgboost_regression_settings")
 
-    if method == "lightgbm_regression":
-        saves(kwargs, path+"\\lightgbm_settings")
+    #if method == "lightgbm_regression":
+    #    saves(kwargs, path+"\\lightgbm_settings")
 
-    if method == "catboost_regression":
-        saves(kwargs, path+"\\catboost_settings")
+    #if method == "catboost_regression":
+    #    saves(kwargs, path+"\\catboost_settings")
 
     saves(LR_METHODS, path+'\\all_methods')
 
