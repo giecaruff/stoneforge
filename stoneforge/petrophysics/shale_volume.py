@@ -1,6 +1,6 @@
 import numpy as np
 import numpy.typing as npt
-
+from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 
 def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Calculates the gamma ray index.
@@ -49,6 +49,8 @@ def vshale_linear(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
 
     """ 
     vshale = gammarayindex(gr, grmin, grmax)
+    vshale = correct_petrophysic_estimation_range(vshale)
+  
 
     return vshale
 
@@ -73,7 +75,7 @@ def vshale_larionov_old(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.nda
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.33 * (2. ** (2. * igr) - 1)
-
+    vshale = correct_petrophysic_estimation_range(vshale)
     return vshale
 
 
@@ -97,6 +99,7 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.083 * (2 ** (3.7 * igr) - 1)
+    vshale = correct_petrophysic_estimation_range(vshale)
 
     return vshale
 
@@ -121,6 +124,7 @@ def vshale_clavier(gr: npt.ArrayLike, grmin: float, grmax: float):
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 1.7 - np.sqrt(3.38 - (igr + 0.7) ** 2)
+    vshale = correct_petrophysic_estimation_range(vshale)
 
     return vshale
 
@@ -145,13 +149,14 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = igr / (3 - 2 * igr)
+    vshale = correct_petrophysic_estimation_range(vshale)
 
     return vshale
 
 
-def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
-                   cl1_d: float = 2.65, cl2_n: float = 1.00, cl2_d: float = 1.10, clay_n: float = 0.47,
-                   clay_d: float = 2.71) -> np.ndarray:
+def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float,
+                   cl1_d: float, cl2_n: float, cl2_d: float, clay_n: float,
+                   clay_d: float) -> np.ndarray:
     """Estimates the shale volume from neutron and density logs method [1]_.
 
     Parameters
@@ -161,17 +166,17 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
     den : array_like
         Bulk density log.
     cl1_n : int, float
-        Neutron porosity value from clean point 1 for empty matrix (NPHI_MATRIX).
+        Neutron porosity value from clean point 1.
     cl1_d : int, float
-        Bulk density value from clean point 1 for empty matrix (RHOB_MATRIX).
+        Bulk density value from clean point 1.
     cl2_n : int, float
-        Neutron porosity value from clean point 2 full porosity.
+        Neutron porosity value from clean point 2.
     cl2_d : int, float
-        Bulk density value from clean point 2 full porosity.
+        Bulk density value from clean point 2.
     clay_n : int, float
-        Neutron porosity value from clay point (NPHI_SHALE).
+        Neutron porosity value from clay point.
     clay_d : int, float
-        Bulk density value from clay point (RHOB_SHALE).
+        Bulk density value from clay point.
 
     Returns
     -------
@@ -190,7 +195,14 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float = -0.15,
     x3 = (cl2_d - cl1_d) * (clay_n - cl1_n)
     x4 = (clay_d - cl1_d) * (cl2_n - cl1_n)
     vshale = (x1-x2) / (x3-x4)
+    vshale = correct_petrophysic_estimation_range(vshale)
+    return vshale
 
+def vshale_nrm(phit: npt.ArrayLike, phie: npt.ArrayLike):
+
+    cbw = phie - phit
+    vshale = cbw / phit
+    vshale = correct_petrophysic_estimation_range(vshale)
     return vshale
 
 
@@ -245,3 +257,5 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
     fun = _vshale_methods[method]
 
     return fun(gr, grmin, grmax)
+
+

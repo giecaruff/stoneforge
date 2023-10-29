@@ -184,9 +184,6 @@ def compressional_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
 
     return M
 
-                          
-
-
 def poisson(method: str, **kwargs):
     """Computes the Poisson ratio using two elastic moduli.
 

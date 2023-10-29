@@ -6,8 +6,7 @@ Load and crop Dataset Exercise
 
 A tutorial exercise about loading well log datasets
 """
-
-import las2 # local las2 read
+from stoneforge.preprocessing import las2
 import numpy as np
 import matplotlib.pyplot as plt
 

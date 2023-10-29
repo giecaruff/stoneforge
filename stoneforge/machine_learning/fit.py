@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
+#from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -147,6 +147,7 @@ def random_florest(X: npt.ArrayLike, y: npt.ArrayLike, path, gs =False, **kwargs
 
 
 #XGBOOST
+"""
 def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -171,6 +172,7 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs) -> np.
     xg.fit(X, y, **kwargs)
 
     saves(xg, path+"\\xgboost_fit_property")
+"""
 
 
 #CatBoost
@@ -208,7 +210,7 @@ _fit_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    'XGBClassifier': xgboost,
+    #'XGBClassifier': xgboost,
     #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }

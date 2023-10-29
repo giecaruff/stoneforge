@@ -9,13 +9,12 @@ A tutorial exercise about loading well log datasets
 """
 
 from cProfile import label
-import las2 # local las2 read
 import numpy as np
 import matplotlib.pyplot as plt
 import numpy.typing as npt
 
-#from stoneforge.petrophysics import porosity
 
+from stoneforge.preprocessing import las2
 well = las2.read('../datasets/DP1.las')
 #well = las2.read('7-MP-22-BA.las')
 DP1_DATA = {} # data information from DP1 welllog
@@ -143,8 +142,8 @@ RHOB_C = well_DP1_c["RHOB"]["data"] - yn + np.mean(well_DP1_c["RHOB"]["data"])
 
 # %%
 
-import porosity
-import shale_volume
+from stoneforge.petrophysics import porosity
+from stoneforge.petrophysics import shale_volume
 
 PHID = porosity.porosity("density", rhob = RHOB_C, rhom = 2.65, rhof = 1.10)
 VSH = shale_volume.vshale(gr = well_DP1_c["GR"]["data"], grmin = 0.0, grmax = 150.0, method = "linear")
@@ -164,10 +163,6 @@ print(PHIND)
 
 PHIT = porosity.porosity(method = "sonic", dt = well_DP1["DT"]["data"], dtma = 55.5, dtf = 185)
 print(PHIT)
-
-# %%
-
-
 
 # %%
 
@@ -198,7 +193,8 @@ ax[2].set_yticklabels([])
 ax[2].grid()
 
 # %%
-
-
+from stoneforge.petrophysics import water_saturation
 
 # %%
+
+sw = water_saturation.archie()
