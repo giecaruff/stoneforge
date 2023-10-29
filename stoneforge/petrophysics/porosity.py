@@ -6,7 +6,7 @@ from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 
 
 
-def effective_porosity(phi: npt.ArrayLike, vsh: float) -> np.ndarray:
+def effective_porosity(phi: npt.ArrayLike, vsh: npt.ArrayLike) -> np.ndarray:
     """Calculate the effective porosity from the total porisity and shale volume_.
 
     Parameters
