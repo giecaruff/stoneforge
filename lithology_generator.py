@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, seed_value = 42):
 
     """ 
-    Ex.: lithology_code  = [14,7,21,36]
+    Ex.: lithology_code  = [14,7,21,30]
 
     Ex.: markov_chain = np.array(
-                        [[0.93, 0.07, 0.00, 0.00], # Carbonato Fechado
-                        [0.02, 0.97, 0.01, 0.00], # Carbonato Poroso
-                        [0.05, 0.10, 0.85, 0.00] # Carbonato Rico em Argila
-                        [0.00, 0.00, 0.00, 0.00]] # Carbonato c/ sílica
+                        [[0.33, 0.07, 0.30, 0.30],
+                        [0.02, 0.87, 0.01, 0.10],
+                        [0.05, 0.10, 0.85, 0.00],
+                        [0.30, 0.15, 0.25, 0.30]] # Carbonato c/ sílica
                          )
     """
 
@@ -50,10 +50,10 @@ def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, 
     Ex.: lithology_code  = [14,7,21,36]
     
     Ex.: markov_chain = np.array(
-                        [[0.93, 0.07, 0.00, 0.00], # Carbonato Fechado
-                        [0.02, 0.97, 0.01, 0.00], # Carbonato Poroso
-                        [0.05, 0.10, 0.85, 0.00] # Carbonato Rico em Argila
-                        [0.00, 0.00, 0.00, 0.00]] # Carbonato c/ sílica
+                        [[0.33, 0.07, 0.30, 0.30],
+                        [0.02, 0.87, 0.01, 0.10],
+                        [0.05, 0.10, 0.85, 0.00],
+                        [0.30, 0.15, 0.25, 0.30]] # Carbonato c/ sílica
                          ) 
      """
 
@@ -95,9 +95,15 @@ def generate_lithology_section(markov_chain, sampling, lithology_code=None, init
     fig, ax = plt.subplots(figsize=(6, 8))  
     
     if lithology_code:
-        color_map = {code: np.random.rand(3,) for code in lithology_code}
+        color_map = {code: '#18b1f1' if code == 14 else 
+                             '#3fbeff' if code == 7 else 
+                             '#2f0eff' if code == 21 else 
+                             '#00becd' for code in lithology_code}
     else:
-        color_map = {i: np.random.rand(3,) for i in set(litho_sequence)}
+        color_map = {i: '#18b1f1' if i == 0 else 
+                          '#3fbeff' if i == 1 else 
+                          '#2f0eff' if i == 2 else 
+                          '#00becd' for i in set(litho_sequence)}
 
     depth = np.linspace(3000, 7000, len(litho_sequence) + 1)  
     
@@ -122,6 +128,6 @@ markov_chain = np.array(
      [0.05, 0.10, 0.85, 0.00],
      [0.30, 0.15, 0.25, 0.30]]
 )
-lithology_code = [14, 7, 21, 36]
+lithology_code = [14, 7, 21, 30]
 
 generate_lithology_section(markov_chain, 300, lithology_code, seed_value=42)
