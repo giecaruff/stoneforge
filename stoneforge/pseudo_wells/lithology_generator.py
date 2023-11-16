@@ -2,6 +2,7 @@ import numpy as np
 import scipy as sc
 import matplotlib.pyplot as plt
 
+
 def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, seed_value = 42):
 
     """ 
@@ -41,6 +42,7 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
     else:
         new_array = np.array(sorted_values)
     return new_array
+
 
 def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, single_lithology = True, seed_value = 42):
 
@@ -84,3 +86,42 @@ def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, 
         return new_array[ii]
     else:
         return new_array
+
+
+def generate_lithology_section(markov_chain, sampling, lithology_code=None, initial_state=0, seed_value=42):
+    
+    litho_sequence = simple(markov_chain, sampling, lithology_code, initial_state, seed_value)
+    
+    fig, ax = plt.subplots(figsize=(6, 8))  
+    
+    if lithology_code:
+        color_map = {code: np.random.rand(3,) for code in lithology_code}
+    else:
+        color_map = {i: np.random.rand(3,) for i in set(litho_sequence)}
+
+    depth = np.linspace(3000, 7000, len(litho_sequence) + 1)  
+    
+    for i, lithology in enumerate(litho_sequence):
+        if i < len(litho_sequence) - 1:  
+            ax.fill_betweenx([depth[i], depth[i + 1]], 0, 1, color=color_map[lithology])
+
+    ax.invert_yaxis()
+
+    ax.set_xlabel('Litologia')
+    ax.set_ylabel('Profundidade (m)')
+
+    ax.set_title('Seção Litológica')
+    ax.set_xlim(0, 1)  
+   
+    plt.tight_layout()
+    plt.show()  
+
+markov_chain = np.array(
+    [[0.33, 0.07, 0.30, 0.30],
+     [0.02, 0.87, 0.01, 0.10],
+     [0.05, 0.10, 0.85, 0.00],
+     [0.30, 0.15, 0.25, 0.30]]
+)
+lithology_code = [14, 7, 21, 36]
+
+generate_lithology_section(markov_chain, 300, lithology_code, seed_value=42)
