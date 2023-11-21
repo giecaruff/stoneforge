@@ -1,5 +1,6 @@
 name: Stoneforge
-
+dependencies: 
+  - path/to/scikit_image-0.19.3-cp311-cp311-win_amd64.whl
 on:
   push:
     branches: [ main ]
