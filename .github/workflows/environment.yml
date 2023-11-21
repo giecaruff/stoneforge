@@ -1,0 +1,6 @@
+name: Stoneforge
+dependencies:
+  - python=3.10
+  - pip
+  - your_other_dependencies  # Add other dependencies as needed
+  - scikit-image=0.19.3
