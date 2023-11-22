@@ -1,10 +1,9 @@
 import numpy as np
 import numpy.typing as npt
 import warnings
-from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+from . import helpers
 
-
-
+correct_petrophysic_estimation_range = helpers.correct_petrophysic_estimation_range
 
 def effective_porosity(phi: npt.ArrayLike, vsh: npt.ArrayLike) -> np.ndarray:
     """Calculate the effective porosity from the total porisity and shale volume_.
@@ -163,10 +162,6 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
     phi = correct_petrophysic_estimation_range(phi)
     return phi
-
- 
-        
-  
 
 
 #TODO phit -> phie (clay volume correction)

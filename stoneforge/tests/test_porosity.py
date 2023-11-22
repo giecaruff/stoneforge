@@ -5,14 +5,13 @@ import pytest
 #import parameters_p
 from parameters_p import Parameters
 
-#print("======= Here:",os.path.dirname(__file__))
-
 
 if __package__:
     from ..petrophysics.porosity import porosity
 else:
     sys.path.append(os.path.dirname(__file__) + '/..')
     from petrophysics.porosity import porosity
+
 
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions

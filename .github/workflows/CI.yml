@@ -27,10 +27,7 @@ jobs:
       run: pip install scikit-learn
 
     - name: Install xgboost
-      run: pip install xgboost 
-
-    - name: Install Stoneforge
-      run: pip install -e .
+      run: pip install xgboost
       
     - name: Test with pytest
       run: |
