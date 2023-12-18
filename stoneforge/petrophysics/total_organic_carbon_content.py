@@ -1,7 +1,7 @@
 
 import numpy as np
 
-def sonic_porosity(dt, logrt, dtbaseline, logrtbaseline, lom=10.6):
+def calculate_toc_from_passey(dt, logrt, dtbaseline, logrtbaseline, lom=10.6):
 
     """Estimate the Total Organic Carbon Content by Passey method using Sonic log and Resistivy log _.
 
