@@ -40,7 +40,7 @@ _toc_methods = {
     "passey": passey,
 }
 
-def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrtbaseline: float, m: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
+def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrtbaseline: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
     """Compute water saturation from resistivity log.
 
     This is a façade for the methods:
@@ -70,21 +70,8 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrt
         Total organic carbon content for the aimed interval using the defined method.
 
     """
-    options = {}
-    
-    required = []
-    if method == "passey":
-        required = ["dt", "rt", "dtbaseline", "logrtbaseline", "lom"]
-    
-    for arg in required:
-        if arg not in kwargs:
-            msg = f"Missing required argument for method '{method}': '{arg}'"
-            raise TypeError(msg)
-        options[arg] = kwargs[arg]
-
-    fun = _toc_methods[method]
 
 
-    toc = fun(**options)
+    toc = passey(dt, rt, dtbaseline, logrtbaseline, lom)
     
     return toc
