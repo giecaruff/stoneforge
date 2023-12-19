@@ -1,7 +1,7 @@
-
+import numpy.typing as npt
 import numpy as np
 
-def calculate_toc_from_passey(dt, logrt, dtbaseline, logrtbaseline, lom=10.6):
+def passey(dt, rt, dtbaseline, logrtbaseline, lom=10.6):
 
     """Estimate the Total Organic Carbon Content by Passey method using Sonic log and Resistivy log _.
 
@@ -9,7 +9,7 @@ def calculate_toc_from_passey(dt, logrt, dtbaseline, logrtbaseline, lom=10.6):
     ----------
     dt : array_like
         Sonic log reading (acoustic transit time (μsec/ft))
-    logrt : array_like
+    rt : array_like
         Resistivity log reading (formation resistivity (ohm/m))
     dtbaseline : int, float
         Sonic log base line (μsec/ft)
@@ -30,6 +30,67 @@ def calculate_toc_from_passey(dt, logrt, dtbaseline, logrtbaseline, lom=10.6):
 
 
     """
-    dlogrt = (logrt - logrtbaseline) + 0.02*(dt - dtbaseline)
+    dlogrt = (rt - logrtbaseline) + 0.02*(dt - dtbaseline)
     toc = dlogrt*10**(2.297 - 0.1688*lom)
     return np.clip(toc, 0.0, 100.0)
+
+    
+
+_toc_methods = {
+    "passey": passey,
+}
+
+def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrtbaseline: float, m: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
+    """Compute water saturation from resistivity log.
+
+    This is a façade for the methods:
+        - archie
+        - simandoux
+        - indonesia
+        - fertl
+
+    
+    Parameters
+    ----------
+    dt : array_like
+        Sonic log reading (acoustic transit time (μsec/ft))
+    rt : array_like
+        Resistivity log reading (formation resistivity (ohm/m))
+    dtbaseline : int, float
+        Sonic log base line (μsec/ft)
+    logrtbaseline : int, float
+        Resistivity log base line (ohm/m)
+    lom : int, float
+        Level of maturity
+    method : str, optional
+        Name of the method to be used.  Should be one of
+            - 'passey'
+            - 'simandoux'
+            - 'indonesia'
+            - 'fertl
+        If not given, default method is 'passey'
+
+    Returns
+    -------
+    toc : array_like
+        Total organic carbon content for the aimed interval using the defined method.
+
+    """
+    options = {}
+    
+    required = []
+    if method == "passey":
+        required = ["dt", "rt", "dtbaseline", "logrtbaseline", "lom"]
+    
+    for arg in required:
+        if arg not in kwargs:
+            msg = f"Missing required argument for method '{method}': '{arg}'"
+            raise TypeError(msg)
+        options[arg] = kwargs[arg]
+
+    fun = _toc_methods[method]
+
+
+    toc = fun(**options)
+    
+    return toc
