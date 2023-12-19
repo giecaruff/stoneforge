@@ -61,9 +61,7 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrt
     method : str, optional
         Name of the method to be used.  Should be one of
             - 'passey'
-            - 'simandoux'
-            - 'indonesia'
-            - 'fertl
+            
         If not given, default method is 'passey'
 
     Returns
