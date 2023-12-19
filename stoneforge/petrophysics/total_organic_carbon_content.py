@@ -44,12 +44,8 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrt
     """Compute water saturation from resistivity log.
 
     This is a façade for the methods:
-        - archie
-        - simandoux
-        - indonesia
-        - fertl
+        - passey
 
-    
     Parameters
     ----------
     dt : array_like
