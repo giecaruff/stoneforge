@@ -1,7 +1,7 @@
 import numpy.typing as npt
 import numpy as np
 
-def passey(dt, rt, dtbaseline, logrtbaseline, lom=10.6):
+def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
 
     """Estimate the Total Organic Carbon Content by Passey method using Sonic log and Resistivy log _.
 
@@ -13,7 +13,7 @@ def passey(dt, rt, dtbaseline, logrtbaseline, lom=10.6):
         Resistivity log reading (formation resistivity (ohm/m))
     dtbaseline : int, float
         Sonic log base line (μsec/ft)
-    logrtbaseline : int, float
+    rtbaseline : int, float
         Resistivity log base line (ohm/m)
     lom : int, float
         Level of maturity
@@ -31,7 +31,7 @@ def passey(dt, rt, dtbaseline, logrtbaseline, lom=10.6):
 
     """
     rt = np.log10(rt)
-    dlogrt = (rt - logrtbaseline) + 0.02*(dt - dtbaseline)
+    dlogrt = (rt - rtbaseline) + 0.02*(dt - dtbaseline)
     toc = dlogrt*10**(2.297 - 0.1688*lom)
     clipped_toc = np.clip(toc, 0.0, 100.0)
     return clipped_toc
@@ -41,7 +41,7 @@ _toc_methods = {
     "passey": passey,
 }
 
-def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrtbaseline: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
+def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, rtbaseline: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
     """Compute total organic carbonc content from well logs.
 
     This is a façade for the methods:
@@ -55,7 +55,7 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrt
         Resistivity log reading (formation resistivity (ohm/m))
     dtbaseline : int, float
         Sonic log base line (μsec/ft)
-    logrtbaseline : int, float
+    rtbaseline : int, float
         Resistivity log base line (ohm/m)
     lom : int, float
         Level of maturity
@@ -73,6 +73,6 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrt
     """
 
 
-    toc = passey(dt, rt, dtbaseline, logrtbaseline, lom)
+    toc = passey(dt, rt, dtbaseline, rtbaseline, lom)
     
     return toc
