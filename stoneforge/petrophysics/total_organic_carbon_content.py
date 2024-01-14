@@ -42,7 +42,7 @@ _toc_methods = {
 }
 
 def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, logrtbaseline: float, lom: float, method: str = "passey", **kwargs) -> np.ndarray:
-    """Compute water saturation from resistivity log.
+    """Compute total organic carbonc content from well logs.
 
     This is a façade for the methods:
         - passey
