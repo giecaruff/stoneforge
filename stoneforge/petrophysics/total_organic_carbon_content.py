@@ -30,7 +30,7 @@ def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
 
 
     """
-    rt = np.log10(rt)
+
     dlogrt = (rt - rtbaseline) + 0.02*(dt - dtbaseline)
     toc = dlogrt*10**(2.297 - 0.1688*lom)
     clipped_toc = np.clip(toc, 0.0, 100.0)
