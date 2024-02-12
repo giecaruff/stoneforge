@@ -10,7 +10,7 @@ def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
     dt : array_like
         Sonic log reading (acoustic transit time (μsec/ft))
     rt : array_like
-        Resistivity log reading (formation resistivity (ohm/m))
+        Resistivity log reading in log scale (formation resistivity (ohm/m))
     dtbaseline : int, float
         Sonic log base line (μsec/ft)
     rtbaseline : int, float
