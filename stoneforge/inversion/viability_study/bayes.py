@@ -20,13 +20,6 @@ def get_posterior_lithologies_prob(lithologies_distributions, lithologies_priori
     list
         List of posterior lithologies probabilities (P(Lithology | Data)).
 
-    Notes
-    -----
-    The function uses Bayes' Theorem to calculate the posterior probabilities of lithologies
-    in the context of seismic inversion viability study.
-
-    Bayes' Theorem Formula:
-    P(Lithology | Data) = P(Data | Lithology) * P(Lithology) / P(Data)
 
     Examples
     --------
