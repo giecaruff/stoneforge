@@ -2,9 +2,9 @@ name: Stoneforge
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main,verify_main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main,verify_main ]
 
 jobs:
   build:
@@ -26,11 +26,11 @@ jobs:
     - name: Install scikit-learn
       run: pip install scikit-learn
 
-    - name: Install xgboost
-      run: pip install xgboost
-
     - name: Install pandas
       run: pip install pandas
+
+    - name: Install matplotlib
+      run: pip install matplotlib
       
     - name: Test with pytest
       run: |
