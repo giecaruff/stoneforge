@@ -28,6 +28,9 @@ jobs:
 
     - name: Install xgboost
       run: pip install xgboost
+
+    - name: Install pandas
+      run: pip install pandas
       
     - name: Test with pytest
       run: |
