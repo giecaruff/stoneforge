@@ -10,9 +10,9 @@ from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
-from xgboost import XGBRegressor
-import lightgbm as lgb
-from catboost.core import CatBoostRegressor
+#from xgboost import XGBRegressor
+#import lightgbm as lgb
+#from catboost.core import CatBoostRegressor
 
 
 def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
@@ -43,23 +43,27 @@ def decision_tree_replacement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
 def random_florest_replecement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
 
-    randomregression = pickle.load(open(path+"\\random_florest_fit_property.pkl", 'rb'))
+    randomregression = pickle.load(open(path+"\\random_forest_fit_property.pkl", 'rb'))
     
     return randomregression.predict(x, **kwargs)
 
-
+"""
 def xgboost_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
     xgboostregression = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
 
     return xgboostregression.predict(x,**kwargs)
+"""
 
-
+"""""
 def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    lightregression = pickle.load(open(path+"\\lightgbm_fit_property.pkl", 'rb'))
+    lightregression = pickle.load(open(path+"\\lightgbm_replacement_fit_property.pkl", 'rb'))
     
     return lightregression.predict(x,**kwargs)
+
+"""
+"""
 
 def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
@@ -67,17 +71,17 @@ def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     
     return catregression.predict(x,**kwargs)
 
-
+"""
 
 _predict_methods = {
     "linear_regression_simple": linear_regression_replacement,
     "linear_regression_polynomial": linear_regression_replacement,
-    "suporte_vector_regression": support_vector_replacement,
+    "support_vector_regression": support_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
-    "random_florest_regression": random_florest_replecement,
-    "xgboost_regression": xgboost_replacement,
-    "lightgbm_regression": lightgbm_replacement,
-    "catboost_regression": lightgbm_replacement,
+    "random_forest_regression": random_florest_replecement,
+    #"xgboost_regression": xgboost_replacement,
+    #"lightgbm_regression": lightgbm_replacement,
+    #"catboost_regression": lightgbm_replacement,
     }
 
 
@@ -87,18 +91,18 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
         fun = _predict_methods[method]
     if method == "linear_regression_polynomial":
         fun = _predict_methods[method]
-    if method == "suporte_vector_regression":
+    if method == "support_vector_regression":
         fun = _predict_methods[method]
     if method == "decision_tree_regression":
         fun = _predict_methods[method]
-    if method == "random_florest_regression":
+    if method == "random_forest_regression":
         fun = _predict_methods[method]
-    if method == "xgboost_regression":
-        fun = _predict_methods[method]
-    if method == "lightgbm_regression":
-        fun= _predict_methods[method]
-    if method == "catboost_regression":
-        fun= _predict_methods[method]
+    #if method == "xgboost_regression":
+    #    fun = _predict_methods[method]
+    #if method == "lightgbm_regression":
+    #    fun= _predict_methods[method]
+    #if method == "catboost_regression":
+    #    fun= _predict_methods[method]
 
     scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
     scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))
@@ -109,6 +113,7 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
     x_norm = scalerp.transform(x_norm)
 
     y = fun(x_norm, path, **kwargs)
+    #y = fun(x, path, **kwargs)
 
     #y_norm = scaler.transform(y)
     #y_norm = scalerp.transform(y_norm)

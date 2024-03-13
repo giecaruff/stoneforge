@@ -6,15 +6,15 @@ import warnings
 
 
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.svm import SVC
+from sklearn.svm import SVR
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
-import lightgbm as LGBMRegressor
-from catboost.core import CatBoostRegressor
+#import lightgbm as lgb
+#from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from xgboost import XGBRegressor
+#from xgboost import XGBRegressor
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -29,7 +29,7 @@ def saves(file, name):
 
 
 #Simple Linear Regression
-def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     f1 = open(path + '\\linear_regression_settings.json')
     f2 = open(path + '\\polinomial_settings.json')
@@ -47,24 +47,20 @@ def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kw
     
 
 #Suporte Vector 
-def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, **kwargs):
+def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     f = open(path + '\\support_vector_settings.json')
 
     settings = json.load(f)
-    if not settings:
-        settings['random_state'] = 99
 
-    svn = SVC(**settings)
+    svn = SVR(**settings)
 
     svn.fit(X, y, **kwargs)
     
-    saves(svn, path+"\\suporte_vector_fit_property")
-
-
+    saves(svn, path+"\\support_vector_fit_property")
 
 #Decison Tree
-def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, **kwargs):
+def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -78,7 +74,7 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, 
         settings = bestdt.best_params_
 
     if not gs:
-        f = open(path + '\\decision_tree_replacement.json')
+        f = open(path + '\\decision_tree_regression.json')
         settings = json.load(f)
         if not settings:
             settings['random_state'] = 99
@@ -90,7 +86,7 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=True, 
 
 
 #Random Florest
-def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True,**kwargs):
+def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,**kwargs):
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -104,18 +100,19 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=True
         settings = bestrf.best_params_
 
     if not gs:
-        f = open(path + '\\random_florest_settings.json')
-        setting = json.load(f)
+        f = open(path + '\\random_forest_settings.json')
+        settings = json.load(f)
         if not settings:
             settings['random_state'] = 99
     
     d_florestc = RandomForestRegressor(**settings)
     d_florestc.fit(X, y, **kwargs)
     
-    saves(d_florestc, path+"\\random_florest_fit_property")
+    saves(d_florestc, path+"\\random_forest_fit_property")
 
 
 #XgBoost
+"""
 def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -139,7 +136,10 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
 
     saves(xg, path+"\\xgboost_fit_property")
 
+"""
+
 #LightGBM
+"""""
 def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
     if gs:
@@ -148,7 +148,7 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
         'max_depth':[5,10,15,30,50,70,100],
         'random_state':[99]}
 
-        lghtr = LGBMRegressor()
+        lghtr = lgb.LGBMRegressor()
 
         bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
         bestlight.fit(X,y)
@@ -156,17 +156,20 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
         settings = bestlight.best_params_
 
     if not gs:
-        f = open(path + '\\lightgbm_florest_settings.json')
+        f = open(path + '\\lightgbm_settings.json')
         settings = json.load(f)
         if not settings:
             settings['random_state'] = 99
     
-    xg = LGBMRegressor(**settings)
+    xg = lgb.LGBMRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
     saves(xg, path+"\\lightgbm_replacement_fit_property")
 
+"""
+
 #CatBoost
+'''''
 def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
 
     if gs:
@@ -192,18 +195,18 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
     cb.fit(X, y, **kwargs)
 
     saves(cb, path+"\\catboost_fit_property")
-
+'''''
 
 
 _fit_methods = {
     "linear_regression_simple": linear_regression_replacement,
     "linear_regression_polynomial": linear_regression_replacement,
-    "suporte_vector_regression": suporte_vector_replacement,
+    "support_vector_regression": suporte_vector_replacement,
     "decision_tree_regression": decision_tree_replacement,
-    "random_florest_regression": random_florest_replecement,
-    "xgboost_regression": xgboost_replacement,
-    "lightgbm_regression": lightgbm_replacement,
-    "catboost_regression": catboost_replecement
+    "random_forest_regression": random_florest_replecement,
+    #"xgboost_regression": xgboost_replacement,
+    #"lightgbm_regression": lightgbm_replacement,
+    #"catboost_regression": catboost_replecement
     }
 
 
@@ -214,18 +217,18 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
     if method == "linear_regression_polynomial":
         fun = _fit_methods[method]
-    if method == "suporte_vector_regression":
+    if method == "support_vector_regression":
         fun = _fit_methods[method]
     if method == "decision_tree_regression":
         fun = _fit_methods[method]
-    if method == "random_florest_regression":
+    if method == "random_forest_regression":
         fun = _fit_methods[method]
-    if method == "xgboost_regression":
-        fun = _fit_methods[method]
-    if method == "lightgbm_regression":
-        fun = _fit_methods[method]
-    if method == "catboost_regression":
-        fun = _fit_methods[method]
+    #if method == "xgboost_regression":
+    #    fun = _fit_methods[method]
+    #if method == "lightgbm_regression":
+    #    fun = _fit_methods[method]
+    #if method == "catboost_regression":
+    #    fun = _fit_methods[method]
 
     # ===================================== #
 
@@ -240,7 +243,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
 
     scalerp = StandardScaler()
     scalerp.fit(X_norm)
-    X_norm = scaler.transform(X_norm)
+    X_norm = scalerp.transform(X_norm)
     saves(scalerp, path+"\\scalerp")
 
     # ===================================== #
