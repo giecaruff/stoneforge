@@ -7,3 +7,4 @@ from . import rock_physics  # noqa: F401
 
 from . import inversion  # noqa: F401
 from . import wavelets  # noqa: F401
+from . import datasets # noqa: F401
