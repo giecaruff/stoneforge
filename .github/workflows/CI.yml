@@ -2,9 +2,9 @@ name: Stoneforge
 
 on:
   push:
-    branches: [ main,appy2.0.2_cleaning ]
+    branches: [ main,appy2.0.2.main ]
   pull_request:
-    branches: [ main,appy2.0.2_cleaning ]
+    branches: [ main,appy2.0.2.main ]
 
 jobs:
   build:
