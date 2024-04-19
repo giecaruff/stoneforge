@@ -22,13 +22,12 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
     if lithology_code:
         litho_index = np.arange(len(lithology_code))
         value_map = dict(zip(litho_index,lithology_code))
+        current_state = list(lithology_code).index(initial_state)
     else:
         litho_index = np.arange(np.shape(markov_chain)[0])
-    
+        current_state = initial_state
 
     sorted_values = []
-
-    current_state = initial_state
 
     for _ in range(sampling):
         # Use the Markov matrix to transition to the next state
@@ -41,6 +40,30 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
     else:
         new_array = np.array(sorted_values)
     return new_array
+
+def markov_chain(lito):
+        """
+        generate markov chain matrix from lithology data
+        """
+        _lito = lito[~np.isnan(lito)]
+        states = list(set(_lito))
+
+        matrix_size = len(states)
+        transition_matrix = np.zeros((matrix_size, matrix_size))
+
+        state_to_index = {state: i for i, state in enumerate(states)}
+
+        for i in range(len(_lito) - 1):
+            current_state = _lito[i]
+            next_state = _lito[i + 1]
+
+            transition_matrix[state_to_index[current_state], state_to_index[next_state]] += 1
+
+        row_sums = transition_matrix.sum(axis=1)
+        MC = transition_matrix / row_sums[:, np.newaxis]
+        states = states
+
+        return (MC,states)
 
 def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, single_lithology = True, seed_value = 42):
 
