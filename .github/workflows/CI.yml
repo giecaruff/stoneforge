@@ -2,9 +2,9 @@ name: Stoneforge
 
 on:
   push:
-    branches: [ main,appy2.0.2_cleaning ]
+    branches: [ main,verify_main ]
   pull_request:
-    branches: [ main,appy2.0.2_cleaning ]
+    branches: [ main,verify_main ]
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
 
     - name: Install scikit-learn
       run: pip install scikit-learn
-      
+
     - name: Test with pytest
       run: |
         pytest

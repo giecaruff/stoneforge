@@ -12,6 +12,7 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/../..')
     from petrophysics.porosity import porosity
 
+
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions
 
@@ -102,3 +103,4 @@ def test_gaymard(phid, phin):
 #     assert any(p >= 0) and any(p <= 1)
 
 # # TODO: pytest for the rest of porosity
+# %%

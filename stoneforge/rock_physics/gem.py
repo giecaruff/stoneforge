@@ -1,8 +1,9 @@
 import numpy as np
 import numpy.typing as npt
 
-from .elastic_constants import poisson
+from . import elastic_constants
 
+poisson = elastic_constants.poisson
 
 def hertz_mindlin(k: float, g: float, n: float, phic: float,
                   p: float) -> np.ndarray:
