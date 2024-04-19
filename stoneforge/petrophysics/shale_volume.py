@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.typing as npt
-from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+#from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+from .helpers import correct_petrophysic_estimation_range
 
 def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     """Calculates the gamma ray index.

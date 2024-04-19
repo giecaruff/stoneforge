@@ -1,7 +1,8 @@
 import numpy as np
 import numpy.typing as npt
 import warnings
-from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+#from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+from .helpers import correct_petrophysic_estimation_range
 
 
 # Make anomalous water saturation values larger than 1 be one

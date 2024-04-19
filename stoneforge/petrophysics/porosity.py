@@ -1,9 +1,8 @@
 import numpy as np
 import numpy.typing as npt
 import warnings
-from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
-
-
+#from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
+from .helpers import correct_petrophysic_estimation_range
 
 
 def effective_porosity(phi: npt.ArrayLike, vsh: npt.ArrayLike) -> np.ndarray:
