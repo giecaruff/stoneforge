@@ -20,9 +20,6 @@ jobs:
     - name: Install numpy
       run: pip install numpy
 
-    - name: Install matplotlib
-      run: pip install matplotlib
-
     - name: Install pandas
       run: pip install pandas
       
