@@ -25,6 +25,7 @@ setup(
         "pytest>=6.2.2, <6.2.5",
         "scipy>=1.4.1, <1.8.1",
         "scikit-learn>=0.22.1, <0.24.2",
+        #"jupyter==1.0.0",
         #"xgboost==1.4.0",
         "matplotlib>=3.5.0, <3.5.3",
         "pandas==1.5.2",
