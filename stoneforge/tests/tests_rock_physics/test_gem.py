@@ -3,7 +3,7 @@ import os
 
 
 if __package__:
-    from ..rock_physics.gem import gem
+    from stoneforge.rock_physics.gem import gem
 else:
     sys.path.append(os.path.dirname(__file__) + '/..')
     from rock_physics.gem import gem
