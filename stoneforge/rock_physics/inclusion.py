@@ -5,7 +5,7 @@ import numpy.typing as npt
 import warnings
 import numpy as np
 from scipy.optimize import fsolve
-from stoneforge.rock_physics.elastic_constants import poisson
+from .elastic_constants import poisson
 
 def get_theta(alpha):
     return alpha*(np.arccos(alpha) - alpha*np.sqrt(1.0 - alpha*alpha))/(1.0 - alpha*alpha)**(3.0/2.0)
