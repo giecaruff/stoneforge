@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/giecaruff/logos/raw/main/stoneforge.png" width="400"/>
+<img src="https://raw.githubusercontent.com/giecaruff/logos/main/APPY/stoneforge.png" width="400"/>
 
 <h2 align="center">Algorithms, methods and equations for geophysics in Python</h2>
 
