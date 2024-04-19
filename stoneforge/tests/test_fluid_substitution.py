@@ -1,12 +1,11 @@
 import sys
 import os
 
-
 if __package__:
     from ..rock_physics.fluid_substitution import gassmann
     from ..rock_physics.fluid_substitution import mavko
 else:
-    sys.path.append(os.path.dirname(__file__) + '/..')
+    sys.path.append(os.path.dirname(__file__) + '/../..')
     from rock_physics.fluid_substitution import gassmann
     from rock_physics.fluid_substitution import mavko
 

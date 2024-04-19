@@ -124,6 +124,9 @@ venv.bak/
 .ml_project
 .pkl
 
+# Overall pickle files
+*.pkl
+
 # mypy
 .mypy_cache/
 .dmypy.json
