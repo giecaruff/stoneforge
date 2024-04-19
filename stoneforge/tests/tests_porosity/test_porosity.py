@@ -12,7 +12,6 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/../..')
     from petrophysics.porosity import porosity
 
-
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions
 
