@@ -155,9 +155,9 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     return vshale
 
 
-def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float,
-                   cl1_d: float, cl2_n: float, cl2_d: float, clay_n: float,
-                   clay_d: float) -> np.ndarray:
+def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike,  cl1_n = -0.15,
+                   cl1_d = 2.65, cl2_n = 1.00, cl2_d = 1.10, clay_n = 0.47,
+                   clay_d = 2.71) -> np.ndarray:
     """Estimates the shale volume from neutron and density logs method [1]_.
 
     Parameters
@@ -167,13 +167,13 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike, cl1_n: float,
     den : array_like
         Bulk density log.
     cl1_n : int, float
-        Neutron porosity value from clean point 1.
+        Neutron porosity value from rock matrix.
     cl1_d : int, float
-        Bulk density value from clean point 1.
+        Bulk density value from rock matrix.
     cl2_n : int, float
-        Neutron porosity value from clean point 2.
+        Neutron porosity value from fluid.
     cl2_d : int, float
-        Bulk density value from clean point 2.
+        Bulk density value from fluid.
     clay_n : int, float
         Neutron porosity value from clay point.
     clay_d : int, float
