@@ -21,7 +21,7 @@ setup(
     include_package_data=True,
     python_requires=">=3.8.8",
     install_requires=[
-        "numpy>=1.21, <1.22.1",
+        "numpy>=1.20.0",
         "pytest>=6.2.2, <6.2.5",
         "scipy>=1.4.1, <1.8.1",
         "scikit-learn>=0.22.1, <0.24.2",
