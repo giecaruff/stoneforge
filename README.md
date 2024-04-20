@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/giecaruff/logos/main/APPY/stoneforge.png" width="400"/>
+<img src="https://github.com/giecaruff/logos/raw/main/stoneforge.png" width="400"/>
 
 <h2 align="center">Algorithms, methods and equations for geophysics in Python</h2>
 
@@ -50,6 +50,6 @@ The stoneforge dataset comprises selected data from eleven wildcat wells in the 
 Contains data sets from 11 wildcat wells drilled in the National Petroleum Reserve in Alaska (NPRA).
 
 Zihlman, F. N creator ; Oliver, H. L ; Geological Survey (U.S.)
-Reston, Va.] : Denver, Colo : U.S. Dept. of the Interior, U.S. Geological Survey1999
+Reston, Va. : Denver, Colo : U.S. Dept. of the Interior, U.S. Geological Survey1999
 
 Our special thanks to the INDIANA UNIVERSITY for mantaining this dataset

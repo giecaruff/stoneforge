@@ -5,8 +5,8 @@ from scipy import stats
 from scipy.stats import pearsonr
 from scipy.optimize import curve_fit
 
-
 def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
+  
   """
   Determines the 1D experimental correlation function [1]_ for a dataset by calculating 
   the Pearson correlation coefficient for each possible separation of samples.
@@ -27,6 +27,7 @@ def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
   properties. [S.l.]: Cambridge University Press, 2014.
 
   """
+
   rho = np.zeros(len(data))
   for i in range(len(data) - 1):
         slc = (slice(0, len(data) - i, None), slice(i, len(data), None))
@@ -94,6 +95,7 @@ def exponential_variogram_model(distance: npt.ArrayLike, correlation_length: flo
   rho = nugget + sill * (1. - np.exp(-(3*distance/correlation_length)))
   return(rho)
 
+
 def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
   """
   Builds a variogram following the gaussian model, using the correlation length, sill and nugget given [1]_.
@@ -126,6 +128,7 @@ def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float,
   """   
   rho = nugget + sill * (1. - np.exp(- 3*(distance ** 2 / correlation_length ** 2)))
   return(rho)
+
 
 def spherical_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
   """
