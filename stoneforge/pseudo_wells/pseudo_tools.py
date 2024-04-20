@@ -99,3 +99,14 @@ def adjustment(dept,a,C1,C0 = 0,mode = "exponential"):
         C.append(c0)
 
     return np.array(C)
+
+
+def cov_matrix(M):
+
+    COV = []
+    for i in range(len(M)):
+        _ = []
+        for j in range(len(M)):
+            _.append(np.cov(M[i],M[j])[0][1])
+        COV.append(_)
+    return np.array(COV)
