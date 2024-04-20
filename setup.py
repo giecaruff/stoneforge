@@ -19,16 +19,16 @@ setup(
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
-    python_requires=">=3.8.8",
+    python_requires=">=3.12.1",
     install_requires=[
-        "numpy>=1.20.0",
-        "pytest>=6.2.2, <6.2.5",
-        "scipy>=1.4.1, <1.8.1",
-        "scikit-learn>=0.22.1, <0.24.2",
+        "numpy>=1.26.4", # 05/02/2024
+        "pytest>=8.1.1", # 09/03/2024
+        "scipy>=1.13.0", # 02/04/2024
+        "scikit-learn>=1.4.2", # 09/04/2024
         #"jupyter==1.0.0",
         #"xgboost==1.4.0",
-        "matplotlib>=3.5.0, <3.5.3",
-        "pandas==1.5.2",
+        "matplotlib>=3.8.4", # 09/04/2024
+        "pandas>=2.2.2", # 10/04/2024
         #"catboost==1.0.6",
         #"lightgbm==3.3.2",
         #"catboost==0.26.1"
