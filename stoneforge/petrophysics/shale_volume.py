@@ -166,17 +166,17 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike,  cl1_n = -0.15,
         Neutron porosity log.
     den : array_like
         Bulk density log.
-    cl1_n : int, float
+    cl1_n : -0.15, int, float
         Neutron porosity value from rock matrix.
-    cl1_d : int, float
+    cl1_d : 2.65, int, float
         Bulk density value from rock matrix.
-    cl2_n : int, float
+    cl2_n : 1.00, int, float
         Neutron porosity value from fluid.
-    cl2_d : int, float
+    cl2_d : 1.10, int, float
         Bulk density value from fluid.
-    clay_n : int, float
+    clay_n : 0.47, int, float
         Neutron porosity value from clay point.
-    clay_d : int, float
+    clay_d : 2.71, int, float
         Bulk density value from clay point.
 
     Returns
