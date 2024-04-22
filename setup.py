@@ -34,4 +34,5 @@ setup(
         #"catboost==0.26.1"
         #"auto-sklearn==0.12.5"
     ],
+    long_description_content_type='text/markdown',
 )
