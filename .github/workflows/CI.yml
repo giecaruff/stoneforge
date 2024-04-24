@@ -2,7 +2,7 @@ name: Stoneforge
 
 on:
   push:
-    branches: [ main,stoneforge0.1.6 ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
