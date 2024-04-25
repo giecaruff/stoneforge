@@ -45,6 +45,7 @@ def markov_chain(lito):
         """
         generate markov chain matrix from lithology data
         """
+        lito = np.array(lito)
         _lito = lito[~np.isnan(lito)]
         states = list(set(_lito))
 
