@@ -127,6 +127,10 @@ venv.bak/
 # Overall pickle files
 *.pkl
 
+# ml test
+.mlprj
+catboost_info
+
 # mypy
 .mypy_cache/
 .dmypy.json

@@ -3,39 +3,50 @@ import numpy.typing as npt
 import pickle
 import json
 import warnings
-
+import os
 
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
-#import lightgbm as lgb
-#from catboost.core import CatBoostRegressor
+import lightgbm as lgb
+from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-#from xgboost import XGBRegressor
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 
+LR_METHODS = [
+    "linear_regression_simple",
+    "linear_regression_polynomial",
+    "decision_tree_regression",
+    "support_vector_regression",
+    "random_forest_regression",
+    'lightgbm_regression',
+    'xgboost_replacement',
+    'catboost_replacement'
+]
 
-
-def saves(file, name):
-    with open(name + ".pkl", "wb") as write_file:
+def saves(file, path, method, suffix = "_fit_property.pkl"):
+    full_path = os.path.join(path, method + suffix)
+    with open(full_path, "wb") as write_file:
         pickle.dump(file, write_file)
+
+def load_settings(path, method):
+    with open(os.path.join(path, method + "_settings.json")) as f:
+        return json.load(f)
 
 
 #Simple Linear Regression
-def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
-    f1 = open(path + '\\linear_regression_settings.json')
-    f2 = open(path + '\\polinomial_settings.json')
+    method = 'linear_regression_simple'
 
-    settings = json.load(f1)
-    pol_settings = json.load(f2)
+    settings = load_settings(path, method)
+    pol_settings = load_settings(path, 'polinomial')
 
     pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
     X_poly = pol_degree.fit_transform(X)
@@ -43,24 +54,27 @@ def linear_regression_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=F
     slregression = LinearRegression(**settings)
     slregression.fit(X_poly, y, **kwargs)
 
-    saves(slregression, path+"\\linear_regression_fit_property")
+    saves(slregression, path, method)
     
 
 #Suporte Vector 
-def suporte_vector_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def support_vector_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
 
-    f = open(path + '\\support_vector_settings.json')
+    method = 'support_vector_regression'
 
-    settings = json.load(f)
+    settings = load_settings(path, method)
 
     svn = SVR(**settings)
 
     svn.fit(X, y, **kwargs)
     
-    saves(svn, path+"\\support_vector_fit_property")
+    saves(svn, path, method)
+
 
 #Decison Tree
-def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def decision_tree_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+
+    method = 'decision_tree_regression'
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -74,19 +88,20 @@ def decision_tree_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False
         settings = bestdt.best_params_
 
     if not gs:
-        f = open(path + '\\decision_tree_regression.json')
-        settings = json.load(f)
+        settings = load_settings(path, method)
         if not settings:
             settings['random_state'] = 99
     
     d_treer = DecisionTreeRegressor(**settings)
     d_treer.fit(X, y, **kwargs)
     
-    saves(d_treer, path+"\\decision_tree_fit_property")
+    saves(d_treer, path, method)
 
 
-#Random Florest
-def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,**kwargs):
+#Random Forest
+def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,**kwargs):
+
+    method = 'random_forest_regression'
 
     if gs:
         parameters = {'criterion': ['gini', 'entropy'],
@@ -100,20 +115,20 @@ def random_florest_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=Fals
         settings = bestrf.best_params_
 
     if not gs:
-        f = open(path + '\\random_forest_settings.json')
-        settings = json.load(f)
+        settings = load_settings(path, method)
         if not settings:
             settings['random_state'] = 99
     
-    d_florestc = RandomForestRegressor(**settings)
-    d_florestc.fit(X, y, **kwargs)
+    d_forestc = RandomForestRegressor(**settings)
+    d_forestc.fit(X, y, **kwargs)
     
-    saves(d_florestc, path+"\\random_forest_fit_property")
+    saves(d_forestc, path, method)
 
 
 #XgBoost
-"""
-def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs):
+
+    method = 'xgboost_regression'
 
     if gs:
         parameters =  {'n_estimators': [100],
@@ -124,23 +139,21 @@ def xgboost_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
 
         bestxgbc = GridSearchCV(xgb,parameters,scoring='accuracy')
         bestxgbc.fit(X,y)
-        #bestxgb = bestxgb.best_params_
         settings = bestxgbc.best_params_
 
     if not gs:
-        f = open(path + '\\xgboost_regression_settings.json')
-        settings = json.load(f)
+        settings = load_settings(path, method)
     
     xg = XGBRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
-    saves(xg, path+"\\xgboost_fit_property")
+    saves(xg, path, method)
 
-"""
 
 #LightGBM
-"""""
-def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+
+    method = 'lightgbm_regression'
 
     if gs:
         parameters =  {'n_estimators': [100],
@@ -152,25 +165,24 @@ def lightgbm_replacement(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **k
 
         bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
         bestlight.fit(X,y)
-        #bestxgb = bestxgb.best_params_
         settings = bestlight.best_params_
 
     if not gs:
-        f = open(path + '\\lightgbm_settings.json')
-        settings = json.load(f)
+        settings = load_settings(path, method)
         if not settings:
             settings['random_state'] = 99
+            settings['verbose'] = -1
     
     xg = lgb.LGBMRegressor(**settings)
     xg.fit(X, y, **kwargs)
 
-    saves(xg, path+"\\lightgbm_replacement_fit_property")
+    saves(xg, path, method)
 
-"""
 
 #CatBoost
-'''''
-def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+
+    method = 'catboost_regression'
 
     if gs:
         parameters =  {'n_estimators': [100,150,200],
@@ -186,33 +198,31 @@ def catboost_replecement(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kw
         settings = bestcatr.best_params_
 
     if not gs:
-        f = open(path + '\\catboost_settings.json')
-        settings = json.load(f)
+        settings = load_settings(path, method)
         if not settings:
             settings['random_state'] = 99
+            settings['silent'] = True
     
     cb = CatBoostRegressor(**settings)
     cb.fit(X, y, **kwargs)
 
-    saves(cb, path+"\\catboost_fit_property")
-'''''
+    saves(cb, path, method)
 
 
 _fit_methods = {
-    "linear_regression_simple": linear_regression_replacement,
-    "linear_regression_polynomial": linear_regression_replacement,
-    "support_vector_regression": suporte_vector_replacement,
-    "decision_tree_regression": decision_tree_replacement,
-    "random_forest_regression": random_florest_replecement,
-    #"xgboost_regression": xgboost_replacement,
-    #"lightgbm_regression": lightgbm_replacement,
-    #"catboost_regression": catboost_replecement
+    "linear_regression_simple": linear_regression,
+    "linear_regression_polynomial": linear_regression,
+    "support_vector_regression": support_vector_regression,
+    "decision_tree_regression": decision_tree_regression,
+    "random_forest_regression": random_forest_regression,
+    "xgboost_regression": xgboost_regression,
+    "lightgbm_regression": lightgbm_regression,
+    "catboost_regression": catboost_regression
     }
 
 
 def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
 
-    print(method)
     if method == "linear_regression_simple":
         fun = _fit_methods[method]
     if method == "linear_regression_polynomial":
@@ -223,19 +233,19 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
         fun = _fit_methods[method]
     if method == "random_forest_regression":
         fun = _fit_methods[method]
-    #if method == "xgboost_regression":
-    #    fun = _fit_methods[method]
-    #if method == "lightgbm_regression":
-    #    fun = _fit_methods[method]
-    #if method == "catboost_regression":
-    #    fun = _fit_methods[method]
+    if method == "xgboost_regression":
+        fun = _fit_methods[method]
+    if method == "lightgbm_regression":
+        fun = _fit_methods[method]
+    if method == "catboost_regression":
+        fun = _fit_methods[method]
 
     # ===================================== #
 
     scaler = MinMaxScaler()
     scaler.fit(X)
     X_norm = scaler.transform(X)
-    saves(scaler, path+"\\scaler")
+    saves(scaler, path, method+'_scaler', suffix = '.pkl')
     
     #Normalization adjusts the values of a variable to a specific range.
 
@@ -244,7 +254,7 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     scalerp = StandardScaler()
     scalerp.fit(X_norm)
     X_norm = scalerp.transform(X_norm)
-    saves(scalerp, path+"\\scalerp")
+    saves(scalerp, path, method+'_scalerp', suffix = '.pkl')
 
     # ===================================== #
     
