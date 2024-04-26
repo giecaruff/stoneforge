@@ -46,6 +46,10 @@ def settings(method: str = "linear_regression_simple", path = ".", **kwargs):
     if method == "random_forest_regression":
         saves(kwargs, path+"\\random_forest_settings")
 
+    if method == "":
+        print("Method not found")
+        return methods()
+
     #if method == "xgboost_regression":
     #    saves(kwargs, path+"\\xgboost_regression_settings")
 

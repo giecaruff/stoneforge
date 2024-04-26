@@ -14,6 +14,9 @@ ML_METHODS = [
     'CatBoostClassifier'
 ]
 
+def methods():
+    return ML_METHODS
+
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
         json.dump(file, write_file)
@@ -44,6 +47,11 @@ def settings(method: str = "GaussianNB", path = ".", **kwargs):
 
     if method == "CatBoostClassifier":
         saves(kwargs, path+'\\catboost_settings')
+
+    if method == "":
+        print("Method not found")
+        return methods()
+
 
     saves(ML_METHODS, path+'\\all_methods')
     
