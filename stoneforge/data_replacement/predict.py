@@ -29,11 +29,13 @@ def fit_load(path, method):
     with open(full_path, 'rb') as f:
         return pickle.load(f)
 
-def linear_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
     method = 'linear_regression_simple'
-
-    slregression = fit_load(path, method)
+    if path:
+        slregression = fit_load(path, method)
+    else:
+        slregression = pickle.loads(fit_info)
     f = open(os.path.join(path, 'polinomial_settings.json'))
     pol_settings = json.load(f)
 
@@ -43,56 +45,74 @@ def linear_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
     return slregression.predict(x_poly , **kwargs)
 
 
-def support_vector_regression(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
     method = 'support_vector_regression'
 
-    svnegression = fit_load(path, method)
+    if path:
+        svnegression = fit_load(path, method)
+    else:
+        svnegression = pickle.loads(fit_info)
 
     return svnegression.predict(x, **kwargs)
 
 
-def decision_tree_regression(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
     method = 'decision_tree_regression'
 
-    d_treec_regression = fit_load(path, method)
+    if path:
+        d_treec_regression = fit_load(path, method)
+    else:
+        d_treec_regression = pickle.loads(fit_info)
 
     return d_treec_regression.predict(x, **kwargs)
 
 
-def random_florest_regression(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
     method = 'random_forest_regression'
 
-    randomregression = fit_load(path, method)
+    if path:
+        randomregression = fit_load(path, method)
+    else:
+        randomregression = pickle.loads(fit_info)
     
     return randomregression.predict(x, **kwargs)
 
 
-def xgboost_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
     method = 'xgboost_regression'
 
-    xgboostregression = fit_load(path, method)
+    if path:
+        xgboostregression = fit_load(path, method)
+    else:
+        xgboostregression = pickle.loads(fit_info)
 
     return xgboostregression.predict(x,**kwargs)
 
 
-def lightgbm_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
     method = 'lightgbm_regression'
 
-    lightregression = fit_load(path, method)
+    if path:
+        lightregression = fit_load(path, method)
+    else:
+        lightregression = pickle.loads(fit_info)
     
     return lightregression.predict(x,**kwargs)
 
 
-def catboost_regression(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
     method = 'catboost_regression'
 
-    catregression = fit_load(path, method)
+    if path:
+        catregression = fit_load(path, method)
+    else:
+        catregression = pickle.loads(fit_info)
     
     return catregression.predict(x,**kwargs)
 
@@ -109,7 +129,7 @@ _predict_methods = {
     }
 
 
-def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
+def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", fit_info = False, **kwargs):
 
     if method == "linear_regression_simple":
         fun = _predict_methods[method]
@@ -138,7 +158,7 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
     x_norm = scaler.transform(x)
     x_norm = scalerp.transform(x_norm)
 
-    y = fun(x_norm, path, **kwargs)
+    y = fun(x_norm, path, fit_info, **kwargs)
     #y = fun(x, path, **kwargs)
 
     #y_norm = scaler.transform(y)

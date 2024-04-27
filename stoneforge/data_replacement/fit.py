@@ -30,10 +30,13 @@ LR_METHODS = [
     'catboost_replacement'
 ]
 
-def saves(file, path, method, suffix = "_fit_property.pkl"):
+def saves(file, path, method, suffix = "_fit_property.pkl", sz = False):
     full_path = os.path.join(path, method + suffix)
-    with open(full_path, "wb") as write_file:
-        pickle.dump(file, write_file)
+    if not sz:
+        with open(full_path, "wb") as write_file:
+            pickle.dump(file, write_file)
+    else:
+        return pickle.dump(file)
 
 def load_settings(path, method):
     with open(os.path.join(path, method + "_settings.json")) as f:
@@ -41,38 +44,52 @@ def load_settings(path, method):
 
 
 #Simple Linear Regression
-def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'linear_regression_simple'
 
-    settings = load_settings(path, method)
-    pol_settings = load_settings(path, 'polinomial')
+    if path:
+        settings = load_settings(path, method)
+        pol_settings = load_settings(path, 'polinomial')
+    else:
+        pol_settings = pickle.loads(settings[0])
+        settings = pickle.loads(settings[1])
+
 
     pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
     X_poly = pol_degree.fit_transform(X)
 
     slregression = LinearRegression(**settings)
     slregression.fit(X_poly, y, **kwargs)
-
-    saves(slregression, path, method)
+    if not path:
+        serialized_model = pickle.dumps(slregression)
+        return serialized_model
+    else:
+        saves(slregression, path, method)
     
 
 #Suporte Vector 
-def support_vector_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def support_vector_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'support_vector_regression'
 
-    settings = load_settings(path, method)
+    if path:
+        settings = load_settings(path, method)
+    else:
+        settings = pickle.loads(settings)
 
     svn = SVR(**settings)
 
     svn.fit(X, y, **kwargs)
-    
-    saves(svn, path, method)
+    if not path:
+        serialized_model = pickle.dumps(svn)
+        return serialized_model
+    else:
+        saves(svn, path, method)
 
 
 #Decison Tree
-def decision_tree_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def decision_tree_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'decision_tree_regression'
 
@@ -88,18 +105,24 @@ def decision_tree_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,
         settings = bestdt.best_params_
 
     if not gs:
-        settings = load_settings(path, method)
-        if not settings:
+        if path:
+            settings = load_settings(path, method)
             settings['random_state'] = 99
+        else:
+            settings = pickle.loads(settings)
     
     d_treer = DecisionTreeRegressor(**settings)
+
     d_treer.fit(X, y, **kwargs)
-    
-    saves(d_treer, path, method)
+    if not path:
+        serialized_model = pickle.dumps(d_treer)
+        return serialized_model
+    else:
+        saves(d_treer, path, method)
 
 
 #Random Forest
-def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,**kwargs):
+def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'random_forest_regression'
 
@@ -115,18 +138,24 @@ def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False,
         settings = bestrf.best_params_
 
     if not gs:
-        settings = load_settings(path, method)
-        if not settings:
+        if path:
+            settings = load_settings(path, method)
+            settings['random_state'] = 99
+        else:
+            settings = pickle.loads(settings)
             settings['random_state'] = 99
     
     d_forestc = RandomForestRegressor(**settings)
     d_forestc.fit(X, y, **kwargs)
-    
-    saves(d_forestc, path, method)
+    if not path:
+        serialized_model = pickle.dumps(d_forestc)
+        return serialized_model
+    else:
+        saves(d_forestc, path, method)
 
 
 #XgBoost
-def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs):
+def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'xgboost_regression'
 
@@ -142,16 +171,22 @@ def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwar
         settings = bestxgbc.best_params_
 
     if not gs:
-        settings = load_settings(path, method)
+        if path:
+            settings = load_settings(path, method)
+        else:
+            settings = pickle.loads(settings)
     
     xg = XGBRegressor(**settings)
     xg.fit(X, y, **kwargs)
-
-    saves(xg, path, method)
+    if not path:
+        serialized_model = pickle.dumps(xg)
+        return serialized_model
+    else:
+        saves(xg, path, method)
 
 
 #LightGBM
-def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kwargs):
+def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'lightgbm_regression'
 
@@ -168,19 +203,26 @@ def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs=False, **kw
         settings = bestlight.best_params_
 
     if not gs:
-        settings = load_settings(path, method)
-        if not settings:
+        if path:
+            settings = load_settings(path, method)
+            settings['random_state'] = 99
+            settings['verbose'] = -1
+        else:
+            settings = pickle.loads(settings)
             settings['random_state'] = 99
             settings['verbose'] = -1
     
-    xg = lgb.LGBMRegressor(**settings)
-    xg.fit(X, y, **kwargs)
-
-    saves(xg, path, method)
+    lgbm = lgb.LGBMRegressor(**settings)
+    lgbm.fit(X, y, **kwargs)
+    if not path:
+        serialized_model = pickle.dumps(lgbm)
+        return serialized_model
+    else:
+        saves(lgbm, path, method)
 
 
 #CatBoost
-def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwargs) -> np.ndarray:
+def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
     method = 'catboost_regression'
 
@@ -194,19 +236,25 @@ def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path,gs=False, **kwa
 
         bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
         bestcatr.fit(X,y)
-        #bestcat = bestcat.best_params_
         settings = bestcatr.best_params_
 
     if not gs:
-        settings = load_settings(path, method)
-        if not settings:
+        if path:
+            settings = load_settings(path, method)
+            settings['random_state'] = 99
+            settings['silent'] = True
+        else:
+            settings = pickle.loads(settings)
             settings['random_state'] = 99
             settings['silent'] = True
     
     cb = CatBoostRegressor(**settings)
     cb.fit(X, y, **kwargs)
-
-    saves(cb, path, method)
+    if not path:
+        serialized_model = pickle.dumps(cb)
+        return serialized_model
+    else:
+        saves(cb, path, method)
 
 
 _fit_methods = {
@@ -221,7 +269,8 @@ _fit_methods = {
     }
 
 
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
+def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_simple", 
+path = ".", gs=False, settings = False, **kwargs):
 
     if method == "linear_regression_simple":
         fun = _fit_methods[method]
@@ -245,7 +294,6 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     scaler = MinMaxScaler()
     scaler.fit(X)
     X_norm = scaler.transform(X)
-    saves(scaler, path, method+'_scaler', suffix = '.pkl')
     
     #Normalization adjusts the values of a variable to a specific range.
 
@@ -254,7 +302,9 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     scalerp = StandardScaler()
     scalerp.fit(X_norm)
     X_norm = scalerp.transform(X_norm)
-    saves(scalerp, path, method+'_scalerp', suffix = '.pkl')
+
+    if method == "scaler_regression":
+        return scaler, scalerp
 
     # ===================================== #
     
@@ -272,6 +322,11 @@ def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_si
     #y_norm = scaler.transform(y_norm)
     #saves(scalerp, path+"\\y_scalerp")
     
-
-    fun(X_norm, y, path, **kwargs)
+    if not path:
+        serialized_model = fun(X_norm, y, path, gs, settings, **kwargs)
+        return serialized_model
+    else:
+        saves(scaler, path, method+'_scaler', suffix = '.pkl')
+        saves(scalerp, path, method+'_scalerp', suffix = '.pkl')
+        fun(X_norm, y, path, gs, settings, **kwargs)
     #fun(X, y, path, **kwargs)

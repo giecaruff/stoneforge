@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import time
 import pytest
+import pickle
 
 if __package__:
     from ..data_replacement import *
@@ -40,16 +41,15 @@ class setup_methods:
 
     def test_method(self, method, degree = 2):
 
-        start = time.time()
-        if method == "linear_regression_polynomial":
-            settings(method = method, verbose = True, degree = degree, path = self.path)
+        if method == "scaler_regression":
+            a = settings(method = method, verbose = True, path = False)
+            print(type(a))
         else:
-            settings(method = method, verbose = True, path = self.path)
-        fit(X = self.X, y = self.y, method = method, path = self.path)
-        y_predicted = predict(self.Xte, method = method, path = self.path)
-        print(evaluation(self.yte,y_predicted, decimals = self.decimals, path = False))
-        end = time.time()
-        print("Time :",(end-start) * 10**3, "ms \n")
+            a = settings(method = method, verbose = True, path = False)
+            print("settings done",type(a))
+            b = fit(X = self.X, y = self.y, method = method, path = False, settings = a)
+            print("fit done",type(b))
+        
 
 # %% ============================================================== #
 
@@ -88,50 +88,56 @@ _test = setup_methods(X, X_test, DT, y_test, main_path, 3)
 
 # %% ============================================================== #
 
-#def test_linear_regression_simple():
-#    _test.test_method("linear_regression_simple")
-#    assert True
+
+_test.test_method("scaler_regression")
+
 
 # %% ============================================================== #
 
-#def test_linear_regression_polynomial():
-#    _test.test_method("linear_regression_polynomial")
-#    assert True
+
+_test.test_method("linear_regression_simple")
+
 
 # %% ============================================================== #
 
-def test_decision_tree():
-    _test.test_method("decision_tree_regression")
-    assert True
+
+_test.test_method("linear_regression_polynomial")
+
 
 # %% ============================================================== #
 
-def test_support_vector():
-    _test.test_method("support_vector_regression")
-    assert True
+
+_test.test_method("decision_tree_regression")
+
 
 # %% ============================================================== #
 
-def test_random_forest():
-    _test.test_method("random_forest_regression")
-    assert True
+
+_test.test_method("support_vector_regression")
+
 
 # %% ============================================================== #
 
-def test_lightgbm():
-    _test.test_method("lightgbm_regression")
-    assert True
+
+_test.test_method("random_forest_regression")
+
 
 # %% ============================================================== #
 
-def test_xgboost():
-    _test.test_method("xgboost_regression")
-    assert True
+
+_test.test_method("lightgbm_regression")
+
 
 # %% ============================================================== #
 
-def test_catboost():
-    _test.test_method("catboost_regression")
-    assert True
+
+_test.test_method("xgboost_regression")
+
+
+# %% ============================================================== #
+
+
+_test.test_method("catboost_regression")
+
 
 # %% ============================================================== #
