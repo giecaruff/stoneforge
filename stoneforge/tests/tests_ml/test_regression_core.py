@@ -41,14 +41,22 @@ class setup_methods:
 
     def test_method(self, method, degree = 2):
 
-        if method == "scaler_regression":
-            a = settings(method = method, verbose = True, path = False)
-            print(type(a))
+        if method == "linear_regression_polynomial":
+            a = settings(method = method, verbose = True, path = False, degree = degree)
+            print("settings done",len(a))
+            b = fit(X = self.X, y = self.y, method = method, path = False, settings = a)
+            print("fit done",type(b))
+            c = fit(X = self.X, y = self.y, method = "scaler_regression", path = False, settings = a)
+            d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
+            print(np.mean(d))
         else:
             a = settings(method = method, verbose = True, path = False)
             print("settings done",type(a))
             b = fit(X = self.X, y = self.y, method = method, path = False, settings = a)
             print("fit done",type(b))
+            c = fit(X = self.X, y = self.y, method = "scaler_regression", path = False, settings = a)
+            d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
+            print(np.mean(d))
         
 
 # %% ============================================================== #
@@ -85,11 +93,6 @@ X_test = np.array([ES1_c["RHOB"],ES1_c["NPHI"]],float).T
 y_test = np.array(ES1_c["DT"])
 
 _test = setup_methods(X, X_test, DT, y_test, main_path, 3)
-
-# %% ============================================================== #
-
-
-_test.test_method("scaler_regression")
 
 
 # %% ============================================================== #
