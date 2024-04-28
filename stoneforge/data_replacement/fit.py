@@ -304,7 +304,7 @@ path = ".", gs=False, settings = False, **kwargs):
     X_norm = scalerp.transform(X_norm)
 
     if method == "scaler_regression":
-        return scaler, scalerp
+        return pickle.dumps(scaler), pickle.dumps(scalerp)
 
     # ===================================== #
     

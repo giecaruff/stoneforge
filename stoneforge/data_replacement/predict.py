@@ -165,8 +165,8 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
         else:
             scaler,scalerp = scalers
 
-        x_norm = scaler.transform(x)
-        x_norm = scalerp.transform(x_norm)
+        x_norm = pickle.loads(scaler).transform(x)
+        x_norm = pickle.loads(scalerp).transform(x_norm)
 
         y = fun(x_norm, path, fit_info, **kwargs)
         return y
