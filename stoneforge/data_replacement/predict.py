@@ -30,17 +30,15 @@ def fit_load(path, method):
         return pickle.load(f)
 
 def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-
     
     if path:
         method = 'linear_regression_simple'
-        slregression = fit_load(path, method)
-        f = open(os.path.join(path, 'polinomial_settings.json'))
-        pol_settings = json.load(f)
+        overall_fit_settings = fit_load(path, method)
     else:
-        pol_settings = pickle.loads(fit_info[0])
-        slregression = pickle.loads(fit_info[1])
-    
+        overall_fit_settings = pickle.loads(fit_info)
+
+    pol_settings = overall_fit_settings['polinomial']
+    slregression = overall_fit_settings['serialized_model']
 
     pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
     x_poly = pol_degree.fit_transform(x)
@@ -49,7 +47,6 @@ def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
 
 def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
-
 
     if path:
         method = 'support_vector_regression'
@@ -62,7 +59,6 @@ def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.
 
 def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
-
     if path:
         method = 'decision_tree_regression'
         d_treec_regression = fit_load(path, method)
@@ -73,7 +69,6 @@ def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.n
 
 
 def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
-
 
     if path:
         method = 'random_forest_regression'
@@ -86,7 +81,6 @@ def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.
 
 def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
-
     if path:
         method = 'xgboost_regression'
         xgboostregression = fit_load(path, method)
@@ -97,7 +91,6 @@ def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
 
 def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-
     
     if path:
         method = 'lightgbm_regression'
@@ -109,7 +102,6 @@ def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray
 
 
 def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-
 
     if path:
         method = 'catboost_regression'
@@ -170,9 +162,4 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
 
         y = fun(x_norm, path, fit_info, **kwargs)
         return y
-    #y = fun(x, path, **kwargs)
-
-    #y_norm = scaler.transform(y)
-    #y_norm = scalerp.transform(y_norm)
-
     

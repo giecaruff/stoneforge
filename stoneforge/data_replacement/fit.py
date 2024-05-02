@@ -49,11 +49,14 @@ def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **
     method = 'linear_regression_simple'
 
     if path:
-        _settings = load_settings(path, method)
-        pol_settings = load_settings(path, 'polinomial')
+        overall_settings = load_settings(path, method)
     else:
-        pol_settings = pickle.loads(settings[0])
-        _settings = pickle.loads(settings[1])
+        overall_settings = pickle.loads(settings)
+        #pol_settings = pickle.loads(settings[0])
+        #_settings = pickle.loads(settings[1])
+
+    _settings = overall_settings['settings']
+    pol_settings = overall_settings['polinomial']
 
 
     pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
@@ -61,9 +64,13 @@ def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **
 
     slregression = LinearRegression(**_settings)
     slregression.fit(X_poly, y, **kwargs)
+
+    overall_fit_settings = {'serialized_model':slregression, 'polinomial':pol_settings}
+
     if not path:
-        serialized_model = pickle.dumps(slregression)
-        return settings[0], serialized_model
+        #serialized_model = pickle.dumps(slregression)
+        #return settings[0], serialized_model
+        return pickle.dumps(overall_fit_settings)
     else:
         saves(slregression, path, method)
     

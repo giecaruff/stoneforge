@@ -32,26 +32,30 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
 
     if method == "linear_regression_simple" or method  =="linear_regression_polynomial":
         new_settings = {}
+        overall_settings = {}
         if not 'degree' in kwargs:
             
-            if path:
-                saves({'degree':1}, os.path.join(path, 'polinomial'))
-            else:
-                _polinomial = pickle.dumps({'degree':1})
+            #if path:
+            #    saves({'degree':1}, os.path.join(path, 'polinomial'))
+            #else:
+            #    _polinomial = pickle.dumps({'degree':1})
             new_settings = kwargs
+            overall_settings['polinomial'] = {'degree':1}
         else:
-            if path:
-                saves({'degree':kwargs['degree']}, os.path.join(path, 'polinomial'))
-            else:
-                _polinomial = pickle.dumps({'degree':kwargs['degree']})
+            #if path:
+            #    saves({'degree':kwargs['degree']}, os.path.join(path, 'polinomial'))
+            #else:
+            #    _polinomial = pickle.dumps({'degree':kwargs['degree']})
+            overall_settings['polinomial'] = {'degree':kwargs['degree']}            
             new_settings = {}
             for k in kwargs:
                 if k != 'degree':
                     new_settings[k] = kwargs[k]
+        overall_settings['settings'] = new_settings
         if path:
-            saves(new_settings, os.path.join(path, method))
+            saves(overall_settings, os.path.join(path, method))
         else:
-            return _polinomial, pickle.dumps(new_settings)
+            return pickle.dumps(overall_settings)
 
     if method == "support_vector_regression":
         if path:
