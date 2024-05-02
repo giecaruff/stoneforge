@@ -48,13 +48,20 @@ def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
 def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
+    
     if path:
         method = 'support_vector_regression'
         svnegression = fit_load(path, method)
     else:
         svnegression = pickle.loads(fit_info)
 
-    return svnegression.predict(x, **kwargs)
+    if '2dy' in svnegression:
+        y_pred = []
+        for i in svnegression['2dy']:
+            y_pred.append(svnegression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return svnegression['1dy'].predict(x, **kwargs)
 
 
 def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
@@ -97,8 +104,14 @@ def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray
         lightregression = fit_load(path, method)
     else:
         lightregression = pickle.loads(fit_info)
-    
-    return lightregression.predict(x,**kwargs)
+
+    if '2dy' in lightregression:
+        y_pred = []
+        for i in lightregression['2dy']:
+            y_pred.append(lightregression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return lightregression['1dy'].predict(x, **kwargs)
 
 
 def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
@@ -109,7 +122,14 @@ def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray
     else:
         catregression = pickle.loads(fit_info)
     
-    return catregression.predict(x,**kwargs)
+    if '2dy' in catregression:
+        y_pred = []
+        for i in catregression['2dy']:
+            y_pred.append(catregression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return catregression['1dy'].predict(x, **kwargs)
+
 
 
 _predict_methods = {

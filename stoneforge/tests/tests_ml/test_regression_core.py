@@ -56,7 +56,7 @@ class setup_methods:
         print("fit done",type(b))
         c = fit(X = self.X, y = self.y, method = "scaler_regression", path = False, settings = a)
         d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
-        print('mean:',np.mean(d),'\n')
+        print('mean:',d,'\n')
         
 
 # %% ============================================================== #
@@ -72,27 +72,33 @@ DP1_c = DP1[~DP1.isin([-999.0]).any(axis=1)]
 # %% ============================================================== #
 
 DT = list(IK1_c["DT"]) + list(DP1_c["DT"])
+GR = list(IK1_c["GR"]) + list(DP1_c["GR"])
 
 RHOB = list(IK1_c["RHOB"]) + list(DP1_c["RHOB"])
 NPHI = list(IK1_c["NPHI"]) + list(DP1_c["NPHI"])
 
 np.random.seed(42)
 
-data_matrix = np.array([RHOB,NPHI,DT], float).T
+data_matrix = np.array([RHOB,NPHI,DT,GR], float).T
 np.random.shuffle(data_matrix)
 
 RHOB = data_matrix[:,0]
 NPHI = data_matrix[:,1]
 DT = data_matrix[:,2]
+GR = data_matrix[:,3]
 
 X = np.array([RHOB,NPHI]).T
 
 ES1,unik1 = dataload.es1()
 ES1_c = ES1[~ES1.isin([-999.0]).any(axis=1)]
 X_test = np.array([ES1_c["RHOB"],ES1_c["NPHI"]],float).T
-y_test = np.array(ES1_c["DT"])
+y_test = np.array([ES1_c["DT"],ES1_c["GR"]])
 
-_test = setup_methods(X, X_test, DT, y_test, main_path, 3)
+#Y = np.array([DT,GR]).T
+Y = np.array(DT)
+print(np.shape(Y))
+
+_test = setup_methods(X, X_test, Y, y_test, main_path, 3)
 
 
 # %% ============================================================== #
@@ -114,7 +120,7 @@ _test.test_method("decision_tree_regression")
 
 
 # %% ============================================================== #
-
+# works only for one parameter
 
 _test.test_method("support_vector_regression")
 
@@ -126,7 +132,7 @@ _test.test_method("random_forest_regression")
 
 
 # %% ============================================================== #
-
+# works for only one parameter
 
 _test.test_method("lightgbm_regression")
 
@@ -138,7 +144,7 @@ _test.test_method("xgboost_regression")
 
 
 # %% ============================================================== #
-
+# works for only one parameter
 
 _test.test_method("catboost_regression")
 

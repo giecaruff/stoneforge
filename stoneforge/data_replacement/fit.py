@@ -86,13 +86,31 @@ def support_vector_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, sett
         settings = pickle.loads(settings)
 
     svn = SVR(**settings)
+    
 
-    svn.fit(X, y, **kwargs)
+    if y.ndim == 2:
+        svn_values = {}
+        svn_values['2dy'] = {}
+        n = y.shape[1]
+
+        for i in range(n):
+            svn.fit(X, y[:,i], **kwargs)
+            svn_values['2dy'][i] = svn
+
+        if not path:
+            serialized_model = pickle.dumps(svn_values)
+            return serialized_model
+        else:
+            saves(svn, path, method)
+    else:
+        svn.fit(X, y, **kwargs)
+        svn_values = {}
+        svn_values['1dy'] = svn
     if not path:
-        serialized_model = pickle.dumps(svn)
+        serialized_model = pickle.dumps(svn_values)
         return serialized_model
     else:
-        saves(svn, path, method)
+        saves(svn_values, path, method)
 
 
 #Decison Tree
@@ -175,15 +193,15 @@ def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, *
 
         bestxgbc = GridSearchCV(xgb,parameters,scoring='accuracy')
         bestxgbc.fit(X,y)
-        settings = bestxgbc.best_params_
+        _settings = bestxgbc.best_params_
 
     if not gs:
         if path:
-            settings = load_settings(path, method)
+            _settings = load_settings(path, method)
         else:
-            settings = pickle.loads(settings)
+            _settings = pickle.loads(settings)
     
-    xg = XGBRegressor(**settings)
+    xg = XGBRegressor(**_settings)
     xg.fit(X, y, **kwargs)
     if not path:
         serialized_model = pickle.dumps(xg)
@@ -197,35 +215,80 @@ def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, 
 
     method = 'lightgbm_regression'
 
-    if gs:
-        parameters =  {'n_estimators': [100],
-        'learning_rate': [0.5],
-        'max_depth':[5,10,15,30,50,70,100],
-        'random_state':[99]}
+    if y.ndim == 2:
+        lgbm_values = {}
+        lgbm_values['2dy'] = {}
 
-        lghtr = lgb.LGBMRegressor()
+        ii = 0
+        for _y in y.T:
 
-        bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
-        bestlight.fit(X,y)
-        settings = bestlight.best_params_
+        # =================================================== #
+        # this should be better implemented
 
-    if not gs:
-        if path:
-            settings = load_settings(path, method)
-            settings['random_state'] = 99
-            settings['verbose'] = -1
-        else:
-            settings = pickle.loads(settings)
-            settings['random_state'] = 99
-            settings['verbose'] = -1
-    
-    lgbm = lgb.LGBMRegressor(**settings)
-    lgbm.fit(X, y, **kwargs)
+            if gs:
+                parameters =  {'n_estimators': [100],
+                'learning_rate': [0.5],
+                'max_depth':[5,10,15,30,50,70,100],
+                'random_state':[99]}
+
+                lghtr = lgb.LGBMRegressor()
+
+                bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
+                bestlight.fit(X,_y)
+                _settings = bestlight.best_params_
+
+            if not gs:
+                if path:
+                    _settings = load_settings(path, method)
+                    _settings['random_state'] = 99
+                    _settings['verbose'] = -1
+                else:
+                    _settings = pickle.loads(settings)
+                    _settings['random_state'] = 99
+                    _settings['verbose'] = -1
+            
+            lgbm = lgb.LGBMRegressor(**_settings)
+            lgbm.fit(X, _y, **kwargs)
+            lgbm_values['2dy'][ii] = lgbm
+            ii += 1
+
+        # =================================================== #
+    else:
+        # =================================================== #
+        lgbm_values = {}
+        lgbm_values['1dy'] = {}
+
+        if gs:
+            parameters =  {'n_estimators': [100],
+            'learning_rate': [0.5],
+            'max_depth':[5,10,15,30,50,70,100],
+            'random_state':[99]}
+
+            lghtr = lgb.LGBMRegressor()
+
+            bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
+            bestlight.fit(X,y)
+            settings = bestlight.best_params_
+
+        if not gs:
+            if path:
+                _settings = load_settings(path, method)
+                _settings['random_state'] = 99
+                _settings['verbose'] = -1
+            else:
+                _settings = pickle.loads(settings)
+                _settings['random_state'] = 99
+                _settings['verbose'] = -1
+        
+        lgbm = lgb.LGBMRegressor(**_settings)
+        lgbm.fit(X, y, **kwargs)
+        lgbm_values['1dy'] = lgbm
+
     if not path:
-        serialized_model = pickle.dumps(lgbm)
+        serialized_model = pickle.dumps(lgbm_values)
         return serialized_model
     else:
-        saves(lgbm, path, method)
+        saves(lgbm_values, path, method)
 
 
 #CatBoost
@@ -233,35 +296,84 @@ def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, 
 
     method = 'catboost_regression'
 
-    if gs:
-        parameters =  {'n_estimators': [100,150,200],
-        'learning_rate': [0.3,0.5,0.7],
-        'max_depth':[5,10,15,30,50,70,100],
-        'random_state':[99]}
+    if y.ndim == 2:
+        cb_values = {}
+        cb_values['2dy'] = {}
 
-        cat = CatBoostRegressor()
+        ii = 0
+        for _y in y.T:
 
-        bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
-        bestcatr.fit(X,y)
-        settings = bestcatr.best_params_
+            # =================================================== #
 
-    if not gs:
-        if path:
-            settings = load_settings(path, method)
-            settings['random_state'] = 99
-            settings['silent'] = True
-        else:
-            settings = pickle.loads(settings)
-            settings['random_state'] = 99
-            settings['silent'] = True
-    
-    cb = CatBoostRegressor(**settings)
-    cb.fit(X, y, **kwargs)
+            if gs:
+                parameters =  {'n_estimators': [100,150,200],
+                'learning_rate': [0.3,0.5,0.7],
+                'max_depth':[5,10,15,30,50,70,100],
+                'random_state':[99]}
+
+                cat = CatBoostRegressor()
+
+                bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
+                bestcatr.fit(X,_y)
+                _settings = bestcatr.best_params_
+
+            if not gs:
+                if path:
+                    _settings = load_settings(path, method)
+                    _settings['random_state'] = 99
+                    _settings['silent'] = True
+                else:
+                    _settings = pickle.loads(settings)
+                    _settings['random_state'] = 99
+                    _settings['silent'] = True
+            
+            cb = CatBoostRegressor(**_settings)
+            cb.fit(X, _y, **kwargs)
+            ii += 1
+            cb_values['2dy'][ii] = cb
+
+            # =================================================== #
+
+    else:
+
+        # =================================================== #
+        cb_values = {}
+        cb_values['1dy'] = {}
+        if gs:
+            parameters =  {'n_estimators': [100,150,200],
+            'learning_rate': [0.3,0.5,0.7],
+            'max_depth':[5,10,15,30,50,70,100],
+            'random_state':[99]}
+
+            cat = CatBoostRegressor()
+
+            bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
+            bestcatr.fit(X,y)
+            _settings = bestcatr.best_params_
+
+        if not gs:
+            if path:
+                _settings = load_settings(path, method)
+                _settings['random_state'] = 99
+                _settings['silent'] = True
+            else:
+                _settings = pickle.loads(settings)
+                _settings['random_state'] = 99
+                _settings['silent'] = True
+            
+            cb = CatBoostRegressor(**_settings)
+            cb.fit(X, y, **kwargs)
+            cb_values['1dy'] = cb
+
+            # =================================================== #
+
     if not path:
-        serialized_model = pickle.dumps(cb)
+        serialized_model = pickle.dumps(cb_values)
         return serialized_model
     else:
-        saves(cb, path, method)
+        saves(cb_values, path, method)
+
+            
 
 
 _fit_methods = {
