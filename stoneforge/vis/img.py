@@ -20,3 +20,21 @@ def wellplot(well, depth, curves, colors, units, size = (12,10)):
         ii += 1
 
     plt.show()
+
+def plito(lithology,depth,colors,linewidth = 1.):
+
+    lists_dict = {}
+    # Populate the dictionary with empty lists for each unique integer value
+    for value in colors:
+        lists_dict[value] = []
+    
+    # Iterate through the original list and populate the corresponding lists
+    for value in lithology:
+        for key in lists_dict.keys():
+            if value == key:
+                lists_dict[key].append(1)
+            else:
+                lists_dict[key].append(0)
+    
+    for _l in lists_dict:
+        plt.fill_betweenx(depth, lists_dict[_l], facecolor=colors[_l], linewidth = linewidth)

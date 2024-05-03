@@ -7,6 +7,22 @@ import pandas
 
 from . import las2
 
+def depth_zones(df,dept,ranges):
+
+    DEPT = np.array(df[dept])
+    ranges = list(ranges)
+    top = sorted(DEPT)[0]
+    bot = sorted(DEPT)[-1]
+    ranges = [top] + ranges + [bot]
+
+    _zones = {}
+    for i in range(len(ranges)-1):
+        top = ranges[i]
+        bot = ranges[i+1]
+        _zones[i] = df[df[dept].between(top, bot)]
+    
+    return _zones
+
 class project():
     
     def __init__(self,data_path):
@@ -180,6 +196,8 @@ class project():
         self.well_data = well_data
 
     # ============================================ #
+
+
         
 
 
