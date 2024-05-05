@@ -4,6 +4,106 @@ import scipy
 from scipy import stats
 from scipy.stats import pearsonr
 from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+
+def gamma_calc(dif_curve,depth,step=100):
+
+    depth_intervals = []
+    gamma = []
+    for st in range(step):
+
+    # ------------------------------------------ #
+        
+        _h = [] # head
+        _t = [] # tail
+        gamma_value = []
+    
+        for i in range(len(dif_curve)-st):
+            _t.append(dif_curve[i+st])
+            _h.append(dif_curve[i])
+            gamma_value.append( ((dif_curve[i+st] - dif_curve[i])**2) )
+    
+        depth_intervals.append(depth[0+st] - depth[0])
+        gamma.append(sum(gamma_value)/(2*len(gamma_value)))
+
+    return np.array(gamma),np.array(depth_intervals)
+
+
+class variogram_model:
+
+    def __init__(self, dif, depth, step = 100):
+        self.dif = dif
+        self.depth = depth
+        self.step = step
+        self.gm,self.dt = gamma_calc(dif,depth,step)
+
+        self.min_dif = np.min(self.dif)
+        self.max_dif = np.max(self.dif)
+        self.dif_norm = (self.dif - self.min_dif) / (self.max_dif - self.min_dif)
+
+    def graph(self, correlation_length, sill = False, nugget = 0.0):
+        self.correlation_length = correlation_length
+        if sill:
+            self.sill = sill
+        else:
+            self.sill = np.var(self.dif)
+        self.nugget = nugget
+        self.var = exponential_variogram_model(distance = self.dt,
+                                                                        correlation_length = correlation_length,
+                                                                        sill = self.sill)
+        
+        plt.plot(self.dt,self.gm,'r.')
+        plt.plot(self.dt,self.var,'b--')
+        plt.xlabel('Depth interval - h')
+        plt.ylabel('Variogram - $\gamma(h)$')
+        plt.grid()
+        plt.show()
+        
+    def norm_graph(self, correlation_length, sill = False, nugget = 0.0):
+        if sill:
+            self.n_sill = sill
+        else:
+            self.n_sill = np.var(self.dif_norm)
+        self.gm,self.dt = gamma_calc(self.dif_norm,self.depth,self.step)
+        self.var =  exponential_variogram_model(distance = self.dt,
+                                                                        correlation_length = correlation_length,
+                                                                        sill = self.n_sill)
+        self.n_correlation_length = correlation_length
+        self.n_nugget = nugget
+
+        plt.plot(self.dt,self.gm,'r.')
+        plt.plot(self.dt,self.var,'b--')
+        plt.xlabel('Depth interval - h')
+        plt.ylabel('Variogram - $\gamma(h)$')
+        plt.grid()
+        plt.show()
+
+    def variography(self, depth = False):
+        if depth is not False:
+            l_depth = depth
+        else:
+            l_depth = self.depth
+        return self._variogram(l_depth, self.correlation_length, self.sill, self.nugget)
+
+    def norm_variography(self, depth = False):
+        if depth is not False:
+            l_depth = depth
+        else:
+            l_depth = self.depth
+        return self._variogram(l_depth, self.n_correlation_length, self.n_sill, self.n_nugget)
+    
+    def normalization(self, data):
+        return (data - self.min_dif) / (self.max_dif - self.min_dif)
+    
+    def denormalization(self, data):
+        return data * (self.max_dif - self.min_dif) + self.min_dif
+    
+    def _variogram(self, depths, a, C1, C0):
+        # Create a 2D array with pairwise differences between depths
+        X, Y = np.meshgrid(depths, depths)
+        h = np.abs(X - Y)
+        # Calculate the variogram using vectorized operations
+        return np.where(h == 0, C0 + C1, C1 * np.exp((-3 * h) / a))
 
 def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
   

@@ -35,23 +35,21 @@ def synthetic_log(stats, lithology = False, seed=42):
     return _S
 
 
-def moving_average(curve,step=100):
-    d = list(curve)
-    n = len(curve)
+def moving_average(curve, step=100):
+    """
+    Note: only works in odd step values, but it's very fast
+    """
+    # Convert input curve to numpy array
+    curve_array = np.array(curve)
+    step = step + step%2
 
-    step = round(step/2.0)
+    extended_curve = np.pad(curve_array, (step//2, step//2), mode='edge')
 
-    JM = np.zeros(n)
-    for j in range(n):
-        md = []
-        for i in range(j-step,j+step):
-            if i < 0:
-                i = j-i
-            if i >= n-1:
-                i = j-i
-            md.append(d[i])
-        JM[j] = np.mean(md)
-    return JM
+    rolled = np.lib.stride_tricks.sliding_window_view(extended_curve, window_shape=(step+1,))
+    
+    smooth_curve = np.mean(rolled, axis=1)
+
+    return smooth_curve
 
 
 def gamma_calc(dif_curve,depth,step=100):
