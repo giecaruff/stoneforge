@@ -97,7 +97,6 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
     #    saves(LR_METHODS, os.path.join(path, 'all_methods'))
 
     else:
-        print("Method not found")
         return methods()
 
 
