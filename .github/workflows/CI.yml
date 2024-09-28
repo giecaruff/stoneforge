@@ -13,10 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.12.1
+    - name: Set up Python 3.12.6
       uses: actions/setup-python@v2
       with:
-        python-version: "3.12.1"
+        python-version: "3.12.6"
 
     - name: Install dependencies
       run: |

@@ -19,7 +19,7 @@ setup(
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
-    python_requires="==3.12.3",
+    python_requires="==3.12.6",
     install_requires=[
         "numpy==1.26.4", # 05/02/2024
         "pytest==8.1.1", # 09/03/2024
