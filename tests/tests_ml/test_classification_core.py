@@ -11,9 +11,8 @@ if __package__:
     from ..machine_learning import *
     from ..datasets import dataload
 else:
-    sys.path.append(os.path.dirname(__file__) + '/../..')
-    from machine_learning import *
-    from datasets import dataload
+    from stoneforge.machine_learning import *
+    from stoneforge.datasets import dataload
 
 # %% ============================================================== #
 

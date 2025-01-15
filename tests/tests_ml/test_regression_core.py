@@ -11,9 +11,8 @@ if __package__:
     from ..data_replacement import *
     from ..datasets import dataload
 else:
-    sys.path.append(os.path.dirname(__file__) + '/../..')
-    from data_replacement import *
-    from datasets import dataload
+    from stoneforge.data_replacement import *
+    from stoneforge.datasets import dataload
 
 # %% ============================================================== #
 

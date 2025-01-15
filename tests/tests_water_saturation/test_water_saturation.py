@@ -8,8 +8,7 @@ import parameters_ws
 if __package__:
     from ..petrophysics.water_saturation import water_saturation
 else:
-    sys.path.append(os.path.dirname(__file__) + '/../..')
-    from petrophysics.water_saturation import water_saturation
+    from stoneforge.petrophysics.water_saturation import water_saturation
 
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions

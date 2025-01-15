@@ -9,8 +9,7 @@ from parameters_p import Parameters
 if __package__:
     from ..petrophysics.porosity import porosity
 else:
-    sys.path.append(os.path.dirname(__file__) + '/../..')
-    from petrophysics.porosity import porosity
+    from stoneforge.petrophysics.porosity import porosity
 
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions
