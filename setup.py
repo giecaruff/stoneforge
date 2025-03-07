@@ -19,8 +19,9 @@ setup(
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
-    python_requires=">=3.8.8",
+    python_requires=">=3.10",
     install_requires=[
+        "dlisio>=1.0.3", # 21/01/2025
         "numpy>=1.26.4", # 05/02/2024
         "pytest==8.3.4", # 01/12/2024
         "scipy>=1.15.0", # 03/01/2025
