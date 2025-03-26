@@ -1,21 +1,62 @@
 import numpy as np
 from dlisio import dlis  # Correct library import
 
+# ---------------------------------------------------------------------------------------- #
+    
+def _dict_to_dataframe(data):
+    rows = []
+    for digital_file, frames in data.items():
+        for frame_name, mnemonics in frames.items():
+            for mnemonic in mnemonics:  # Each mnemonic gets its own row
+                rows.append([digital_file, frame_name, mnemonic])
+    df = pd.DataFrame(rows, columns=["Digital File", "Frame Name", "Mnemonics"])
+    return df
+
+def _dataframe_to_dict(df):
+    data = {}
+    for digital_file, frame_group in df.groupby("Digital File"):
+        data[digital_file] = {}
+        for frame_name, mnemonics_group in frame_group.groupby("Frame Name"):
+            data[digital_file][frame_name] = mnemonics_group["Mnemonics"].tolist()
+    return data
+
+# ---------------------------------------------------------------------------------------- #
+
 # Function to inspect the structure of a DLIS file
-def inspect_dlis_structure(dlis_file):
+def inspect_dlis_structure(dlis_file, verbose=True):
     with dlis.load(dlis_file) as file:
-        print(f"Logical Files Found: {len(file)}")
+        if verbose:
+            print(f"DLIS File: {dlis_file}")
+            print(f"Logical Files Found: {len(file)}")
+        logical_info = {}
         for lf in file:
-            print("\n==========================")
-            print(f"Logical File: {lf}")
+            if verbose:
+                print("\n==========================")
+                print(f"Logical File: {lf}")
+            logical_info[str(lf)] = {}
             
-            # List all frames and their respective channels
             frames = lf.frames
-            print(f"Total Frames: {len(frames)}")
+            if verbose:
+                print(f"Frames Found: {len(frames)}")
             for frame in frames:
-                print(f" - Frame Name: {frame.name}, Channels: {len(frame.channels)}")
+                logical_info[str(lf)][frame.name] = []
+                if verbose:
+                    print("\n--------------------------")
+                    print(f"Frame Name: {frame.name}")
+                    print(f"Channels Found: {len(frame.channels)}")
                 for ch in frame.channels:
-                    print(f"   * Mnemonic: {ch.name}, \t Units: {ch.units}, \t Description: {ch.long_name}")
+                    logical_info[str(lf)][frame.name].append(ch.name)
+                    if verbose:
+                        print(f"   * Mnemonic: {ch.name}, \t Units: {ch.units}, \t Description: {ch.long_name}")
+                  
+    if not verbose:  
+        return logical_info
+    
+# ---------------------------------------------------------------------------------------- #
+
+
+
+# ---------------------------------------------------------------------------------------- #
                
 # Extract data from a DLIS file     
 def parse_dlis(file_path, data_access):
