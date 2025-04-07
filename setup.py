@@ -29,7 +29,9 @@ setup(
         "xgboost>=2.1.4",
         "matplotlib>=3.10.0",
         "pandas>=2.2.2",
-        "lightgbm>=4.5.0"
+        "lightgbm>=4.5.0",
+        "notebook>=6.4.0",
+        "ipympl>=0.8.4"
     ],
     long_description_content_type='text/markdown',
 )

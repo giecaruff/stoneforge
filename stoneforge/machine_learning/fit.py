@@ -15,7 +15,6 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
-from catboost import CatBoostClassifier
 
 ML_METHODS = [
     "gaussian_naive_bayes",
@@ -25,7 +24,6 @@ ML_METHODS = [
     "k_neighbors_classifier",
     "random_forest_classifier",
     "x_g_boost_classifier",
-    "cat_boost_classifier"
 ]
 
 def saves(file, path, method, suffix = "_fit_property.pkl", sz = False):
@@ -241,43 +239,6 @@ def xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs) ->
     else:
         saves(xg, path, method)
 
-
-#CatBoost
-def catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs) -> np.ndarray:
-
-    method = "cat_boost_classifier"
-
-    if gs:
-        parameters =  {'n_estimators': [100,150,200],
-        'learning_rate': [0.3,0.5,0.7],
-        'max_depth':[5,10,15,30,50,70,100],
-        'random_seed':[99]}
-
-        cat = CatBoostClassifier()
-
-        bestcat = GridSearchCV(cat,parameters,scoring='accuracy')
-        bestcat.fit(X,y)
-        settings = bestcat.best_params_
-
-    if not gs:
-        if path:
-            settings = load_settings(path, method)
-            settings['silent'] = True
-        else:
-            settings = pickle.loads(settings)
-            settings['silent'] = True
-
-    settings['random_seed'] = 99    
-    cb = CatBoostClassifier(**settings)
-    cb.fit(X, y, **kwargs)
-
-    if not path:
-        serialized_model = pickle.dumps(cb)
-        return serialized_model
-    else:
-        saves(cb, path, method)
-
-
 _fit_methods = {
     "gaussian_naive_bayes": gaussian_naive_bayes,
     "decision_tree_classifier": decision_tree_classifier,
@@ -286,7 +247,6 @@ _fit_methods = {
     "k_neighbors_classifier": k_nearest_neighbors,
     "random_forest_classifier": random_florest,
     "x_g_boost_classifier": xgboost,
-    "cat_boost_classifier": catboost
     #'AutomlClassifier': automl 
     }
 

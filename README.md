@@ -56,5 +56,3 @@ link: https://mlp.ldeo.columbia.edu/data/dsdp/leg96/616/
 
 Zihlman, F. N creator ; Oliver, H. L ; Geological Survey (U.S.)
 Reston, Va. : Denver, Colo : U.S. Dept. of the Interior, U.S. Geological Survey1999
-
-

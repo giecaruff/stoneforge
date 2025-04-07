@@ -14,12 +14,11 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-#from xgboost import XGBClassifier
+from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
-#from catboost import CatBoostClassifier
 
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:
@@ -171,30 +170,6 @@ def  xgboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, *
     if not path:
         return mean_result
 
-
-#catboost
-"""
-def  catboost(X: npt.ArrayLike, y: npt.ArrayLike, path, n_splits, random_state, **kwargs) -> np.ndarray:
-
-    f = open(path + '\\catboost_settings.json')
-
-    settings = json.load(f)
-
-    cat = CatBoostClassifier(**settings)
-    #x_treino, x_teste, y_treino, y_teste = train_test_split(X, y, test_size = test_size, random_state = random_state)
-    #sklearn.metrics.confusion_matrix( y_treino, y_teste, *, labels=None, sample_weight=None, normalize=None)
-
-    kfold = KFold(n_splits = n_splits, shuffle=True, random_state = random_state)
-
-    result = cross_val_score(cat, X, y, cv = kfold)
-    mean_result = {}
-    mean_result['mean_accuracy'] = round(result.mean() * 100,3)
-    if path:
-        saves(mean_result,path + '\\mean_accuracy')
-    if not path:
-        return mean_result
-"""
-
 _fit_methods = {
     "GaussianNB": gaussian_naive_bayes,
     "DecisionTreeClassifier": decision_tree_classifier,
@@ -202,7 +177,7 @@ _fit_methods = {
     "LogisticRegression": logistic_regression,
     "KNeighborsClassifier": k_nearest_neighbors,
     "RandomForestClassifier": random_florest,
-    #'XGBClassifier': xgboost,
+    'XGBClassifier': xgboost,
     #'CatBoostClassifier': catboost
     #'AutomlClassifier': automl 
     }
@@ -224,8 +199,8 @@ def validation(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "GaussianNB", 
         fun = _fit_methods[method]
     if method == "RandomForestClassifier":
         fun = _fit_methods[method]
-    #if method == "XGBClassifier":
-    #    fun = _fit_methods[method]
+    if method == "XGBClassifier":
+        fun = _fit_methods[method]
     #if method == "CatBoostClassifier":
     #    fun = _fit_methods[method]
     #if method == "AutoML":
