@@ -11,12 +11,12 @@ classifiers = [
 
 setup(
     name="stoneforge",
-    version="0.1.6-beta.2",
-    author="GIECAR - UFF",
-    url="https://github.com/giecaruff/stoneforge",
-    description="Geophysics equations, algorithms and methods",
+    version="attr: stoneforge.__version__",
+    author="attr: stoneforge.__author__",
+    url="attr: stoneforge.__url__",
+    description="attr: stoneforge.__description__",
+    license="attr: stoneforge.__license__",
     long_description=open("README.md").read() + "\n\n" + open("CHANGELOG.txt").read(),
-    license="MIT",
     packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.10", # 01/03/2021
