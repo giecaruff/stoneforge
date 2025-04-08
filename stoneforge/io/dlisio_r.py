@@ -5,14 +5,25 @@ from dlisio import dlis  # Correct library import
 import pandas as pd
 
 class DLISAccess:
-    def __init__(self, filename):
+    def __init__(self, filename, vis=True):
         self.filename = filename
         self.data = None
         self.metadata = None
         
-        dlis_dict_headers = self._dlis_info(filename, verbose=False)
-        self.dlis_dataframe_headers = self._dict_to_dataframe(dlis_dict_headers)
-        self._preview_data(self.dlis_dataframe_headers)
+        self.dlis_dict_headers = self._dlis_info(filename, verbose=False)
+        self.dlis_dataframe_headers = self._dict_to_dataframe(self.dlis_dict_headers)
+        if vis:
+            self._preview_data(self.dlis_dataframe_headers)
+        
+    def get_info(self):
+        return self.dlis_dict_headers
+        
+    def get_data(self):
+        selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
+        selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
+        dict_data_info = self._dataframe_to_dict(selected_table)
+        data = self._parse_dlis(self.filename, dict_data_info)
+        return data
         
     def preview(self):
         selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
@@ -141,6 +152,8 @@ class DLISAccess:
         ax.axis('off')
 
         # Create vertical slider axis
+        global page_slider
+        global slider_ax
         slider_ax = plt.axes([0.25, 0.13, 0.05, 0.73])  # (left, bottom, width, height)
         page_slider = Slider(slider_ax, 'Page', valmin = 1, valmax = num_pages, valinit=num_pages, valstep=1, orientation='vertical', color=DARK_COLOR)
 
@@ -156,21 +169,29 @@ class DLISAccess:
         def update_checkboxes(page):
             global current_checkboxes
             
+            # Clear previous checkboxes
             checkbox_ax.clear()
             checkbox_ax.set_axis_off()
             
-            page_idx = int(num_pages - page)  # ordem reversa
+            # Calculate current page range (reversed order)
+            page_idx = int(num_pages - page)  # This reverses the page order
             start_idx = page_idx * ROWS_PER_PAGE
             end_idx = min(start_idx + ROWS_PER_PAGE, total_rows)
-
+            
+            # Get current page labels and states
             current_labels = self.checkbox_labels_all[start_idx:end_idx]
             current_states = ALL_CHECKBOX_STATES[start_idx:end_idx]
             
+            # Create new checkboxes
             current_checkboxes = CheckButtons(checkbox_ax, current_labels, current_states)
-
+            
+            # Apply alternating row colors
             for i, label in enumerate(current_checkboxes.labels):
-                label.set_backgroundcolor(LIGHT_COLOR if i % 2 else 'white')
-                label.set_color('black')
+                if i % 2 == 1:  # Apply light blue to every second row
+                    label.set_backgroundcolor(LIGHT_COLOR)
+                else:
+                    label.set_backgroundcolor('white')  # Keep other rows white
+                label.set_color('black')  # Set text color to black for contrast
 
             def toggle_row(label):
                 full_index = self.checkbox_labels_all.index(label)
@@ -178,8 +199,7 @@ class DLISAccess:
                 print(f'{label} is {"checked" if ALL_CHECKBOX_STATES[full_index] else "unchecked"}')
 
             current_checkboxes.on_clicked(toggle_row)
-
-            fig.canvas.draw_idle()  # <- Mais leve que plt.draw()
+            plt.draw()
 
         # Initialize first page
         update_checkboxes(1)
