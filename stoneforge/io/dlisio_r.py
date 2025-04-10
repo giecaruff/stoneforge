@@ -46,6 +46,7 @@ class DLISAccess:
                         dim = details.get('dim', 'N/A')
                         min_val = details.get('min', 'N/A')
                         max_val = details.get('max', 'N/A')
+                        long_name = details.get('long_name', 'N/A')
                     else:
                         unit = 'N/A'
                         dim = 'N/A'
@@ -57,11 +58,12 @@ class DLISAccess:
                     unit,
                     dim + 'D',
                     min_val,
-                    max_val
+                    max_val,
+                    long_name
                 ])
         return pd.DataFrame(
             rows,
-            columns=["Digital File", "Frame Name", "Mnemonics", "Unit", "Dimension", "Min", "Max"]
+            columns=["Digital File", "Frame Name", "Mnemonics", "Unit", "Dimension", "Min", "Max", "Long Name"]
         )
         
     # ==================================================================== #
@@ -117,13 +119,15 @@ class DLISAccess:
                             values[values <= -999.] = np.nan
                         min_val = np.nanmin(values)
                         max_val = np.nanmax(values)
+                        l_name = channel.long_name
                         
                         # New structure with units and dimensions
                         all_data[logical_file_id][frame_id][mnemonic] = {
                             'unit': unit,
                             'dim': dim,
                             'min': min_val,
-                            'max': max_val
+                            'max': max_val,
+                            'long_name': l_name
                         }
                         
                         # Old-style structure (just mnemonics)
@@ -157,24 +161,30 @@ class DLISAccess:
 
         # Create figure with appropriate height
         fig_height = max(6, min(ROWS_PER_PAGE, total_rows) * 0.3)
-        fig, ax = plt.subplots(figsize=(9, fig_height))  # Adjust size
+        fig, ax = plt.subplots(figsize=(15, fig_height))  # Adjust size
+        
+        # Add title and subtitle
+        fig.suptitle("DLIS data Access", fontsize=16, fontweight='bold', y=0.98, x=0.2)
+        fig.text(0.35, 0.94, "Structure: digital file | frame | mnemonic (min value | max value) [unit] - dimension | description", ha='center', fontsize=10, style='italic')
+
         plt.subplots_adjust(left=0.2)  # Make room for the vertical slider
         ax.axis('off')
 
         # Create vertical slider axis
         global page_slider
         global slider_ax
-        slider_ax = plt.axes([0.25, 0.13, 0.05, 0.73])  # (left, bottom, width, height)
+
+        slider_ax = plt.axes([0.08, 0.13, 0.03, 0.73])  # (left, bottom, width, height)
         page_slider = Slider(slider_ax, 'Page', valmin = 1, valmax = num_pages, valinit=num_pages, valstep=1, orientation='vertical', color=DARK_COLOR)
 
         # Create checkbox axis (will be updated)
-        checkbox_ax = plt.axes([0.2, 0.1, 0.7, 0.8])  # (left, bottom, width, height)
+        checkbox_ax = plt.axes([0.05, 0.1, 0.5, 0.8])  # (left, bottom, width, height)
         checkbox_ax.set_axis_off()
 
         # Store all checkbox states and labels globally
         ALL_CHECKBOX_STATES = [False] * total_rows
         self.checkbox_labels_all = [
-            f"{row[0]} | {row[1]} | {row[2]} ( {row[5]:.2f} | {row[6]:.2f} ) [ {row[3]} ] - {row[4]}"
+            f"{row[0]} | {row[1]} | {row[2]} ( {row[5]:.2f} | {row[6]:.2f} ) [ {row[3]} ] - {row[4]} | {row[7]}"
             for row in table.values
         ]
         current_checkboxes = None
