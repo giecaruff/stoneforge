@@ -44,20 +44,24 @@ class DLISAccess:
                     if isinstance(details, dict):
                         unit = details.get('unit', 'N/A')
                         dim = details.get('dim', 'N/A')
+                        min_val = details.get('min', 'N/A')
+                        max_val = details.get('max', 'N/A')
                     else:
                         unit = 'N/A'
                         dim = 'N/A'
 
                     rows.append([
-                        digital_file,
-                        frame_name,
-                        mnemonic,
-                        unit,
-                        dim+'D'
-                    ])
+                    digital_file,
+                    frame_name,
+                    mnemonic,
+                    unit,
+                    dim + 'D',
+                    min_val,
+                    max_val
+                ])
         return pd.DataFrame(
             rows,
-            columns=["Digital File", "Frame Name", "Mnemonics", "Unit", "Dimension"]
+            columns=["Digital File", "Frame Name", "Mnemonics", "Unit", "Dimension", "Min", "Max"]
         )
         
     # ==================================================================== #
@@ -109,11 +113,17 @@ class DLISAccess:
                         unit = channel.units
                         values = np.array(channel.curves())
                         dim = str(values.ndim)
+                        if values.dtype == 'float16' or values.dtype == 'float32' or values.dtype == 'float64':
+                            values[values <= -999.] = np.nan
+                        min_val = np.nanmin(values)
+                        max_val = np.nanmax(values)
                         
                         # New structure with units and dimensions
                         all_data[logical_file_id][frame_id][mnemonic] = {
                             'unit': unit,
-                            'dim': dim
+                            'dim': dim,
+                            'min': min_val,
+                            'max': max_val
                         }
                         
                         # Old-style structure (just mnemonics)
@@ -163,7 +173,10 @@ class DLISAccess:
 
         # Store all checkbox states and labels globally
         ALL_CHECKBOX_STATES = [False] * total_rows
-        self.checkbox_labels_all = ['| '.join(row) for row in table.values]
+        self.checkbox_labels_all = [
+            f"{row[0]} | {row[1]} | {row[2]} ( {row[5]:.2f} | {row[6]:.2f} ) [ {row[3]} ] - {row[4]}"
+            for row in table.values
+        ]
         current_checkboxes = None
 
         def update_checkboxes(page):
