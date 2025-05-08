@@ -145,7 +145,7 @@ _test.test_method("xgboost_regression")
 # %% ============================================================== #
 # works for only one parameter
 
-_test.test_method("catboost_regression")
+#_test.test_method("catboost_regression")
 
 
 # %% ============================================================== #

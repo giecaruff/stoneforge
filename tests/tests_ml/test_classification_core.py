@@ -126,7 +126,7 @@ _test.test_method("x_g_boost_classifier")
 # %% ============================================================== #
 
 
-_test.test_method("cat_boost_classifier")
+#_test.test_method("cat_boost_classifier")
 
 
 # %% ============================================================== #

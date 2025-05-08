@@ -13,7 +13,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
 from xgboost import XGBRegressor
 import lightgbm as lgb
-from catboost.core import CatBoostRegressor
+#from catboost.core import CatBoostRegressor
 
 "linear_regression_simple",
 "linear_regression_polynomial",

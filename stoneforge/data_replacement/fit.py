@@ -10,7 +10,7 @@ from sklearn.svm import SVR
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 import lightgbm as lgb
-from catboost.core import CatBoostRegressor
+#from catboost.core import CatBoostRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
