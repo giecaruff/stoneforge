@@ -1,6 +1,6 @@
 [project]
 name = "stoneforge"
-version = "0.1.6-beta.1"
+version = "0.2.0-beta.0"
 authors = [
     {name = "GIECAR - UFF"},
     {name = "Wagner M. Lupinacci"},
