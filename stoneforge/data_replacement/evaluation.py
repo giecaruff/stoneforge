@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.metrics import r2_score
 #from sklearn.metrics import mean_absolute_percentage_error
 #import pickle mean_absolute_error
 import json

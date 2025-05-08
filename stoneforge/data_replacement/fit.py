@@ -1,13 +1,10 @@
-import numpy as np
 import numpy.typing as npt
 import pickle
 import json
-import warnings
 import os
 
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
@@ -16,7 +13,6 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
 from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import MinMaxScaler
 
 LR_METHODS = [

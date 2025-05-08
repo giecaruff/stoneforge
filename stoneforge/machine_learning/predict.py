@@ -1,19 +1,8 @@
 import numpy as np
 import numpy.typing as npt
 import pickle
-import warnings
-import json
 import os
 
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.svm import SVC
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import LabelEncoder
 
 def fit_load(path, method):
     full_path = os.path.join(path, method + "_fit_property.pkl")

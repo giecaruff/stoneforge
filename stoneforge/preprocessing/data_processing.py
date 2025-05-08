@@ -101,8 +101,7 @@ def well_train_test_split(well_names,well_database):
 # ===================================================== #
 
 def data_assemble(main_data, data_key):
-
-    """ transform a dictionary of dict[wells]['data_key'][data]
+    """Transform a dictionary of dict[wells]['data_key'][data]
     into a dictionary of compact data like
     dict[data], mostly used for machine learning purpose
     """

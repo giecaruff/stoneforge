@@ -1,6 +1,4 @@
 # %%
-import sys
-import os
 import pytest
 #import parameters_p
 from parameters_p import Parameters

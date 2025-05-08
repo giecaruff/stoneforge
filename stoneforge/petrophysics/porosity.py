@@ -14,12 +14,12 @@ def effective_porosity(phi: npt.ArrayLike, vsh: npt.ArrayLike) -> np.ndarray:
     vsh : int, float
         Matrix density.
        
-    Returns
+    Returns:
     -------
     phie : array_like
         Total porosity for the aimed interval using the bulk density.
 
-    References
+    References:
     ----------      
     .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
     principles of petrophysics. Elsevier.
@@ -42,12 +42,12 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
     rhof : int, float
         Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).
        
-    Returns
+    Returns:
     -------
     phi : array_like
         Total porosity for the aimed interval using the bulk density.
 
-    References
+    References:
     ----------      
     .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
     principles of petrophysics. Elsevier.
@@ -58,19 +58,18 @@ def density_porosity(rhob: npt.ArrayLike, rhom: float, rhof: float) -> np.ndarra
 
         return np.nan
 
-    else:
-        if rhom < rhof or any(rhom <= rhob):
-            warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
+    elif rhom < rhof or any(rhom <= rhob):
+        warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
-            phi = (rhom - rhob) / (rhom - rhof)
-        
-        elif any(rhom - rhob > rhom - rhof):
-            warnings.warn(UserWarning("rhob value is lower than rhof"))
+        phi = (rhom - rhob) / (rhom - rhof)
 
-            phi = (rhom - rhob) / (rhom - rhof)
-        
-        else: 
-            phi = (rhom - rhob) / (rhom - rhof)
+    elif any(rhom - rhob > rhom - rhof):
+        warnings.warn(UserWarning("rhob value is lower than rhof"))
+
+        phi = (rhom - rhob) / (rhom - rhof)
+
+    else: 
+        phi = (rhom - rhob) / (rhom - rhof)
 
 
     phi = correct_petrophysic_estimation_range(phi)
@@ -91,12 +90,12 @@ def neutron_porosity(nphi: npt.ArrayLike, vsh: npt.ArrayLike,
     phi_nsh : int, float
         Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.
 
-    Returns
+    Returns:
     -------
     phin : array_like
         Effective porosity from the neutron log for the aimed interval.
 
-    References
+    References:
     ----------
     .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and 
     principles of petrophysics. Elsevier.
@@ -131,14 +130,15 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
     phin : array_like
         Effective porosity from the neutron log for the aimed interval.
 
-    Returns
+    Returns:
     -------
     phie : array_like
         Effective porosity from the Bulk Density porosity and Neutron porosity mean.
 
-    References
+    References:
     ----------
-    TODO
+
+    Todo:
 
     """
     if squared == False:
@@ -167,7 +167,6 @@ def neutron_density_porosity(phid: npt.ArrayLike, phin: npt.ArrayLike,
 
 
 def sonic_porosity(dt, dtma, dtf):
-
     """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
 
     Parameters
@@ -179,12 +178,12 @@ def sonic_porosity(dt, dtma, dtf):
     dtf : int, float
         Acoustic transit time of the fluids, usually water (μsec/ft)
               
-    Returns
+    Returns:
     -------
     phidt : array_like
         Porosity from sonic.
 
-    References
+    References:
     ----------
     .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
 
@@ -194,19 +193,18 @@ def sonic_porosity(dt, dtma, dtf):
 
         return np.nan
 
+    elif any(dt <= dtma) or dtf <= dtma:
+        warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
+
+        phidt = (dt - dtma) / (dtf - dtma)
+
+    elif any(dt - dtma > dtf - dtma):
+        warnings.warn(UserWarning("dt value is greather than dtf"))
+
+        phidt = (dt - dtma) / (dtf - dtma)
+
     else:
-        if any(dt <= dtma) or dtf <= dtma:
-            warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
-
-            phidt = (dt - dtma) / (dtf - dtma)
-
-        elif any(dt - dtma > dtf - dtma):
-            warnings.warn(UserWarning("dt value is greather than dtf"))
-
-            phidt = (dt - dtma) / (dtf - dtma)
-
-        else:
-            phidt = (dt - dtma) / (dtf - dtma)
+        phidt = (dt - dtma) / (dtf - dtma)
 
         
     phidt = correct_petrophysic_estimation_range(phidt)
@@ -223,12 +221,12 @@ def gaymard_porosity(phid, phin):
     phin : int, float
         Neutron porosity (porosity calculated using neutron log)
 
-    Returns
+    Returns:
     -------
     phie : array_like
         Effective porosity using Gaymard-Poupon method
     
-    References
+    References:
     ----------
     .. [1] Gaymard, R., and A. Poupon. "Response Of Neutron And Formation
     Density Logs In Hydrocarbon Bearing Formations." The Log Analyst 9 (1968).
@@ -298,7 +296,7 @@ def porosity(method: str = "density", **kwargs):
             - 'effective'
         If not given, default method is 'density'
 
-    Returns
+    Returns:
     -------
     phi : array_like
         Porosity log using the defined method.

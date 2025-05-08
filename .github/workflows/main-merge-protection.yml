@@ -1,0 +1,26 @@
+name: Main Branch Protection on PR Merge
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Check if source branch is 'development'
+        run: |
+          # Get the source branch of the pull request
+          SOURCE_BRANCH=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
+          
+          # Check if the source branch is 'development'
+          if [ "$SOURCE_BRANCH" != "development" ]; then
+            echo "ERROR: Pull request source branch must be 'development'."
+            echo "Please create the pull request from the 'development' branch."
+            exit 1
+          fi

@@ -2,7 +2,6 @@ import numpy as np
 import numpy.typing as npt
 import pickle
 import json
-import warnings
 
 from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import GridSearchCV

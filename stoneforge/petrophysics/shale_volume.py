@@ -15,7 +15,7 @@ def gammarayindex(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     grmax : int, float
         Shale/clay value. 
 
-    Returns
+    Returns:
     -------
     igr : array_like
         The gamma ray index varying between 0.0 (clean sand) and 1.0 (shale).
@@ -43,7 +43,7 @@ def vshale_linear(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray:
     grmax : int, float
         Shale/clay value. 
 
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Linear method.
@@ -68,7 +68,7 @@ def vshale_larionov_old(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.nda
     grmax : int, float
         Shale/clay value.  
 
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
@@ -92,7 +92,7 @@ def vshale_larionov(gr: npt.ArrayLike, grmin: float, grmax: float) -> np.ndarray
     grmax : int, float
         Shale/clay value.
          
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
@@ -117,7 +117,7 @@ def vshale_clavier(gr: npt.ArrayLike, grmin: float, grmax: float):
     grmax : int, float
         Shale/clay value.
          
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Clavier method.
@@ -142,7 +142,7 @@ def vshale_stieber(gr: npt.ArrayLike, grmin: float, grmax: float):
     grmax : int, float
         Shale/clay value.
          
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Stieber method.
@@ -179,12 +179,12 @@ def vshale_neu_den(neu: npt.ArrayLike, den: npt.ArrayLike,  cl1_n = -0.15,
     clay_d : 2.71, int, float
         Bulk density value from clay point.
 
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale volume from neutron and density logs method.
 
-    References
+    References:
     ----------
     .. [1] Bhuyan, K., & Passey, Q. R. (1994). Clay estimation from GR and 
     neutron-density porosity logs. In SPWLA 35th Annual Logging Symposium. 
@@ -243,7 +243,7 @@ def vshale(gr: npt.ArrayLike, grmin: float, grmax: float, method: str = None) ->
             - 'stieber'
         If not given, default method is 'linear'
 
-    Returns
+    Returns:
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the defined method.

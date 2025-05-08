@@ -127,9 +127,8 @@ def export_csv(file_name, data, names = None, units = None, dummy = "", delimite
                             line = line + str(dummy) # I believe that there is a better way to do that, but at the moment lets try it
                         else:
                             line = line + str(data[j,i])
+                    elif np.isnan(data[j,i]):
+                        line = line + str(dummy) + delimiter
                     else:
-                        if np.isnan(data[j,i]):
-                            line = line + str(dummy) + delimiter
-                        else:
-                            line = line + str(data[j,i]) + delimiter
+                        line = line + str(data[j,i]) + delimiter
                 f.write(line + '\n')

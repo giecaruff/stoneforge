@@ -1,7 +1,6 @@
 import numpy as np
 import numpy.typing as npt
 import scipy
-from scipy import stats
 from scipy.stats import pearsonr
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
@@ -106,9 +105,7 @@ class variogram_model:
         return np.where(h == 0, C0 + C1, C1 * np.exp((-3 * h) / a))
 
 def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
-  
-  """
-  Determines the 1D experimental correlation function [1]_ for a dataset by calculating 
+  """Determines the 1D experimental correlation function [1]_ for a dataset by calculating
   the Pearson correlation coefficient for each possible separation of samples.
 
   Parameters
@@ -116,18 +113,17 @@ def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
   data : array_like
         1D dataset for which the experimental correlation function must be calculated.
 
-  Returns
+  Returns:
   -------
   rho : array_like
         1D experimental correlation function of the data under examination.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
 
   """
-
   rho = np.zeros(len(data))
   for i in range(len(data) - 1):
         slc = (slice(0, len(data) - i, None), slice(i, len(data), None))
@@ -136,8 +132,7 @@ def experimental_correlation(data: npt.ArrayLike)-> np.ndarray:
 
 
 def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray:
-  """
-  Determines the 1D experimental variogram [1]_ of a dataset.
+  """Determines the 1D experimental variogram [1]_ of a dataset.
 
   Parameters
   ----------
@@ -147,12 +142,12 @@ def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray
   rho : array_like
         1D experimental correlation function of the data under examination.
 
-  Returns
+  Returns:
   -------
   gama : array_like
         1D experimental variogram of the data under examination.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
@@ -163,8 +158,7 @@ def experimental_variogram(data: npt.ArrayLike, rho: npt.ArrayLike)-> np.ndarray
 
 
 def exponential_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
-  """
-  Builds a variogram following the exponential model, using the correlation length, sill and nugget given [1]_.
+  """Builds a variogram following the exponential model, using the correlation length, sill and nugget given [1]_.
 
   Parameters
   ----------
@@ -181,12 +175,12 @@ def exponential_variogram_model(distance: npt.ArrayLike, correlation_length: flo
   nugget : float
         The nugget effect, y value where the variogam begins
 
-  Returns
+  Returns:
   -------
   rho : array_like
         The variogram that follows the exponential model and has the given correlation length, sill and nugget
 
-  References
+  References:
   ----------
   .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
   Examples and Algorithms. India: Wiley Blackwell, 2021.
@@ -197,8 +191,7 @@ def exponential_variogram_model(distance: npt.ArrayLike, correlation_length: flo
 
 
 def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
-  """
-  Builds a variogram following the gaussian model, using the correlation length, sill and nugget given [1]_.
+  """Builds a variogram following the gaussian model, using the correlation length, sill and nugget given [1]_.
 
   Parameters
   ----------
@@ -215,12 +208,12 @@ def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float,
   nugget : float
         The nugget effect, y value where the variogam begins
 
-  Returns
+  Returns:
   -------
   rho : array_like
         The variogram that follows the gaussian model and has the given correlation length, sill and nugget
 
-  References
+  References:
   ----------
   .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
   Examples and Algorithms. India: Wiley Blackwell, 2021.
@@ -231,8 +224,7 @@ def gaussian_variogram_model(distance: npt.ArrayLike, correlation_length: float,
 
 
 def spherical_variogram_model(distance: npt.ArrayLike, correlation_length: float, sill: float, nugget: float=0)-> np.ndarray:
-  """
-  Builds a variogram following the spherical model, using the correlation length, sill and nugget given [1]_.
+  """Builds a variogram following the spherical model, using the correlation length, sill and nugget given [1]_.
 
   Parameters
   ----------
@@ -249,12 +241,12 @@ def spherical_variogram_model(distance: npt.ArrayLike, correlation_length: float
   nugget : float
         The nugget effect, y value where the variogam begins
 
-  Returns
+  Returns:
   -------
   rho : array_like
         The variogram that follows the spherical model and has the given correlation length, sill and nugget
 
-  References
+  References:
   ----------
   .. [1] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
   Examples and Algorithms. India: Wiley Blackwell, 2021.
@@ -278,8 +270,7 @@ def spherical_variogram_model(distance: npt.ArrayLike, correlation_length: float
 
 
 def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, initial_guess:npt.ArrayLike)-> np.ndarray:
-  """
-  Fits the choosen analytical variogram function (model) to the experimental one [1]_, 
+  """Fits the choosen analytical variogram function (model) to the experimental one [1]_,
   if no model is choosen, determines the best model to fit, comparing the Gaussian, 
   Exponential and Spherical models [2]_.
 
@@ -301,7 +292,7 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, initial_g
               the smallest error.
         If not given, default method is "best-fit".
 
-  Returns
+  Returns:
   -------
   modeled_variogram : array_like
         The variogram model that has been choosen, or the variogram model that fits the
@@ -309,7 +300,7 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, initial_g
   coeficients : array_like
         The range, sill and nugget optimal values for the modeled variogram.
 
-  References
+  References:
   ----------
   .. [1] https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html
   .. [2] GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,
@@ -369,8 +360,7 @@ def analytical_variogram(distance: npt.ArrayLike, gama: npt.ArrayLike, initial_g
 
 
 def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
-  """
-  Determines the 1D modeled correlation function [1]_ from a variogram model [2]_.
+  """Determines the 1D modeled correlation function [1]_ from a variogram model [2]_.
 
   Parameters
   ----------
@@ -379,12 +369,12 @@ def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
   var  : float
          variance (the square of the standard deviation) of the dataset.
 
-  Returns
+  Returns:
   -------
   rho : array_like
         1D modeled correlation function of the data under examination.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
@@ -395,8 +385,7 @@ def modeled_correlation(gama: npt.ArrayLike, var: float)-> np.ndarray:
 
 
 def cov_matrix(rho: npt.ArrayLike, var: float)-> np.ndarray:
-  """
-  Determines the 1D spatial symmetrical covariance matrix [1]_ from a modeled 
+  """Determines the 1D spatial symmetrical covariance matrix [1]_ from a modeled
   correlation function.
 
   Parameters
@@ -406,12 +395,12 @@ def cov_matrix(rho: npt.ArrayLike, var: float)-> np.ndarray:
   var  : float
          Variance (the square of the standard deviation) of the dataset.
 
-  Returns
+  Returns:
   -------
   cov : array_like
        Spatial symmetrical covariance matrix of the data.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
@@ -422,8 +411,7 @@ def cov_matrix(rho: npt.ArrayLike, var: float)-> np.ndarray:
 
 
 def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLike)-> np.ndarray:
-  """
-  Determines n Monte Carlo Simulations (MCS) with spatial correlation [1]_ for a given 
+  """Determines n Monte Carlo Simulations (MCS) with spatial correlation [1]_ for a given
   dataset. 
 
   Parameters
@@ -435,13 +423,13 @@ def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLi
   cov : array_like
        Spatial symmetrical covariance matrix of the data.
 
-  Returns
+  Returns:
   -------
   simulations : array_like
        n Monte Carlo simulations with spatial correlation for a given property, 
        each line of this matrix represents a different simulation.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.
@@ -464,8 +452,7 @@ def MCS_spacial_correlation(n: int, smooth_data: npt.ArrayLike, cov: npt.ArrayLi
 def p(n: int, data1: npt.ArrayLike, data2: npt.ArrayLike,
                              smooth_data1: npt.ArrayLike, smooth_data2: npt.ArrayLike,
                              cov: npt.ArrayLike)-> np.ndarray:
-  """
-  Determines n Monte Carlo Simulations (MCS) using data1 and data2 as correlated 
+  """Determines n Monte Carlo Simulations (MCS) using data1 and data2 as correlated
   variables [1]_.
 
   Parameters
@@ -483,13 +470,13 @@ def p(n: int, data1: npt.ArrayLike, data2: npt.ArrayLike,
   cov : array_like
        Spatial symmetrical covariance matrix representing both data1 and data2.
 
-  Returns
+  Returns:
   -------
   simulations : array_like
        n Monte Carlo Simulations with correlated variables for data1 and n Monte
        Carlo Simulations with correlated variables for data2, in this order.
   
-  References
+  References:
   ----------
   .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
   properties. [S.l.]: Cambridge University Press, 2014.

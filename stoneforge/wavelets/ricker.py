@@ -1,11 +1,10 @@
 
 import warnings
-from typing import Callable, Optional, Sequence, Tuple
+from typing import Tuple
 
 import numpy as np
 import numpy.typing as npt
 
-import matplotlib.pyplot as plt
 
 
 def _tcrop(t: npt.ArrayLike) -> npt.ArrayLike:
@@ -28,7 +27,8 @@ def Ricker_Wavelet(Peak_freq: float = 30,
         Number of samples
     Dt : :obj:`func`, optional
         Sampling in milisseconds
-    Returns
+
+    Returns:
     -------
     ricker : :obj:`numpy.ndarray`
         Wavelet

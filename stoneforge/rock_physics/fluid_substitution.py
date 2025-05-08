@@ -20,12 +20,12 @@ def kdry(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
     kfluidA : array_like
         Bulk modulus of the fluid A.
 
-    Returns
+    Returns:
     -------
     kdry : array_like
         Dry-rock bulk modulus.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -56,12 +56,12 @@ def ksat(phi: npt.ArrayLike, ks: npt.ArrayLike, kdry: npt.ArrayLike,
     kfluidB : array_like
         Bulk modulus of the fluid B.
 
-    Returns
+    Returns:
     -------
     ksat : array_like
         Bulk modulus of the rock saturated with fluid B.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -77,7 +77,7 @@ def ksat(phi: npt.ArrayLike, ks: npt.ArrayLike, kdry: npt.ArrayLike,
 def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
                   kfluidA: npt.ArrayLike,
                   kfluidB: npt.ArrayLike) -> np.ndarray:
-    """Fluid substitution using Gassmann' equation without calculating 
+    """Fluid substitution using Gassmann' equation without calculating
     dry-rock bulk modulus [1]_.
 
     Parameters
@@ -97,12 +97,12 @@ def gassmann_subs(phi: npt.ArrayLike, ks: npt.ArrayLike, ksatA: npt.ArrayLike,
     kfluidB : array_like
         Bulk modulus of the fluid B.
 
-    Returns
+    Returns:
     -------
     ksat : array_like
         Bulk modulus of rock saturated with fluid B.
 
-    References
+    References:
     ----------
     .. [1] Avseth, Per, Tapan Mukerji, and Gary Mavko. Quantitative seismic
     interpretation: Applying rock physics tools to reduce interpretation risk.
@@ -158,7 +158,7 @@ def gassmann(phi: npt.ArrayLike, ks: npt.ArrayLike,
             - 'ksat_direct'
         If not given, default method is 'gassmann_subs'.
 
-    Returns
+    Returns:
     -------
     ksat : array_like
         Bulk modulus of the rock saturated with fluid B.
@@ -203,12 +203,12 @@ def mdry(phi: npt.ArrayLike, ms: npt.ArrayLike, msatA: npt.ArrayLike,
     kfluidA : array_like
         Bulk modulus of the fluid A.
 
-    Returns
+    Returns:
     -------
     mdry : array_like
         Dry-rock compressional modulus.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -239,12 +239,12 @@ def msat(phi: npt.ArrayLike, ms: npt.ArrayLike, mdry: npt.ArrayLike,
     kfluidB : array_like
         Bulk modulus of the fluid B.
 
-    Returns
+    Returns:
     -------
     msat : array_like
         Compressional modulus of the rock saturated with fluid B.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -260,7 +260,7 @@ def msat(phi: npt.ArrayLike, ms: npt.ArrayLike, mdry: npt.ArrayLike,
 def mavko_subs(phi: npt.ArrayLike, ms: npt.ArrayLike, msatA: npt.ArrayLike,
                   kfluidA: npt.ArrayLike,
                   kfluidB: npt.ArrayLike) -> np.ndarray:
-    """Fluid substitution using Mavko' equation without calculating 
+    """Fluid substitution using Mavko' equation without calculating
     dry-rock bulk modulus [1]_.
 
     Parameters
@@ -280,12 +280,12 @@ def mavko_subs(phi: npt.ArrayLike, ms: npt.ArrayLike, msatA: npt.ArrayLike,
     kfluidB : array_like
         Bulk modulus of the fluid B.
 
-    Returns
+    Returns:
     -------
     msat : array_like
         Compressional modulus of rock saturated with fluid B.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -340,7 +340,7 @@ def mavko(phi: npt.ArrayLike, ms: npt.ArrayLike,
             - 'msat_direct'
         If not given, default method is 'mavko_subs'.
 
-    Returns
+    Returns:
     -------
     msat : array_like
         Compressional modulus of the rock saturated with fluid B.

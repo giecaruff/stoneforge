@@ -1,6 +1,3 @@
-import sys
-import os
-import pytest
 
 if __package__:
     from ..rock_physics.gem import gem

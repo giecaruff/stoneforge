@@ -28,12 +28,12 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     n : int, float
         Saturation exponent.
 
-    Returns
+    Returns:
     -------
     sw : array_like
         Water saturation from Archie equation.
 
-    References
+    References:
     ----------
     .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
     reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
@@ -75,12 +75,12 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     rsh : int, float
         Clay resistivity.
 
-    Returns
+    Returns:
     -------
     sw : array_like
         Water saturation from Simandoux equation.
 
-    References
+    References:
     ----------
     .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
     saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
@@ -122,12 +122,12 @@ def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     rsh : float
         Clay resistivity.
 
-    Returns
+    Returns:
     -------
     indonesia : array_like
         Water saturation from Poupon-Leveaux equation.
 
-    References
+    References:
     ----------
     .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
     The Log Analyst, 12, 1-2.
@@ -161,12 +161,12 @@ def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
     alpha : int, float
         Alpha parameter from Fertl equation.
 
-    Returns
+    Returns:
     -------
     fertl : array_like
         Water saturation from Fertl equation.
 
-    References
+    References:
     ----------
     .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
        In SPWLA 16th Annual Logging Symposium. OnePetro.
@@ -228,7 +228,7 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
             - 'fertl
         If not given, default method is 'archie'
 
-    Returns
+    Returns:
     -------
     water_saturation : array_like
         Water saturation for the aimed interval using the defined method.
