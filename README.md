@@ -4,7 +4,7 @@
 <h2 align="center">Algorithms, methods and equations for geophysics in Python</h2>
 
 <p align="center">
-Part of the <strong>Appy</strong> project
+Part of the <strong>Appy</strong> project 
 </p>
 
 
