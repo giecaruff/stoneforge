@@ -1,9 +1,9 @@
 name: Publish to PyPI
 
 on:
-  push:
-    tags:
-      - "v*"  # Trigger on version tags like v1.0.0
+  release:
+    types:
+      - published  # Trigger when a new release is published
 
 jobs:
   uv-pytest:
@@ -29,4 +29,4 @@ jobs:
       - name: Publish to PyPI
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: uv publish --version ${{ github.ref_name }} --token $PYPI_TOKEN
+        run: uv publish --token $PYPI_TOKEN
