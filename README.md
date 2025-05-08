@@ -46,10 +46,13 @@ and them verify the installation using the following command in Python:
   
 ## Dataset
 
-The stoneforge dataset comprises selected data from eleven wildcat wells in the National Petroleum Reserve in Alaska / by F.N. Zihlman and H.L. Oliver.
-Contains data sets from 11 wildcat wells drilled in the National Petroleum Reserve in Alaska (NPRA).
+The stoneforge dataset comprises the following data: 
+
+Four .las data from wildcat wells in the National Petroleum Reserve in Alaska. Those where drilled in the National Petroleum Reserve in Alaska (NPRA). </br>
+[USGS Well Index](https://pubs.usgs.gov/of/1999/ofr-99-0015/Wells/WellIdx.htm)
+
+Two .dlis data from the Mississippi Fan (Gulf of Mexico) from the DSDP (Deep Sea Drilling Project); DSDP Leg 96 - Hole 616; Processed and Original data. </br>
+[DSDP Leg 96 - Hole 616](https://mlp.ldeo.columbia.edu/data/dsdp/leg96/616/)
 
 Zihlman, F. N creator ; Oliver, H. L ; Geological Survey (U.S.)
 Reston, Va. : Denver, Colo : U.S. Dept. of the Interior, U.S. Geological Survey1999
-
-Our special thanks to the INDIANA UNIVERSITY for mantaining this dataset

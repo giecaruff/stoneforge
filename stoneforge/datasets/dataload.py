@@ -1,6 +1,7 @@
 # %%
 
 #from stoneforge.preprocessing import project
+# this maybe be redundant because of preprocessing
 from . import las2
 import os
 import pandas as pd

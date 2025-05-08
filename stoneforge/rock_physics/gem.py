@@ -5,7 +5,7 @@ from .elastic_constants import poisson
 
 def hertz_mindlin(k: float, g: float, n: float, phic: float,
                   p: float) -> np.ndarray:
-    """Computes the elastic moduli of the original room-dry grain pack at 
+    """Computes the elastic moduli of the original room-dry grain pack at
     critical porosity phic from Hertz-Mindlin contact theory [1]_.
 
     Parameters
@@ -21,14 +21,14 @@ def hertz_mindlin(k: float, g: float, n: float, phic: float,
     p : int, float
         Hydrostatic confining pressure.
 
-    Returns
+    Returns:
     -------
     khm : float
         Bulk modulus of the Hertz-Mindlin point.
     ghm : float
         Shear modulus of the Hertz-Mindlin point.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -62,14 +62,14 @@ def soft_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
     p : int, float
         Hydrostatic confining pressure.
 
-    Returns
+    Returns:
     -------
     ksoft : float, array_like
         Bulk modulus using the soft sand model.
     gsoft : float, array_like
         Shear modulus using the soft sand model.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -110,14 +110,14 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     deposition_type : str
         Cement deposition framework: grain_surface or grain_contact
 
-    Returns
+    Returns:
     -------
     kconst : float, array_like
         Bulk modulus using the constant cement model.
     gconst : float, array_like
         Shear modulus using the constant cement model.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -143,15 +143,14 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
         gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
         kconst[soft_domain], gconst[soft_domain] = kco[soft_domain], gco[soft_domain]    
     
+    elif cement_domain:
+        kconst, gconst = kcem, gcem
     else:
-        if cement_domain:
-            kconst, gconst = kcem, gcem
-        else:
-            kb, gb = kend, gend
-            zb = (gb/6) * (9*kb + 8*gb)/(kb + 2*gb)
-            kco = ((phi/phib)/(kb + 4/3* gb) + (1 - phi/phib)/(k + 4/3*gb))**-1 - 4/3 * gb
-            gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
-            kconst, gconst = kco, gco
+        kb, gb = kend, gend
+        zb = (gb/6) * (9*kb + 8*gb)/(kb + 2*gb)
+        kco = ((phi/phib)/(kb + 4/3* gb) + (1 - phi/phib)/(k + 4/3*gb))**-1 - 4/3 * gb
+        gco = ((phi/phib)/(gb + zb) + (1 - phi/phib)/(g + zb))**-1 - zb
+        kconst, gconst = kco, gco
 
     return kconst, gconst
 
@@ -175,14 +174,14 @@ def stiff_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
     p : int, float
         Hydrostatic confining pressure.
 
-    Returns
+    Returns:
     -------
     kstiff : float, array_like
         Bulk modulus using the stiff sand model.
     gstiff : float, array_like
         Shear modulus using the stiff sand model.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -220,14 +219,14 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     deposition_type : str
         Cement deposition framework: grain_surface or grain_contact
 
-    Returns
+    Returns:
     -------
     kcem : float, array_like
         Bulk modulus using the contact cement model.
     gcem : float, array_like
         Shear modulus using the contact cement model.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
@@ -310,7 +309,7 @@ def gem(k: float, g: float, phi: npt.ArrayLike, phic: float, n: float,
             - 'constant cement ' 
         If not given, default method is 'soft_sand'.
 
-    Returns
+    Returns:
     k : array_like
         Bulk modulus using the rock-physics model.
     g : array_like
@@ -378,7 +377,7 @@ def gem_model(k: float, g: float, phic: float, n: float,
             - 'constant cement ' 
         If not given, default method is 'soft_sand'.
 
-    Returns
+    Returns:
     k : array_like
         Bulk modulus using the rock-physics model.
     g : array_like

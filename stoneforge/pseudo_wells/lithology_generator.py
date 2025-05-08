@@ -1,9 +1,6 @@
 import numpy as np
-import scipy as sc
-import matplotlib.pyplot as plt
 
 def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, seed_value = 42):
-
     """ 
     Ex.: lithology_code  = [14,7,21,36]
 
@@ -14,7 +11,6 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
                         [0.00, 0.00, 0.00, 0.00]] # Carbonato c/ sílica
                          )
     """
-
     initial_state = initial_state
 
     np.random.seed(seed_value)
@@ -42,9 +38,9 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
     return new_array
 
 def markov_chain(lito):
+        """Generate markov chain matrix from lithology data
         """
-        generate markov chain matrix from lithology data
-        """
+        lito = np.array(lito)
         _lito = lito[~np.isnan(lito)]
         states = list(set(_lito))
 
@@ -66,7 +62,6 @@ def markov_chain(lito):
         return (MC,states)
 
 def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, single_lithology = True, seed_value = 42):
-
     """ 
     Ex.: lithology_code  = [14,7,21,36]
     
@@ -76,8 +71,7 @@ def extended(markov_chain, sampling, lithology_code = False, initial_state = 0, 
                         [0.05, 0.10, 0.85, 0.00] # Carbonato Rico em Argila
                         [0.00, 0.00, 0.00, 0.00]] # Carbonato c/ sílica
                          ) 
-     """
-
+    """
     np.random.seed(seed_value)
 
     if lithology_code:

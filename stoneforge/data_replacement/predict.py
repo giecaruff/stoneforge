@@ -1,25 +1,35 @@
 import numpy as np
 import numpy.typing as npt
 import pickle
-import warnings
-import json
+import os
 
-from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVR
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
-#from xgboost import XGBRegressor
-#import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
 
+"linear_regression_simple",
+"linear_regression_polynomial",
+"decision_tree_regression",
+"support_vector_regression",
+"random_forest_regression",
+'lightgbm_regression',
+'xgboost_regression',
+'catboost_regression'
 
-def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
+def fit_load(path, method):
+    full_path = os.path.join(path, method + "_fit_property.pkl")
+    with open(full_path, 'rb') as f:
+        return pickle.load(f)
 
-    slregression = pickle.load(open(path+"\\linear_regression_fit_property.pkl", 'rb'))
-    f = open(path + '\\polinomial_settings.json')
-    pol_settings = json.load(f)
+def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+    
+    if path:
+        method = 'linear_regression_simple'
+        overall_fit_settings = fit_load(path, method)
+    else:
+        overall_fit_settings = pickle.loads(fit_info)
+
+    pol_settings = overall_fit_settings['polinomial']
+    slregression = overall_fit_settings['serialized_model']
 
     pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
     x_poly = pol_degree.fit_transform(x)
@@ -27,65 +37,106 @@ def linear_regression_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray
     return slregression.predict(x_poly , **kwargs)
 
 
-def support_vector_replacement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
-    svnegression = pickle.load(open(path+"\\support_vector_fit_property.pkl", 'rb'))
+    
+    if path:
+        method = 'support_vector_regression'
+        svnegression = fit_load(path, method)
+    else:
+        svnegression = pickle.loads(fit_info)
 
-    return svnegression.predict(x, **kwargs)
+    if '2dy' in svnegression:
+        y_pred = []
+        for i in svnegression['2dy']:
+            y_pred.append(svnegression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return svnegression['1dy'].predict(x, **kwargs)
 
 
-def decision_tree_replacement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
-    d_treec_regression = pickle.load(open(path+"\\decision_tree_fit_property.pkl", 'rb'))
+    if path:
+        method = 'decision_tree_regression'
+        d_treec_regression = fit_load(path, method)
+    else:
+        d_treec_regression = pickle.loads(fit_info)
 
     return d_treec_regression.predict(x, **kwargs)
 
 
-def random_florest_replecement(x: npt.ArrayLike, path, **kwargs) -> np.ndarray:
+def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
 
-    randomregression = pickle.load(open(path+"\\random_forest_fit_property.pkl", 'rb'))
+    if path:
+        method = 'random_forest_regression'
+        randomregression = fit_load(path, method)
+    else:
+        randomregression = pickle.loads(fit_info)
     
     return randomregression.predict(x, **kwargs)
 
-"""
-def xgboost_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    xgboostregression = pickle.load(open(path+"\\xgboost_fit_property.pkl", 'rb'))
+def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+
+    if path:
+        method = 'xgboost_regression'
+        xgboostregression = fit_load(path, method)
+    else:
+        xgboostregression = pickle.loads(fit_info)
 
     return xgboostregression.predict(x,**kwargs)
-"""
 
-"""""
-def lightgbm_replacement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    lightregression = pickle.load(open(path+"\\lightgbm_replacement_fit_property.pkl", 'rb'))
+def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
     
-    return lightregression.predict(x,**kwargs)
+    if path:
+        method = 'lightgbm_regression'
+        lightregression = fit_load(path, method)
+    else:
+        lightregression = pickle.loads(fit_info)
 
-"""
-"""
+    if '2dy' in lightregression:
+        y_pred = []
+        for i in lightregression['2dy']:
+            y_pred.append(lightregression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return lightregression['1dy'].predict(x, **kwargs)
 
-def catboost_replecement(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
-    catregression = pickle.load(open(path+"\\catboost_fit_property.pkl", 'rb'))
+def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+
+    if path:
+        method = 'catboost_regression'
+        catregression = fit_load(path, method)
+    else:
+        catregression = pickle.loads(fit_info)
     
-    return catregression.predict(x,**kwargs)
+    if '2dy' in catregression:
+        y_pred = []
+        for i in catregression['2dy']:
+            y_pred.append(catregression['2dy'][i].predict(x, **kwargs))
+        return np.array(y_pred).T
+    else:
+        return catregression['1dy'].predict(x, **kwargs)
 
-"""
+
 
 _predict_methods = {
-    "linear_regression_simple": linear_regression_replacement,
-    "linear_regression_polynomial": linear_regression_replacement,
-    "support_vector_regression": support_vector_replacement,
-    "decision_tree_regression": decision_tree_replacement,
-    "random_forest_regression": random_florest_replecement,
-    #"xgboost_regression": xgboost_replacement,
-    #"lightgbm_regression": lightgbm_replacement,
-    #"catboost_regression": lightgbm_replacement,
+    "linear_regression_simple": linear_regression,
+    "linear_regression_polynomial": linear_regression,
+    "support_vector_regression": support_vector_regression,
+    "decision_tree_regression": decision_tree_regression,
+    "random_forest_regression": random_florest_regression,
+    "xgboost_regression": xgboost_regression,
+    "lightgbm_regression": lightgbm_regression,
+    "catboost_regression": catboost_regression,
     }
 
 
-def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", **kwargs):
+def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", fit_info = False,
+              scalers=False, **kwargs):
 
     if method == "linear_regression_simple":
         fun = _predict_methods[method]
@@ -97,25 +148,29 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
         fun = _predict_methods[method]
     if method == "random_forest_regression":
         fun = _predict_methods[method]
-    #if method == "xgboost_regression":
-    #    fun = _predict_methods[method]
-    #if method == "lightgbm_regression":
-    #    fun= _predict_methods[method]
-    #if method == "catboost_regression":
-    #    fun= _predict_methods[method]
+    if method == "xgboost_regression":
+        fun = _predict_methods[method]
+    if method == "lightgbm_regression":
+        fun= _predict_methods[method]
+    if method == "catboost_regression":
+        fun= _predict_methods[method]
+    if method == "scaler_regression":
+        return 0
 
-    scaler = pickle.load(open(path+"\\scaler.pkl", 'rb'))
-    scalerp = pickle.load(open(path+"\\scalerp.pkl", 'rb'))
-    #y_scalerp = pickle.load(open(path+"\\y_scalerp.pkl", 'rb'))
-    #scaler.fit(x)
 
-    x_norm = scaler.transform(x)
-    x_norm = scalerp.transform(x_norm)
+    if method != "scaler_regression":
 
-    y = fun(x_norm, path, **kwargs)
-    #y = fun(x, path, **kwargs)
+        if not scalers:
+            scaler = pickle.load(
+                open(os.path.join(path,method+"_scaler.pkl"), 'rb'))
+            scalerp = pickle.load(
+                open(os.path.join(path,method+"_scalerp.pkl"), 'rb'))
+        else:
+            scaler,scalerp = scalers
 
-    #y_norm = scaler.transform(y)
-    #y_norm = scalerp.transform(y_norm)
+        x_norm = pickle.loads(scaler).transform(x)
+        x_norm = pickle.loads(scalerp).transform(x_norm)
 
-    return y
+        y = fun(x_norm, path, fit_info, **kwargs)
+        return y
+    

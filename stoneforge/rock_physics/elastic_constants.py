@@ -1,39 +1,37 @@
 import numpy.typing as npt
 
 def bulk_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike, vs: npt.ArrayLike):
-     """
-     Computes the bulk modulus using density, shear wave velocity and compressional wave velocity.
+     """Computes the bulk modulus using density, shear wave velocity and compressional wave velocity.
 
-    Parameters
-    rhob : array_like, float
+     Parameters
+     rhob : array_like, float
         Density data in g/cm³.
 
-    vp : array_like, float
+     vp : array_like, float
         Compressional wave velocity data in km/s.
 
-    vs : array_like, float
+     vs : array_like, float
         Shear wave velocity data in km/s.
 
-    Returns
-    -------
-    K : array_like, float
+     Returns:
+     -------
+     K : array_like, float
         Bulk modulus data in Pascal unit.
-    ----------
+     ----------
 
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
-    Cambridge University Press.
+     References:
+     ----------
+     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
+     Cambridge University Press.
 
-    """
+     """
      A = vp**2 
      B = (4/3) * (vs**2)
      K = rhob * (A - B)
      return K
 
 def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
-    """
-     Computes the shear modulus using density and s wave velocity.
+    """Computes the shear modulus using density and s wave velocity.
 
     Parameters
     rhob : array_like, float
@@ -42,13 +40,13 @@ def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
     vp : array_like, float
         Compressional wave velocity data in km/s.
 
-    Returns
+    Returns:
     -------
     U : array_like, float
         Shear modulus data in Pascal unit.
     ----------
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
@@ -59,8 +57,7 @@ def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
     return U
 
 def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
-    """
-     Computes the shear modulus using density and s wave velocity.
+    """Computes the shear modulus using density and s wave velocity.
 
     Parameters
     rhob : array_like, float
@@ -69,13 +66,13 @@ def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
     vp : array_like, float
         Compressional wave velocity data in km/s.
 
-    Returns
+    Returns:
     -------
     U : array_like, float
         Shear modulus data in Pascal unit.
     ----------
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
@@ -86,8 +83,7 @@ def shear_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
     return U
 
 def shear_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike):
-    """
-     Computes the shear wave velocity using density and shear modulus.
+    """Computes the shear wave velocity using density and shear modulus.
 
     Parameters
     rhob : array_like, float
@@ -96,13 +92,13 @@ def shear_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike):
     u: array_like, float
         Shear modulus data in Pascal unit.
 
-    Returns
+    Returns:
     -------
     VS : array_like, float
         Shear wave velocity data km/s.
     ----------
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
@@ -114,8 +110,7 @@ def shear_wave_velocity(rhob: npt.ArrayLike, u: npt.ArrayLike):
 
 
 def compressional_wave_velocity(method: str, **kwargs):
-    """
-     Computes the compressional wave velocity.
+    """Computes the compressional wave velocity.
 
     Parameters
     method : str
@@ -123,12 +118,13 @@ def compressional_wave_velocity(method: str, **kwargs):
             - "rhob_and_g_and_k" for density and shear moduli and bolk moduli
             - "rhob_and_m" for density and compressional modulus
     ----------
-    Returns
+
+    Returns:
     -------
     VP : int, float, array_like
         compressional wave velocity.
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
@@ -157,8 +153,7 @@ def compressional_wave_velocity(method: str, **kwargs):
 
 
 def compressional_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
-    """
-     Computes the Compressional modulus using density and compressional wave velocity
+    """Computes the Compressional modulus using density and compressional wave velocity
 
     Parameters
     rhob : array_like, float
@@ -168,13 +163,13 @@ def compressional_modulus(rhob: npt.ArrayLike, vp: npt.ArrayLike):
         Compressional wave velocity in km/s².
 
 
-    Returns
+    Returns:
     -------
     M : array_like, float
         Compressional modulus data Pascal (Pa).
     ----------
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.
@@ -198,12 +193,12 @@ def poisson(method: str, **kwargs):
     In the case where "k_and_g" is selected, the kwargs must contain both
     k and g parameters (kwargs = ["k":36, "g":45])
 
-    Returns
+    Returns:
     -------
     v : int, float, array_like
         Poisson ratio.
 
-    References
+    References:
     ----------
     .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
     Cambridge University Press.

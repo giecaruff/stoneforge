@@ -12,7 +12,7 @@ def reuss(f, m):
     m : array_like
         Elastic modulus of each mineral.
 
-    Returns
+    Returns:
     -------
     r: array_like
         Reuss bound.
@@ -33,7 +33,7 @@ def voigt(f, m):
     m : array_like
         Elastic modulus of each mineral.
 
-    Returns
+    Returns:
     -------
     v: array_like
         Voigt bound.
@@ -54,7 +54,7 @@ def hill(f, m):
     m : array_like
         Elastic modulus of each mineral.
 
-    Returns
+    Returns:
     -------
     v: array_like
         Hill average.

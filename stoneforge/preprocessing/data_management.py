@@ -1,11 +1,23 @@
 import numpy as np
-import platform
-import pickle
-import json
 import os
-import pandas
 
 from . import las2
+
+def depth_zones(df,dept,ranges):
+
+    DEPT = np.array(df[dept])
+    ranges = list(ranges)
+    top = sorted(DEPT)[0]
+    bot = sorted(DEPT)[-1]
+    ranges = [top] + ranges + [bot]
+
+    _zones = {}
+    for i in range(len(ranges)-1):
+        top = ranges[i]
+        bot = ranges[i+1]
+        _zones[i] = df[df[dept].between(top, bot)]
+    
+    return _zones
 
 class project():
     
@@ -96,12 +108,10 @@ class project():
     # ============================================ #
 
     def convert_into_matrix(self,reference_mnemonics=False):
-        """
-        converts an manly dictionary database into an
+        """Converts an manly dictionary database into an
         matrix database with tree values: 
         mnemonics, units and data.
         """
-
         wells = {}
         for i in self.well_data:
             data = []
@@ -162,11 +172,9 @@ class project():
         return class_count
 
     def shape_check(self,ref):
+        """If an well has less mnemonics than the others,
+        than this function removes this well.
         """
-         If an well has less mnemonics than the others,
-         than this function removes this well.
-        """
-
         value = len(ref.keys())
 
         well_data = {}
@@ -180,6 +188,8 @@ class project():
         self.well_data = well_data
 
     # ============================================ #
+
+
         
 
 

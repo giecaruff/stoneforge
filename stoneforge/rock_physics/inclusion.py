@@ -1,10 +1,7 @@
-"""
-From Berryman 1980
+"""From Berryman 1980
 """
 import numpy.typing as npt
-import warnings
 import numpy as np
-from scipy.optimize import fsolve
 from .elastic_constants import poisson
 
 def get_theta(alpha):
@@ -38,8 +35,7 @@ def ABR(k, g, ks, gs):
 
 
 def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: float, g: float, alpha: float):
-    """
-    Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
+    """Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
 
     Parameters
     ----------
@@ -61,20 +57,19 @@ def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: 
     alpha : float
         Inclusion aspect ratios.
 
-    Returns
+    Returns:
     -------
     k_kt : array_like
         Bulk modulus.
     g_kt : array_like
         Shear modulus.
 
-    References
+    References:
     ----------
     .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
     properties. [S.l.]: Cambridge University Press, 2014.
 
     """
-    
     theta = get_theta(alpha)
     f = get_f(alpha, theta)
     A, B, R = ABR(k, g, ks, gs)
