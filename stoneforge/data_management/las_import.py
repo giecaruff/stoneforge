@@ -8,7 +8,7 @@ def import_folder(self,ext = '.las'):
     # r=root, d=directories, f = files
     for r, _, f in os.walk(self.data_path):
         for file in f:
-            if ext in file:
+            if file.endswith(ext):
                 files.append(os.path.join(r, file))
 
     c_resumo = self.data_path+'\\'
