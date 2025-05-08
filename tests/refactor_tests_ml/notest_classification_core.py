@@ -1,11 +1,5 @@
 # %% ============================================================== #
-import sys
-import os
 import numpy as np
-import pandas as pd
-import time
-import pytest
-import pickle
 
 if __package__:
     from ..machine_learning import *

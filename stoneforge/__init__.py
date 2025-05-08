@@ -11,5 +11,3 @@ from . import wavelets  # noqa: F401
 __version__ = "0.1.6-beta.2"
 __author__ = "GIECAR - UFF"
 __description__ = "Geophysics equations, algorithms and methods"
-__url__ = "https://github.com/giecaruff/stoneforge"
-__license__ = "MIT"

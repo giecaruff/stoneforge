@@ -1,11 +1,10 @@
 import warnings
-from typing import Callable, Optional, Sequence, Tuple
+from typing import Tuple
 
 from scipy import signal
 import numpy as np
 import numpy.typing as npt
 
-import matplotlib.pyplot as plt
 
 def _tcrop(t: npt.ArrayLike) -> npt.ArrayLike:
     """Crop time axis with even number of samples"""
@@ -19,7 +18,6 @@ def Butter_Wavelet(Freq_low: float = 1.5,
                    Freq_hi: float = 65,
                    Samples: int = 71,
                    Dt: float = 4) -> Tuple[npt.ArrayLike, npt.ArrayLike]:
-
     r"""Butterworth wavelet
     Create a Butterworth wavelet given time axis ``t``, minimum frequeny and maximun frequency
     Parameters
@@ -32,14 +30,14 @@ def Butter_Wavelet(Freq_low: float = 1.5,
         Number of samples       
     Dt : :float
         Sampling in milisseconds
-    Returns
+
+    Returns:
     -------
     wav : :obj:`numpy.ndarray`
         Wavelet
     t : :obj:`numpy.ndarray`
         Symmetric time axis
     """
-
     t = np.arange(Samples)*(Dt/1000)
     t = _tcrop(t)
     t = np.concatenate((np.flipud(-t[1:]), t), axis=0)

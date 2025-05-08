@@ -93,12 +93,12 @@ def read(lasfile):
     lasfile : string or file-like object
         The path of the file to read or an existing file-like object to read from.
 
-    Returns
+    Returns:
     -------
     dict
         A dictionary containing the sections of the LAS file.
 
-    Notes
+    Notes:
     -----
     The structure of the returned dictionary is specified below.
     The dictionary keys are the section names: 'version', 'well', 'parameter', 'curve', 'other', 'data'.
@@ -113,12 +113,12 @@ def read(lasfile):
     'description'.
     For information on the structure of a LAS 2.0 line, please also refer to its specification [1]_.
 
-    References
+    References:
     ----------
     .. [1] LAS 2.0 standard - http://www.cwls.org/wp-content/uploads/2017/02/Las2_Update_Feb2017.pdf -
        Retrieved August 14, 2019
 
-    Examples
+    Examples:
     --------
     The examples below contains ficticious data.
     In the first example we see the version information for the file.
@@ -234,8 +234,7 @@ def _section_format_getter(section):
     maxwidths = dict.fromkeys(_line_elements, 0)
     for line in section:
         for key in line:
-            if len(line[key]) > maxwidths[key]:
-                maxwidths[key] = len(line[key])
+            maxwidths[key] = max(maxwidths[key], len(line[key]))
 
     return _default_line_format_format.format(**maxwidths)
 
@@ -275,7 +274,7 @@ def write(lasfile, data, section_titles=None, section_formats=None):
         A dictionary where the key is the section name and value is the format string that will be used to format the
         lines in the respective section. For further information please refer to the Notes section.
 
-    Notes
+    Notes:
     -----
     This function does not guarantee that the output file will follow the LAS 2.0 standard. If mandatory sections or
     lines are missing from the inputs, the file will be written nevertheless. The only required field for the function
@@ -299,16 +298,16 @@ def write(lasfile, data, section_titles=None, section_formats=None):
     logs, "{:>8.4f} {:>8.4f} {:>8.4f}" is the default format.
     Each section format can be individually omitted.
 
-    See Also
+    See Also:
     --------
     read : Reads the contents of a LAS 2.0 file.
 
-    References
+    References:
     ----------
     .. [1] LAS 2.0 standard - http://www.cwls.org/wp-content/uploads/2017/02/Las2_Update_Feb2017.pdf -
        Retrieved August 14, 2019
 
-    Examples
+    Examples:
     --------
     Minimal example of usage. This would not produce a valid LAS 2.0 file since it is missing many of the mandatory
     sections and lines.

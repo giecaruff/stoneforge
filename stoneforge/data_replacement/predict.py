@@ -1,18 +1,9 @@
 import numpy as np
 import numpy.typing as npt
 import pickle
-import warnings
-import json
 import os
 
-from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVR
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import PolynomialFeatures
-from xgboost import XGBRegressor
-import lightgbm as lgb
 #from catboost.core import CatBoostRegressor
 
 "linear_regression_simple",

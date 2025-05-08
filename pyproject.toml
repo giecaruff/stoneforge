@@ -1,0 +1,95 @@
+[project]
+name = "stoneforge"
+version = "0.1.6-beta.2"
+authors = [
+    {name = "GIECAR - UFF"},
+    {name = "Wagner M. Lupinacci"},
+    {name = "Fernando Vizeu"},
+    {name = "Fábio Júnior D Fernandes"},
+    {name = "José A. V. Dias"},
+    {name = "Mario M. Ramos"},
+    {name = "Jordan S. Cuno"},
+    {name = "João Vitor A. Estrella"},
+    {name = "Ana Carolina"},
+    {name = "Breno D. Chrispim"},
+]
+description = "Geophysics equations, algorithms and methods"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dlisio>=1.0.3",
+    "numpy>=2.2.0",
+    "pytest>=8.3.4",
+    "scipy>=1.14.1",
+    "scikit-learn>=1.6.1",
+    "xgboost>=2.1.4",
+    "matplotlib>=3.10.0",
+    "pandas>=2.2.2",
+    "lightgbm>=4.5.0",
+    "notebook>=6.4.0",
+    "ipympl>=0.8.4"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Education",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3"
+]
+
+[project.urls]
+homepage = "https://github.com/giecaruff/stoneforge"
+
+[project.license]
+text = "MIT"
+
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.8",
+    "sphinx>=8.1.3",
+    "sphinx-rtd-theme>=3.0.2",
+]
+
+[tool.hatch.build]
+include = ["stoneforge/**"]  # Include the main package
+exclude = ["tests", "docs"]  # Exclude unnecessary files
+
+[tool.uv]
+package = true
+
+
+[tool.ruff]
+# Set the maximum line length to 79.
+line-length = 79
+indent-width = 4
+
+[tool.ruff.lint]
+extend-select = [
+    "D",   # pydocstyle
+    "NPY", # numPy specific rules npy
+    "PD",  # Pandas-vet
+    "N",   # PEP8
+    "PL",  # Pylint
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+pythonpath = "stoneforge"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+norecursedirs = [".venv", ".git", "__pycache__"]

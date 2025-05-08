@@ -2,7 +2,6 @@ import numpy.typing as npt
 import numpy as np
 
 def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
-
     """Estimate the Total Organic Carbon Content by Passey method using Sonic log and Resistivy log _.
 
     Parameters
@@ -18,19 +17,18 @@ def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
     lom : int, float
         Level of maturity
               
-    Returns
+    Returns:
     -------
     TOC : array_like
         Total organic carbon content calculated from passey method.
 
-    References
+    References:
     ----------
     Passey, O.R., F.U. Moretti, and J.D. Stroud, 1990, A practical modal for organic richness from porosity and resistivity logs: AAPG Bulletin, v. 
     74, p. 1777–1794.
 
 
     """
-
     dlogrt = (rt - rtbaseline) + 0.02*(dt - dtbaseline)
     toc = dlogrt*10**(2.297 - 0.1688*lom)
     clipped_toc = np.clip(toc, 0.0, 100.0)
@@ -65,14 +63,12 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, rtbas
             
         If not given, default method is 'passey'
 
-    Returns
+    Returns:
     -------
     toc : array_like
         Total organic carbon content for the aimed interval using the defined method.
 
     """
-
-
     toc = passey(dt, rt, dtbaseline, rtbaseline, lom)
     
     return toc

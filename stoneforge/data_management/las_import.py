@@ -1,5 +1,4 @@
 import os
-import numpy as np
 
 def import_folder(self,ext = '.las'):
 

@@ -1,5 +1,3 @@
-import sys
-import os
 
 if __package__:
     from ..rock_physics.fluid_substitution import gassmann

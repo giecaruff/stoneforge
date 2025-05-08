@@ -1,8 +1,6 @@
 #Programa que implementa computacionalmente Inversao de traco sismico por deconvolucao sparse spike usando o algoritmo de variacao total e minimos quadrados
 
 import numpy as np 
-import matplotlib.pyplot as plt
-from scipy.linalg import toeplitz
 
 def IRLS_Inv(trace, G, alphaL1, alphaL2,thresold,niter):
     residuo_iter = np.zeros(10)

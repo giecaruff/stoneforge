@@ -36,8 +36,7 @@ def synthetic_log(stats, lithology = False, seed=42):
 
 
 def moving_average(curve, step=100):
-    """
-    Note: only works in odd step values, but it's very fast
+    """Note: only works in odd step values, but it's very fast
     """
     # Convert input curve to numpy array
     curve_array = np.array(curve)

@@ -5,7 +5,6 @@ from typing import Sequence, Tuple
 import numpy as np
 import numpy.typing as npt
 
-import matplotlib.pyplot as plt
 
 
 def _tcrop(t: npt.ArrayLike) -> npt.ArrayLike:
@@ -30,7 +29,8 @@ def getOrmsby(f: Sequence[float] = (5,10,40,50),
         Number of samples       
     Dt : obj:`float`, optional
         Sampling in milisseconds
-    Returns
+
+    Returns:
     -------
     wav : :obj:`numpy.ndarray`
         Wavelet
@@ -48,7 +48,7 @@ def getOrmsby(f: Sequence[float] = (5,10,40,50),
     term1 = (pif[3]*np.sinc(f[3]*t))**2 - (pif[2]*np.sinc(f[2]*t))**2
     term2 = (pif[1]*np.sinc(f[1]*t))**2 - (pif[0]*np.sinc(f[0]*t))**2
 
-    wav   = term1/den1 - term2/den2;
+    wav   = term1/den1 - term2/den2
     wav /= np.amax(wav)
     return t, wav
 

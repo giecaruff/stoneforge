@@ -2,7 +2,6 @@ import numpy as np
 import numpy.typing as npt
 import pickle
 import json
-import warnings
 import os
 
 from sklearn.naive_bayes import GaussianNB
@@ -12,8 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
 
 ML_METHODS = [

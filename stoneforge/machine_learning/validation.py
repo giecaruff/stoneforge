@@ -1,24 +1,16 @@
 import numpy as np
 import numpy.typing as npt
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import json
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import StandardScaler
-from . import fit
-from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import LabelEncoder
 
 def saves(file, name):
     with open(name+'.json', 'w') as write_file:

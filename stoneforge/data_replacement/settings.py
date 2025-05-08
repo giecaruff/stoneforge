@@ -1,8 +1,5 @@
-import numpy as np
-import numpy.typing as npt
 import json
 import pickle
-import warnings
 import os
 
 # TODO: if method is not listed do not execute and gives error to the user
@@ -33,7 +30,7 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
     if method == "linear_regression_simple" or method  =="linear_regression_polynomial":
         new_settings = {}
         overall_settings = {}
-        if not 'degree' in kwargs:
+        if 'degree' not in kwargs:
             
             #if path:
             #    saves({'degree':1}, os.path.join(path, 'polinomial'))
