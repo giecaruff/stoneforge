@@ -129,8 +129,8 @@ def test_xgboost():
 
 # %% ============================================================== #
 
-def test_catboost():
-    _test.test_method("catboost_regression")
-    assert True
+#def test_catboost():
+#    _test.test_method("catboost_regression")
+#    assert True
 
 # %% ============================================================== #

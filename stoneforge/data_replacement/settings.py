@@ -15,7 +15,7 @@ LR_METHODS = [
     "random_forest_regression",
     'lightgbm_regression',
     'xgboost_regression',
-    'catboost_regression'
+    #'catboost_regression'
 ]
 
 def methods():
