@@ -25,6 +25,10 @@ jobs:
 
       - name: Install the project
         run: uv sync --all-extras --dev
+    
+      - name: Build the project
+        run: uv build --no-sources
+
 
       - name: Publish to PyPI
         env:
