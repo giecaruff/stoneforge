@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Install jq
         run: sudo apt-get install -y jq
+
 
       - name: Check if source branch is 'development'
         run: |
@@ -20,7 +22,6 @@ jobs:
           
           # Check if the source branch is 'development'
           if [ "$SOURCE_BRANCH" != "development" ]; then
-            echo "ERROR: Pull request source branch must be 'development'."
             echo "Please create the pull request from the 'development' branch."
             exit 1
           fi
