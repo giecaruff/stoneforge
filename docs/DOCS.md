@@ -15,3 +15,5 @@ Makefile clean   — Limpa a documentação gerada
 Makefile html    — Gera a documentação HTML
 Makefile open    — Abre a documentação no navegador
 ```
+
+This process is automatic on push to main branch.
