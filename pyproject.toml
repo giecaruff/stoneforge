@@ -62,7 +62,7 @@ dev = [
 
 [tool.hatch.build]
 include = ["stoneforge/**"]  # Include the main package
-exclude = ["tests", "docs"]  # Exclude unnecessary files
+exclude = ["tests", "docs", "examples"]  # Exclude unnecessary files
 
 [tool.uv]
 package = true
