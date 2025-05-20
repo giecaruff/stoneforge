@@ -327,7 +327,7 @@ def porosity(method: str = "density", **kwargs):
     if method == "density":
         required = ["rhob", "rhom", "rhof"]
     elif method == "neutron":
-        required = ["nphi", "vsh", "nphi_sh"]
+        required = ["nphi", "vsh", "phish"]
     elif method == "neutron-density":
         required = ["phid", "phin"]
     elif method == "sonic":
