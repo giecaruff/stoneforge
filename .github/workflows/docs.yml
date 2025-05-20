@@ -24,9 +24,7 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Rodar Makefile da documentação
-        run: |
-          cd docs
-          make html
+        run: uv run sphinx-build -b html docs docs/_build/html
 
       - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
