@@ -1,0 +1,887 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petrophysics &mdash; Stoneforge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Rock Physics" href="rockphysics.html" />
+    <link rel="prev" title="Quickstart" href="../usage/quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Stoneforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage/installation.html">Installing Stoneforge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../usage/installation.html#windows-linux-and-macos">Windows, Linux and macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Petrophysics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.petrophysics.porosity">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.petrophysics.shale_volume">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.correct_range"><code class="docutils literal notranslate"><span class="pre">correct_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rockphysics.html">Rock Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rockphysics.html#module-stoneforge.rock_physics.elastic_constants">Elastic Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.bulk_modulus"><code class="docutils literal notranslate"><span class="pre">bulk_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus"><code class="docutils literal notranslate"><span class="pre">compressional_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity"><code class="docutils literal notranslate"><span class="pre">compressional_wave_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.poisson"><code class="docutils literal notranslate"><span class="pre">poisson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_modulus"><code class="docutils literal notranslate"><span class="pre">shear_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_wave_velocity"><code class="docutils literal notranslate"><span class="pre">shear_wave_velocity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rockphysics.html#module-stoneforge.rock_physics.fluid_substitution">Fluid Substitution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann"><code class="docutils literal notranslate"><span class="pre">gassmann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann_subs"><code class="docutils literal notranslate"><span class="pre">gassmann_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.kdry"><code class="docutils literal notranslate"><span class="pre">kdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.ksat"><code class="docutils literal notranslate"><span class="pre">ksat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko"><code class="docutils literal notranslate"><span class="pre">mavko()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko_subs"><code class="docutils literal notranslate"><span class="pre">mavko_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.mdry"><code class="docutils literal notranslate"><span class="pre">mdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.fluid_substitution.msat"><code class="docutils literal notranslate"><span class="pre">msat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rockphysics.html#module-stoneforge.rock_physics.gem">Gem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.constant_cement"><code class="docutils literal notranslate"><span class="pre">constant_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.contact_cement"><code class="docutils literal notranslate"><span class="pre">contact_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.gem"><code class="docutils literal notranslate"><span class="pre">gem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.gem_model"><code class="docutils literal notranslate"><span class="pre">gem_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.hertz_mindlin"><code class="docutils literal notranslate"><span class="pre">hertz_mindlin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.soft_sand"><code class="docutils literal notranslate"><span class="pre">soft_sand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.gem.stiff_sand"><code class="docutils literal notranslate"><span class="pre">stiff_sand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rockphysics.html#module-stoneforge.rock_physics.rock_physics_bounds">Rock Physics Bounds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.hill"><code class="docutils literal notranslate"><span class="pre">hill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss"><code class="docutils literal notranslate"><span class="pre">reuss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pseudowells.html">Pseudo Wells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation"><code class="docutils literal notranslate"><span class="pre">MCS_spacial_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram"><code class="docutils literal notranslate"><span class="pre">analytical_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix"><code class="docutils literal notranslate"><span class="pre">cov_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation"><code class="docutils literal notranslate"><span class="pre">experimental_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram"><code class="docutils literal notranslate"><span class="pre">experimental_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model"><code class="docutils literal notranslate"><span class="pre">exponential_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc"><code class="docutils literal notranslate"><span class="pre">gamma_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model"><code class="docutils literal notranslate"><span class="pre">gaussian_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation"><code class="docutils literal notranslate"><span class="pre">modeled_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.p"><code class="docutils literal notranslate"><span class="pre">p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model"><code class="docutils literal notranslate"><span class="pre">spherical_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model"><code class="docutils literal notranslate"><span class="pre">variogram_model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.denormalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_variography()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.variography()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="machinelearning.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.fit">Fit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.load_settings"><code class="docutils literal notranslate"><span class="pre">load_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.predict">Predict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.fit_load"><code class="docutils literal notranslate"><span class="pre">fit_load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.methods"><code class="docutils literal notranslate"><span class="pre">methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tvdss.html">TVDSS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tvdss.html#calculate-tvdss">Calculate TVDSS</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Stoneforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Petrophysics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/petrophysics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="petrophysics">
+<h1>Petrophysics<a class="headerlink" href="#petrophysics" title="Link to this heading"></a></h1>
+<p>This section contains documentation for the Petrophysics module.</p>
+<section id="module-stoneforge.petrophysics.porosity">
+<span id="porosity"></span><span id="module-stoneforge.petrophysics"></span><h2>Porosity<a class="headerlink" href="#module-stoneforge.petrophysics.porosity" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.density_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">density_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhof</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#density_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.density_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the porosity from the bulk density log <a href="#id11"><span class="problematic" id="id1">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rhob</strong> (<em>array_like</em>) – Bulk density log.</p></li>
+<li><p><strong>rhom</strong> (<em>float</em>) – Matrix density.</p></li>
+<li><p><strong>rhof</strong> (<em>float</em>) – Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phid</strong> (<em>array_like</em>) – Total porosity based on bulk density.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Schön</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>rocks</strong> (<em>J. H.</em><em> (</em><em>2015</em><em>)</em><em>. Physical properties of</em>)</p></li>
+<li><p><strong>Elsevier.</strong> (<em>principles</em><em> of </em><em>petrophysics.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.effective_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">effective_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#effective_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.effective_porosity" title="Link to this definition"></a></dt>
+<dd><p>Calculate the effective porosity from the total porosity and shale <a href="#id12"><span class="problematic" id="id13">volume_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Shale volume.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phie</strong> (<em>array_like</em>) – Effective porosity for the aimed interval (more suitable for the bulk density porosity).</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>-----------</strong></p></li>
+<li><p><strong>Schön</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>rocks</strong> (<em>J. H.</em><em> (</em><em>2015</em><em>)</em><em>. Physical properties of</em>)</p></li>
+<li><p><strong>Elsevier.</strong> (<em>principles</em><em> of </em><em>petrophysics.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.gaymard_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">gaymard_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#gaymard_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.gaymard_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the effective porosity using Gaymard-Poupon <a href="#id14"><span class="problematic" id="id2">[1]_</span></a> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phid</strong> (<em>array_like</em>) – Density porosity (porosity calculated using density log)</p></li>
+<li><p><strong>phin</strong> (<em>int</em><em>, </em><em>float</em>) – Neutron porosity (porosity calculated using neutron log)</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phie</strong> (<em>array_like</em>) – Effective porosity using Gaymard-Poupon method</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Gaymard</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>R.</strong></p></li>
+<li><p><strong>Formation</strong> (<em>and A. Poupon. &quot;Response Of Neutron And</em>)</p></li>
+<li><p><strong>(</strong><strong>1968</strong><strong>)</strong><strong>.</strong> (<em>Density Logs In Hydrocarbon Bearing Formations.&quot; The Log Analyst 9</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.neutron_density_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_density_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#neutron_density_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.neutron_density_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity <a href="#id15"><span class="problematic" id="id3">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phid</strong> (<em>array_like</em>) – Effective porosity and shale free for the aimed interval using the bulk density.</p></li>
+<li><p><strong>phin</strong> (<em>array_like</em>) – Effective porosity from the neutron log for the aimed interval.</p></li>
+<li><p><strong>squared</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the porosity is calculated using the square root of the mean of the squares of the two porosities.
+If False, the porosity is calculated using the mean of the two porosities. Default is False.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phie</strong> (<em>array_like</em>) – Effective porosity from the Bulk Density porosity and Neutron porosity mean.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Todo</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.neutron_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nphi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phish</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#neutron_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.neutron_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the effective porosity from the neutron log <a href="#id16"><span class="problematic" id="id4">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>nphi</strong> (<em>array_like</em>) – Neutron porosity log.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Total volume of shale in the rock, chosen the most representative.</p></li>
+<li><p><strong>phi_nsh</strong> (<em>int</em><em>, </em><em>float</em>) – Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phin</strong> (<em>array_like</em>) – Effective porosity from the neutron log for the aimed interval.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Schön</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>rocks</strong> (<em>J. H.</em><em> (</em><em>2015</em><em>)</em><em>. Physical properties of</em>)</p></li>
+<li><p><strong>Elsevier.</strong> (<em>principles</em><em> of </em><em>petrophysics.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'density'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.porosity" title="Link to this definition"></a></dt>
+<dd><p>Compute porosity from well logs.</p>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>density</p></li>
+<li><p>neutron</p></li>
+<li><p>neutron-density</p></li>
+<li><p>sonic</p></li>
+<li><p>gaymard</p></li>
+<li><p>effective</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rhob</strong> (<em>array_like</em>) – Bulk density log. Required if <cite>method</cite> is “denisty”.</p></li>
+<li><p><strong>rhom</strong> (<em>int</em><em>, </em><em>float</em>) – Matrix density. Required if <cite>method</cite> is “denisty”.</p></li>
+<li><p><strong>rhof</strong> (<em>int</em><em>, </em><em>float</em>) – Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud). Required if <cite>method</cite> is “denisty”.</p></li>
+<li><p><strong>nphi</strong> (<em>array_like</em>) – Neutron log. Required if <cite>method</cite> is “neutron”.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Total volume of shale in the rock, chosen the most representative. Required if <cite>method</cite> is “neutron” or “effective”.</p></li>
+<li><p><strong>phi_nsh</strong> (<em>int</em><em>, </em><em>float</em>) – Apparent porosity read in the shales on and under the layer under study and with the same values used in φN. Required if <cite>method</cite> is “neutron”.</p></li>
+<li><p><strong>dt</strong> (<em>array_like</em>) – Sonic log reading (acoustic transit time (μsec/ft)). Required if <cite>method</cite> is “sonic”.</p></li>
+<li><p><strong>dtma</strong> (<em>int</em><em>, </em><em>float</em>) – Acoustic transit time of the matrix (μsec/ft). Required if <cite>method</cite> is “sonic”.</p></li>
+<li><p><strong>dtf</strong> (<em>int</em><em>, </em><em>float</em>) – Acoustic transit time of the fluids, usually water (μsec/ft). Required if <cite>method</cite> is “sonic”.</p></li>
+<li><p><strong>phid</strong> (<em>array_like</em>) – Density porosity (porosity calculated using density log). Required if <cite>method</cite> is “neutron-density” or “gaymard.</p></li>
+<li><p><strong>phin</strong> (<em>int</em><em>, </em><em>float</em>) – Neutron porosity (porosity calculated using neutron log). Required if <cite>method</cite> is “neutron-density” or “gaymard.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Total porisity. Required if <cite>method</cite> is “effective”.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul>
+<li><p>’density’</p></li>
+<li><p>’neutron’</p></li>
+<li><p>’neutron-density’</p></li>
+<li><p>’sonic’</p></li>
+<li><p>’gaymard’</p></li>
+<li><p>’effective’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘density’</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phi</strong> – Porosity log using the defined method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.sonic_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">sonic_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/porosity.html#sonic_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.sonic_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the Porosity from sonic using the Wyllie time-average equation <a href="#id17"><span class="problematic" id="id5">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dt</strong> (<em>array_like</em>) – Sonic log reading (acoustic transit time (μsec/ft))</p></li>
+<li><p><strong>dtma</strong> (<em>int</em><em>, </em><em>float</em>) – Acoustic transit time of the matrix (μsec/ft)</p></li>
+<li><p><strong>dtf</strong> (<em>int</em><em>, </em><em>float</em>) – Acoustic transit time of the fluids, usually water (μsec/ft)</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>phidt</strong> (<em>array_like</em>) – Porosity from sonic.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Wyllie</strong> (<em>..</em><em> [</em><em>1</em><em>] </em><em>M. R. J.</em>)</p></li>
+<li><p><strong>Gregory</strong> (<em>A. R.</em>)</p></li>
+<li><p><strong>Gardner</strong> (<em>and L. W.</em>)</p></li>
+<li><p><strong>(</strong><strong>1956</strong><strong>)</strong> (<em>41-70.</em>)</p></li>
+<li><p><strong>MEDIA</strong> (<em>&quot;ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS</em>)</p></li>
+<li><p><strong>21</strong> (<em>&quot; GEOPHYSICS</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.petrophysics.shale_volume">
+<span id="shale-volume"></span><h2>Shale Volume<a class="headerlink" href="#module-stoneforge.petrophysics.shale_volume" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.gammarayindex">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">gammarayindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#gammarayindex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.gammarayindex" title="Link to this definition"></a></dt>
+<dd><p>Calculates the gamma ray index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>igr</strong> (<em>array_like</em>) – The gamma ray index varying between 0.0 (clean sand) and 1.0 (shale).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale" title="Link to this definition"></a></dt>
+<dd><p>Compute the shale volume from gamma ray log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>vshale_linear</p></li>
+<li><p>vshale_larionov</p></li>
+<li><p>vshale_larionov_old</p></li>
+<li><p>vshale_clavier</p></li>
+<li><p>vshale_stieber</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul>
+<li><p>’linear’</p></li>
+<li><p>’larionov’</p></li>
+<li><p>’larionov_old’</p></li>
+<li><p>’clavier’</p></li>
+<li><p>’stieber’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘linear’</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the defined method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_clavier">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_clavier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_clavier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_clavier" title="Link to this definition"></a></dt>
+<dd><p>Estimate the shale volume from the Clavier model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the Clavier method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_larionov">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_larionov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_larionov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_larionov" title="Link to this definition"></a></dt>
+<dd><p>Estimate the shale volume from the Larionov model for young rocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the Larionov method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_larionov_old">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_larionov_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_larionov_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_larionov_old" title="Link to this definition"></a></dt>
+<dd><p>Estimate the shale volume from the Larionov model for old rocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the Larionov method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_linear">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_linear" title="Link to this definition"></a></dt>
+<dd><p>Estimate the shale volume from the linear model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the Linear method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_neu_den">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_neu_den</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">den</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl1_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl1_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.65</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl2_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl2_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clay_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.47</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clay_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.71</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_neu_den"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_neu_den" title="Link to this definition"></a></dt>
+<dd><p>Estimates the shale volume from neutron and density logs method <a href="#id18"><span class="problematic" id="id6">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>neu</strong> (<em>array_like</em>) – Neutron porosity log.</p></li>
+<li><p><strong>den</strong> (<em>array_like</em>) – Bulk density log.</p></li>
+<li><p><strong>cl1_n</strong> (<em>-0.15</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Neutron porosity value from rock matrix.</p></li>
+<li><p><strong>cl1_d</strong> (<em>2.65</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Bulk density value from rock matrix.</p></li>
+<li><p><strong>cl2_n</strong> (<em>1.00</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Neutron porosity value from fluid.</p></li>
+<li><p><strong>cl2_d</strong> (<em>1.10</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Bulk density value from fluid.</p></li>
+<li><p><strong>clay_n</strong> (<em>0.47</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Neutron porosity value from clay point.</p></li>
+<li><p><strong>clay_d</strong> (<em>2.71</em><em>, </em><em>int</em><em>, </em><em>float</em>) – Bulk density value from clay point.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale volume from neutron and density logs method.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Bhuyan</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>K.</strong></p></li>
+<li><p><strong>Passey</strong> (<em>&amp;</em>)</p></li>
+<li><p><strong>and</strong> (<em>Q. R.</em><em> (</em><em>1994</em><em>)</em><em>. Clay estimation from GR</em>)</p></li>
+<li><p><strong>Symposium.</strong> (<em>neutron-density porosity logs. In SPWLA 35th Annual Logging</em>)</p></li>
+<li><p><strong>OnePetro.</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_nrm">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_nrm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phie</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_nrm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_nrm" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.shale_volume.vshale_stieber">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_stieber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/shale_volume.html#vshale_stieber"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.shale_volume.vshale_stieber" title="Link to this definition"></a></dt>
+<dd><p>Estimate the shale volume from the Stieber model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gr</strong> (<em>array_like</em>) – Gamma Ray log.</p></li>
+<li><p><strong>grmin</strong> (<em>int</em><em>, </em><em>float</em>) – Clean sand GR value.</p></li>
+<li><p><strong>grmax</strong> (<em>int</em><em>, </em><em>float</em>) – Shale/clay value.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>vshale</strong> (<em>array_like</em>) – Shale Volume for the aimed interval using the Stieber method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.petrophysics.water_saturation">
+<span id="water-saturation"></span><h2>Water Saturation<a class="headerlink" href="#module-stoneforge.petrophysics.water_saturation" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.archie">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">archie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#archie"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.archie" title="Link to this definition"></a></dt>
+<dd><p>Estimate the Water Saturation from Archie’s <a href="#id19"><span class="problematic" id="id7">[1]_</span></a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rw</strong> (<em>int</em><em>, </em><em>float</em>) – Water resistivity.</p></li>
+<li><p><strong>rt</strong> (<em>array_like</em>) – Formation resistivity.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity.</p></li>
+<li><p><strong>a</strong> (<em>int</em><em>, </em><em>float</em>) – Tortuosity factor.</p></li>
+<li><p><strong>m</strong> (<em>int</em><em>, </em><em>float</em>) – Cementation exponent.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Saturation exponent.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>sw</strong> (<em>array_like</em>) – Water saturation from Archie equation.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>some</strong> (<em>..</em><em> [</em><em>1</em><em>] </em><em>Archie GE</em><em> (</em><em>1942</em><em>) </em><em>The electrical resistivity log as an aid in determining</em>)</p></li>
+<li><p><strong>AIME</strong> (<em>reservoir characteristics. Transactions</em><em> of </em><em>the</em>)</p></li>
+<li><p><strong>146</strong><strong>(</strong><strong>01</strong><strong>)</strong></p></li>
+<li><p><strong>54-62.</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.correct_range">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">correct_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#correct_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.correct_range" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.fertl">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">fertl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#fertl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.fertl" title="Link to this definition"></a></dt>
+<dd><p>Estimate water saturation from Fertl <a href="#id20"><span class="problematic" id="id8">[1]_</span></a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rw</strong> (<em>int</em><em>, </em><em>float</em>) – Water resistivity.</p></li>
+<li><p><strong>rt</strong> (<em>array_like</em>) – True resistivity.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity (must be effective).</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Clay volume log.</p></li>
+<li><p><strong>a</strong> (<em>int</em><em>, </em><em>float</em>) – Tortuosity factor.</p></li>
+<li><p><strong>m</strong> (<em>int</em><em>, </em><em>float</em>) – Cementation exponent.</p></li>
+<li><p><strong>alpha</strong> (<em>int</em><em>, </em><em>float</em>) – Alpha parameter from Fertl equation.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>fertl</strong> (<em>array_like</em>) – Water saturation from Fertl equation.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Fertl</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>) – In SPWLA 16th Annual Logging Symposium. OnePetro.</p></li>
+<li><p><strong>(</strong><strong>1975</strong> (<em>W. H.</em>) – In SPWLA 16th Annual Logging Symposium. OnePetro.</p></li>
+<li><p><strong>wells.</strong> (<em>June</em><em>)</em><em>. Shaly sand analysis in development</em>) – In SPWLA 16th Annual Logging Symposium. OnePetro.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.indonesia">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">indonesia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#indonesia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.indonesia" title="Link to this definition"></a></dt>
+<dd><p>Estimate water saturation from Poupon-Leveaux (Indonesia) <a href="#id21"><span class="problematic" id="id9">[1]_</span></a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rw</strong> (<em>int</em><em>, </em><em>float</em>) – Water resistivity.</p></li>
+<li><p><strong>rt</strong> (<em>array_like</em>) – True resistivity.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Clay volume log.</p></li>
+<li><p><strong>a</strong> (<em>int</em><em>, </em><em>float</em>) – Tortuosity factor.</p></li>
+<li><p><strong>m</strong> (<em>int</em><em>, </em><em>float</em>) – Cementation exponent.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Saturation exponent.</p></li>
+<li><p><strong>rsh</strong> (<em>float</em>) – Clay resistivity.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>indonesia</strong> (<em>array_like</em>) – Water saturation from Poupon-Leveaux equation.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Poupon</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Leveaux</strong> (<em>A. and</em>)</p></li>
+<li><p><strong>Formations.</strong> (<em>J.</em><em> (</em><em>1971</em><em>) </em><em>Evaluation</em><em> of </em><em>Water Saturation in Shaly</em>)</p></li>
+<li><p><strong>Analyst</strong> (<em>The Log</em>)</p></li>
+<li><p><strong>12</strong></p></li>
+<li><p><strong>1-2.</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.simandoux">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">simandoux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#simandoux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.simandoux" title="Link to this definition"></a></dt>
+<dd><p>Estimate water saturation from Simandoux <a href="#id22"><span class="problematic" id="id10">[1]_</span></a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rw</strong> (<em>int</em><em>, </em><em>float</em>) – Water resistivity.</p></li>
+<li><p><strong>rt</strong> (<em>array_like</em>) – True resistivity.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity.</p></li>
+<li><p><strong>a</strong> (<em>int</em><em>, </em><em>float</em>) – Tortuosity factor.</p></li>
+<li><p><strong>m</strong> (<em>int</em><em>, </em><em>float</em>) – Cementation exponent.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Saturation exponent.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Clay volume log.</p></li>
+<li><p><strong>rsh</strong> (<em>int</em><em>, </em><em>float</em>) – Clay resistivity.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>sw</strong> (<em>array_like</em>) – Water saturation from Simandoux equation.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>des</strong> (<em>..</em><em> [</em><em>1</em><em>] </em><em>Simandoux P</em><em> (</em><em>1963</em><em>) </em><em>Measures die techniques an milieu application a measure</em>)</p></li>
+<li><p><strong>eau</strong> (<em>saturation en</em>)</p></li>
+<li><p><strong>Francais</strong> (<em>etude du comportement de massifs agrileux. Review du’Institute</em>)</p></li>
+<li><p><strong>Issue</strong><strong>)</strong> (<em>du Patrole 18</em><em>(</em><em>Supplemen-tary</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.water_saturation.water_saturation">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.water_saturation.</span></span><span class="sig-name descname"><span class="pre">water_saturation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'archie'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/petrophysics/water_saturation.html#water_saturation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.water_saturation.water_saturation" title="Link to this definition"></a></dt>
+<dd><p>Compute water saturation from resistivity log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>archie</p></li>
+<li><p>simandoux</p></li>
+<li><p>indonesia</p></li>
+<li><p>fertl</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rw</strong> (<em>int</em><em>, </em><em>float</em>) – Water resistivity.</p></li>
+<li><p><strong>rt</strong> (<em>array_like</em>) – True resistivity.</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity (must be effective).</p></li>
+<li><p><strong>a</strong> (<em>int</em><em>, </em><em>float</em>) – Tortuosity factor.</p></li>
+<li><p><strong>m</strong> (<em>int</em><em>, </em><em>float</em>) – Cementation exponent.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Saturation exponent. Required if <cite>method</cite> is “archie”, “simandoux” or
+“indonesia”.</p></li>
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Clay volume log. Required if <cite>method</cite> is “simandoux”, “indonesia” or
+“fertl”.</p></li>
+<li><p><strong>rsh</strong> (<em>float</em>) – Clay resistivity. Required if <cite>method</cite> is “simandoux” or “indonesia”.</p></li>
+<li><p><strong>alpha</strong> (<em>array_like</em>) – Alpha parameter from Fertl equation. Required if <cite>method</cite> is “fertl”</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul>
+<li><p>’archie’</p></li>
+<li><p>’simandoux’</p></li>
+<li><p>’indonesia’</p></li>
+<li><p>’fertl</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘archie’</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>water_saturation</strong> (<em>array_like</em>) – Water saturation for the aimed interval using the defined method.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../usage/quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rockphysics.html" class="btn btn-neutral float-right" title="Rock Physics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

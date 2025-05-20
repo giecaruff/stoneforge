@@ -1,0 +1,1097 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Physics &mdash; Stoneforge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pseudo Wells" href="pseudowells.html" />
+    <link rel="prev" title="Petrophysics" href="petrophysics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Stoneforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage/installation.html">Installing Stoneforge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../usage/installation.html#windows-linux-and-macos">Windows, Linux and macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/installation.html#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="petrophysics.html">Petrophysics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="petrophysics.html#module-stoneforge.petrophysics.porosity">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="petrophysics.html#module-stoneforge.petrophysics.shale_volume">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="petrophysics.html#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.correct_range"><code class="docutils literal notranslate"><span class="pre">correct_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="petrophysics.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rock Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.rock_physics.elastic_constants">Elastic Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.bulk_modulus"><code class="docutils literal notranslate"><span class="pre">bulk_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.compressional_modulus"><code class="docutils literal notranslate"><span class="pre">compressional_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity"><code class="docutils literal notranslate"><span class="pre">compressional_wave_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.poisson"><code class="docutils literal notranslate"><span class="pre">poisson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.shear_modulus"><code class="docutils literal notranslate"><span class="pre">shear_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.elastic_constants.shear_wave_velocity"><code class="docutils literal notranslate"><span class="pre">shear_wave_velocity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.rock_physics.fluid_substitution">Fluid Substitution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.gassmann"><code class="docutils literal notranslate"><span class="pre">gassmann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.gassmann_subs"><code class="docutils literal notranslate"><span class="pre">gassmann_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.kdry"><code class="docutils literal notranslate"><span class="pre">kdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.ksat"><code class="docutils literal notranslate"><span class="pre">ksat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.mavko"><code class="docutils literal notranslate"><span class="pre">mavko()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.mavko_subs"><code class="docutils literal notranslate"><span class="pre">mavko_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.mdry"><code class="docutils literal notranslate"><span class="pre">mdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.fluid_substitution.msat"><code class="docutils literal notranslate"><span class="pre">msat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.rock_physics.gem">Gem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.constant_cement"><code class="docutils literal notranslate"><span class="pre">constant_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.contact_cement"><code class="docutils literal notranslate"><span class="pre">contact_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.gem"><code class="docutils literal notranslate"><span class="pre">gem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.gem_model"><code class="docutils literal notranslate"><span class="pre">gem_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.hertz_mindlin"><code class="docutils literal notranslate"><span class="pre">hertz_mindlin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.soft_sand"><code class="docutils literal notranslate"><span class="pre">soft_sand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.gem.stiff_sand"><code class="docutils literal notranslate"><span class="pre">stiff_sand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.rock_physics.rock_physics_bounds">Rock Physics Bounds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.rock_physics_bounds.hill"><code class="docutils literal notranslate"><span class="pre">hill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.rock_physics_bounds.reuss"><code class="docutils literal notranslate"><span class="pre">reuss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pseudowells.html">Pseudo Wells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation"><code class="docutils literal notranslate"><span class="pre">MCS_spacial_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram"><code class="docutils literal notranslate"><span class="pre">analytical_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix"><code class="docutils literal notranslate"><span class="pre">cov_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation"><code class="docutils literal notranslate"><span class="pre">experimental_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram"><code class="docutils literal notranslate"><span class="pre">experimental_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model"><code class="docutils literal notranslate"><span class="pre">exponential_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc"><code class="docutils literal notranslate"><span class="pre">gamma_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model"><code class="docutils literal notranslate"><span class="pre">gaussian_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation"><code class="docutils literal notranslate"><span class="pre">modeled_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.p"><code class="docutils literal notranslate"><span class="pre">p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model"><code class="docutils literal notranslate"><span class="pre">spherical_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model"><code class="docutils literal notranslate"><span class="pre">variogram_model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.denormalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_variography()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.variography()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="machinelearning.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.fit">Fit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.load_settings"><code class="docutils literal notranslate"><span class="pre">load_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.fit.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.predict">Predict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.fit_load"><code class="docutils literal notranslate"><span class="pre">fit_load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.predict.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="machinelearning.html#module-stoneforge.machine_learning.settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.methods"><code class="docutils literal notranslate"><span class="pre">methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="machinelearning.html#stoneforge.machine_learning.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tvdss.html">TVDSS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tvdss.html#calculate-tvdss">Calculate TVDSS</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Stoneforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Rock Physics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/rockphysics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rock-physics">
+<h1>Rock Physics<a class="headerlink" href="#rock-physics" title="Link to this heading"></a></h1>
+<p>This section contains documentation for the Rock Physics module.</p>
+<section id="module-stoneforge.rock_physics.elastic_constants">
+<span id="elastic-constants"></span><span id="module-stoneforge.rock_physics"></span><h2>Elastic Constants<a class="headerlink" href="#module-stoneforge.rock_physics.elastic_constants" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.bulk_modulus">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">bulk_modulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#bulk_modulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.bulk_modulus" title="Link to this definition"></a></dt>
+<dd><p>Computes the bulk modulus using density, shear wave velocity and compressional wave velocity.</p>
+<p>Parameters
+rhob : array_like, float</p>
+<blockquote>
+<div><p>Density data in g/cm³.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>vp<span class="classifier">array_like, float</span></dt><dd><p>Compressional wave velocity data in km/s.</p>
+</dd>
+<dt>vs<span class="classifier">array_like, float</span></dt><dd><p>Shear wave velocity data in km/s.</p>
+</dd>
+</dl>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<p>:
+K : array_like, float</p>
+<blockquote>
+<div><p>Bulk modulus data in Pascal unit.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h3>References:<a class="headerlink" href="#references" title="Link to this heading"></a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Simm, R., &amp; Bacon, M. (2014). Seismic Amplitude: An Interpreter’s Handbook.</p>
+</aside>
+</aside>
+<p>Cambridge University Press.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.compressional_modulus">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">compressional_modulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#compressional_modulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.compressional_modulus" title="Link to this definition"></a></dt>
+<dd><p>Computes the Compressional modulus using density and compressional wave velocity</p>
+<p>Parameters
+rhob : array_like, float</p>
+<blockquote>
+<div><p>Density data in g/cm³.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>vp: array_like, float</dt><dd><p>Compressional wave velocity in km/s².</p>
+</dd>
+</dl>
+<section id="id2">
+<h3>Returns:<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>:
+M : array_like, float</p>
+<blockquote>
+<div><p>Compressional modulus data Pascal (Pa).</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h3>References:<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Simm, R., &amp; Bacon, M. (2014). Seismic Amplitude: An Interpreter’s Handbook.</p>
+</aside>
+</aside>
+<p>Cambridge University Press.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.compressional_wave_velocity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">compressional_wave_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#compressional_wave_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity" title="Link to this definition"></a></dt>
+<dd><p>Computes the compressional wave velocity.</p>
+<p>Parameters
+method : str</p>
+<blockquote>
+<div><dl class="simple">
+<dt>The two elastic moduli used to the estimation. Should be one of:</dt><dd><ul class="simple">
+<li><p>“rhob_and_g_and_k” for density and shear moduli and bolk moduli</p></li>
+<li><p>“rhob_and_m” for density and compressional modulus</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<hr class="docutils" />
+<section id="id5">
+<h3>Returns:<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>:
+VP : int, float, array_like</p>
+<blockquote>
+<div><p>compressional wave velocity.</p>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>References:<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id7" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Simm, R., &amp; Bacon, M. (2014). Seismic Amplitude: An Interpreter’s Handbook.</p>
+</aside>
+</aside>
+<p>Cambridge University Press.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.poisson">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#poisson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.poisson" title="Link to this definition"></a></dt>
+<dd><p>Computes the Poisson ratio using two elastic moduli.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em>) – <dl class="simple">
+<dt>The two elastic moduli used to the estimation. Should be one of:</dt><dd><ul>
+<li><p>”k_and_g” for bulk and shear moduli</p></li>
+<li><p>”vp_and_vs” for P-wave and S-wave velocities</p></li>
+<li><p>”e_and_k” for Young’s and bulk moduli</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>selected</strong> (<em>In the case where &quot;k_and_g&quot; is</em>)</p></li>
+<li><p><strong>both</strong> (<em>the kwargs must contain</em>)</p></li>
+<li><p><strong>[</strong><strong>&quot;k&quot;</strong> (<em>k and g parameters</em><em> (</em><em>kwargs =</em>)</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>v</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>array_like</em>) – Poisson ratio.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Simm</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>R.</strong> (<em>An Interpreter's Handbook.</em>)</p></li>
+<li><p><strong>Bacon</strong> (<em>&amp;</em>)</p></li>
+<li><p><strong>Amplitude</strong> (<em>M.</em><em> (</em><em>2014</em><em>)</em><em>. Seismic</em>)</p></li>
+<li><p><strong>Press.</strong> (<em>Cambridge University</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.shear_modulus">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">shear_modulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#shear_modulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.shear_modulus" title="Link to this definition"></a></dt>
+<dd><p>Computes the shear modulus using density and s wave velocity.</p>
+<p>Parameters
+rhob : array_like, float</p>
+<blockquote>
+<div><p>Density data in g/cm³.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>vp<span class="classifier">array_like, float</span></dt><dd><p>Compressional wave velocity data in km/s.</p>
+</dd>
+</dl>
+<section id="id8">
+<h3>Returns:<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>:
+U : array_like, float</p>
+<blockquote>
+<div><p>Shear modulus data in Pascal unit.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h3>References:<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id10" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Simm, R., &amp; Bacon, M. (2014). Seismic Amplitude: An Interpreter’s Handbook.</p>
+</aside>
+</aside>
+<p>Cambridge University Press.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.elastic_constants.shear_wave_velocity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.elastic_constants.</span></span><span class="sig-name descname"><span class="pre">shear_wave_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/elastic_constants.html#shear_wave_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.elastic_constants.shear_wave_velocity" title="Link to this definition"></a></dt>
+<dd><p>Computes the shear wave velocity using density and shear modulus.</p>
+<p>Parameters
+rhob : array_like, float</p>
+<blockquote>
+<div><p>Density data in g/cm³.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>u: array_like, float</dt><dd><p>Shear modulus data in Pascal unit.</p>
+</dd>
+</dl>
+<section id="id11">
+<h3>Returns:<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>:
+VS : array_like, float</p>
+<blockquote>
+<div><p>Shear wave velocity data km/s.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h3>References:<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id13" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Simm, R., &amp; Bacon, M. (2014). Seismic Amplitude: An Interpreter’s Handbook.</p>
+</aside>
+</aside>
+<p>Cambridge University Press.</p>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.rock_physics.fluid_substitution">
+<span id="fluid-substitution"></span><h2>Fluid Substitution<a class="headerlink" href="#module-stoneforge.rock_physics.fluid_substitution" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.gassmann">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">gassmann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ksat_direct'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#gassmann"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.gassmann" title="Link to this definition"></a></dt>
+<dd><p>Compute Gassmann’ equations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>kdry</p></li>
+<li><p>ksat</p></li>
+<li><p>gassmann_subs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ks</strong> (<em>array_like</em>) – Bulk modulus of solid phase.</p></li>
+<li><p><strong>kdry</strong> (<em>array_like</em>) – Bulk modulus of the dry-rock. Required if <cite>method</cite> is ksat.</p></li>
+<li><p><strong>ksatA</strong> (<em>array_like</em>) – Bulk modulus of the rock saturated with fluid A. Required if method is
+<cite>ksat</cite> or <cite>gassmann_subs</cite>.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A. Required if method is <cite>kdry</cite> or
+<cite>gassmann_subs</cite>.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B. Required if method is <cite>ksat</cite> or
+<cite>gassmann_subs</cite>.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used. Should be one of</dt><dd><ul>
+<li><p>’kdry’</p></li>
+<li><p>’ksat’</p></li>
+<li><p>’ksat_direct’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘gassmann_subs’.</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>ksat</strong> (<em>array_like</em>) – Bulk modulus of the rock saturated with fluid B.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.gassmann_subs">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">gassmann_subs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksatA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#gassmann_subs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.gassmann_subs" title="Link to this definition"></a></dt>
+<dd><p>Fluid substitution using Gassmann’ equation without calculating
+dry-rock bulk modulus <a href="#id25"><span class="problematic" id="id14">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ks</strong> (<em>array_like</em>) – Bulk modulus of solid phase.</p></li>
+<li><p><strong>ksatA</strong> (<em>array_like</em>) – Bulk modulus of the rock saturated with fluid A.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>ksat</strong> (<em>array_like</em>) – Bulk modulus of rock saturated with fluid B.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Avseth</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Per</strong></p></li>
+<li><p><strong>Mukerji</strong> (<em>Tapan</em>)</p></li>
+<li><p><strong>seismic</strong> (<em>and Gary Mavko. Quantitative</em>)</p></li>
+<li><p><strong>interpretation</strong> (<em>Applying rock physics tools to reduce interpretation risk.</em>)</p></li>
+<li><p><strong>press</strong> (<em>Cambridge university</em>)</p></li>
+<li><p><strong>2005.</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.kdry">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">kdry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ksatA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidA</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#kdry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.kdry" title="Link to this definition"></a></dt>
+<dd><p>Calculate the dry-rock bulk modulus using Gassmann’ <a href="#id26"><span class="problematic" id="id15">[1]_</span></a> equation .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ks</strong> (<em>array_like</em>) – Bulk modulus of solid phase.</p></li>
+<li><p><strong>ksatA</strong> (<em>array_like</em>) – Bulk modulus of the rock saturated with fluid A.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>kdry</strong> (<em>array_like</em>) – Dry-rock bulk modulus.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.ksat">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">ksat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kdry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#ksat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.ksat" title="Link to this definition"></a></dt>
+<dd><p>Calculate the bulk modulus of the rock saturated with fluid B <a href="#id27"><span class="problematic" id="id16">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ks</strong> (<em>array_like</em>) – Bulk modulus of solid phase.</p></li>
+<li><p><strong>kdry</strong> (<em>array_like</em>) – Bulk modulus of the dry-rock.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>ksat</strong> (<em>array_like</em>) – Bulk modulus of the rock saturated with fluid B.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.mavko">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">mavko</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'msat_direct'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#mavko"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.mavko" title="Link to this definition"></a></dt>
+<dd><p>Compute Mavko’ equations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>mdry</p></li>
+<li><p>msat</p></li>
+<li><p>mavko_subs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ms</strong> (<em>array_like</em>) – Compressional modulus of solid phase.</p></li>
+<li><p><strong>mdry</strong> (<em>array_like</em>) – Compressional modulus of the dry-rock. Required if <cite>method</cite> is msat.</p></li>
+<li><p><strong>msatA</strong> (<em>array_like</em>) – Compressional modulus of the rock saturated with fluid A. Required if method is
+<cite>msat</cite> or <cite>mavko_subs</cite>.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A. Required if method is <cite>mdry</cite> or
+<cite>mavko_subs</cite>.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B. Required if method is <cite>msat</cite> or
+<cite>mavko_subs</cite>.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used. Should be one of</dt><dd><ul>
+<li><p>’mdry’</p></li>
+<li><p>’msat’</p></li>
+<li><p>’msat_direct’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘mavko_subs’.</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>msat</strong> (<em>array_like</em>) – Compressional modulus of the rock saturated with fluid B.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.mavko_subs">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">mavko_subs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msatA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#mavko_subs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.mavko_subs" title="Link to this definition"></a></dt>
+<dd><p>Fluid substitution using Mavko’ equation without calculating
+dry-rock bulk modulus <a href="#id28"><span class="problematic" id="id17">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ms</strong> (<em>array_like</em>) – Compressional modulus of solid phase.</p></li>
+<li><p><strong>msatA</strong> (<em>array_like</em>) – Compressional modulus of the rock saturated with fluid A.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>msat</strong> (<em>array_like</em>) – Compressional modulus of rock saturated with fluid B.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.mdry">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">mdry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msatA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidA</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#mdry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.mdry" title="Link to this definition"></a></dt>
+<dd><p>Calculate the dry-rock compressional modulus using Mavko’ <a href="#id29"><span class="problematic" id="id18">[1]_</span></a> equation .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ms</strong> (<em>array_like</em>) – Compressional modulus of solid phase.</p></li>
+<li><p><strong>msatA</strong> (<em>array_like</em>) – Compressional modulus of the rock saturated with fluid A.</p></li>
+<li><p><strong>kfluidA</strong> (<em>array_like</em>) – Bulk modulus of the fluid A.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>mdry</strong> (<em>array_like</em>) – Dry-rock compressional modulus.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.fluid_substitution.msat">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.fluid_substitution.</span></span><span class="sig-name descname"><span class="pre">msat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kfluidB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/fluid_substitution.html#msat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.fluid_substitution.msat" title="Link to this definition"></a></dt>
+<dd><p>Calculate the compressional modulus of the rock saturated with fluid B <a href="#id30"><span class="problematic" id="id19">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log.</p></li>
+<li><p><strong>ms</strong> (<em>array_like</em>) – Compressional modulus of solid phase.</p></li>
+<li><p><strong>mdry</strong> (<em>array_like</em>) – Compressional modulus of the dry-rock.</p></li>
+<li><p><strong>kfluidB</strong> (<em>array_like</em>) – Bulk modulus of the fluid B.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>msat</strong> (<em>array_like</em>) – Compressional modulus of the rock saturated with fluid B.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.rock_physics.gem">
+<span id="gem"></span><h2>Gem<a class="headerlink" href="#module-stoneforge.rock_physics.gem" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.constant_cement">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">constant_cement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deposition_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grain_surface'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#constant_cement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.constant_cement" title="Link to this definition"></a></dt>
+<dd><p>Computes the elastic moduli of the rock using the constant cement
+model <a href="#id31"><span class="problematic" id="id20">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>kc</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the cementing mineral.</p></li>
+<li><p><strong>gc</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the cementing mineral.</p></li>
+<li><p><strong>phib</strong> (<em>float</em>) – Porosity where the cement effect starts.</p></li>
+<li><p><strong>deposition_type</strong> (<em>str</em>) – Cement deposition framework: grain_surface or grain_contact</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>kconst</strong> (<em>float</em><em>, </em><em>array_like</em>) – Bulk modulus using the constant cement model.</p></li>
+<li><p><strong>gconst</strong> (<em>float</em><em>, </em><em>array_like</em>) – Shear modulus using the constant cement model.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.contact_cement">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">contact_cement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deposition_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grain_surface'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#contact_cement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.contact_cement" title="Link to this definition"></a></dt>
+<dd><p>Computes the elastic moduli of the rock using the contact cement
+model <a href="#id32"><span class="problematic" id="id21">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>kc</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the cementing mineral.</p></li>
+<li><p><strong>gc</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the cementing mineral.</p></li>
+<li><p><strong>deposition_type</strong> (<em>str</em>) – Cement deposition framework: grain_surface or grain_contact</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>kcem</strong> (<em>float</em><em>, </em><em>array_like</em>) – Bulk modulus using the contact cement model.</p></li>
+<li><p><strong>gcem</strong> (<em>float</em><em>, </em><em>array_like</em>) – Shear modulus using the contact cement model.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.gem">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">gem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'soft_sand'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#gem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.gem" title="Link to this definition"></a></dt>
+<dd><p>Computes one of the granular effective medium rock-physics models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>soft_sand</p></li>
+<li><p>stiff_sand</p></li>
+<li><p>contact cement</p></li>
+<li><p>constant cement</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>array_like</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>array_like</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>float</em>) – Hydrostatic confining pressure.</p></li>
+<li><p><strong>kc</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the cementing mineral.</p></li>
+<li><p><strong>gc</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the cementing mineral.</p></li>
+<li><p><strong>phib</strong> (<em>float</em>) – Porosity where the cement effect starts.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used. Must be one of</dt><dd><ul>
+<li><p>’soft_sand’</p></li>
+<li><p>’stiff_sand’</p></li>
+<li><p>’contact cement’</p></li>
+<li><p>’constant cement ‘</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘soft_sand’.</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>k</strong> – Bulk modulus using the rock-physics model.</p></li>
+<li><p><strong>g</strong> – Shear modulus using the rock-physics model.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.gem_model">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">gem_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'soft_sand'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#gem_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.gem_model" title="Link to this definition"></a></dt>
+<dd><p>Computes one of the granular effective medium rock-physics models for
+visualization in appy-gui.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>soft_sand</p></li>
+<li><p>stiff_sand</p></li>
+<li><p>contact cement</p></li>
+<li><p>constant cement</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>array_like</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>array_like</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>float</em>) – Hydrostatic confining pressure.</p></li>
+<li><p><strong>kc</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the cementing mineral.</p></li>
+<li><p><strong>gc</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the cementing mineral.</p></li>
+<li><p><strong>phib</strong> (<em>float</em>) – Porosity where the cement effect starts.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the method to be used. Must be one of</dt><dd><ul>
+<li><p>’soft_sand’</p></li>
+<li><p>’stiff_sand’</p></li>
+<li><p>’contact cement’</p></li>
+<li><p>’constant cement ‘</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘soft_sand’.</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>k</strong> – Bulk modulus using the rock-physics model.</p></li>
+<li><p><strong>g</strong> – Shear modulus using the rock-physics model.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.hertz_mindlin">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">hertz_mindlin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#hertz_mindlin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.hertz_mindlin" title="Link to this definition"></a></dt>
+<dd><p>Computes the elastic moduli of the original room-dry grain pack at
+critical porosity phic from Hertz-Mindlin contact theory <a href="#id33"><span class="problematic" id="id22">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>float</em>) – Hydrostatic confining pressure.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>khm</strong> (<em>float</em>) – Bulk modulus of the Hertz-Mindlin point.</p></li>
+<li><p><strong>ghm</strong> (<em>float</em>) – Shear modulus of the Hertz-Mindlin point.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.soft_sand">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">soft_sand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#soft_sand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.soft_sand" title="Link to this definition"></a></dt>
+<dd><p>Computes the elastic moduli of the rock using the soft sand model <a href="#id34"><span class="problematic" id="id23">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>float</em>) – Hydrostatic confining pressure.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>ksoft</strong> (<em>float</em><em>, </em><em>array_like</em>) – Bulk modulus using the soft sand model.</p></li>
+<li><p><strong>gsoft</strong> (<em>float</em><em>, </em><em>array_like</em>) – Shear modulus using the soft sand model.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.gem.stiff_sand">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.gem.</span></span><span class="sig-name descname"><span class="pre">stiff_sand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/gem.html#stiff_sand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.gem.stiff_sand" title="Link to this definition"></a></dt>
+<dd><p>Computes the elastic moduli of the rock using the stiff sand model <a href="#id35"><span class="problematic" id="id24">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>float</em>) – Bulk modulus of the mineral.</p></li>
+<li><p><strong>g</strong> (<em>int</em><em>, </em><em>float</em>) – Shear modulus of the mineral.</p></li>
+<li><p><strong>phi</strong> (<em>float</em><em>, </em><em>array_like</em>) – Porosity value or log.</p></li>
+<li><p><strong>phic</strong> (<em>float</em>) – Critical porosity.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>float</em>) – Coordination number.</p></li>
+<li><p><strong>p</strong> (<em>int</em><em>, </em><em>float</em>) – Hydrostatic confining pressure.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>kstiff</strong> (<em>float</em><em>, </em><em>array_like</em>) – Bulk modulus using the stiff sand model.</p></li>
+<li><p><strong>gstiff</strong> (<em>float</em><em>, </em><em>array_like</em>) – Shear modulus using the stiff sand model.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.rock_physics.rock_physics_bounds">
+<span id="rock-physics-bounds"></span><h2>Rock Physics Bounds<a class="headerlink" href="#module-stoneforge.rock_physics.rock_physics_bounds" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.rock_physics_bounds.hill">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.rock_physics_bounds.</span></span><span class="sig-name descname"><span class="pre">hill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/rock_physics_bounds.html#hill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.rock_physics_bounds.hill" title="Link to this definition"></a></dt>
+<dd><p>Calculate elastic modulus of the effective mineral using the
+Hill average.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>array_like</em>) – Fractions (proportions) of each mineral.</p></li>
+<li><p><strong>m</strong> (<em>array_like</em>) – Elastic modulus of each mineral.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>v</strong> (<em>array_like</em>) – Hill average.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.rock_physics_bounds.reuss">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.rock_physics_bounds.</span></span><span class="sig-name descname"><span class="pre">reuss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/rock_physics_bounds.html#reuss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.rock_physics_bounds.reuss" title="Link to this definition"></a></dt>
+<dd><p>Calculate elastic modulus of the effective mineral using the
+Reuss bound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>array_like</em>) – Fractions (proportions) of each mineral.</p></li>
+<li><p><strong>m</strong> (<em>array_like</em>) – Elastic modulus of each mineral.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>r</strong> (<em>array_like</em>) – Reuss bound.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.rock_physics.rock_physics_bounds.voigt">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.rock_physics.rock_physics_bounds.</span></span><span class="sig-name descname"><span class="pre">voigt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/rock_physics/rock_physics_bounds.html#voigt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.rock_physics.rock_physics_bounds.voigt" title="Link to this definition"></a></dt>
+<dd><p>Calculate elastic modulus of the effective mineral using the
+Reuss bound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>array_like</em>) – Fractions (proportions) of each mineral.</p></li>
+<li><p><strong>m</strong> (<em>array_like</em>) – Elastic modulus of each mineral.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>v</strong> (<em>array_like</em>) – Voigt bound.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="petrophysics.html" class="btn btn-neutral float-left" title="Petrophysics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pseudowells.html" class="btn btn-neutral float-right" title="Pseudo Wells" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

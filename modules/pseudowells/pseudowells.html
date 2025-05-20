@@ -1,0 +1,631 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pseudo Wells &mdash; Stoneforge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Stoneforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installing Stoneforge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../usage/installation.html#windows-linux-and-macos">Windows, Linux and macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../petrophysics.html">Petrophysics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../petrophysics.html#module-stoneforge.petrophysics.porosity">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../petrophysics.html#module-stoneforge.petrophysics.shale_volume">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../petrophysics.html#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.correct_range"><code class="docutils literal notranslate"><span class="pre">correct_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rockphysics.html">Rock Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.elastic_constants">Elastic Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.bulk_modulus"><code class="docutils literal notranslate"><span class="pre">bulk_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus"><code class="docutils literal notranslate"><span class="pre">compressional_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity"><code class="docutils literal notranslate"><span class="pre">compressional_wave_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.poisson"><code class="docutils literal notranslate"><span class="pre">poisson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_modulus"><code class="docutils literal notranslate"><span class="pre">shear_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_wave_velocity"><code class="docutils literal notranslate"><span class="pre">shear_wave_velocity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.fluid_substitution">Fluid Substitution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann"><code class="docutils literal notranslate"><span class="pre">gassmann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann_subs"><code class="docutils literal notranslate"><span class="pre">gassmann_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.kdry"><code class="docutils literal notranslate"><span class="pre">kdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.ksat"><code class="docutils literal notranslate"><span class="pre">ksat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko"><code class="docutils literal notranslate"><span class="pre">mavko()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko_subs"><code class="docutils literal notranslate"><span class="pre">mavko_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mdry"><code class="docutils literal notranslate"><span class="pre">mdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.msat"><code class="docutils literal notranslate"><span class="pre">msat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.gem">Gem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.constant_cement"><code class="docutils literal notranslate"><span class="pre">constant_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.contact_cement"><code class="docutils literal notranslate"><span class="pre">contact_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.gem"><code class="docutils literal notranslate"><span class="pre">gem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.gem_model"><code class="docutils literal notranslate"><span class="pre">gem_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.hertz_mindlin"><code class="docutils literal notranslate"><span class="pre">hertz_mindlin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.soft_sand"><code class="docutils literal notranslate"><span class="pre">soft_sand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.stiff_sand"><code class="docutils literal notranslate"><span class="pre">stiff_sand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.rock_physics_bounds">Rock Physics Bounds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.hill"><code class="docutils literal notranslate"><span class="pre">hill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss"><code class="docutils literal notranslate"><span class="pre">reuss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pseudowells.html">Pseudo Wells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation"><code class="docutils literal notranslate"><span class="pre">MCS_spacial_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram"><code class="docutils literal notranslate"><span class="pre">analytical_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix"><code class="docutils literal notranslate"><span class="pre">cov_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation"><code class="docutils literal notranslate"><span class="pre">experimental_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram"><code class="docutils literal notranslate"><span class="pre">experimental_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model"><code class="docutils literal notranslate"><span class="pre">exponential_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc"><code class="docutils literal notranslate"><span class="pre">gamma_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model"><code class="docutils literal notranslate"><span class="pre">gaussian_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation"><code class="docutils literal notranslate"><span class="pre">modeled_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.p"><code class="docutils literal notranslate"><span class="pre">p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model"><code class="docutils literal notranslate"><span class="pre">spherical_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model"><code class="docutils literal notranslate"><span class="pre">variogram_model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.denormalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_variography()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.variography()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../machinelearning.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.fit">Fit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.load_settings"><code class="docutils literal notranslate"><span class="pre">load_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.predict">Predict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.fit_load"><code class="docutils literal notranslate"><span class="pre">fit_load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.methods"><code class="docutils literal notranslate"><span class="pre">methods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tvdss.html">TVDSS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tvdss.html#calculate-tvdss">Calculate TVDSS</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Stoneforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Pseudo Wells</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/modules/pseudowells/pseudowells.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pseudo-wells">
+<h1>Pseudo Wells<a class="headerlink" href="#pseudo-wells" title="Link to this heading"></a></h1>
+<p>This section contains documentation for the Pseudo Wells module.</p>
+<section id="module-stoneforge.pseudo_wells.monte_carlo_simulations">
+<span id="monte-carlo-simulations"></span><span id="module-stoneforge.pseudo_wells"></span><h2>Monte Carlo Simulations<a class="headerlink" href="#module-stoneforge.pseudo_wells.monte_carlo_simulations" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">MCS_spacial_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#MCS_spacial_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation" title="Link to this definition"></a></dt>
+<dd><p>Determines n Monte Carlo Simulations (MCS) with spatial correlation <a href="#id13"><span class="problematic" id="id1">[1]_</span></a> for a given
+dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n</strong> (<em>integer</em>) – Number of simulations to be performed.</p></li>
+<li><p><strong>smooth_data</strong> (<em>array_like</em>) – a smoothed version of the data under examination, or its general trend.</p></li>
+<li><p><strong>cov</strong> (<em>array_like</em>) – Spatial symmetrical covariance matrix of the data.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>simulations</strong> (<em>array_like</em>) – n Monte Carlo simulations with spatial correlation for a given property,
+each line of this matrix represents a different simulation.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">analytical_variogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gama</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_guess</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#analytical_variogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram" title="Link to this definition"></a></dt>
+<dd><p>Fits the choosen analytical variogram function (model) to the experimental one <a href="#id14"><span class="problematic" id="id2">[1]_</span></a>,
+if no model is choosen, determines the best model to fit, comparing the Gaussian,
+Exponential and Spherical models <a href="#id15"><span class="problematic" id="id3">[2]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>distance</strong> (<em>array_like</em>) – 1D array containing all the possible distances between a pair of points
+in the dataset.</p></li>
+<li><p><strong>gama</strong> (<em>array_like</em>) – 1D experimental variogram of the data under examination.</p></li>
+<li><p><strong>model</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Analytical variogram model to be fitted.  Should be one of:</dt><dd><ul>
+<li><p>”exponential”: fits the exponential model</p></li>
+<li><p>”gaussian”: fits the gaussian model</p></li>
+<li><p>”spherical”: fits the spherical model</p></li>
+<li><p>”best-fit”: fits the three models above and verifies which one produces
+the smallest error.</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is “best-fit”.</p>
+</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>modeled_variogram</strong> (<em>array_like</em>) – The variogram model that has been choosen, or the variogram model that fits the
+best the experimental one.</p></li>
+<li><p><strong>coeficients</strong> (<em>array_like</em>) – The range, sill and nugget optimal values for the modeled variogram.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>https</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>GRANA</strong> (<em>..</em><em> [</em><em>2</em><em>]</em>)</p></li>
+<li><p><strong>MUKERJI</strong> (<em>Dario;</em>)</p></li>
+<li><p><strong>DOYEN</strong> (<em>Tapan;</em>)</p></li>
+<li><p><strong>Modeling</strong> (<em>Philippe. Seismic Reservoir</em>)</p></li>
+<li><p><strong>India</strong> (<em>Examples and Algorithms.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">cov_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#cov_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix" title="Link to this definition"></a></dt>
+<dd><p>Determines the 1D spatial symmetrical covariance matrix <a href="#id16"><span class="problematic" id="id4">[1]_</span></a> from a modeled
+correlation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) – 1D modeled correlation function of the data under examination.</p></li>
+<li><p><strong>var</strong> (<em>float</em>) – Variance (the square of the standard deviation) of the dataset.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>cov</strong> (<em>array_like</em>) – Spatial symmetrical covariance matrix of the data.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">experimental_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#experimental_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation" title="Link to this definition"></a></dt>
+<dd><p>Determines the 1D experimental correlation function <a href="#id17"><span class="problematic" id="id5">[1]_</span></a> for a dataset by calculating
+the Pearson correlation coefficient for each possible separation of samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> (<em>array_like</em>) – 1D dataset for which the experimental correlation function must be calculated.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – 1D experimental correlation function of the data under examination.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">experimental_variogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#experimental_variogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram" title="Link to this definition"></a></dt>
+<dd><p>Determines the 1D experimental variogram <a href="#id18"><span class="problematic" id="id6">[1]_</span></a> of a dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> (<em>array_like</em>) – 1D dataset for which the experimental variogram must be calculated.</p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – 1D experimental correlation function of the data under examination.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>gama</strong> (<em>array_like</em>) – 1D experimental variogram of the data under examination.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">exponential_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#exponential_variogram_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model" title="Link to this definition"></a></dt>
+<dd><p>Builds a variogram following the exponential model, using the correlation length, sill and nugget given <a href="#id19"><span class="problematic" id="id7">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>distance</strong> (<em>array_like</em>) – 1D array containing all the possible distances between a pair of points
+in the dataset.</p></li>
+<li><p><strong>correlation_length</strong> (<em>float</em>) – The range of the variogram, or the distance where it loses the correlation</p></li>
+<li><p><strong>sill</strong> (<em>float</em>) – The maximum value of the variogram, it is equivalent to the variance of the data</p></li>
+<li><p><strong>nugget</strong> (<em>float</em>) – The nugget effect, y value where the variogam begins</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – The variogram that follows the exponential model and has the given correlation length, sill and nugget</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>GRANA</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>MUKERJI</strong> (<em>Dario;</em>)</p></li>
+<li><p><strong>DOYEN</strong> (<em>Tapan;</em>)</p></li>
+<li><p><strong>Modeling</strong> (<em>Philippe. Seismic Reservoir</em>)</p></li>
+<li><p><strong>India</strong> (<em>Examples and Algorithms.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">gamma_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dif_curve</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#gamma_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">gaussian_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#gaussian_variogram_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model" title="Link to this definition"></a></dt>
+<dd><p>Builds a variogram following the gaussian model, using the correlation length, sill and nugget given <a href="#id20"><span class="problematic" id="id8">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>distance</strong> (<em>array_like</em>) – 1D array containing all the possible distances between a pair of points
+in the dataset.</p></li>
+<li><p><strong>correlation_length</strong> (<em>float</em>) – The range of the variogram, or the distance where it loses the correlation</p></li>
+<li><p><strong>sill</strong> (<em>float</em>) – The maximum value of the variogram, it is equivalent to the variance of the data</p></li>
+<li><p><strong>nugget</strong> (<em>float</em>) – The nugget effect, y value where the variogam begins</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – The variogram that follows the gaussian model and has the given correlation length, sill and nugget</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>GRANA</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>MUKERJI</strong> (<em>Dario;</em>)</p></li>
+<li><p><strong>DOYEN</strong> (<em>Tapan;</em>)</p></li>
+<li><p><strong>Modeling</strong> (<em>Philippe. Seismic Reservoir</em>)</p></li>
+<li><p><strong>India</strong> (<em>Examples and Algorithms.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">modeled_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gama</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#modeled_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation" title="Link to this definition"></a></dt>
+<dd><p>Determines the 1D modeled correlation function <a href="#id21"><span class="problematic" id="id9">[1]_</span></a> from a variogram model <a href="#id22"><span class="problematic" id="id10">[2]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>gama</strong> (<em>array_like</em>) – 1D analytical variogram model.</p></li>
+<li><p><strong>var</strong> (<em>float</em>) – variance (the square of the standard deviation) of the dataset.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – 1D modeled correlation function of the data under examination.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+<li><p><strong>https</strong> (<em>..</em><em> [</em><em>2</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.p">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.p" title="Link to this definition"></a></dt>
+<dd><p>Determines n Monte Carlo Simulations (MCS) using data1 and data2 as correlated
+variables <a href="#id23"><span class="problematic" id="id11">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n</strong> (<em>integer</em>) – Number of simulations to be performed.</p></li>
+<li><p><strong>data1</strong> (<em>array_like</em>) – A dataset that represents a given porperty, related to data2.</p></li>
+<li><p><strong>data2</strong> (<em>array_like</em>) – A dataset that represents a given porperty, related to data1.</p></li>
+<li><p><strong>smooth_data1</strong> (<em>array_like</em>) – A smoothed version of the data1, or its general trend.</p></li>
+<li><p><strong>smooth_data2</strong> (<em>array_like</em>) – A smoothed version of the data2, or its general trend.</p></li>
+<li><p><strong>cov</strong> (<em>array_like</em>) – Spatial symmetrical covariance matrix representing both data1 and data2.</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>simulations</strong> (<em>array_like</em>) – n Monte Carlo Simulations with correlated variables for data1 and n Monte
+Carlo Simulations with correlated variables for data2, in this order.</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>Dvorkin</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>Gutierrez</strong> (<em>J.;</em>)</p></li>
+<li><p><strong>Grana</strong> (<em>M. A.;</em>)</p></li>
+<li><p><strong>rock</strong> (<em>D. Seismic reflections of</em>)</p></li>
+<li><p><strong>[</strong><strong>S.l.</strong><strong>]</strong> (<em>properties.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">spherical_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#spherical_variogram_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model" title="Link to this definition"></a></dt>
+<dd><p>Builds a variogram following the spherical model, using the correlation length, sill and nugget given <a href="#id24"><span class="problematic" id="id12">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>distance</strong> (<em>array_like</em>) – 1D array containing all the possible distances between a pair of points
+in the dataset.</p></li>
+<li><p><strong>correlation_length</strong> (<em>float</em>) – The range of the variogram, or the distance where it loses the correlation</p></li>
+<li><p><strong>sill</strong> (<em>float</em>) – The maximum value of the variogram, it is equivalent to the variance of the data</p></li>
+<li><p><strong>nugget</strong> (<em>float</em>) – The nugget effect, y value where the variogam begins</p></li>
+<li><p><strong>Returns</strong></p></li>
+<li><p><strong>-------</strong></p></li>
+<li><p><strong>rho</strong> (<em>array_like</em>) – The variogram that follows the spherical model and has the given correlation length, sill and nugget</p></li>
+<li><p><strong>References</strong></p></li>
+<li><p><strong>----------</strong></p></li>
+<li><p><strong>GRANA</strong> (<em>..</em><em> [</em><em>1</em><em>]</em>)</p></li>
+<li><p><strong>MUKERJI</strong> (<em>Dario;</em>)</p></li>
+<li><p><strong>DOYEN</strong> (<em>Tapan;</em>)</p></li>
+<li><p><strong>Modeling</strong> (<em>Philippe. Seismic Reservoir</em>)</p></li>
+<li><p><strong>India</strong> (<em>Examples and Algorithms.</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dif</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization">
+<span class="sig-name descname"><span class="pre">denormalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.denormalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph">
+<span class="sig-name descname"><span class="pre">norm_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.norm_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography">
+<span class="sig-name descname"><span class="pre">norm_variography</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.norm_variography"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization">
+<span class="sig-name descname"><span class="pre">normalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.normalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography">
+<span class="sig-name descname"><span class="pre">variography</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/pseudo_wells/monte_carlo_simulations.html#variogram_model.variography"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
