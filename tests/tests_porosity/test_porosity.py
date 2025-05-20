@@ -25,8 +25,8 @@ def test_density(rhob, rhom, rhof):
 neutron_values = Parameters.sorted_values(Parameters.config_neutron)
 
 @pytest.mark.parametrize(neutron_values[1], neutron_values[0])
-def test_neutron(nphi, vsh, nphi_sh):
-    p = porosity(nphi = nphi, vsh = vsh, nphi_sh = nphi_sh,
+def test_neutron(nphi, vsh, phish):
+    p = porosity(nphi=nphi, vsh=vsh, phish=phish,
                         method = "neutron")
     assert any(p >= 0) and any(p <= 1) 
 

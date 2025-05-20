@@ -16,7 +16,7 @@ class Parameters:
     config_neutron = {
     "nphi":(0.0,1.0,"c"),
     "vsh":(0.0,1.0,"f"),
-    "nphi_sh":(0.0,1.0,"f"),
+    "phish":(0.0,1.0,"f"),
     }
 
     config_neutron_density = {
