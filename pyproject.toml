@@ -13,6 +13,7 @@ authors = [
     {name = "Ana Carolina"},
     {name = "Breno D. Chrispim"},
 ]
+license = "MIT"
 description = "Geophysics equations, algorithms and methods"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -33,23 +34,18 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Education",
     "Operating System :: Microsoft :: Windows :: Windows 10",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3"
 ]
 
 [project.urls]
 homepage = "https://github.com/giecaruff/stoneforge"
 
-[project.license]
-text = "MIT"
-
-
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [dependency-groups]
 dev = [
