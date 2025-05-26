@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-import numpy.typing as npt
 from typing import Annotated
 import warnings
 #from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
@@ -268,11 +267,11 @@ def porosity(method: Annotated[str, "Chosen porosity method"] = "density", **kwa
 
     This is a façade for the methods:
         - density: :func:`stoneforge.petrophysics.porosity.density_porosity`
-        - neutron
-        - neutron-density
-        - sonic
-        - gaymard
-        - effective
+        - neutron: :func:`stoneforge.petrophysics.porosity.neutron_porosity`
+        - neutron-density: :func:`stoneforge.petrophysics.porosity.neutron_density_porosity`
+        - sonic: :func:`stoneforge.petrophysics.porosity.sonic_porosity`
+        - gaymard: :func:`stoneforge.petrophysics.porosity.gaymard_porosity`
+        - effective: :func:`stoneforge.petrophysics.porosity.effective_porosity`
 
     Parameters
     ----------
