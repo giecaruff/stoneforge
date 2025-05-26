@@ -19,15 +19,14 @@ copyright = "2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF)"
 
 extensions = [
     "sphinx.ext.napoleon",
-    #"sphinx.ext.autodoc",
+    "sphinx.ext.autodoc",
     "sphinx_autodoc_typehints",
-    #"sphinx.ext.viewcode",
+    "sphinx.ext.viewcode",
 ]
 
 # -- HTML output -------------------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
-#html_static_path = ["_static"]
 
 # -- Customização de HTML ----------------------------------------------------
 
@@ -39,5 +38,4 @@ html_theme_options = {
 
 # -- Napoleon settings (para docstrings estilo Google/Numpy) -----------------
 
-#napoleon_google_docstring = True
 napoleon_numpy_docstring = True

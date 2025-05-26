@@ -22,7 +22,7 @@ def effective_porosity(
 
     Returns
     -------
-    nphie : np.array
+    phie : np.array
         Effective porosity for the aimed interval (more suitable for the bulk density porosity)
 
     References
@@ -263,7 +263,7 @@ _porosity_methods = {
     "effective": effective_porosity
 }
 
-def porosity(method: Annotated[np.array, "Chosen porosity method"] = "density", **kwargs) -> np.array:
+def porosity(method: Annotated[str, "Chosen porosity method"] = "density", **kwargs) -> np.array:
     """Compute porosity from well logs.
 
     This is a façade for the methods:
