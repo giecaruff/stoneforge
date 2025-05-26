@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """conf.py — Configuração do Sphinx para a documentação do projeto."""
 
 import os
@@ -17,16 +18,16 @@ copyright = "2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF)"
 # Note: The variable 'project_copyright' is used to avoid conflict with the built-in 'copyright'.
 
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx_autodoc_typehints",
     "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
+    #"sphinx.ext.autodoc",
+    "sphinx_autodoc_typehints",
+    #"sphinx.ext.viewcode",
 ]
 
 # -- HTML output -------------------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = ["_static"]
+#html_static_path = ["_static"]
 
 # -- Customização de HTML ----------------------------------------------------
 
@@ -36,8 +37,7 @@ html_theme_options = {
     "sticky_navigation": True,
 }
 
-
 # -- Napoleon settings (para docstrings estilo Google/Numpy) -----------------
 
-napoleon_google_docstring = True
+#napoleon_google_docstring = True
 napoleon_numpy_docstring = True
