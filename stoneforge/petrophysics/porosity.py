@@ -268,7 +268,7 @@ _porosity_methods = {
 }
 
 
-def porosity(method: str = "density", **kwargs):
+def porosity(method: Annotated[np.array, "Chosen porosity method"] = "density", **kwargs) -> np.array:
     """Compute porosity from well logs.
 
     This is a façade for the methods:
