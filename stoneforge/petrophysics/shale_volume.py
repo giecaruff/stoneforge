@@ -6,8 +6,8 @@ from typing import Annotated
 from .helpers import correct_petrophysic_estimation_range
 
 def gammarayindex(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                  grmin: Annotated[float, "Clean GR value"],
+                  grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Calculates the gamma ray index [1]_.
 
     Parameters
@@ -39,8 +39,8 @@ def gammarayindex(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_linear(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                  grmin: Annotated[float, "Clean GR value"],
+                  grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Estimate the shale volume from the linear model [1]_.
 
     Parameters
@@ -69,8 +69,8 @@ def vshale_linear(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_larionov_old(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                        grmin: Annotated[float, "Clean GR value"],
+                        grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Estimate the shale volume from the Larionov model for old rocks [1]_.
 
     Parameters
@@ -98,8 +98,8 @@ def vshale_larionov_old(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_larionov(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                    grmin: Annotated[float, "Clean GR value"],
+                    grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Estimate the shale volume from the Larionov model for young rocks [1]_.
 
     Parameters
@@ -128,8 +128,8 @@ def vshale_larionov(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_clavier(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                   grmin: Annotated[float, "Clean GR value"],
+                   grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Estimate the shale volume from the Clavier model [1]_.
 
     Parameters
@@ -158,8 +158,8 @@ def vshale_clavier(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_stieber(gr: Annotated[np.array, "Gamma Ray log"],
-    grmin: Annotated[float, "Clean GR value"],
-    grmax: Annotated[float, "hale/clay value"]) -> np.array:
+                   grmin: Annotated[float, "Clean GR value"],
+                   grmax: Annotated[float, "hale/clay value"]) -> np.array:
     """Estimate the shale volume from the Stieber model [1]_.
 
     Parameters
@@ -189,13 +189,13 @@ def vshale_stieber(gr: Annotated[np.array, "Gamma Ray log"],
 
 
 def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
-    rhob: Annotated[np.array, "Bulk density log"],
-    clean_n: Annotated[float, "Clean neutron point"] = -0.15,
-    clean_d: Annotated[float, "Clean density point"] = 2.65,
-    fluid_n: Annotated[float, "fluid neutron point"] = 1.00,
-    fluid_d: Annotated[float, "fluid density point"] = 1.10,
-    clay_n: Annotated[float, "Clay neutron point"] = 0.47,
-    clay_d: Annotated[float, "Clay density point"] = 2.71) -> np.array:
+                   rhob: Annotated[np.array, "Bulk density log"],
+                   clean_n: Annotated[float, "Clean neutron point"] = -0.15,
+                   clean_d: Annotated[float, "Clean density point"] = 2.65,
+                   fluid_n: Annotated[float, "fluid neutron point"] = 1.00,
+                   fluid_d: Annotated[float, "fluid density point"] = 1.10,
+                   clay_n: Annotated[float, "Clay neutron point"] = 0.47,
+                   clay_d: Annotated[float, "Clay density point"] = 2.71) -> np.array:
     """Estimates the shale volume from neutron and density logs method (three points method) [1]_.
 
     Parameters
@@ -235,7 +235,7 @@ def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
     return vshale
 
 def vshale_nrm(phit: Annotated[np.array, "Total porosity log"],
-    phie: Annotated[np.array, "Effective porosity log"]) -> np.array:
+               phie: Annotated[np.array, "Effective porosity log"]) -> np.array:
     """Estimate the shale volume from NMR curves [1]_.
 
     Parameters
