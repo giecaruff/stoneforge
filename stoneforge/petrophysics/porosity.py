@@ -7,8 +7,7 @@ import warnings
 from .helpers import correct_petrophysic_estimation_range
 
 def effective_porosity(phi: Annotated[np.array, "Porosity log"],
-                       vsh: Annotated[np.array, "Shale volume"]
-) -> np.array:
+                       vsh: Annotated[np.array, "Shale volume"]) -> np.array:
     """Calculate the effective porosity from the total porosity and shale volume [1]_.
 
     Parameters
