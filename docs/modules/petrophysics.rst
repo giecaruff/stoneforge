@@ -32,3 +32,8 @@ Water Saturation
     :members:
     :undoc-members:
     :show-inheritance:
+
+References
+----------------
+
+.. footbibliography::

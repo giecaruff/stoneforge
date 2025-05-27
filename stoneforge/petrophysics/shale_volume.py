@@ -8,7 +8,7 @@ from .helpers import correct_petrophysic_estimation_range
 def gammarayindex(gr: Annotated[np.array, "Gamma Ray log"],
                   grmin: Annotated[float, "Clean GR value"],
                   grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Calculates the gamma ray index [1]_.
+    """Calculates the gamma ray index :footcite:t:`schon1998physical`.
 
     Parameters
     ----------
@@ -23,10 +23,6 @@ def gammarayindex(gr: Annotated[np.array, "Gamma Ray log"],
     -------
     igr : array_like
         The gamma ray index varying between 0.0 (clean sand) and 1.0 (shale).
-        
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
     """
     if grmin == grmax:
         msg = "Division by zero. The value of grmin is equal to the value of grmax."
@@ -41,7 +37,7 @@ def gammarayindex(gr: Annotated[np.array, "Gamma Ray log"],
 def vshale_linear(gr: Annotated[np.array, "Gamma Ray log"],
                   grmin: Annotated[float, "Clean GR value"],
                   grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Estimate the shale volume from the linear model [1]_.
+    """Estimate the shale volume from the linear model :footcite:t:`schon1998physical`.
 
     Parameters
     ----------
@@ -56,22 +52,18 @@ def vshale_linear(gr: Annotated[np.array, "Gamma Ray log"],
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Linear method.
-        
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
+
     """ 
     vshale = gammarayindex(gr, grmin, grmax)
     vshale = correct_petrophysic_estimation_range(vshale)
   
-
     return vshale
 
 
 def vshale_larionov_old(gr: Annotated[np.array, "Gamma Ray log"],
                         grmin: Annotated[float, "Clean GR value"],
                         grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Estimate the shale volume from the Larionov model for old rocks [1]_.
+    """Estimate the shale volume from the Larionov model for old rocks :footcite:t:`larionov1969borehole, schon1998physical`.
 
     Parameters
     ----------
@@ -87,9 +79,6 @@ def vshale_larionov_old(gr: Annotated[np.array, "Gamma Ray log"],
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
         
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.33 * (2. ** (2. * igr) - 1)
@@ -100,7 +89,7 @@ def vshale_larionov_old(gr: Annotated[np.array, "Gamma Ray log"],
 def vshale_larionov(gr: Annotated[np.array, "Gamma Ray log"],
                     grmin: Annotated[float, "Clean GR value"],
                     grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Estimate the shale volume from the Larionov model for young rocks [1]_.
+    """Estimate the shale volume from the Larionov model for young rocks :footcite:t:`larionov1969borehole, schon1998physical`.
 
     Parameters
     ----------
@@ -115,10 +104,6 @@ def vshale_larionov(gr: Annotated[np.array, "Gamma Ray log"],
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Larionov method.
-
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 0.083 * (2 ** (3.7 * igr) - 1)
@@ -130,7 +115,7 @@ def vshale_larionov(gr: Annotated[np.array, "Gamma Ray log"],
 def vshale_clavier(gr: Annotated[np.array, "Gamma Ray log"],
                    grmin: Annotated[float, "Clean GR value"],
                    grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Estimate the shale volume from the Clavier model [1]_.
+    """Estimate the shale volume from the Clavier model :footcite:t:`clavier1971, schon1998physical`.
 
     Parameters
     ----------
@@ -145,10 +130,6 @@ def vshale_clavier(gr: Annotated[np.array, "Gamma Ray log"],
     -------
     vshale : array_like
         Shale Volume for the aimed interval using the Clavier method.
-        
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.    
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = 1.7 - np.sqrt(3.38 - (igr + 0.7) ** 2)
@@ -160,7 +141,7 @@ def vshale_clavier(gr: Annotated[np.array, "Gamma Ray log"],
 def vshale_stieber(gr: Annotated[np.array, "Gamma Ray log"],
                    grmin: Annotated[float, "Clean GR value"],
                    grmax: Annotated[float, "hale/clay value"]) -> np.array:
-    """Estimate the shale volume from the Stieber model [1]_.
+    """Estimate the shale volume from the Stieber model :footcite:t:`stieber1970, schon1998physical`.
 
     Parameters
     ----------
@@ -176,16 +157,12 @@ def vshale_stieber(gr: Annotated[np.array, "Gamma Ray log"],
     vshale : array_like
         Shale Volume for the aimed interval using the Stieber method.
 
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
     """
     igr = gammarayindex(gr, grmin, grmax)
     vshale = igr / (3 - 2 * igr)
     vshale = correct_petrophysic_estimation_range(vshale)
 
     return vshale
-
 
 
 def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
@@ -196,7 +173,7 @@ def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
                    fluid_d: Annotated[float, "fluid density point"] = 1.10,
                    clay_n: Annotated[float, "Clay neutron point"] = 0.47,
                    clay_d: Annotated[float, "Clay density point"] = 2.71) -> np.array:
-    """Estimates the shale volume from neutron and density logs method (three points method) [1]_.
+    """Estimates the shale volume from neutron and density logs method (three points method) :footcite:t:`passeybhuyan1994`.
 
     Parameters
     ----------
@@ -222,9 +199,6 @@ def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
     vshale : array_like
         Shale volume from neutron and density logs method.
 
-    References
-    ----------
-    .. [1] Bhuyan, K., & Passey, Q. R. (1994). Clay estimation from neutron-density porosity logs. In SPWLA 35th Annual Logging Symposium. OnePetro.
     """
     x1 = (fluid_d - clean_d) * (nphi - clean_n)
     x2 = (rhob - clean_d) * (fluid_n - clean_n)
@@ -236,7 +210,7 @@ def vshale_neu_den(nphi: Annotated[np.array, "Neutron porosity log"],
 
 def vshale_nrm(phit: Annotated[np.array, "Total porosity log"],
                phie: Annotated[np.array, "Effective porosity log"]) -> np.array:
-    """Estimate the shale volume from NMR curves [1]_.
+    """Estimate the shale volume from NMR curves :footcite:t:`passeybhuyan1994`.
 
     Parameters
     ----------
@@ -249,12 +223,8 @@ def vshale_nrm(phit: Annotated[np.array, "Total porosity log"],
     -------
     vshale : array_like
         Shale Volume for the aimed interval using NMR curves.
-        
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.    
-    """
 
+    """
     cbw = phie - phit
     vshale = cbw / phit
     vshale = correct_petrophysic_estimation_range(vshale)

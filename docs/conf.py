@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath("../stoneforge"))
 
 project = "Stoneforge"
 author = "APPy Team"
-copyright = "2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF)"
+copyright = "2024 GIECAR Laboratory, Universidade Federal Fluminense (UFF)"
 
 # -- General configuration ---------------------------------------------------
 
@@ -19,6 +19,7 @@ copyright = "2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF)"
 
 extensions = [
     "sphinx.ext.napoleon",
+    "sphinxcontrib.bibtex",
     "sphinx.ext.autodoc",
     "sphinx_autodoc_typehints",
     "sphinx.ext.viewcode",
@@ -39,3 +40,8 @@ html_theme_options = {
 # -- Napoleon settings (para docstrings estilo Google/Numpy) -----------------
 
 napoleon_numpy_docstring = True
+
+# -- Autodoc settings --------------------------------------------------------
+
+bibtex_bibfiles = ['refs.bib']
+bibtex_default_style = 'plain'  # or 'unsrt', 'alpha', etc.
