@@ -28,7 +28,6 @@ and develop routines in Python to solve geological and geophysical problems.
    modules/pseudowells
    modules/machinelearning
    modules/preprocessing
-   modules/tvdss
 
 
 Indices and tables

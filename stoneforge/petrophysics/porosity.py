@@ -6,22 +6,21 @@ import warnings
 #from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 from .helpers import correct_petrophysic_estimation_range
 
-def effective_porosity(
-    phi: Annotated[np.array, "Porosity log"],
-    vsh: Annotated[np.array, "Shale volume"]
+def effective_porosity(phi: Annotated[np.array, "Porosity log"],
+                       vsh: Annotated[np.array, "Shale volume"]
 ) -> np.array:
     """Calculate the effective porosity from the total porosity and shale volume [1]_.
 
     Parameters
     ----------
-    phi : np.array
+    phi : array_like
         Porosity log
-    vsh : np.array
+    vsh : array_like
         Shale volume
 
     Returns
     -------
-    phie : np.array
+    phie : array_like
         Effective porosity for the aimed interval (more suitable for the bulk density porosity)
 
     References
@@ -52,7 +51,7 @@ def density_porosity(
        
     Returns
     -------
-    phid : np.array
+    phid : array_like
         Total porosity based on bulk density.
 
     References
