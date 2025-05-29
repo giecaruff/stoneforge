@@ -4,8 +4,7 @@ from typing import Annotated
 def reuss(
     f: Annotated[np.array, "Fractions (proportions) of each mineral"],
     m: Annotated[np.array, "Elastic modulus of each mineral"])-> np.array:
-    """Calculate elastic modulus of the effective mineral using the
-    Reuss bound.
+    """Calculate elastic modulus of the effective mineral using the :footcite:t:`reuss1929` bound (:footcite:t:`dvorkin1991`).
 
     Parameters
     ----------
@@ -26,8 +25,7 @@ def reuss(
 def voigt(
     f: Annotated[np.array, "Fractions (proportions) of each mineral"],
     m: Annotated[np.array, "Elastic modulus of each mineral"])-> np.array:
-    """Calculate elastic modulus of the effective mineral using the
-    Reuss bound.
+    """Calculate elastic modulus of the effective mineral using the :footcite:t:`voigt1966` bound (:footcite:t:`dvorkin1991`).
 
     Parameters
     ----------
@@ -48,8 +46,7 @@ def voigt(
 def hill(
     f: Annotated[np.array, "Fractions (proportions) of each mineral"],
     m: Annotated[np.array, "Elastic modulus of each mineral"])-> np.array:
-    """Calculate elastic modulus of the effective mineral using the
-    Hill average.
+    """Calculate elastic modulus of the effective mineral using the :footcite:t:`hill1952` average (:footcite:t:`dvorkin1991`.
 
     Parameters
     ----------

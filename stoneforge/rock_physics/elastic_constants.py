@@ -3,10 +3,11 @@
 import numpy as np
 from typing import Annotated
 
-def bulk_modulus(rho: Annotated[np.array, "Density data"],
-                 vp: Annotated[np.array, "Compressional velocity data"],
-                 vs: Annotated[np.array, "Shear velocity data"])-> np.array:
-    """Computes the bulk modulus using density, shear wave velocity and compressional wave velocity [1]_.
+def bulk_modulus(
+    rho: Annotated[np.array, "Density data"],
+    vp: Annotated[np.array, "Compressional velocity data"],
+    vs: Annotated[np.array, "Shear velocity data"])-> np.array:
+    """Computes the bulk modulus using density, shear wave velocity and compressional wave velocity (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -24,18 +25,16 @@ def bulk_modulus(rho: Annotated[np.array, "Density data"],
     K : array_like
         Bulk modulus data in Pascal unit (S/I).
 
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook. Cambridge University Press.
     """
     A = vp**2 
     B = (4/3) * (vs**2)
     return rho * (A - B)
 
 
-def compressional_modulus(rho: Annotated[np.array, "Density data"],
-                          vp: Annotated[np.array, "Compressional velocity data"])-> np.array:
-    """Computes the Compressional modulus using density and compressional wave velocity
+def compressional_modulus(
+    rho: Annotated[np.array, "Density data"],
+    vp: Annotated[np.array, "Compressional velocity data"])-> np.array:
+    """Computes the Compressional modulus using density and compressional wave velocity (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -49,18 +48,15 @@ def compressional_modulus(rho: Annotated[np.array, "Density data"],
     -------
     M : array_like, float
         Compressional modulus data Pascal (Pa).
-
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
-    Cambridge University Press.
+        
     """
     return rho * (vp)**2
 
 
-def shear_modulus(rho: Annotated[np.array, "Density data"],
-                  vs: Annotated[np.array, "Shear velocity data"]) -> np.array:
-    """Computes the shear modulus using density and s wave velocity [1]_.
+def shear_modulus(
+    rho: Annotated[np.array, "Density data"],
+    vs: Annotated[np.array, "Shear velocity data"]) -> np.array:
+    """Computes the shear modulus using density and s wave velocity (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -74,17 +70,15 @@ def shear_modulus(rho: Annotated[np.array, "Density data"],
     -------
     U : array_like
         Shear modulus data in Pascal unit.
-
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook. Cambridge University Press.
+        
     """
     return rho * (vs**2)
 
 
-def shear_wave_velocity(rho: Annotated[np.array, "Density data"],
-                        u: Annotated[np.array, "Shear modulus data"]) -> np.array:
-    """Computes the shear wave velocity using density and shear modulus [1]_.
+def shear_wave_velocity(
+    rho: Annotated[np.array, "Density data"],
+    u: Annotated[np.array, "Shear modulus data"]) -> np.array:
+    """Computes the shear wave velocity using density and shear modulus (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -98,18 +92,15 @@ def shear_wave_velocity(rho: Annotated[np.array, "Density data"],
     -------
     vs : array_like, float
         Shear wave velocity data km/s.
-
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). Seismic Amplitude: An Interpreter's Handbook.
-    Cambridge University Press.
+        
     """
     return (u / rho)**0.5
 
 
-def compressional_wave_velocity(method: Annotated[str, "Chosen method to compute compressional wave velocity"] = "rhob_and_g_and_k", **kwargs) -> np.array:
+def compressional_wave_velocity(
+    method: Annotated[str, "Chosen method to compute compressional wave velocity"] = "rhob_and_g_and_k", **kwargs) -> np.array:
     """
-    Compute the compressional (P-wave) velocity using different elastic property methods.
+    Compute the compressional (P-wave) velocity using different elastic property methods (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -139,11 +130,6 @@ def compressional_wave_velocity(method: Annotated[str, "Chosen method to compute
     ------
     TypeError
         If required parameters are missing for the selected method.
-
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). *Seismic Amplitude: An Interpreter's Handbook*.
-           Cambridge University Press.
 
     Examples
     --------
@@ -175,9 +161,10 @@ def compressional_wave_velocity(method: Annotated[str, "Chosen method to compute
     return func(**{key: kwargs[key] for key in required_args})
 
 
-def poisson(method: Annotated[str, "Chosen method to compute Poisson's ratio"] = "k_and_g", **kwargs) -> np.array:
+def poisson(
+    method: Annotated[str, "Chosen method to compute Poisson's ratio"] = "k_and_g", **kwargs) -> np.array:
     """
-    Compute Poisson's ratio (ν) using different pairs of elastic moduli.
+    Compute Poisson's ratio (ν) using different pairs of elastic moduli (:footcite:t:`simm2014`).
 
     Parameters
     ----------
@@ -211,11 +198,6 @@ def poisson(method: Annotated[str, "Chosen method to compute Poisson's ratio"] =
     ------
     TypeError
         If required parameters for the selected method are missing.
-
-    References
-    ----------
-    .. [1] Simm, R., & Bacon, M. (2014). *Seismic Amplitude: An Interpreter's Handbook*.
-           Cambridge University Press.
 
     Examples
     --------

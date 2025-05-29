@@ -40,3 +40,8 @@ Rock Physics Bounds
     :members:
     :undoc-members:
     :show-inheritance:
+
+References
+----------------
+
+.. footbibliography::

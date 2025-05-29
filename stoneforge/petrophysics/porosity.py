@@ -9,9 +9,10 @@ from .helpers import correct_petrophysic_estimation_range
 #---------- 
 #.. bibliography::
 
-def effective_porosity(phi: Annotated[np.array, "Porosity log"],
-                       vsh: Annotated[np.array, "Shale volume"]) -> np.array:
-    """Calculate the effective porosity from the total porosity and shale volume :footcite:t:`schon1998physical`.
+def effective_porosity(
+    phi: Annotated[np.array, "Porosity log"],
+    vsh: Annotated[np.array, "Shale volume"]) -> np.array:
+    """Calculate the effective porosity from the total porosity and shale volume (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -31,11 +32,12 @@ def effective_porosity(phi: Annotated[np.array, "Porosity log"],
     return phie
 
 
-def density_porosity(rhob: Annotated[np.array, "Bulk density log"],
-                     rhom: Annotated[float, "Matrix density"],
-                     rhof: Annotated[float, "Fluid density"]) -> np.array:
+def density_porosity(
+    rhob: Annotated[np.array, "Bulk density log"],
+    rhom: Annotated[float, "Matrix density"],
+    rhof: Annotated[float, "Fluid density"]) -> np.array:
     
-    """Estimate the porosity from the bulk density log :footcite:t:`schon1998physical`.
+    """Estimate the porosity from the bulk density log (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -75,10 +77,11 @@ def density_porosity(rhob: Annotated[np.array, "Bulk density log"],
     return phi
 
 
-def neutron_porosity(nphi: Annotated[np.array, "Neutron porosity log"],
-                     vsh: Annotated[np.array, "Shale volume"],
-                     phish: Annotated[float, "Apparent porosity in shales"]) -> np.array:
-    """Estimate the effective porosity from the neutron log :footcite:t:`schon1998physical`.
+def neutron_porosity(
+    nphi: Annotated[np.array, "Neutron porosity log"],
+    vsh: Annotated[np.array, "Shale volume"],
+    phish: Annotated[float, "Apparent porosity in shales"]) -> np.array:
+    """Estimate the effective porosity from the neutron log (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -110,10 +113,11 @@ def neutron_porosity(nphi: Annotated[np.array, "Neutron porosity log"],
     return phin
 
 
-def neutron_density_porosity(phid: Annotated[np.array, "Porosity from density log"],
-                             phin: Annotated[np.array, "Porosity from neutron log"],
-                             squared: Annotated[bool, "Main operation"]=False) -> np.array:
-    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity :footcite:t:`schon1998physical`.
+def neutron_density_porosity(
+    phid: Annotated[np.array, "Porosity from density log"],
+    phin: Annotated[np.array, "Porosity from neutron log"],
+    squared: Annotated[bool, "Main operation"]=False) -> np.array:
+    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -147,11 +151,12 @@ def neutron_density_porosity(phid: Annotated[np.array, "Porosity from density lo
     return phi
 
 
-def sonic_porosity(dt: Annotated[np.array, "Sonic log"],
-                   dtma: Annotated[np.array, "Matrix transit time"],
-                   dtf: Annotated[np.array, "Fluid transit time"]) -> np.array:
+def sonic_porosity(
+    dt: Annotated[np.array, "Sonic log"],
+    dtma: Annotated[np.array, "Matrix transit time"],
+    dtf: Annotated[np.array, "Fluid transit time"]) -> np.array:
     
-    """Estimate the Porosity from sonic using the Wyllie time-average equation :footcite:t:`wyllie1956`.
+    """Estimate the Porosity from sonic using the :footcite:t:`wyllie1956` time-average equation.
 
     Parameters
     ----------
@@ -187,10 +192,11 @@ def sonic_porosity(dt: Annotated[np.array, "Sonic log"],
     return phidt
 
 
-def gaymard_porosity(phid: Annotated[np.array, "Porosity from density log"],
-                     phin: Annotated[np.array, "Porosity from neutron log"]) -> np.array:
+def gaymard_porosity(
+    phid: Annotated[np.array, "Porosity from density log"],
+    phin: Annotated[np.array, "Porosity from neutron log"]) -> np.array:
     
-    """Estimate the effective porosity using Gaymard-Poupon :footcite:t:`gaymardpoupon1968` method.
+    """Estimate the effective porosity using :footcite:t:`gaymardpoupon1968` method.
 
     Parameters
     ----------
@@ -220,7 +226,8 @@ _porosity_methods = {
     "effective": effective_porosity
 }
 
-def porosity(method: Annotated[str, "Chosen porosity method"] = "density", **kwargs) -> np.array:
+def porosity(
+    method: Annotated[str, "Chosen porosity method"] = "density", **kwargs) -> np.array:
     """Compute porosity from well logs.
 
     This is a façade for the methods:

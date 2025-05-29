@@ -7,13 +7,14 @@ import warnings
 from .helpers import correct_petrophysic_estimation_range
 
     
-def archie(rt: Annotated[np.array, "Formation resistivity"],
+def archie(
+    rt: Annotated[np.array, "Formation resistivity"],
     phi: Annotated[np.array, "Porosity"],
     rw: Annotated[float, "Water resistivity"] = 0.02,
     a: Annotated[float, "Clean density point"] = 1.00,
     m: Annotated[float, "fluid neutron point"] = 2.00,
     n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
-    """Estimate the Water Saturation from Archie's [1]_ equation.
+    """Estimate the Water Saturation from :footcite:t:`archie1942` (standard values from :footcite:t:`archie1952,aapg2014archie`).
 
     Parameters
     ----------
@@ -35,11 +36,6 @@ def archie(rt: Annotated[np.array, "Formation resistivity"],
     sw : array_like
         Water saturation from Archie equation.
 
-    References
-    ----------
-    .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
-    
-    .. [2] Standard values https://wiki.aapg.org/Archie_equation.
     """
     if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
         warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
@@ -53,7 +49,8 @@ def archie(rt: Annotated[np.array, "Formation resistivity"],
         return sw
 
 
-def simandoux(rt: Annotated[np.array, "Formation resistivity"],
+def simandoux(
+    rt: Annotated[np.array, "Formation resistivity"],
     phi: Annotated[np.array, "Porosity"],
     vsh: Annotated[np.array, "Shale volume"],
     rw: Annotated[float, "Water resistivity"] = 0.02,
@@ -61,7 +58,7 @@ def simandoux(rt: Annotated[np.array, "Formation resistivity"],
     a: Annotated[float, "Clean density point"] = 1.00,
     m: Annotated[float, "fluid neutron point"] = 2.00,
     n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
-    """Estimate water saturation from Simandoux [1]_ equation (standard values from [2]_ and [3]_).
+    """Estimate water saturation from :footcite:t:`simandoux1963` equation (standard values from :footcite:t:`geoloil2012sw,aapg2014archie`).
 
     Parameters
     ---------- 
@@ -87,13 +84,6 @@ def simandoux(rt: Annotated[np.array, "Formation resistivity"],
     sw : array_like
         Water saturation from Simandoux equation.
 
-    References
-    ----------
-    .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais du Patrole 18(Supplemen-tary Issue):193
-    
-    .. [2] Standard values https://wiki.aapg.org/Archie_equation.
-    
-    .. [3] Standard values https://geoloil.com/computingSW.php.
     """
     C = (1 - vsh) * a * rw / phi**m
     D = C * vsh / (2*rsh)
@@ -105,7 +95,8 @@ def simandoux(rt: Annotated[np.array, "Formation resistivity"],
     return sw
 
 
-def indonesia(rt: Annotated[np.array, "Formation resistivity"],
+def indonesia(
+    rt: Annotated[np.array, "Formation resistivity"],
     phi: Annotated[np.array, "Porosity"],
     vsh: Annotated[np.array, "Shale volume"],
     rw: Annotated[float, "Water resistivity"] = 0.02,
@@ -113,7 +104,7 @@ def indonesia(rt: Annotated[np.array, "Formation resistivity"],
     a: Annotated[float, "Clean density point"] = 1.00,
     m: Annotated[float, "fluid neutron point"] = 2.00,
     n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
-    """Estimate water saturation from Poupon-Leveaux (Indonesia) [1]_ equation (standard values from [2]_ and [3]_).
+    """Estimate water saturation from :footcite:t:`poupon-leveaux1971` equation (standard values from :footcite:t:`geoloil2012sw,aapg2014archie`).
 
     Parameters
     ---------- 
@@ -139,13 +130,6 @@ def indonesia(rt: Annotated[np.array, "Formation resistivity"],
     indonesia : array_like
         Water saturation from Poupon-Leveaux equation.
 
-    References
-    ----------
-    .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations. The Log Analyst, 12, 1-2.
-    
-    .. [2] Standard values https://wiki.aapg.org/Archie_equation.
-    
-    .. [3] Standard values https://geoloil.com/computingSW.php.
     """
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
     sw = correct_petrophysic_estimation_range(sw)
@@ -153,21 +137,22 @@ def indonesia(rt: Annotated[np.array, "Formation resistivity"],
     return sw
 
 
-def fertl(rt: Annotated[np.array, "Formation resistivity"],
+def fertl(
+    rt: Annotated[np.array, "Formation resistivity"],
     phi: Annotated[np.array, "Porosity"],
     vsh: Annotated[np.array, "Shale volume"],
     rw: Annotated[float, "Water resistivity"] = 0.02,
     a: Annotated[float, "Clean density point"] = 1.00,
     m: Annotated[float, "fluid neutron point"] = 2.00,
     alpha: Annotated[float, "fluid density point"] = 0.30) -> np.array:
-    """Estimate water saturation from Fertl [1]_ equation (standard values from [2]_ and [3]_).
+    """Estimate water saturation from :footcite:t:`fertl1975` equation (standard values from :footcite:t:`aapg2014archie`).
 
     Parameters
     ----------
     rt : array_like
-        True resistivity.    
+        True resistivity.
     phi : array_like
-        Porosity (must be effective).  
+        Porosity (must be effective).
     vsh : array_like
         Clay volume log.
     rw : float
@@ -183,12 +168,7 @@ def fertl(rt: Annotated[np.array, "Formation resistivity"],
     -------
     fertl : array_like
         Water saturation from Fertl equation.
-
-    References
-    ----------
-    .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells. In SPWLA 16th Annual Logging Symposium. OnePetro.
-       
-    .. [2] Standard values https://wiki.aapg.org/Archie_equation.
+        
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
     sw = correct_petrophysic_estimation_range(sw)

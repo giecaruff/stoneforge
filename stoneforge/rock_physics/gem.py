@@ -5,12 +5,13 @@ from typing import Annotated
 from .elastic_constants import poisson
 
 
-def hertz_mindlin(k: Annotated[float, "Bulk modulus of the mineral"],
-                  g: Annotated[float, "Shear modulus of the mineral"],
-                  n: Annotated[float, "Coordination number"],
-                  phic: Annotated[float, "Critical porosity"],
-                  p: Annotated[float, "Hydrostatic confining pressure"]) -> float:
-    """Computes the elastic moduli of the original room-dry grain pack at critical porosity phic from Hertz-Mindlin contact theory [1]_.
+def hertz_mindlin(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    n: Annotated[float, "Coordination number"],
+    phic: Annotated[float, "Critical porosity"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> float:
+    """Computes the elastic moduli of the original room-dry grain pack at critical porosity phic from Hertz-Mindlin (:footcite:t:`hertz1882,mindlin1949`) contact theory (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -31,10 +32,7 @@ def hertz_mindlin(k: Annotated[float, "Bulk modulus of the mineral"],
         Bulk modulus of the Hertz-Mindlin point.
     ghm : float
         Shear modulus of the Hertz-Mindlin point.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     v = poisson(method = "k_and_g", k=k, g=g)
     khm = ((n**2 * (1.-phic)**2 * g**2 * p) / \
@@ -45,13 +43,14 @@ def hertz_mindlin(k: Annotated[float, "Bulk modulus of the mineral"],
     return khm, ghm
 
 
-def soft_sand(k: Annotated[float, "Bulk modulus of the mineral"],
-              g: Annotated[float, "Shear modulus of the mineral"],
-              phi: Annotated[np.array, "Porosity value or log"],
-              phic: Annotated[float, "Critical porosity"],
-              n: Annotated[float, "Coordination number"],
-              p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
-    """Computes the elastic moduli of the rock using the soft sand model [1]_.
+def soft_sand(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
+    """Computes the elastic moduli of the rock using the soft sand model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -75,9 +74,6 @@ def soft_sand(k: Annotated[float, "Bulk modulus of the mineral"],
     gsoft : array_like
         Shear modulus using the soft sand model.
 
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
     """
     khm, ghm = hertz_mindlin(k, g, n, phic, p)
     zhm = (ghm/6) * (9*khm + 8*ghm)/(khm + 2*ghm)
@@ -88,16 +84,17 @@ def soft_sand(k: Annotated[float, "Bulk modulus of the mineral"],
     return ksoft, gsoft
 
 
-def constant_cement(k: Annotated[float, "Bulk modulus of the mineral"],
-                    g: Annotated[float, "Shear modulus of the mineral"],
-                    phi: Annotated[np.array, "Porosity value or log"],
-                    phic: Annotated[float, "Critical porosity"],
-                    n: Annotated[float, "Coordination number"],
-                    kc: Annotated[float, "Bulk modulus of the cementing mineral"],
-                    gc: Annotated[float, "Shear modulus of the cementing mineral"],
-                    phib: Annotated[float, "Porosity where the cement effect starts"],
-                    deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
-    """Computes the elastic moduli of the rock using the constant cement model [1]_.
+def constant_cement(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    kc: Annotated[float, "Bulk modulus of the cementing mineral"],
+    gc: Annotated[float, "Shear modulus of the cementing mineral"],
+    phib: Annotated[float, "Porosity where the cement effect starts"],
+    deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
+    """Computes the elastic moduli of the rock using the constant cement model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -126,10 +123,7 @@ def constant_cement(k: Annotated[float, "Bulk modulus of the mineral"],
         Bulk modulus using the constant cement model.
     gconst : array_like
         Shear modulus using the constant cement model.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     if isinstance(phi, float):
         kconst, gconst = np.zeros((1)), np.zeros((1))
@@ -163,13 +157,14 @@ def constant_cement(k: Annotated[float, "Bulk modulus of the mineral"],
     return kconst, gconst
 
 
-def stiff_sand(k: Annotated[float, "Bulk modulus of the mineral"],
-               g: Annotated[float, "Shear modulus of the mineral"],
-               phi: Annotated[np.array, "Porosity value or log"],
-               phic: Annotated[float, "Critical porosity"],
-               n: Annotated[float, "Coordination number"],
-               p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
-    """Computes the elastic moduli of the rock using the stiff sand model [1]_.
+def stiff_sand(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
+    """Computes the elastic moduli of the rock using the stiff sand model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -192,10 +187,7 @@ def stiff_sand(k: Annotated[float, "Bulk modulus of the mineral"],
         Bulk modulus using the stiff sand model.
     gstiff : array_like
         Shear modulus using the stiff sand model.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     khm, ghm = hertz_mindlin(k, g, n, phic, p)
     z = (g/6) * (9*k + 8*g)/(k + 2*g)
@@ -205,15 +197,16 @@ def stiff_sand(k: Annotated[float, "Bulk modulus of the mineral"],
     return kstiff, gstiff
 
 
-def contact_cement(k: Annotated[float, "Bulk modulus of the mineral"],
-                   g: Annotated[float, "Shear modulus of the mineral"],
-                   phi: Annotated[np.array, "Porosity value or log"],
-                   phic: Annotated[float, "Critical porosity"],
-                   n: Annotated[float, "Coordination number"],
-                   kc: Annotated[float, "Bulk modulus of the cementing mineral"],
-                   gc: Annotated[float, "Shear modulus of the cementing mineral"],
-                   deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
-    """Computes the elastic moduli of the rock using the contact cement model [1]_.
+def contact_cement(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    kc: Annotated[float, "Bulk modulus of the cementing mineral"],
+    gc: Annotated[float, "Shear modulus of the cementing mineral"],
+    deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
+    """Computes the elastic moduli of the rock using the contact cement model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -240,10 +233,7 @@ def contact_cement(k: Annotated[float, "Bulk modulus of the mineral"],
         Bulk modulus using the contact cement model.
     gcem : array_like
         Shear modulus using the contact cement model.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     v = poisson(method = "k_and_g", k=k, g=g)
     vc = poisson(method = "k_and_g", k=kc, g=gc)
@@ -282,9 +272,9 @@ def gem(
     phic: Annotated[float, "Critical porosity [fractional]"],
     n: Annotated[float, "Coordination number (typically 6–10)"],
     method: Annotated[str, "Granular effective medium model"] = "soft_sand",
-    **kwargs) -> tuple[np.ndarray, np.ndarray]:
+    **kwargs) -> tuple[np.array, np.array]:
     """
-    Compute the elastic moduli using granular effective medium (GEM) rock physics models.
+    Compute the elastic moduli using granular effective medium (GEM) rock physics models (:footcite:t:`dvorkin2014,dvorkin1991`).
 
     This function wraps several GEM-based models including:
         - Soft sand model
@@ -339,11 +329,7 @@ def gem(
 
     ValueError
         If an unsupported method is specified.
-
-    References
-    ----------
-    .. [1] Dvorkin, J., Mavko, G., & Nur, A. (1999). The effect of cementation on the elastic properties of granular material. *Mechanics of Materials*, 12(3), 207–217.
-
+        
     Examples
     --------
     >>> gem(k=36, g=45, phi=0.25, phic=0.4, n=8, method="soft_sand", p=20)
@@ -379,9 +365,9 @@ def gem_model(
     n: Annotated[float, "Coordination number (typically 6–10)"],
     method: Annotated[str, "Granular effective medium model"] = "soft_sand",
     **kwargs
-) -> tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.array, np.array]:
     """
-    Compute bulk and shear moduli from granular effective medium models for visualization.
+    Compute bulk and shear moduli from granular effective medium models for visualization (:footcite:t:`dvorkin2014`).
 
     This façade function wraps four common GEM rock-physics models:
         - Soft sand
@@ -422,10 +408,10 @@ def gem_model(
 
     Returns
     -------
-    k_model : np.ndarray
+    k_model : array_like
         Bulk modulus curve [GPa].
 
-    g_model : np.ndarray
+    g_model : array_like
         Shear modulus curve [GPa].
 
     Raises

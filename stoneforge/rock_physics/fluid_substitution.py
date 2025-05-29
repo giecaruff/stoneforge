@@ -4,11 +4,12 @@ import numpy as np
 from typing import Annotated
 
 
-def kdry(phi: Annotated[np.array, "Porosity"],
-         ks: Annotated[np.array, "Bulk modulus of solid phase"],
-         ksatA: Annotated[np.array, "Bulk modulus for fluid A"],
-         kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"]) -> np.array:
-    """Calculate the dry-rock bulk modulus using Gassmann' [1]_ equation .
+def kdry(
+    phi: Annotated[np.array, "Porosity"],
+    ks: Annotated[np.array, "Bulk modulus of solid phase"],
+    ksatA: Annotated[np.array, "Bulk modulus for fluid A"],
+    kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"]) -> np.array:
+    """Calculate the dry-rock bulk modulus using :footcite:t:`gassmann1951` equation (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -28,10 +29,7 @@ def kdry(phi: Annotated[np.array, "Porosity"],
     -------
     kdry : array_like
         Dry-rock bulk modulus.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     kdry_num = 1 - (1 - phi) * (ksatA/ks) - (phi * ksatA/kfluidA)
     kdry_den = 1 + phi - (phi*ks / kfluidA) - (ksatA/ks)
@@ -39,11 +37,12 @@ def kdry(phi: Annotated[np.array, "Porosity"],
     return ks * (kdry_num / kdry_den)
 
 
-def ksat(phi: Annotated[np.array, "Porosity"],
-         ks: Annotated[np.array, "Bulk modulus of solid phase"],
-         kdry: Annotated[np.array, "Dry-rock bulk modulus"],
-         kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
-    """Calculate the bulk modulus of the rock saturated with fluid B [1]_.
+def ksat(
+    phi: Annotated[np.array, "Porosity"],
+    ks: Annotated[np.array, "Bulk modulus of solid phase"],
+    kdry: Annotated[np.array, "Dry-rock bulk modulus"],
+    kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
+    """Calculate the bulk modulus of the rock saturated with fluid B (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -63,10 +62,7 @@ def ksat(phi: Annotated[np.array, "Porosity"],
     -------
     ksat : array_like
         Bulk modulus of the rock saturated with fluid B.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     ksat_num = phi*kdry - (1 + phi)*(kfluidB * kdry / ks) + kfluidB
     ksat_den = (1 - phi)*kfluidB + phi*ks - (kfluidB * kdry / ks)
@@ -74,13 +70,13 @@ def ksat(phi: Annotated[np.array, "Porosity"],
     return ks * (ksat_num / ksat_den)
 
 
-def gassmann_subs(phi: Annotated[np.array, "Porosity"],
-                  ks: Annotated[np.array, "Bulk modulus of solid phase"],
-                  ksatA: Annotated[np.array, "Bulk modulus for fluid A"],
-                  kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"],
-                  kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
-    """Fluid substitution using Gassmann' equation without calculating
-    dry-rock bulk modulus [1]_.
+def gassmann_subs(
+    phi: Annotated[np.array, "Porosity"],
+    ks: Annotated[np.array, "Bulk modulus of solid phase"],
+    ksatA: Annotated[np.array, "Bulk modulus for fluid A"],
+    kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"],
+    kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
+    """Fluid substitution using :footcite:t:`gassmann1951` equation without calculating dry-rock bulk modulus (:footcite:t:`avseth2005`).
 
     Parameters
     ----------
@@ -103,10 +99,7 @@ def gassmann_subs(phi: Annotated[np.array, "Porosity"],
     -------
     ksat : array_like
         Bulk modulus of rock saturated with fluid B.
-
-    References
-    ----------
-    .. [1] Avseth, Per, Tapan Mukerji, and Gary Mavko. Quantitative seismic interpretation: Applying rock physics tools to reduce interpretation risk. Cambridge university press, 2005.
+        
     """
     A = ksatA / (ks - ksatA)
     B = kfluidA / (phi*(ks - kfluidA))
@@ -121,11 +114,12 @@ def gassmann_subs(phi: Annotated[np.array, "Porosity"],
 #    "gassmann_subs": gassmann_subs
 #}
 
-def gassmann(phi: Annotated[np.array, "Porosity"],
-             ks: Annotated[np.array, "Bulk modulus of solid phase"],
-             method: Annotated[str, "Chosen method for Gassmann fluid substitution"] = 'gassmann_subs', **kwargs) -> np.array:
+def gassmann(
+    phi: Annotated[np.array, "Porosity"],
+    ks: Annotated[np.array, "Bulk modulus of solid phase"],
+    method: Annotated[str, "Chosen method for Gassmann fluid substitution"] = 'gassmann_subs', **kwargs) -> np.array:
     """
-    Compute Gassmann fluid substitution and modulus equations.
+    Compute :footcite:t:`gassmann1951` fluid substitution and modulus equations (:footcite:t:`mavko2009`).
 
     This function serves as a façade for different Gassmann-related methods:
         - Dry-rock bulk modulus estimation (`kdry`)
@@ -170,15 +164,7 @@ def gassmann(phi: Annotated[np.array, "Porosity"],
 
     ValueError
         If an unsupported method is specified.
-
-    References
-    ----------
-    .. [1] Gassmann, F. (1951). Elastic waves through a packing of spheres.
-           *Geophysics*, 16(4), 673-685.
-
-    .. [2] Mavko, G., Mukerji, T., & Dvorkin, J. (2009). *The Rock Physics Handbook*.
-           Cambridge University Press.
-
+        
     Examples
     --------
     >>> gassmann(phi=0.25, ks=36, method="kdry", ksatA=25, kfluidA=2.2)
@@ -206,13 +192,11 @@ def gassmann(phi: Annotated[np.array, "Porosity"],
     return func(phi, ks, **method_args)
 
 
-
-
 def mdry(phi: Annotated[np.array, "Porosity"],
          ms: Annotated[np.array, "Compressional modulus of solid phase"],
          msatA: Annotated[np.array, "Compressional modulus of the rock saturated with fluid A"],
          kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"]) -> np.array:
-    """Calculate the dry-rock compressional modulus using Mavko' [1]_ equation .
+    """Calculate the dry-rock compressional modulus using :footcite:t:`mavko2009` equation (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -232,10 +216,7 @@ def mdry(phi: Annotated[np.array, "Porosity"],
     -------
     mdry : array_like
         Dry-rock compressional modulus.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     mdry_num = 1 - (1 - phi) * (msatA/ms) - (phi * msatA/kfluidA)
     mdry_den = 1 + phi - (phi * ms/kfluidA) - (msatA/ms)
@@ -243,12 +224,11 @@ def mdry(phi: Annotated[np.array, "Porosity"],
     return ms * (mdry_num / mdry_den)
 
 
-
 def msat(phi: Annotated[np.array, "Porosity"],
          ms: Annotated[np.array, "Compressional modulus of solid phase"],
          mdry: Annotated[np.array, "Compressional modulus of the dry-rock"],
          kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
-    """Calculate the compressional modulus of the rock saturated with fluid B [1]_.
+    """Calculate the compressional modulus of the rock saturated with fluid B (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -268,10 +248,7 @@ def msat(phi: Annotated[np.array, "Porosity"],
     -------
     msat : array_like
         Compressional modulus of the rock saturated with fluid B.
-
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
+        
     """
     msat_num = phi*mdry - (1 + phi) * (kfluidB * mdry/ms) + kfluidB
     msat_den = (1 - phi) * kfluidB + (phi*ms) - (kfluidB * mdry/ms)
@@ -284,7 +261,7 @@ def mavko_subs(phi: Annotated[np.array, "Porosity"],
                msatA: Annotated[np.array, "Compressional modulus of the rock saturated with fluid A"],
                kfluidA: Annotated[np.array, "Bulk modulus of the fluid A"],
                kfluidB: Annotated[np.array, "Bulk modulus of the fluid B"]) -> np.array:
-    """Fluid substitution using Mavko' equation without calculating dry-rock bulk modulus [1]_.
+    """Fluid substitution using :footcite:t:`mavko2009` equation without calculating dry-rock bulk modulus (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -308,9 +285,6 @@ def mavko_subs(phi: Annotated[np.array, "Porosity"],
     msat : array_like
         Compressional modulus of rock saturated with fluid B.
 
-    References
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock properties. [S.l.]: Cambridge University Press, 2014.
     """
     A = msatA / (ms - msatA)
     B = kfluidA / (phi*(ms - kfluidA))
@@ -333,7 +307,7 @@ def mavko(
     method: Annotated[str, "Chosen method for Gassmann fluid substitution"] = "mavko_subs",
     **kwargs) -> np.array:
     """
-    Compute Mavko's fluid substitution and modulus equations.
+    Compute :footcite:t:`mavko2009` fluid substitution and modulus equations.
 
     This is a façade for different Mavko equation implementations:
         - Dry-rock compressional modulus (`mdry`)
@@ -378,11 +352,6 @@ def mavko(
 
     ValueError
         If an unsupported method is provided.
-
-    References
-    ----------
-    .. [1] Mavko, G., Mukerji, T., & Dvorkin, J. (2009).
-           *The Rock Physics Handbook*. Cambridge University Press.
 
     Examples
     --------
