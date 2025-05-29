@@ -224,7 +224,7 @@ def water_saturation(rw: float, rt: np.array, phi: np.array,
             - 'archie'
             - 'simandoux'
             - 'indonesia'
-            - 'fertl
+            - 'fertl'
             
         If not given, default method is 'archie'
 
