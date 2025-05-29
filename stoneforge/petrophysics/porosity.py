@@ -266,12 +266,14 @@ def porosity(
         Total porisity. Required if `method` is "effective".
     method : str, optional
         Name of the method to be used.  Should be one of
+        
             - 'density'
             - 'neutron'
             - 'neutron-density'
             - 'sonic'
             - 'gaymard'
             - 'effective'
+            
         If not given, default method is 'density'
 
     Returns

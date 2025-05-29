@@ -272,12 +272,16 @@ def vshale(
     grmax : int, float
         Shale/clay value.
     method : str, optional
-        Name of the method to be used.  Should be one of
+        Name of the method to be used.  Should be one of the following:
+        
             - 'linear'
             - 'larionov'
             - 'larionov_old'
             - 'clavier'
             - 'stieber'
+            - 'neu_den'
+            - 'nrm'
+            
         If not given, default method is 'linear'
 
     Returns

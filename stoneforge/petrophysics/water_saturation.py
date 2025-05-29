@@ -220,10 +220,12 @@ def water_saturation(rw: float, rt: np.array, phi: np.array,
         Alpha parameter from Fertl equation. Required if `method` is "fertl"
     method : str, optional
         Name of the method to be used.  Should be one of
+        
             - 'archie'
             - 'simandoux'
             - 'indonesia'
             - 'fertl
+            
         If not given, default method is 'archie'
 
     Returns
