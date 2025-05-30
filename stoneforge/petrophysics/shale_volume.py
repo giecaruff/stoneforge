@@ -317,5 +317,3 @@ def vshale(
     fun = _vshale_methods[method]
 
     return fun(**options)
-
-
