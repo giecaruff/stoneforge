@@ -23,7 +23,6 @@ dependencies = [
     "pytest>=8.3.4",
     "scipy>=1.14.1",
     "scikit-learn>=1.6.1",
-    "xgboost>=2.1.4",
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
     "lightgbm>=4.5.0",
