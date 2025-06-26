@@ -11,7 +11,7 @@ LR_METHODS = [
     "support_vector_regression",
     "random_forest_regression",
     'lightgbm_regression',
-    'xgboost_regression',
+    #'xgboost_regression',
     #'catboost_regression'
 ]
 
@@ -72,11 +72,11 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
         else:
             return pickle.dumps(kwargs)
 
-    if method == "xgboost_regression":
-        if path:
-            saves(kwargs, os.path.join(path, method))
-        else:
-            return pickle.dumps(kwargs)
+#    if method == "xgboost_regression":
+#        if path:
+#            saves(kwargs, os.path.join(path, method))
+#        else:
+#            return pickle.dumps(kwargs)
 
     if method == "lightgbm_regression":
         if path:
@@ -95,6 +95,3 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
 
     else:
         return methods()
-
-
-

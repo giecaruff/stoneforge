@@ -120,9 +120,9 @@ def test_lightgbm():
 
 # %% ============================================================== #
 
-def test_xgboost():
-    _test.test_method("xgboost_regression")
-    assert True
+#def test_xgboost():
+#    _test.test_method("xgboost_regression")
+#    assert True
 
 # %% ============================================================== #
 

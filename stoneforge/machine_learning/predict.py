@@ -16,7 +16,7 @@ ML_METHODS = [
     "logistic_regression",
     "k_neighbors_classifier",
     "random_forest_classifier",
-    "x_g_boost_classifier",
+#    "x_g_boost_classifier",
 ]
 
 def gaussian_naive_bayes(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
@@ -85,15 +85,15 @@ def random_florest(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
     return d_forest.predict(x, **kwargs)
 
 
-def xgboost(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-    
-    if path:
-        method = 'support_vector_machine'
-        xg= fit_load(path, method)
-    else:
-        xg = pickle.loads(fit_info)
-
-    return xg.predict(x, **kwargs)
+#def xgboost(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+#    
+#    if path:
+#        method = 'support_vector_machine'
+#        xg= fit_load(path, method)
+#    else:
+#        xg = pickle.loads(fit_info)
+#
+#    return xg.predict(x, **kwargs)
 
 #def aautoml(x: npt.ArrayLike, path, **kwargs)-> np.ndarray:
 
@@ -108,8 +108,8 @@ _predict_methods = {
     "logistic_regression": logistic_regression,
     "k_neighbors_classifier": k_nearest_neighbors,
     "random_forest_classifier": random_florest,
-    "x_g_boost_classifier": xgboost,
-    #'AutomlClassifier': automl 
+#    "x_g_boost_classifier": xgboost,
+#    'AutomlClassifier': automl 
     }
 
 
@@ -128,10 +128,10 @@ def predict(x: npt.ArrayLike, method: str = "GaussianNB", path = ".", fit_info =
         fun = _predict_methods[method]
     if method == "random_forest_classifier":
         fun= _predict_methods[method]
-    if method == "x_g_boost_classifier":
-        fun= _predict_methods[method]
-    if method == "cat_boost_classifier":
-        fun= _predict_methods[method]
+#    if method == "x_g_boost_classifier":
+#        fun= _predict_methods[method]
+#    if method == "cat_boost_classifier":
+#        fun= _predict_methods[method]
     #if method == "AutoML":
         #fun = _predict_methods[method]
     if method == "scalers":

@@ -12,8 +12,8 @@ from sklearn.preprocessing import PolynomialFeatures
 "support_vector_regression",
 "random_forest_regression",
 'lightgbm_regression',
-'xgboost_regression',
-'catboost_regression'
+#'xgboost_regression',
+#'catboost_regression'
 
 def fit_load(path, method):
     full_path = os.path.join(path, method + "_fit_property.pkl")
@@ -77,15 +77,15 @@ def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.
     return randomregression.predict(x, **kwargs)
 
 
-def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-
-    if path:
-        method = 'xgboost_regression'
-        xgboostregression = fit_load(path, method)
-    else:
-        xgboostregression = pickle.loads(fit_info)
-
-    return xgboostregression.predict(x,**kwargs)
+# def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+#
+#   if path:
+#       method = 'xgboost_regression'
+#       xgboostregression = fit_load(path, method)
+#   else:
+#       xgboostregression = pickle.loads(fit_info)
+#
+#    return xgboostregression.predict(x,**kwargs)
 
 
 def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
@@ -129,7 +129,7 @@ _predict_methods = {
     "support_vector_regression": support_vector_regression,
     "decision_tree_regression": decision_tree_regression,
     "random_forest_regression": random_florest_regression,
-    "xgboost_regression": xgboost_regression,
+ #   "xgboost_regression": xgboost_regression,
     "lightgbm_regression": lightgbm_regression,
     "catboost_regression": catboost_regression,
     }
@@ -148,7 +148,7 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
         fun = _predict_methods[method]
     if method == "random_forest_regression":
         fun = _predict_methods[method]
-    if method == "xgboost_regression":
+#    if method == "xgboost_regression":
         fun = _predict_methods[method]
     if method == "lightgbm_regression":
         fun= _predict_methods[method]
@@ -173,4 +173,3 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
 
         y = fun(x_norm, path, fit_info, **kwargs)
         return y
-    

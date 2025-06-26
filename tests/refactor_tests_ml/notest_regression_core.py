@@ -134,7 +134,7 @@ _test.test_method("lightgbm_regression")
 # %% ============================================================== #
 
 
-_test.test_method("xgboost_regression")
+#_test.test_method("xgboost_regression")
 
 
 # %% ============================================================== #

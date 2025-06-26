@@ -11,7 +11,7 @@ import lightgbm as lgb
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from xgboost import XGBRegressor
+#from xgboost import XGBRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 
@@ -22,7 +22,7 @@ LR_METHODS = [
     "support_vector_regression",
     "random_forest_regression",
     'lightgbm_regression',
-    'xgboost_replacement',
+#    'xgboost_replacement',
     'catboost_replacement'
 ]
 
@@ -175,35 +175,36 @@ def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, setti
         saves(d_forestc, path, method)
 
 
-#XgBoost
-def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
+#XgBoost NOTE:(too big, must remain optional)
 
-    method = 'xgboost_regression'
-
-    if gs:
-        parameters =  {'n_estimators': [100],
-        'learning_rate': [0.5],
-        'max_depth':[5,10,15,30,50,70,100]}
-
-        xgb = XGBRegressor()
-
-        bestxgbc = GridSearchCV(xgb,parameters,scoring='accuracy')
-        bestxgbc.fit(X,y)
-        _settings = bestxgbc.best_params_
-
-    if not gs:
-        if path:
-            _settings = load_settings(path, method)
-        else:
-            _settings = pickle.loads(settings)
-    
-    xg = XGBRegressor(**_settings)
-    xg.fit(X, y, **kwargs)
-    if not path:
-        serialized_model = pickle.dumps(xg)
-        return serialized_model
-    else:
-        saves(xg, path, method)
+#def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
+#
+#    method = 'xgboost_regression'
+#
+#    if gs:
+#        parameters =  {'n_estimators': [100],
+#        'learning_rate': [0.5],
+#        'max_depth':[5,10,15,30,50,70,100]}
+#
+#        xgb = XGBRegressor()
+#
+#        bestxgbc = GridSearchCV(xgb,parameters,scoring='accuracy')
+#        bestxgbc.fit(X,y)
+#        _settings = bestxgbc.best_params_
+#
+#    if not gs:
+#        if path:
+#            _settings = load_settings(path, method)
+#        else:
+#            _settings = pickle.loads(settings)
+#    
+#    xg = XGBRegressor(**_settings)
+#    xg.fit(X, y, **kwargs)
+#    if not path:
+#        serialized_model = pickle.dumps(xg)
+#        return serialized_model
+#    else:
+#        saves(xg, path, method)
 
 
 #LightGBM
@@ -378,7 +379,7 @@ _fit_methods = {
     "support_vector_regression": support_vector_regression,
     "decision_tree_regression": decision_tree_regression,
     "random_forest_regression": random_forest_regression,
-    "xgboost_regression": xgboost_regression,
+    #"xgboost_regression": xgboost_regression,
     "lightgbm_regression": lightgbm_regression,
     "catboost_regression": catboost_regression
     }
@@ -397,8 +398,8 @@ path = ".", gs=False, settings = False, **kwargs):
         fun = _fit_methods[method]
     if method == "random_forest_regression":
         fun = _fit_methods[method]
-    if method == "xgboost_regression":
-        fun = _fit_methods[method]
+    #if method == "xgboost_regression":
+    #    fun = _fit_methods[method]
     if method == "lightgbm_regression":
         fun = _fit_methods[method]
     if method == "catboost_regression":
