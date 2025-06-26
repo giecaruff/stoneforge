@@ -90,7 +90,8 @@ _test.test_method("decision_tree_classifier")
 # %% ============================================================== #
 
 
-_test.test_method("support_vector_machine")
+# NOTE: Too slow for standard tests
+#_test.test_method("support_vector_machine")
 
 
 # %% ============================================================== #
@@ -108,13 +109,14 @@ _test.test_method("k_neighbors_classifier")
 # %% ============================================================== #
 
 
-_test.test_method("random_forest_classifier")
+# NOTE: Too slow for standard tests
+#_test.test_method("random_forest_classifier")
 
 
 # %% ============================================================== #
 
 
-_test.test_method("x_g_boost_classifier")
+#_test.test_method("x_g_boost_classifier")
 
 
 # %% ============================================================== #

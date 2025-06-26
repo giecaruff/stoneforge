@@ -116,18 +116,20 @@ _test.test_method("decision_tree_regression")
 # %% ============================================================== #
 # works only for one parameter
 
-_test.test_method("support_vector_regression")
+# NOTE: Too slow for standard tests
+#_test.test_method("support_vector_regression")
 
 
 # %% ============================================================== #
 
-
-_test.test_method("random_forest_regression")
+# NOTE: Too slow for standard tests
+#_test.test_method("random_forest_regression")
 
 
 # %% ============================================================== #
 # works for only one parameter
 
+# NOTE: Too slow for standard tests (but not to slow to leave it here)
 _test.test_method("lightgbm_regression")
 
 

@@ -287,7 +287,6 @@ def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, 
     else:
         saves(lgbm_values, path, method)
 
-
 #CatBoost
 # def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
