@@ -84,11 +84,11 @@ def settings(method: str = "linear_regression_simple", path = ".", verbose = Fal
         else:
             return pickle.dumps(kwargs)
 
-    if method == "catboost_regression":
-        if path:
-            saves(kwargs, os.path.join(path, method))
-        else:
-            return pickle.dumps(kwargs)
+    # if method == "catboost_regression":
+    #     if path:
+    #         saves(kwargs, os.path.join(path, method))
+    #     else:
+    #         return pickle.dumps(kwargs)
     
     #if not serialize:
     #    saves(LR_METHODS, os.path.join(path, 'all_methods'))

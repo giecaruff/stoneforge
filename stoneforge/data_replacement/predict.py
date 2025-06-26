@@ -105,21 +105,21 @@ def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray
         return lightregression['1dy'].predict(x, **kwargs)
 
 
-def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+# def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
 
-    if path:
-        method = 'catboost_regression'
-        catregression = fit_load(path, method)
-    else:
-        catregression = pickle.loads(fit_info)
+#     if path:
+#         method = 'catboost_regression'
+#         catregression = fit_load(path, method)
+#     else:
+#         catregression = pickle.loads(fit_info)
     
-    if '2dy' in catregression:
-        y_pred = []
-        for i in catregression['2dy']:
-            y_pred.append(catregression['2dy'][i].predict(x, **kwargs))
-        return np.array(y_pred).T
-    else:
-        return catregression['1dy'].predict(x, **kwargs)
+#     if '2dy' in catregression:
+#         y_pred = []
+#         for i in catregression['2dy']:
+#             y_pred.append(catregression['2dy'][i].predict(x, **kwargs))
+#         return np.array(y_pred).T
+#     else:
+#         return catregression['1dy'].predict(x, **kwargs)
 
 
 
@@ -129,9 +129,9 @@ _predict_methods = {
     "support_vector_regression": support_vector_regression,
     "decision_tree_regression": decision_tree_regression,
     "random_forest_regression": random_florest_regression,
- #   "xgboost_regression": xgboost_regression,
+#    "xgboost_regression": xgboost_regression,
     "lightgbm_regression": lightgbm_regression,
-    "catboost_regression": catboost_regression,
+#    "catboost_regression": catboost_regression,
     }
 
 
@@ -149,11 +149,11 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
     if method == "random_forest_regression":
         fun = _predict_methods[method]
 #    if method == "xgboost_regression":
-        fun = _predict_methods[method]
+#        fun = _predict_methods[method]
     if method == "lightgbm_regression":
         fun= _predict_methods[method]
-    if method == "catboost_regression":
-        fun= _predict_methods[method]
+#    if method == "catboost_regression":
+#        fun= _predict_methods[method]
     if method == "scaler_regression":
         return 0
 

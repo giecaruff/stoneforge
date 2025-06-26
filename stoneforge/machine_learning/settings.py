@@ -9,7 +9,7 @@ ML_METHODS = [
     "logistic_regression",
     "k_neighbors_classifier",
     "random_forest_classifier",
-    "x_g_boost_classifier",
+#    "x_g_boost_classifier",
 ]
 
 def methods():
@@ -58,11 +58,11 @@ def settings(method: str = "gaussian_naive_bayes", path = ".", **kwargs):
         else:
             return pickle.dumps(kwargs)
 
-    if method == "x_g_boost_classifier":
-        if path:
-            saves(kwargs, os.path.join(path, method))
-        else:
-            return pickle.dumps(kwargs)
+#    if method == "x_g_boost_classifier":
+#        if path:
+#            saves(kwargs, os.path.join(path, method))
+#        else:
+#            return pickle.dumps(kwargs)
 
     else:
         return methods()
