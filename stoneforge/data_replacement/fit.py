@@ -23,7 +23,7 @@ LR_METHODS = [
     "random_forest_regression",
     'lightgbm_regression',
 #    'xgboost_replacement',
-    'catboost_replacement'
+#    'catboost_replacement'
 ]
 
 def saves(file, path, method, suffix = "_fit_property.pkl", sz = False):
@@ -289,88 +289,86 @@ def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, 
 
 
 #CatBoost
-def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
+# def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
-    method = 'catboost_regression'
+#     method = 'catboost_regression'
 
-    if y.ndim == 2:
-        cb_values = {}
-        cb_values['2dy'] = {}
+#     if y.ndim == 2:
+#         cb_values = {}
+#         cb_values['2dy'] = {}
 
-        ii = 0
-        for _y in y.T:
+#         ii = 0
+#         for _y in y.T:
 
-            # =================================================== #
+#             # =================================================== #
 
-            if gs:
-                parameters =  {'n_estimators': [100,150,200],
-                'learning_rate': [0.3,0.5,0.7],
-                'max_depth':[5,10,15,30,50,70,100],
-                'random_state':[99]}
+#             if gs:
+#                 parameters =  {'n_estimators': [100,150,200],
+#                 'learning_rate': [0.3,0.5,0.7],
+#                 'max_depth':[5,10,15,30,50,70,100],
+#                 'random_state':[99]}
 
-                cat = CatBoostRegressor()
+#                 cat = CatBoostRegressor()
 
-                bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
-                bestcatr.fit(X,_y)
-                _settings = bestcatr.best_params_
+#                 bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
+#                 bestcatr.fit(X,_y)
+#                 _settings = bestcatr.best_params_
 
-            if not gs:
-                if path:
-                    _settings = load_settings(path, method)
-                    _settings['random_state'] = 99
-                    _settings['silent'] = True
-                else:
-                    _settings = pickle.loads(settings)
-                    _settings['random_state'] = 99
-                    _settings['silent'] = True
+#             if not gs:
+#                 if path:
+#                     _settings = load_settings(path, method)
+#                     _settings['random_state'] = 99
+#                     _settings['silent'] = True
+#                 else:
+#                     _settings = pickle.loads(settings)
+#                     _settings['random_state'] = 99
+#                     _settings['silent'] = True
             
-            cb = CatBoostRegressor(**_settings)
-            cb.fit(X, _y, **kwargs)
-            ii += 1
-            cb_values['2dy'][ii] = cb
+#             cb = CatBoostRegressor(**_settings)
+#             cb.fit(X, _y, **kwargs)
+#             ii += 1
+#             cb_values['2dy'][ii] = cb
 
-            # =================================================== #
+#             # =================================================== #
 
-    else:
+#     else:
 
-        # =================================================== #
-        cb_values = {}
-        cb_values['1dy'] = {}
-        if gs:
-            parameters =  {'n_estimators': [100,150,200],
-            'learning_rate': [0.3,0.5,0.7],
-            'max_depth':[5,10,15,30,50,70,100],
-            'random_state':[99]}
+#         # =================================================== #
+#         cb_values = {}
+#         cb_values['1dy'] = {}
+#         if gs:
+#             parameters =  {'n_estimators': [100,150,200],
+#             'learning_rate': [0.3,0.5,0.7],
+#             'max_depth':[5,10,15,30,50,70,100],
+#             'random_state':[99]}
 
-            cat = CatBoostRegressor()
+#             cat = CatBoostRegressor()
 
-            bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
-            bestcatr.fit(X,y)
-            _settings = bestcatr.best_params_
+#             bestcatr = GridSearchCV(cat,parameters,scoring='accuracy')
+#             bestcatr.fit(X,y)
+#             _settings = bestcatr.best_params_
 
-        if not gs:
-            if path:
-                _settings = load_settings(path, method)
-                _settings['random_state'] = 99
-                _settings['silent'] = True
-            else:
-                _settings = pickle.loads(settings)
-                _settings['random_state'] = 99
-                _settings['silent'] = True
+#         if not gs:
+#             if path:
+#                 _settings = load_settings(path, method)
+#                 _settings['random_state'] = 99
+#                 _settings['silent'] = True
+#             else:
+#                 _settings = pickle.loads(settings)
+#                 _settings['random_state'] = 99
+#                 _settings['silent'] = True
             
-            cb = CatBoostRegressor(**_settings)
-            cb.fit(X, y, **kwargs)
-            cb_values['1dy'] = cb
+#             cb = CatBoostRegressor(**_settings)
+#             cb.fit(X, y, **kwargs)
+#             cb_values['1dy'] = cb
 
-            # =================================================== #
+#             # =================================================== #
 
-    if not path:
-        serialized_model = pickle.dumps(cb_values)
-        return serialized_model
-    else:
-        saves(cb_values, path, method)
-
-            
+#     if not path:
+#         serialized_model = pickle.dumps(cb_values)
+#         return serialized_model
+#     else:
+#         saves(cb_values, path, method)
 
 
 _fit_methods = {
@@ -379,9 +377,9 @@ _fit_methods = {
     "support_vector_regression": support_vector_regression,
     "decision_tree_regression": decision_tree_regression,
     "random_forest_regression": random_forest_regression,
-    #"xgboost_regression": xgboost_regression,
+#    "xgboost_regression": xgboost_regression,
     "lightgbm_regression": lightgbm_regression,
-    "catboost_regression": catboost_regression
+#    "catboost_regression": catboost_regression
     }
 
 
