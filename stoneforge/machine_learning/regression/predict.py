@@ -157,7 +157,6 @@ def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = "
     if method == "scaler_regression":
         return 0
 
-
     if method != "scaler_regression":
 
         if not scalers:

@@ -2,10 +2,10 @@
 import numpy as np
 
 if __package__:
-    from ..machine_learning import *
+    from ..machine_learning.classification import *
     from ..datasets import dataload
 else:
-    from stoneforge.machine_learning import *
+    from stoneforge.machine_learning.classification import *
     from stoneforge.datasets import dataload
 
 # %% ============================================================== #
@@ -21,12 +21,12 @@ class setup_methods:
     def test_method(self, method):
 
         print("method:",method)
-        a = settings(method = method, path = False)
+        a = settings(method = method, filepath = False)
         print("settings done",type(a))
-        b = fit(X = self.X, y = self.y, method = method, path = False, settings = a)
+        b = fit(X = self.X, y = self.y, method = method, filepath = False, settings = a)
         print("fit done",type(b))
-        c = fit(X = self.X, y = self.y, method = "scalers", path = False, settings = a)
-        d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
+        c = fit(X = self.X, y = self.y, method = "scalers", filepath = False, settings = a)
+        d = predict(self.Xte, method = method, filepath = False, fit_info = b, scalers = c)
         print('value:',d,'DONE! \n')
         
 

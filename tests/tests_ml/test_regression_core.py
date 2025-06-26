@@ -3,10 +3,10 @@ import os
 import numpy as np
 
 if __package__:
-    from ..data_replacement import *
+    from ..machine_learning.regression import *
     from ..datasets import dataload
 else:
-    from stoneforge.data_replacement import *
+    from stoneforge.machine_learning.regression import *
     from stoneforge.datasets import dataload
 
 # %% ============================================================== #
