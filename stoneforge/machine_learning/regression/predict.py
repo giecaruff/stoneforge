@@ -2,79 +2,92 @@ import numpy as np
 import numpy.typing as npt
 import pickle
 import os
+from typing import Annotated
 
-from sklearn.preprocessing import PolynomialFeatures
-#from catboost.core import CatBoostRegressor
+REGRESSION_METHODS = [
+    "linear_regression",
+    "decision_tree_regression",
+    "support_vector_regression",
+    "random_forest_regression",
+    'lightgbm_regression',
+    #'xgboost_regression',
+    #'catboost_regression'
+]
 
-"linear_regression_simple",
-"linear_regression_polynomial",
-"decision_tree_regression",
-"support_vector_regression",
-"random_forest_regression",
-'lightgbm_regression',
-#'xgboost_regression',
-#'catboost_regression'
-
-def fit_load(path, method):
-    full_path = os.path.join(path, method + "_fit_property.pkl")
-    with open(full_path, 'rb') as f:
+def _load_pickle(path: Annotated[str, "Path to a .pkl file"]) -> object:
+    with open(path, 'rb') as f:
         return pickle.load(f)
 
-def linear_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
+def _fit_load(
+    path: Annotated[str, "Path to saved models"],
+    method: Annotated[str, "Machine learning method"]) -> object:
+    return _load_pickle(os.path.join(path, f"{method}_fit_property.pkl"))
+
+def _predict_model(
+    x: np.array,
+    method: Annotated[str, "Machine learning method"],
+    filepath: Annotated[str, "Path to saved models"],
+    fit_info: Annotated[bytes, "Serialized model object"],
+    **kwargs) -> np.array:
     
-    if path:
-        method = 'linear_regression_simple'
-        overall_fit_settings = fit_load(path, method)
-    else:
-        overall_fit_settings = pickle.loads(fit_info)
-
-    pol_settings = overall_fit_settings['polinomial']
-    slregression = overall_fit_settings['serialized_model']
-
-    pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
-    x_poly = pol_degree.fit_transform(x)
-
-    return slregression.predict(x_poly , **kwargs)
-
-
-def support_vector_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
-
+    if method not in REGRESSION_METHODS:
+        raise ValueError(f"Unsupported method '{method}'. Available: {REGRESSION_METHODS}")
     
-    if path:
-        method = 'support_vector_regression'
-        svnegression = fit_load(path, method)
-    else:
-        svnegression = pickle.loads(fit_info)
-
-    if '2dy' in svnegression:
-        y_pred = []
-        for i in svnegression['2dy']:
-            y_pred.append(svnegression['2dy'][i].predict(x, **kwargs))
-        return np.array(y_pred).T
-    else:
-        return svnegression['1dy'].predict(x, **kwargs)
-
-
-def decision_tree_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
-
-    if path:
-        method = 'decision_tree_regression'
-        d_treec_regression = fit_load(path, method)
-    else:
-        d_treec_regression = pickle.loads(fit_info)
-
-    return d_treec_regression.predict(x, **kwargs)
-
-
-def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.ndarray:
-
-    if path:
-        method = 'random_forest_regression'
-        randomregression = fit_load(path, method)
-    else:
-        randomregression = pickle.loads(fit_info)
+    model = _fit_load(filepath, method) if filepath else pickle.loads(fit_info)
     
-    return randomregression.predict(x, **kwargs)
+    return model.predict(x, **kwargs)
+
+def predict(
+    x: np.array,
+    method: Annotated[str, "Machine learning method"] = "linear_regression",
+    filepath: Annotated[str, "Path to saved models"] = ".",
+    fit_info: Annotated[bool, "Serialized model object"] = False,
+    scalers: Annotated[bool, "Optional tuple of (scaler, scalerp)"] = False,
+    **kwargs) -> np.array:
+    """Applies preprocessing and runs prediction using a previously trained model :footcite:t:`scikit-learn`.
+
+    Parameters
+    ----------
+    x : np.array
+        Input feature data.
+    method : str
+        ML method to use for prediction.
+    path : str
+        Directory with saved model and scalers.
+    fit_info : bytes or False
+        Serialized model if not using path.
+    scalers : tuple or False
+        Optional tuple (scaler, scalerp); otherwise loaded from path.
+    kwargs : dict
+        Extra arguments passed to the model’s `.predict()` method.
+
+    Returns
+    -------
+    np.array
+        Predicted labels (in original label format).
+        
+    Examples
+    --------
+    >>> predict(X_predict, method = "linear_regression", path = "./lr_project")
+    """
+    
+    if method == "scalers":
+        return 0  # or raise NotImplementedError("Method 'scalers' is a reserved keyword.")
+
+    # Load preprocessing tools
+    if not scalers:
+        scaler = _load_pickle(os.path.join(filepath, f"{method}_scaler.pkl"))
+        scalerp = _load_pickle(os.path.join(filepath, f"{method}_scalerp.pkl"))
+    else:
+        scaler, scalerp, = scalers
+
+    # Normalize input
+    x_norm = pickle.loads(scaler).transform(x)
+    x_norm = pickle.loads(scalerp).transform(x_norm)
+
+    return _predict_model(x_norm, method, filepath, fit_info, **kwargs)
+
+# =============================================================== #
 
 
 # def xgboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
@@ -86,23 +99,6 @@ def random_florest_regression(x: npt.ArrayLike, path, fit_info, **kwargs) -> np.
 #       xgboostregression = pickle.loads(fit_info)
 #
 #    return xgboostregression.predict(x,**kwargs)
-
-
-def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
-    
-    if path:
-        method = 'lightgbm_regression'
-        lightregression = fit_load(path, method)
-    else:
-        lightregression = pickle.loads(fit_info)
-
-    if '2dy' in lightregression:
-        y_pred = []
-        for i in lightregression['2dy']:
-            y_pred.append(lightregression['2dy'][i].predict(x, **kwargs))
-        return np.array(y_pred).T
-    else:
-        return lightregression['1dy'].predict(x, **kwargs)
 
 
 # def catboost_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray:
@@ -121,54 +117,3 @@ def lightgbm_regression(x: npt.ArrayLike, path, fit_info, **kwargs)-> np.ndarray
 #     else:
 #         return catregression['1dy'].predict(x, **kwargs)
 
-
-
-_predict_methods = {
-    "linear_regression_simple": linear_regression,
-    "linear_regression_polynomial": linear_regression,
-    "support_vector_regression": support_vector_regression,
-    "decision_tree_regression": decision_tree_regression,
-    "random_forest_regression": random_florest_regression,
-#    "xgboost_regression": xgboost_regression,
-    "lightgbm_regression": lightgbm_regression,
-#    "catboost_regression": catboost_regression,
-    }
-
-
-def predict(x: npt.ArrayLike, method: str = "linear_regression_simple", path = ".", fit_info = False,
-              scalers=False, **kwargs):
-
-    if method == "linear_regression_simple":
-        fun = _predict_methods[method]
-    if method == "linear_regression_polynomial":
-        fun = _predict_methods[method]
-    if method == "support_vector_regression":
-        fun = _predict_methods[method]
-    if method == "decision_tree_regression":
-        fun = _predict_methods[method]
-    if method == "random_forest_regression":
-        fun = _predict_methods[method]
-#    if method == "xgboost_regression":
-#        fun = _predict_methods[method]
-    if method == "lightgbm_regression":
-        fun= _predict_methods[method]
-#    if method == "catboost_regression":
-#        fun= _predict_methods[method]
-    if method == "scaler_regression":
-        return 0
-
-    if method != "scaler_regression":
-
-        if not scalers:
-            scaler = pickle.load(
-                open(os.path.join(path,method+"_scaler.pkl"), 'rb'))
-            scalerp = pickle.load(
-                open(os.path.join(path,method+"_scalerp.pkl"), 'rb'))
-        else:
-            scaler,scalerp = scalers
-
-        x_norm = pickle.loads(scaler).transform(x)
-        x_norm = pickle.loads(scalerp).transform(x_norm)
-
-        y = fun(x_norm, path, fit_info, **kwargs)
-        return y

@@ -2,31 +2,31 @@
 Classification
 =========================
 
-This section contains documentation for the Classification module.
+This section contains documentation for the Classification module (Machine learning).
 
 .. automodule:: stoneforge.machine_learning.classification
     :members:
     :undoc-members:
     :show-inheritance:
 
-Settings
--------------------------
+Settings (Classification)
+--------------------------------
 
 .. automodule:: stoneforge.machine_learning.classification.settings
     :members:
     :undoc-members:
     :show-inheritance:
 
-Fit
--------------------------
+Fit (Classification)
+--------------------------------
 
 .. automodule:: stoneforge.machine_learning.classification.fit
     :members:
     :undoc-members:
     :show-inheritance:
 
-Predict
--------------------------
+Predict (Classification)
+--------------------------------
 
 .. automodule:: stoneforge.machine_learning.classification.predict
     :members:
@@ -34,6 +34,6 @@ Predict
     :show-inheritance:
 
 References
-----------------
+--------------------------------
 
 .. footbibliography::

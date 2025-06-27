@@ -1,178 +1,231 @@
-import numpy.typing as npt
-import pickle
-import json
 import os
+import json
+import pickle
+import numpy as np
+import numpy.typing as npt
+from typing import Annotated
 
+from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
 import lightgbm as lgb
-#from catboost.core import CatBoostRegressor
+
 from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-#from xgboost import XGBRegressor
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-LR_METHODS = [
-    "linear_regression_simple",
-    "linear_regression_polynomial",
-    "decision_tree_regression",
-    "support_vector_regression",
-    "random_forest_regression",
-    'lightgbm_regression',
-#    'xgboost_replacement',
-#    'catboost_replacement'
-]
+# Define supported models and their hyperparameter grids
+MODELS = {
+    "linear_regression": (LinearRegression, {}),
+    "decision_tree_regression": (DecisionTreeRegressor, {
+        "max_depth": [5, 10, 15, 30, 50, 70, 100],
+        "random_state": [99]
+    }),
+    "support_vector_regression": (SVR, {}),
+    "random_forest_regression": (RandomForestRegressor, {
+        "n_estimators": [100],
+        "max_depth": [10, 30, 50],
+        "random_state": [99]
+    }),
+    "lightgbm_regression": (lgb.LGBMRegressor, {
+        "n_estimators": [100],
+        "learning_rate": [0.1],
+        "max_depth": [5, 10, 30],
+        "random_state": [99]
+    }),
+}
 
-def saves(file, path, method, suffix = "_fit_property.pkl", sz = False):
-    full_path = os.path.join(path, method + suffix)
-    if not sz:
-        with open(full_path, "wb") as write_file:
-            pickle.dump(file, write_file)
-    else:
-        return pickle.dump(file)
+# Save model or any object
+def _saves(
+    info : Annotated [dict, "Serialized or dictionary settings"],
+    filepath : Annotated [str, "Path to the file"],
+    name : Annotated [str, "File name"],
+    suffix : Annotated [str, "Suffix of the file to be saved"] = "_fit_property.pkl",
+    sz : Annotated [str, "Serialized option"]=False)-> None:
+    """Saves model file in .json or .pkl format.
+    
+    Parameters
+    ----------
+    info : dict
+        The settings or model to be saved, either as a dictionary or serialized object.
+    filepath : str
+        The path where the file will be saved.
+    name : str
+        The name of the file to save the settings, without extension.
+    suffix : str, optional
+        The suffix to append to the file name. Defaults to "_fit_property.pkl".
+    sz : bool, optional
+        If True, the info is serialized and returned as a .pkl format. Defaults to False, which saves the file.
+        
+    Warnings
+    --------
+    Don't change the suffix parameter unless you know what you are doing. The other functions recognize this suffix.
+    """
+    
+    full_path = os.path.join(filepath, name + suffix)
+    if sz:
+        return pickle.dumps(info)
+    with open(full_path, "wb") as f:
+        pickle.dump(info, f)
 
-def load_settings(path, method):
-    with open(os.path.join(path, method + "_settings.json")) as f:
+# Load settings from JSON
+def _load_settings(
+    filepath : Annotated [str, "Path to the file"],
+    method : Annotated [str, "machine learning method"] = "gaussian_naive_bayes") -> dict:
+    """Loads settings from a JSON file for the specified machine learning method.
+    
+    Parameters
+    ----------
+    filepath : str
+        The path to the directory where the settings file is located.
+    method : str, optional
+        The name of the machine learning method for which settings are to be loaded.
+        
+    Returns
+    -------
+    dict
+        A dictionary containing the settings for the specified machine learning method.
+    """
+    
+    with open(os.path.join(filepath, f"{method}_settings.json")) as f:
         return json.load(f)
 
-
-#Simple Linear Regression
-def linear_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
-
-    method = 'linear_regression_simple'
-
-    if path:
-        overall_settings = load_settings(path, method)
-    else:
-        overall_settings = pickle.loads(settings)
-        #pol_settings = pickle.loads(settings[0])
-        #_settings = pickle.loads(settings[1])
-
-    _settings = overall_settings['settings']
-    pol_settings = overall_settings['polinomial']
-
-
-    pol_degree = PolynomialFeatures(degree=pol_settings['degree'])
-    X_poly = pol_degree.fit_transform(X)
-
-    slregression = LinearRegression(**_settings)
-    slregression.fit(X_poly, y, **kwargs)
-
-    overall_fit_settings = {'serialized_model':slregression, 'polinomial':pol_settings}
-
-    if not path:
-        #serialized_model = pickle.dumps(slregression)
-        #return settings[0], serialized_model
-        return pickle.dumps(overall_fit_settings)
-    else:
-        saves(slregression, path, method)
+# Core model training function
+def _train_model(
+    X : Annotated [np.array, "X feature data"],
+    y : Annotated [np.array, "y target data"],
+    method : Annotated [str, "Machine learning method"],
+    filepath : Annotated [str, "Path to the file where the model will be saved"],
+    gs : Annotated [bool, "Grid search for hyperparameter tuning"] = False,
+    settings : Annotated [bool, "Settings for the model, if not provided will load from file"] = False,
+    **kwargs) -> bytes | None:
+    """Internal function that trains a machine learning model based on the specified method and saves the training into file.
     
+    Parameters
+    ----------
+    X : np.array
+        Feature data for training the model.
+    y : np.array
+        Target data for training the model.
+    method : str
+        The machine learning method to be used for training. Should be one of the following:
+    filepath : str
+        The path to the file where the trained model will be saved. If not provided, the model will be returned as a serialized object.
+    gs : bool, optional
+        If True, performs grid search for hyperparameter tuning. Defaults to False.
+    settings : bool, optional
+        If True, uses the provided settings for the model. If False, loads settings from a file if available.
+    **kwargs : dict
+        Additional keyword arguments to be passed to the model's fit method.
+        
+    Returns
+    -------
+    np.array or None
+        If `filepath` is not provided, returns the serialized model as a byte string. Otherwise, saves the model to the specified file and returns None.
+        
+    Warnings
+    --------
+    If the `method` is not supported, a ValueError will be raised.
+    If `gs` is True, the model will be trained using grid search for hyperparameter.
+    Filenames are standardized to include the method name and a suffix "_fit_property.pkl" for consistency.
+    """
+    ModelClass, param_grid = MODELS[method]
+    
+    if method not in MODELS:
+        raise ValueError(f"Unsupported method '{method}'. Available: {list(MODELS.keys())}")
 
-#Suporte Vector 
-def support_vector_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
-
-    method = 'support_vector_regression'
-
-    if path:
-        settings = load_settings(path, method)
+    # Grid Search if requested
+    if gs:
+        model = ModelClass()
+        grid = GridSearchCV(model, param_grid, scoring="r2")
+        grid.fit(X, y)
+        settings = grid.best_params_
+    elif not settings:
+        settings = _load_settings(filepath, method) if filepath else {}
     else:
         settings = pickle.loads(settings)
 
-    svn = SVR(**settings)
+    # Set default random_state if applicable
+    if "random_state" in ModelClass().get_params():
+        settings["random_state"] = settings.get("random_state", 99)
+
+    model = ModelClass(**settings)
+    model.fit(X, y, **kwargs)
+
+    return _saves(model, filepath, method) if filepath else pickle.dumps(model)
+
+# Main interface
+def fit(
+    X : Annotated [np.array, "X feature data"],
+    y : Annotated [np.array, "y target data"],
+    method : Annotated [str, "Machine learning method"] = 'linear_regression',
+    filepath : Annotated [str, "Path to the file where the model will be saved"] = ".",
+    gs : Annotated [bool, "Grid search for hyperparameter tuning"] = False,
+    settings : Annotated [bool, "Settings for the model, if not provided will load from file"] = False,
+    **kwargs):
+    """Fits a machine learning model to the provided data and saves the model to a file :footcite:t:`scikit-learn, dias2023`.
     
+    Parameters
+    ----------
+    X : np.array
+        Feature data for training the model.
+    y : np.array
+        Target data for training the model.
+    method : str
+        The machine learning method to be used for training. Should be one of the following:
+        - 'linear_regression'
+        - 'decision_tree_regression'
+        - 'support_vector_regression'
+        - 'random_forest_regression'
+        - 'lightgbm_regression'
+    filepath : str
+        The path to the file where the trained model will be saved. If not provided, the model will be returned as a serialized object.
+    gs : bool, optional
+        If True, performs grid search for hyperparameter tuning. Defaults to False.
+    settings : bool, optional
+        If True, uses the provided settings for the model. If False, loads settings from a file if available.
+    **kwargs : dict
+        Additional keyword arguments to be passed to the model's fit method.
+        
+    Returns
+    -------
+    np.array or None
+        If `filepath` is not provided, returns the serialized model as a byte string. Otherwise, saves the model to the specified file and returns None.
+        
+    Examples
+    --------
+    >>> X_fit = np.array([[1, 2], [3, 4], [5, 6]])
+    >>> y_fit = np.array([0, 1, 0])
+    >>> fit(X_fit, y_fit, method="linear_regression", filepath="./lr_project", gs=True)
 
-    if y.ndim == 2:
-        svn_values = {}
-        svn_values['2dy'] = {}
-        n = y.shape[1]
+    Warnings
+    --------
+    If the `method` is not supported, a ValueError will be raised.
+    If `gs` is True, the model will be trained using grid search for hyperparameter.
+    Filenames are standardized to include the method name and a suffix "_fit_property.pkl" for consistency.  
+    """
 
-        for i in range(n):
-            svn.fit(X, y[:,i], **kwargs)
-            svn_values['2dy'][i] = svn
+    # Preprocessing
+    scaler = MinMaxScaler().fit(X)
+    X_scaled = scaler.transform(X)
 
-        if not path:
-            serialized_model = pickle.dumps(svn_values)
-            return serialized_model
-        else:
-            saves(svn, path, method)
-    else:
-        svn.fit(X, y, **kwargs)
-        svn_values = {}
-        svn_values['1dy'] = svn
-    if not path:
-        serialized_model = pickle.dumps(svn_values)
-        return serialized_model
-    else:
-        saves(svn_values, path, method)
+    scalerp = StandardScaler().fit(X_scaled)
+    X_norm = scalerp.transform(X_scaled)
 
+    # Shortcut to get preprocessors only
+    if method == "scalers":
+        return (
+            pickle.dumps(scaler),
+            pickle.dumps(scalerp),
+        )
 
-#Decison Tree
-def decision_tree_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
+    # Save preprocessors
+    if filepath:
+        _saves(scaler, filepath, f"{method}_scaler", suffix=".pkl")
+        _saves(scalerp, filepath, f"{method}_scalerp", suffix=".pkl")
 
-    method = 'decision_tree_regression'
-
-    if gs:
-        parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100],
-        'random_state':[99]}
-
-        decisiontree = DecisionTreeRegressor()
-
-        bestdt = GridSearchCV(decisiontree,parameters,scoring='accuracy')
-        bestdt.fit(X,y)
-        settings = bestdt.best_params_
-
-    if not gs:
-        if path:
-            settings = load_settings(path, method)
-            settings['random_state'] = 99
-        else:
-            settings = pickle.loads(settings)
-    
-    d_treer = DecisionTreeRegressor(**settings)
-
-    d_treer.fit(X, y, **kwargs)
-    if not path:
-        serialized_model = pickle.dumps(d_treer)
-        return serialized_model
-    else:
-        saves(d_treer, path, method)
-
-
-#Random Forest
-def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
-
-    method = 'random_forest_regression'
-
-    if gs:
-        parameters = {'criterion': ['gini', 'entropy'],
-        'max_depth':[5,10,15,30,50,70,100],
-        'random_state':[99]}
-
-        randomflorest = RandomForestRegressor()
-
-        bestrf = GridSearchCV(randomflorest,parameters,scoring='accuracy')
-        bestrf.fit(X,y)
-        settings = bestrf.best_params_
-
-    if not gs:
-        if path:
-            settings = load_settings(path, method)
-            settings['random_state'] = 99
-        else:
-            settings = pickle.loads(settings)
-            settings['random_state'] = 99
-    
-    d_forestc = RandomForestRegressor(**settings)
-    d_forestc.fit(X, y, **kwargs)
-    if not path:
-        serialized_model = pickle.dumps(d_forestc)
-        return serialized_model
-    else:
-        saves(d_forestc, path, method)
+    # Train and return or save model
+    return _train_model(X_norm, y, method, filepath, gs, settings, **kwargs)
 
 
 #XgBoost NOTE:(too big, must remain optional)
@@ -208,84 +261,7 @@ def random_forest_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, setti
 
 
 #LightGBM
-def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
 
-    method = 'lightgbm_regression'
-
-    if y.ndim == 2:
-        lgbm_values = {}
-        lgbm_values['2dy'] = {}
-
-        ii = 0
-        for _y in y.T:
-
-        # =================================================== #
-        # this should be better implemented
-
-            if gs:
-                parameters =  {'n_estimators': [100],
-                'learning_rate': [0.5],
-                'max_depth':[5,10,15,30,50,70,100],
-                'random_state':[99]}
-
-                lghtr = lgb.LGBMRegressor()
-
-                bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
-                bestlight.fit(X,_y)
-                _settings = bestlight.best_params_
-
-            if not gs:
-                if path:
-                    _settings = load_settings(path, method)
-                    _settings['random_state'] = 99
-                    _settings['verbose'] = -1
-                else:
-                    _settings = pickle.loads(settings)
-                    _settings['random_state'] = 99
-                    _settings['verbose'] = -1
-            
-            lgbm = lgb.LGBMRegressor(**_settings)
-            lgbm.fit(X, _y, **kwargs)
-            lgbm_values['2dy'][ii] = lgbm
-            ii += 1
-
-        # =================================================== #
-    else:
-        # =================================================== #
-        lgbm_values = {}
-        lgbm_values['1dy'] = {}
-
-        if gs:
-            parameters =  {'n_estimators': [100],
-            'learning_rate': [0.5],
-            'max_depth':[5,10,15,30,50,70,100],
-            'random_state':[99]}
-
-            lghtr = lgb.LGBMRegressor()
-
-            bestlight = GridSearchCV(lghtr,parameters,scoring='accuracy')
-            bestlight.fit(X,y)
-            settings = bestlight.best_params_
-
-        if not gs:
-            if path:
-                _settings = load_settings(path, method)
-                _settings['random_state'] = 99
-                _settings['verbose'] = -1
-            else:
-                _settings = pickle.loads(settings)
-                _settings['random_state'] = 99
-                _settings['verbose'] = -1
-        
-        lgbm = lgb.LGBMRegressor(**_settings)
-        lgbm.fit(X, y, **kwargs)
-        lgbm_values['1dy'] = lgbm
-
-    if not path:
-        serialized_model = pickle.dumps(lgbm_values)
-        return serialized_model
-    else:
-        saves(lgbm_values, path, method)
 
 #CatBoost
 # def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):
@@ -369,77 +345,3 @@ def lightgbm_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, 
 #     else:
 #         saves(cb_values, path, method)
 
-
-_fit_methods = {
-    "linear_regression_simple": linear_regression,
-    "linear_regression_polynomial": linear_regression,
-    "support_vector_regression": support_vector_regression,
-    "decision_tree_regression": decision_tree_regression,
-    "random_forest_regression": random_forest_regression,
-#    "xgboost_regression": xgboost_regression,
-    "lightgbm_regression": lightgbm_regression,
-#    "catboost_regression": catboost_regression
-    }
-
-
-def fit(X: npt.ArrayLike , y: npt.ArrayLike, method: str = "linear_regression_simple", 
-path = ".", gs=False, settings = False, **kwargs):
-
-    if method == "linear_regression_simple":
-        fun = _fit_methods[method]
-    if method == "linear_regression_polynomial":
-        fun = _fit_methods[method]
-    if method == "support_vector_regression":
-        fun = _fit_methods[method]
-    if method == "decision_tree_regression":
-        fun = _fit_methods[method]
-    if method == "random_forest_regression":
-        fun = _fit_methods[method]
-    #if method == "xgboost_regression":
-    #    fun = _fit_methods[method]
-    if method == "lightgbm_regression":
-        fun = _fit_methods[method]
-    if method == "catboost_regression":
-        fun = _fit_methods[method]
-
-    # ===================================== #
-
-    scaler = MinMaxScaler()
-    scaler.fit(X)
-    X_norm = scaler.transform(X)
-    
-    #Normalization adjusts the values of a variable to a specific range.
-
-    # ===================================== #
-
-    scalerp = StandardScaler()
-    scalerp.fit(X_norm)
-    X_norm = scalerp.transform(X_norm)
-
-    if method == "scaler_regression":
-        return pickle.dumps(scaler), pickle.dumps(scalerp)
-
-    # ===================================== #
-    
-    #Standardization transforms the data in such a way that it has a mean of zero and a standard deviation of one.
-
-    # TODO: repass to preprocessing due to the sobreposition of processes
-
-    #scaler = MinMaxScaler()
-    #scaler.fit(y)
-    #y_norm = scaler.transform(y)
-    #saves(scaler, path+"\\y_scaler")
-        
-    #scalerp = StandardScaler()
-    #scalerp.fit(y_norm)
-    #y_norm = scaler.transform(y_norm)
-    #saves(scalerp, path+"\\y_scalerp")
-    
-    if not path:
-        serialized_model = fun(X_norm, y, path, gs, settings, **kwargs)
-        return serialized_model
-    else:
-        saves(scaler, path, method+'_scaler', suffix = '.pkl')
-        saves(scalerp, path, method+'_scalerp', suffix = '.pkl')
-        fun(X_norm, y, path, gs, settings, **kwargs)
-    #fun(X, y, path, **kwargs)

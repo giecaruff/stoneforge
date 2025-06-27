@@ -2,7 +2,7 @@
 Rock Physics
 =========================
 
-This section contains documentation for the Rock Physics module.
+This section contains documentation for the Rock Physics module. We indicate the reference (Pt-Br) of :footcite:t:`wagner2020rock_physics` for the methods used in this module.
 
 .. automodule:: stoneforge.rock_physics
     :members:

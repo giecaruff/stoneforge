@@ -158,8 +158,8 @@ def _train_model(
 def fit(
     X : Annotated [np.array, "X feature data"],
     y : Annotated [np.array, "y target data"],
-    method : Annotated [str, "Machine learning method"],
-    filepath : Annotated [str, "Path to the file where the model will be saved"],
+    method : Annotated [str, "Machine learning method"] = 'gaussian_naive_bayes',
+    filepath : Annotated [str, "Path to the file where the model will be saved"] = ".",
     gs : Annotated [bool, "Grid search for hyperparameter tuning"] = False,
     settings : Annotated [bool, "Settings for the model, if not provided will load from file"] = False,
     **kwargs):

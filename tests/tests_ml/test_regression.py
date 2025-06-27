@@ -33,7 +33,7 @@ class setup_methods:
         self.path = path
         self.decimals = decimals
 
-    def test_method(self, method, degree = 2):
+    def test_method(self, method):
 
         #if method == "linear_regression_polynomial":
         #    a = settings(method = method, verbose = True, path = False, degree = degree)
@@ -44,12 +44,12 @@ class setup_methods:
         #    d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
         #    print(np.mean(d))
         #else:
-        a = settings(method = method, verbose = True, path = False)
+        a = settings(method = method, filepath = False)
         print("settings done",type(a))
-        b = fit(X = self.X, y = self.y, method = method, path = False, settings = a)
+        b = fit(X = self.X, y = self.y, method = method, filepath = False, settings = a)
         print("fit done",type(b))
-        c = fit(X = self.X, y = self.y, method = "scaler_regression", path = False, settings = a)
-        d = predict(self.Xte, method = method, path = False, fit_info = b, scalers = c)
+        c = fit(X = self.X, y = self.y, method = "scalers", filepath = False, settings = a)
+        d = predict(self.Xte, method = method, filepath = False, fit_info = b, scalers = c)
         print('mean:',d,'\n')
         
 
@@ -98,13 +98,7 @@ _test = setup_methods(X, X_test, Y, y_test, main_path, 3)
 # %% ============================================================== #
 
 
-_test.test_method("linear_regression_simple")
-
-
-# %% ============================================================== #
-
-
-_test.test_method("linear_regression_polynomial")
+_test.test_method("linear_regression")
 
 
 # %% ============================================================== #

@@ -2,7 +2,7 @@
 Petrophysics
 =========================
 
-This section contains documentation for the Petrophysics module.
+This section contains documentation for the Petrophysics module. We indicate the reference (Pt-Br) of :footcite:t:`freire2020youtube` for the methods used in this module.
 
 .. automodule:: stoneforge.petrophysics
     :members:
