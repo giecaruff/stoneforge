@@ -17,22 +17,20 @@ def passey(dt, rt, dtbaseline, rtbaseline, lom=10.6):
     lom : int, float
         Level of maturity
               
-    Returns:
+    Returns
     -------
     TOC : array_like
         Total organic carbon content calculated from passey method.
 
-    References:
+    References
     ----------
     Passey, O.R., F.U. Moretti, and J.D. Stroud, 1990, A practical modal for organic richness from porosity and resistivity logs: AAPG Bulletin, v. 
     74, p. 1777–1794.
 
-
     """
     dlogrt = (rt - rtbaseline) + 0.02*(dt - dtbaseline)
     toc = dlogrt*10**(2.297 - 0.1688*lom)
-    clipped_toc = np.clip(toc, 0.0, 100.0)
-    return clipped_toc
+    return np.clip(toc, 0.0, 100.0)
     
 
 _toc_methods = {
@@ -44,7 +42,7 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, rtbas
 
     This is a façade for the methods:
         - passey
-
+S
     Parameters
     ----------
     dt : array_like
@@ -63,12 +61,11 @@ def calculate_toc(dt: npt.ArrayLike, rt: npt.ArrayLike, dtbaseline: float, rtbas
             
         If not given, default method is 'passey'
 
-    Returns:
+    Returns
     -------
     toc : array_like
         Total organic carbon content for the aimed interval using the defined method.
 
     """
-    toc = passey(dt, rt, dtbaseline, rtbaseline, lom)
     
-    return toc
+    return passey(dt, rt, dtbaseline, rtbaseline, lom)

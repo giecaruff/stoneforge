@@ -1,42 +1,40 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
-import numpy.typing as npt
+from typing import Annotated
 import warnings
 #from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 from .helpers import correct_petrophysic_estimation_range
 
-# Make anomalous water saturation values larger than 1 be one
-def correct_range(sw: np.ndarray):
-    sw[sw > 1] = 1
-    return sw
-
-def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
-           m: float, n: float) -> np.ndarray:
-    """Estimate the Water Saturation from Archie's [1]_ equation.
+    
+def archie(
+    rt: Annotated[np.array, "Formation resistivity"],
+    phi: Annotated[np.array, "Porosity"],
+    rw: Annotated[float, "Water resistivity"] = 0.02,
+    a: Annotated[float, "Clean density point"] = 1.00,
+    m: Annotated[float, "fluid neutron point"] = 2.00,
+    n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
+    """Estimate the Water Saturation from :footcite:t:`archie1942` (standard values from :footcite:t:`archie1952,aapg2014archie`).
 
     Parameters
     ----------
-    rw : int, float
-        Water resistivity.  
     rt : array_like
         Formation resistivity.    
     phi : array_like
-        Porosity.   
-    a : int, float
+        Porosity.
+    rw : float
+        Water resistivity.  
+    a : float
         Tortuosity factor.
-    m : int, float
+    m : float
         Cementation exponent.
-    n : int, float
+    n : float
         Saturation exponent.
 
-    Returns:
+    Returns
     -------
     sw : array_like
         Water saturation from Archie equation.
-
-    References:
-    ----------
-    .. [1] Archie GE (1942) The electrical resistivity log as an aid in determining some
-    reservoir characteristics. Transactions of the AIME, 146(01), 54-62.
 
     """
     if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
@@ -51,40 +49,40 @@ def archie(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
         return sw
 
 
-def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
-              m: float, n: float, vsh: npt.ArrayLike,
-              rsh: float) -> np.ndarray:
-    """Estimate water saturation from Simandoux [1]_ equation.
+def simandoux(
+    rt: Annotated[np.array, "Formation resistivity"],
+    phi: Annotated[np.array, "Porosity"],
+    vsh: Annotated[np.array, "Shale volume"],
+    rw: Annotated[float, "Water resistivity"] = 0.02,
+    rsh: Annotated[float, "Shale resistivity"] = 4.00,
+    a: Annotated[float, "Clean density point"] = 1.00,
+    m: Annotated[float, "fluid neutron point"] = 2.00,
+    n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
+    """Estimate water saturation from :footcite:t:`simandoux1963` equation (standard values from :footcite:t:`geoloil2012sw,aapg2014archie`).
 
     Parameters
-    ----------
-    rw : int, float
-        Water resistivity.
-    rt : array_like
-        True resistivity.    
+    ---------- 
     phi : array_like
         Porosity.
-    a : int, float
-        Tortuosity factor.
-    m : int, float
-        Cementation exponent.
-    n : int, float
-        Saturation exponent.
     vsh : array_like
         Clay volume log.
-    rsh : int, float
+    rw : float
+        Water resistivity.
+    rsh : float
         Clay resistivity.
+    rt : array_like
+        True resistivity.   
+    a : float
+        Tortuosity factor.
+    m : float
+        Cementation exponent.
+    n : float
+        Saturation exponent.
 
-    Returns:
+    Returns
     -------
     sw : array_like
         Water saturation from Simandoux equation.
-
-    References:
-    ----------
-    .. [1] Simandoux P (1963) Measures die techniques an milieu application a measure des
-    saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
-    du Patrole 18(Supplemen-tary Issue):193
 
     """
     C = (1 - vsh) * a * rw / phi**m
@@ -94,83 +92,83 @@ def simandoux(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
 
     sw = correct_petrophysic_estimation_range(sw)
 
-
     return sw
 
 
-def indonesia(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
-              m: float, n: float, vsh: npt.ArrayLike,
-              rsh: float) -> np.ndarray:
-    """Estimate water saturation from Poupon-Leveaux (Indonesia) [1]_ equation.
+def indonesia(
+    rt: Annotated[np.array, "Formation resistivity"],
+    phi: Annotated[np.array, "Porosity"],
+    vsh: Annotated[np.array, "Shale volume"],
+    rw: Annotated[float, "Water resistivity"] = 0.02,
+    rsh: Annotated[float, "Shale resistivity"] = 4.00,
+    a: Annotated[float, "Clean density point"] = 1.00,
+    m: Annotated[float, "fluid neutron point"] = 2.00,
+    n: Annotated[float, "fluid density point"] = 2.00) -> np.array:
+    """Estimate water saturation from :footcite:t:`poupon-leveaux1971` equation (standard values from :footcite:t:`geoloil2012sw,aapg2014archie`).
 
     Parameters
-    ----------
-    rw : int, float
-        Water resistivity.  
-    rt : array_like
-        True resistivity.    
+    ---------- 
     phi : array_like
-        Porosity.     
+        Porosity.
     vsh : array_like
         Clay volume log.
-    a : int, float
-        Tortuosity factor.
-    m : int, float
-        Cementation exponent.
-    n : int, float
-        Saturation exponent.
+    rw : float
+        Water resistivity.
     rsh : float
         Clay resistivity.
+    rt : array_like
+        True resistivity.   
+    a : float
+        Tortuosity factor.
+    m : float
+        Cementation exponent.
+    n : float
+        Saturation exponent.
 
-    Returns:
+    Returns
     -------
     indonesia : array_like
         Water saturation from Poupon-Leveaux equation.
-
-    References:
-    ----------
-    .. [1] Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.
-    The Log Analyst, 12, 1-2.
 
     """
     sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
     sw = correct_petrophysic_estimation_range(sw)
 
-
     return sw
 
 
-def fertl(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike, a: float,
-          m: float, vsh: npt.ArrayLike, alpha: float) -> np.ndarray:
-    """Estimate water saturation from Fertl [1]_ equation.
+def fertl(
+    rt: Annotated[np.array, "Formation resistivity"],
+    phi: Annotated[np.array, "Porosity"],
+    vsh: Annotated[np.array, "Shale volume"],
+    rw: Annotated[float, "Water resistivity"] = 0.02,
+    a: Annotated[float, "Clean density point"] = 1.00,
+    m: Annotated[float, "fluid neutron point"] = 2.00,
+    alpha: Annotated[float, "fluid density point"] = 0.30) -> np.array:
+    """Estimate water saturation from :footcite:t:`fertl1975` equation (standard values from :footcite:t:`aapg2014archie`).
 
     Parameters
     ----------
-    rw : int, float
-        Water resistivity.
     rt : array_like
-        True resistivity.    
+        True resistivity.
     phi : array_like
-        Porosity (must be effective).  
+        Porosity (must be effective).
     vsh : array_like
-        Clay volume log.     
+        Clay volume log.
+    rw : float
+        Water resistivity.     
     a : int, float
         Tortuosity factor.
     m : int, float
         Cementation exponent.
-    alpha : int, float
+    alpha : float
         Alpha parameter from Fertl equation.
 
-    Returns:
+    Returns
     -------
     fertl : array_like
         Water saturation from Fertl equation.
-
-    References:
-    ----------
-    .. [1] Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
-       In SPWLA 16th Annual Logging Symposium. OnePetro.
-
+        
     """
     sw = phi**(-m/2) * ((a*rw/rt + (alpha*vsh/2)**2)**0.5 - (alpha*vsh/2))
     sw = correct_petrophysic_estimation_range(sw)
@@ -187,9 +185,9 @@ _sw_methods = {
 }
 
 
-def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
+def water_saturation(rw: float, rt: np.array, phi: np.array,
                      a: float, m: float, method: str = "archie",
-                     **kwargs) -> np.ndarray:
+                     **kwargs) -> np.array:
     """Compute water saturation from resistivity log.
 
     This is a façade for the methods:
@@ -222,13 +220,15 @@ def water_saturation(rw: float, rt: npt.ArrayLike, phi: npt.ArrayLike,
         Alpha parameter from Fertl equation. Required if `method` is "fertl"
     method : str, optional
         Name of the method to be used.  Should be one of
+        
             - 'archie'
             - 'simandoux'
             - 'indonesia'
-            - 'fertl
+            - 'fertl'
+            
         If not given, default method is 'archie'
 
-    Returns:
+    Returns
     -------
     water_saturation : array_like
         Water saturation for the aimed interval using the defined method.

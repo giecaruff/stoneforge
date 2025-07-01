@@ -1,35 +1,32 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-import numpy.typing as npt
 from typing import Annotated
 import warnings
-#from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 from .helpers import correct_petrophysic_estimation_range
+
+#References
+#---------- 
+#.. bibliography::
 
 def effective_porosity(
     phi: Annotated[np.array, "Porosity log"],
-    vsh: Annotated[np.array, "Shale volume"]
-) -> np.array:
-    """Calculate the effective porosity from the total porosity and shale volume [1]_.
+    vsh: Annotated[np.array, "Shale volume"]) -> np.array:
+    """Calculate the effective porosity from the total porosity and shale volume (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
-    phi : np.array
+    phi : array_like
         Porosity log
-    vsh : np.array
+    vsh : array_like
         Shale volume
 
     Returns
     -------
-    phie : np.array
+    phie : array_like
         Effective porosity for the aimed interval (more suitable for the bulk density porosity)
-
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). *Physical Properties of Rocks: Fundamentals and Principles of Petrophysics*. Elsevier
-    
     """
+    
     phie = phi - vsh
     phie = correct_petrophysic_estimation_range(phie)
     return phie
@@ -40,7 +37,7 @@ def density_porosity(
     rhom: Annotated[float, "Matrix density"],
     rhof: Annotated[float, "Fluid density"]) -> np.array:
     
-    """Estimate the porosity from the bulk density log [1]_.
+    """Estimate the porosity from the bulk density log (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -53,12 +50,8 @@ def density_porosity(
        
     Returns
     -------
-    phid : np.array
+    phid : array_like
         Total porosity based on bulk density.
-
-    References
-    ----------      
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
 
     """
     if rhom == rhof:
@@ -88,8 +81,7 @@ def neutron_porosity(
     nphi: Annotated[np.array, "Neutron porosity log"],
     vsh: Annotated[np.array, "Shale volume"],
     phish: Annotated[float, "Apparent porosity in shales"]) -> np.array:
-    
-    """Estimate the effective porosity from the neutron log [1]_.
+    """Estimate the effective porosity from the neutron log (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -105,19 +97,13 @@ def neutron_porosity(
     phin : array_like
         Effective porosity from the neutron log for the aimed interval.
 
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
-
     """
     if any(nphi < (vsh * phish)):
         warnings.warn(UserWarning("phin must be a positive value"))
-
         phin = nphi - (vsh * phish)
     
     elif any(nphi - (vsh * phish) > 1):
         warnings.warn(UserWarning("phin must be a value between 0 and 1"))
-
         phin = nphi - (vsh * phish)
 
     else:
@@ -131,8 +117,7 @@ def neutron_density_porosity(
     phid: Annotated[np.array, "Porosity from density log"],
     phin: Annotated[np.array, "Porosity from neutron log"],
     squared: Annotated[bool, "Main operation"]=False) -> np.array:
-    
-    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity [1]_.
+    """Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity (:footcite:t:`schon1998physical`).
 
     Parameters
     ----------
@@ -149,29 +134,19 @@ def neutron_density_porosity(
     phie : array_like
         Effective porosity from the Bulk Density porosity and Neutron porosity mean.
 
-    References
-    ----------
-    .. [1] Schön, J. H. (2015). Physical properties of rocks: Fundamentals and principles of petrophysics. Elsevier.
-
     """
     if squared == False:
         if any((phid + phin / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
-
             phi = (phid + phin) / 2
         else:
             phi = (phid + phin) / 2
-
-
     elif squared == True:
         if any((phid**2 + phin**2 / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
-
             phi = np.sqrt( (phid**2 + phin**2) / 2)
-
         else:
             phi = np.sqrt( (phid**2 + phin**2) / 2)
-
     phi = correct_petrophysic_estimation_range(phi)
     return phi
 
@@ -181,7 +156,7 @@ def sonic_porosity(
     dtma: Annotated[np.array, "Matrix transit time"],
     dtf: Annotated[np.array, "Fluid transit time"]) -> np.array:
     
-    """Estimate the Porosity from sonic using the Wyllie time-average equation [1]_.
+    """Estimate the Porosity from sonic using the :footcite:t:`wyllie1956` time-average equation.
 
     Parameters
     ----------
@@ -197,29 +172,21 @@ def sonic_porosity(
     phidt : array_like
         Porosity from sonic.
 
-    References
-    ----------
-    .. [1] M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner, (1956), "ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA," GEOPHYSICS 21: 41-70.
-
     """
     if dtf == dtma:
         warnings.warn(UserWarning("This will result in a division by zero"))
-
         return np.nan
 
     elif any(dt <= dtma) or dtf <= dtma:
         warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
-
         phidt = (dt - dtma) / (dtf - dtma)
 
     elif any(dt - dtma > dtf - dtma):
         warnings.warn(UserWarning("dt value is greather than dtf"))
-
         phidt = (dt - dtma) / (dtf - dtma)
 
     else:
         phidt = (dt - dtma) / (dtf - dtma)
-
         
     phidt = correct_petrophysic_estimation_range(phidt)
     return phidt
@@ -229,7 +196,7 @@ def gaymard_porosity(
     phid: Annotated[np.array, "Porosity from density log"],
     phin: Annotated[np.array, "Porosity from neutron log"]) -> np.array:
     
-    """Estimate the effective porosity using Gaymard-Poupon [1]_ method.
+    """Estimate the effective porosity using :footcite:t:`gaymardpoupon1968` method.
 
     Parameters
     ----------
@@ -242,10 +209,6 @@ def gaymard_porosity(
     -------
     phie : array_like
         Effective porosity using Gaymard-Poupon method
-    
-    References
-    ----------
-    .. [1] Gaymard, R., and A. Poupon. "Response Of Neutron And Formation Density Logs In Hydrocarbon Bearing Formations." The Log Analyst 9 (1968).
 
     """
     phie = (0.5 * (phid*phid + phin*phin)) ** 0.5
@@ -263,16 +226,17 @@ _porosity_methods = {
     "effective": effective_porosity
 }
 
-def porosity(method: Annotated[str, "Chosen porosity method"] = "density", **kwargs) -> np.array:
+def porosity(
+    method: Annotated[str, "Chosen porosity method"] = "density", **kwargs) -> np.array:
     """Compute porosity from well logs.
 
     This is a façade for the methods:
         - density: :func:`stoneforge.petrophysics.porosity.density_porosity`
-        - neutron
-        - neutron-density
-        - sonic
-        - gaymard
-        - effective
+        - neutron: :func:`stoneforge.petrophysics.porosity.neutron_porosity`
+        - neutron-density: :func:`stoneforge.petrophysics.porosity.neutron_density_porosity`
+        - sonic: :func:`stoneforge.petrophysics.porosity.sonic_porosity`
+        - gaymard: :func:`stoneforge.petrophysics.porosity.gaymard_porosity`
+        - effective: :func:`stoneforge.petrophysics.porosity.effective_porosity`
 
     Parameters
     ----------
@@ -302,19 +266,21 @@ def porosity(method: Annotated[str, "Chosen porosity method"] = "density", **kwa
         Total porisity. Required if `method` is "effective".
     method : str, optional
         Name of the method to be used.  Should be one of
+        
             - 'density'
             - 'neutron'
             - 'neutron-density'
             - 'sonic'
             - 'gaymard'
             - 'effective'
+            
         If not given, default method is 'density'
 
     Returns
     -------
     phi : array_like
         Porosity log using the defined method.
-
+        
     """
     options = {}
 

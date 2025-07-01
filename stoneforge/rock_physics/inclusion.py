@@ -1,5 +1,3 @@
-"""From Berryman 1980
-"""
 import numpy.typing as npt
 import numpy as np
 from .elastic_constants import poisson
@@ -35,7 +33,7 @@ def ABR(k, g, ks, gs):
 
 
 def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: float, g: float, alpha: float):
-    """Calculate bulk modulus and shear modulus using Kuster-Toksöz equation .
+    """Calculate bulk modulus and shear modulus using :footcite:t:`kuster-toksoz1974` equation (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
@@ -64,11 +62,6 @@ def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: 
     g_kt : array_like
         Shear modulus.
 
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
-
     """
     theta = get_theta(alpha)
     f = get_f(alpha, theta)
@@ -81,15 +74,8 @@ def Kuster_Toksöz(phi: npt.ArrayLike, ks: npt.ArrayLike, gs: npt.ArrayLike, k: 
     numerator = ((4/3)*(gs*x)) + ks
     denominator = (1-x)
     K = numerator / denominator
-   
- 
   
     #K = ks - (ks + (4.0/3.0)*gs)*phi*(ks - k)*P/3.0/(ks + (4.0/3.0)*gs + phi*(ks - k)*P/3.0)
     G = gs - (gs + Fm)*phi*(gs - g)*Q/5.0/(gs + Fm + phi*(gs - g)*Q/5.0)
 
-
-   
-
     return K, G
-    
-
