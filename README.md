@@ -10,7 +10,7 @@ Part of the <strong>Appy</strong> project
 
 
 <p align="center">
-<a href="https://giecaruff.github.io/sites/"><strong>Documentation</strong> (latest)</a> |
+<a href="https://giecaruff.github.io/stoneforge/"><strong>Documentation</strong> (latest)</a> |
 <a href="http://gcr.sites.uff.br/"><strong>Institutional</strong> (GIECAR website)</a> 
 </p>
 
