@@ -3,6 +3,8 @@ Preprocessing
 =========================
 
 This section contains documentation for the Preprocessing module.
+NOTE: Those methods will be modified in the future to be more flexible and
+to allow for more complex workflows.
 
 .. automodule:: stoneforge.preprocessing
     :members:

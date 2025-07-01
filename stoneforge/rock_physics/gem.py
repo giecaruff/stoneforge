@@ -1,38 +1,38 @@
-import numpy as np
-import numpy.typing as npt
+# -*- coding: utf-8 -*-
 
+import numpy as np
+from typing import Annotated
 from .elastic_constants import poisson
 
-def hertz_mindlin(k: float, g: float, n: float, phic: float,
-                  p: float) -> np.ndarray:
-    """Computes the elastic moduli of the original room-dry grain pack at
-    critical porosity phic from Hertz-Mindlin contact theory [1]_.
+
+def hertz_mindlin(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    n: Annotated[float, "Coordination number"],
+    phic: Annotated[float, "Critical porosity"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> float:
+    """Computes the elastic moduli of the original room-dry grain pack at critical porosity phic from Hertz-Mindlin (:footcite:t:`hertz1882,mindlin1949`) contact theory (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
-    k : int, float
+    k : float
         Bulk modulus of the mineral.
-    g : int, float
+    g : float
         Shear modulus of the mineral.
-    n : int, float
+    n : float
         Coordination number.
     phic : float
         Critical porosity.
-    p : int, float
+    p : float
         Hydrostatic confining pressure.
 
-    Returns:
+    Returns
     -------
     khm : float
         Bulk modulus of the Hertz-Mindlin point.
     ghm : float
         Shear modulus of the Hertz-Mindlin point.
-
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
-
+        
     """
     v = poisson(method = "k_and_g", k=k, g=g)
     khm = ((n**2 * (1.-phic)**2 * g**2 * p) / \
@@ -43,36 +43,36 @@ def hertz_mindlin(k: float, g: float, n: float, phic: float,
     return khm, ghm
 
 
-def soft_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
-              n: float, p: float) -> np.ndarray:
-    """Computes the elastic moduli of the rock using the soft sand model [1]_.
+def soft_sand(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
+    """Computes the elastic moduli of the rock using the soft sand model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
-    k : int, float
+    k : float
         Bulk modulus of the mineral.
-    g : int, float
+    g : float
         Shear modulus of the mineral.
-    phi : float, array_like
+    phi : array_like
         Porosity value or log.
     phic : float
         Critical porosity.
-    n : int, float
+    n : float
         Coordination number.
-    p : int, float
+    p : float
         Hydrostatic confining pressure.
 
-    Returns:
+    Returns
     -------
-    ksoft : float, array_like
+    ksoft : array_like
         Bulk modulus using the soft sand model.
-    gsoft : float, array_like
+    gsoft : array_like
         Shear modulus using the soft sand model.
-
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
 
     """
     khm, ghm = hertz_mindlin(k, g, n, phic, p)
@@ -84,44 +84,46 @@ def soft_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
     return ksoft, gsoft
 
 
-def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
-              n: float, kc: float, gc: float, phib: float, deposition_type: str = 'grain_surface') -> np.ndarray:
-    """Computes the elastic moduli of the rock using the constant cement
-    model [1]_.
+def constant_cement(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    kc: Annotated[float, "Bulk modulus of the cementing mineral"],
+    gc: Annotated[float, "Shear modulus of the cementing mineral"],
+    phib: Annotated[float, "Porosity where the cement effect starts"],
+    deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
+    """Computes the elastic moduli of the rock using the constant cement model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
-    k : int, float
+    k : float
         Bulk modulus of the mineral.
-    g : int, float
+    g : float
         Shear modulus of the mineral.
-    phi : float, array_like
+    phi : array_like
         Porosity value or log.
     phic : float
         Critical porosity.
-    n : int, float
+    n : float
         Coordination number.
-    kc : int, float
+    kc : float
         Bulk modulus of the cementing mineral.
-    gc : int, float
+    gc : float
         Shear modulus of the cementing mineral.
     phib : float
         Porosity where the cement effect starts.
     deposition_type : str
         Cement deposition framework: grain_surface or grain_contact
 
-    Returns:
+    Returns
     -------
-    kconst : float, array_like
+    kconst : array_like
         Bulk modulus using the constant cement model.
-    gconst : float, array_like
+    gconst : array_like
         Shear modulus using the constant cement model.
-
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
-
+        
     """
     if isinstance(phi, float):
         kconst, gconst = np.zeros((1)), np.zeros((1))
@@ -155,37 +157,37 @@ def constant_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     return kconst, gconst
 
 
-def stiff_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
-               n: float, p: float) -> np.ndarray:
-    """Computes the elastic moduli of the rock using the stiff sand model [1]_.
+def stiff_sand(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    p: Annotated[float, "Hydrostatic confining pressure"]) -> np.array:
+    """Computes the elastic moduli of the rock using the stiff sand model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
-    k : int, float
+    k : float
         Bulk modulus of the mineral.
-    g : int, float
+    g : float
         Shear modulus of the mineral.
-    phi : float, array_like
+    phi : array_like
         Porosity value or log.
     phic : float
         Critical porosity.
-    n : int, float
+    n : float
         Coordination number.
-    p : int, float
+    p : float
         Hydrostatic confining pressure.
 
-    Returns:
+    Returns
     -------
-    kstiff : float, array_like
+    kstiff : array_like
         Bulk modulus using the stiff sand model.
-    gstiff : float, array_like
+    gstiff : array_like
         Shear modulus using the stiff sand model.
-
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
-
+        
     """
     khm, ghm = hertz_mindlin(k, g, n, phic, p)
     z = (g/6) * (9*k + 8*g)/(k + 2*g)
@@ -195,42 +197,43 @@ def stiff_sand(k: float, g: float, phi: npt.ArrayLike, phic: float,
     return kstiff, gstiff
 
 
-def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
-                   n: float, kc: float, gc: float, deposition_type: str = 'grain_surface') -> np.ndarray:
-    """Computes the elastic moduli of the rock using the contact cement
-    model [1]_.
+def contact_cement(
+    k: Annotated[float, "Bulk modulus of the mineral"],
+    g: Annotated[float, "Shear modulus of the mineral"],
+    phi: Annotated[np.array, "Porosity value or log"],
+    phic: Annotated[float, "Critical porosity"],
+    n: Annotated[float, "Coordination number"],
+    kc: Annotated[float, "Bulk modulus of the cementing mineral"],
+    gc: Annotated[float, "Shear modulus of the cementing mineral"],
+    deposition_type: Annotated[str, "Cement deposition framework: grain_surface or grain_contact"] = 'grain_surface') -> np.array:
+    """Computes the elastic moduli of the rock using the contact cement model (:footcite:t:`dvorkin2014`).
 
     Parameters
     ----------
-    k : int, float
+    k : float
         Bulk modulus of the mineral.
-    g : int, float
+    g : float
         Shear modulus of the mineral.
-    phi : float, array_like
+    phi : array_like
         Porosity value or log.
     phic : float
         Critical porosity.
-    n : int, float
+    n : float
         Coordination number.
-    kc : int, float
+    kc : float
         Bulk modulus of the cementing mineral.
-    gc : int, float
+    gc : float
         Shear modulus of the cementing mineral.
     deposition_type : str
         Cement deposition framework: grain_surface or grain_contact
 
-    Returns:
+    Returns
     -------
-    kcem : float, array_like
+    kcem : array_like
         Bulk modulus using the contact cement model.
-    gcem : float, array_like
+    gcem : array_like
         Shear modulus using the contact cement model.
-
-    References:
-    ----------
-    .. [1] Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock
-    properties. [S.l.]: Cambridge University Press, 2014.
-
+        
     """
     v = poisson(method = "k_and_g", k=k, g=g)
     vc = poisson(method = "k_and_g", k=kc, g=gc)
@@ -262,146 +265,190 @@ def contact_cement(k: float, g: float, phi: npt.ArrayLike, phic: float,
     return kcem, gcem
 
 
-_gem_models = {
-    "soft_sand": soft_sand,
-    "stiff_sand": stiff_sand,
-    "contact_cement": contact_cement,
-    "constant_cement": constant_cement
-}
+def gem(
+    k: Annotated[float, "Bulk modulus of the mineral phase [GPa]"],
+    g: Annotated[float, "Shear modulus of the mineral phase [GPa]"],
+    phi: Annotated[np.array, "Porosity (scalar or array) [fractional]"],
+    phic: Annotated[float, "Critical porosity [fractional]"],
+    n: Annotated[float, "Coordination number (typically 6–10)"],
+    method: Annotated[str, "Granular effective medium model"] = "soft_sand",
+    **kwargs) -> tuple[np.array, np.array]:
+    """
+    Compute the elastic moduli using granular effective medium (GEM) rock physics models (:footcite:t:`dvorkin2014,dvorkin1991`).
 
-
-def gem(k: float, g: float, phi: npt.ArrayLike, phic: float, n: float,
-        method: str = "soft_sand", **kwargs) -> np.ndarray:
-    """Computes one of the granular effective medium rock-physics models.
-
-    This is a façade for the methods:
-        - soft_sand
-        - stiff_sand
-        - contact cement
-        - constant cement
+    This function wraps several GEM-based models including:
+        - Soft sand model
+        - Stiff sand model
+        - Contact cement model
+        - Constant cement model
 
     Parameters
     ----------
-    k : int, float
-        Bulk modulus of the mineral.
-    g : int, float
-        Shear modulus of the mineral.
-    phi : int, float, array_like
-        Porosity value or log.
+    k : float
+        Bulk modulus of the mineral frame [GPa].
+
+    g : float
+        Shear modulus of the mineral frame [GPa].
+
+    phi : array_like
+        Porosity log or scalar value [fractional].
+
     phic : float
-        Critical porosity.
-    n : int, float
-        Coordination number.
-    p : int, float
-        Hydrostatic confining pressure.
-    kc : int, float
-        Bulk modulus of the cementing mineral.
-    gc : int, float
-        Shear modulus of the cementing mineral.
-    phib : float
-        Porosity where the cement effect starts.
+        Critical porosity [fractional].
 
-    method : str, optional
-        Name of the method to be used. Must be one of
-            - 'soft_sand'
-            - 'stiff_sand'
-            - 'contact cement'
-            - 'constant cement ' 
-        If not given, default method is 'soft_sand'.
+    n : float
+        Coordination number (average number of grain contacts).
 
-    Returns:
-    k : array_like
-        Bulk modulus using the rock-physics model.
-    g : array_like
-        Shear modulus using the rock-physics model.
+    method : {'soft_sand', 'stiff_sand', 'contact_cement', 'constant_cement'}, default='soft_sand'
+        The granular effective medium model to apply.
 
+    p : float, (optional)
+        Confining pressure [MPa]. Required for 'soft_sand' and 'stiff_sand'.
+
+    kc : float, (optional)
+        Bulk modulus of cement [GPa]. Required for 'contact_cement' and 'constant_cement'.
+
+    gc : float, (optional)
+        Shear modulus of cement [GPa]. Required for 'contact_cement' and 'constant_cement'.
+
+    phib : float, (optional)
+        Porosity at the beginning of cementation [fractional]. Required for 'constant_cement'.
+
+    Returns
+    -------
+    k_model : array_like
+        Bulk modulus computed from the chosen model [GPa].
+
+    g_model : array_like
+        Shear modulus computed from the chosen model [GPa].
+
+    Raises
+    ------
+    TypeError
+        If required parameters for the selected model are missing.
+
+    ValueError
+        If an unsupported method is specified.
+        
+    Examples
+    --------
+    >>> gem(k=36, g=45, phi=0.25, phic=0.4, n=8, method="soft_sand", p=20)
+    (array([...]), array([...]))
+
+    >>> gem(k=36, g=45, phi=0.25, phic=0.4, n=8, method="constant_cement", kc=20, gc=25, phib=0.3)
+    (array([...]), array([...]))
     """
-    options = {}
+    method_map = {
+        "soft_sand": (soft_sand, ["p"]),
+        "stiff_sand": (stiff_sand, ["p"]),
+        "contact_cement": (contact_cement, ["kc", "gc"]),
+        "constant_cement": (constant_cement, ["kc", "gc", "phib"])
+    }
 
-    required = []
-    if method == "soft_sand":
-        required = ["p"]
-    elif method == "stiff_sand":
-        required = ["p"]
-    elif method == "contact_cement":
-        required = ["kc", "gc"]
-    elif method == "constant_cement":
-        required = ["kc", "gc", "phib"]
+    if method not in method_map:
+        raise ValueError(f"Unsupported method '{method}'. Choose from: {list(method_map.keys())}")
 
-    for arg in required:
-        if arg not in kwargs:
-            msg = f"Missing required argument for method '{method}': '{arg}'"
-            raise TypeError(msg)
-        options[arg] = kwargs[arg]
+    func, required_args = method_map[method]
 
-    fun = _gem_models[method]
+    if missing := [arg for arg in required_args if arg not in kwargs]:
+         raise TypeError(f"Missing required arguments for method '{method}': {', '.join(missing)}")
 
-    return fun(k, g, phi, phic, n, **options)
+    method_args = {key: kwargs[key] for key in required_args}
+
+    return func(k, g, phi, phic, n, **method_args)
 
 
-def gem_model(k: float, g: float, phic: float, n: float,
-        method: str = "soft_sand", **kwargs) -> np.ndarray:
-    """Computes one of the granular effective medium rock-physics models for
-    visualization in appy-gui. 
+def gem_model(
+    k: Annotated[float, "Bulk modulus of the mineral phase [GPa]"],
+    g: Annotated[float, "Shear modulus of the mineral phase [GPa]"],
+    phic: Annotated[float, "Critical porosity [fractional]"],
+    n: Annotated[float, "Coordination number (typically 6–10)"],
+    method: Annotated[str, "Granular effective medium model"] = "soft_sand",
+    **kwargs
+) -> tuple[np.array, np.array]:
+    """
+    Compute bulk and shear moduli from granular effective medium models for visualization (:footcite:t:`dvorkin2014`).
 
-    This is a façade for the methods:
-        - soft_sand
-        - stiff_sand
-        - contact cement
-        - constant cement
+    This façade function wraps four common GEM rock-physics models:
+        - Soft sand
+        - Stiff sand
+        - Contact cement
+        - Constant cement
+
+    A porosity array from 0 to critical porosity (phic) is used as input.
 
     Parameters
     ----------
-    k : int, float
-        Bulk modulus of the mineral.
-    g : int, float
-        Shear modulus of the mineral.
-    phi : int, float, array_like
-        Porosity value or log.
-    n : int, float
-        Coordination number.
-    p : int, float
-        Hydrostatic confining pressure.
-    kc : int, float
-        Bulk modulus of the cementing mineral.
-    gc : int, float
-        Shear modulus of the cementing mineral.
-    phib : float
-        Porosity where the cement effect starts.
+    k : float
+        Bulk modulus of the mineral phase [GPa].
 
-    method : str, optional
-        Name of the method to be used. Must be one of
-            - 'soft_sand'
-            - 'stiff_sand'
-            - 'contact cement'
-            - 'constant cement ' 
-        If not given, default method is 'soft_sand'.
+    g : float
+        Shear modulus of the mineral phase [GPa].
 
-    Returns:
-    k : array_like
-        Bulk modulus using the rock-physics model.
-    g : array_like
-        Shear modulus using the rock-physics model.
+    phic : float
+        Critical porosity [fractional].
 
+    n : float
+        Coordination number (typically 6–10).
+
+    method : {'soft_sand', 'stiff_sand', 'contact_cement', 'constant_cement'}, default='soft_sand'
+        The GEM model to use.
+
+    p : float, optional
+        Confining pressure [MPa]. Required for 'soft_sand' and 'stiff_sand'.
+
+    kc : float, optional
+        Bulk modulus of the cement [GPa]. Required for 'contact_cement' and 'constant_cement'.
+
+    gc : float, optional
+        Shear modulus of the cement [GPa]. Required for 'contact_cement' and 'constant_cement'.
+
+    phib : float, optional
+        Porosity where cementation begins [fractional]. Required for 'constant_cement'.
+
+    Returns
+    -------
+    k_model : array_like
+        Bulk modulus curve [GPa].
+
+    g_model : array_like
+        Shear modulus curve [GPa].
+
+    Raises
+    ------
+    TypeError
+        If any required parameter for the selected method is missing.
+
+    ValueError
+        If the selected method is invalid.
+
+    Examples
+    --------
+    >>> gem_model(k=36, g=45, phic=0.4, n=8, method="soft_sand", p=25)
+    (array([...]), array([...]))
+
+    >>> gem_model(k=36, g=45, phic=0.4, n=8, method="constant_cement", kc=25, gc=30, phib=0.28)
+    (array([...]), array([...]))
     """
-    options = {}
+    method_map = {
+        "soft_sand": (soft_sand, ["p"]),
+        "stiff_sand": (stiff_sand, ["p"]),
+        "contact_cement": (contact_cement, ["kc", "gc"]),
+        "constant_cement": (constant_cement, ["kc", "gc", "phib"])
+    }
 
-    required = []
-    if method == "soft_sand":
-        required = ["p"]
-    elif method == "stiff_sand":
-        required = ["p"]
-    elif method == "contact_cement":
-        required = ["kc", "gc"]
-    elif method == "constant_cement":
-        required = ["kc", "gc", "phib"]
+    if method not in method_map:
+        raise ValueError(f"Unsupported method '{method}'. Choose from: {list(method_map)}")
 
-    for arg in required:
-        if arg not in kwargs:
-            msg = f"Missing required argument for method '{method}': '{arg}'"
-            raise TypeError(msg)
-        options[arg] = kwargs[arg]
+    func, required_args = method_map[method]
 
-    fun = _gem_models[method]
+    if missing := [arg for arg in required_args if arg not in kwargs]:
+         raise TypeError(f"Missing required arguments for method '{method}': {', '.join(missing)}")
 
-    return fun(k, g, np.linspace(0, phic, 100), phic, n, **options)
+    # Build porosity curve from 0 to critical porosity
+    phi = np.linspace(0, phic, 100)
+
+    # Extract arguments
+    method_args = {arg: kwargs[arg] for arg in required_args}
+
+    return func(k, g, phi, phic, n, **method_args)
