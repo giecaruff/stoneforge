@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Stoneforge  documentation</title>
+  <title>Regression &mdash; Stoneforge  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -18,7 +18,9 @@
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Preprocessing" href="../preprocessing.html" />
+    <link rel="prev" title="Classification" href="classification.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +43,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installing Stoneforge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#installation">Installation</a><ul>
@@ -77,13 +79,13 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../petrophysics.html#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.correct_range"><code class="docutils literal notranslate"><span class="pre">correct_range()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../petrophysics.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../petrophysics.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rockphysics.html">Rock Physics</a><ul>
@@ -123,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pseudowells.html">Pseudo Wells</a><ul>
@@ -149,38 +152,40 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../machinelearning.html">Machine Learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.fit">Fit</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.load_settings"><code class="docutils literal notranslate"><span class="pre">load_settings()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.fit.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="classification.html">Classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification.html#module-stoneforge.machine_learning.classification.settings">Settings (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classification.html#stoneforge.machine_learning.classification.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.predict">Predict</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.decision_tree_classifier"><code class="docutils literal notranslate"><span class="pre">decision_tree_classifier()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.fit_load"><code class="docutils literal notranslate"><span class="pre">fit_load()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.gaussian_naive_bayes"><code class="docutils literal notranslate"><span class="pre">gaussian_naive_bayes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.k_nearest_neighbors"><code class="docutils literal notranslate"><span class="pre">k_nearest_neighbors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.logistic_regression"><code class="docutils literal notranslate"><span class="pre">logistic_regression()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.random_florest"><code class="docutils literal notranslate"><span class="pre">random_florest()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.support_vector_machine"><code class="docutils literal notranslate"><span class="pre">support_vector_machine()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.predict.xgboost"><code class="docutils literal notranslate"><span class="pre">xgboost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="classification.html#module-stoneforge.machine_learning.classification.fit">Fit (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classification.html#stoneforge.machine_learning.classification.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../machinelearning.html#module-stoneforge.machine_learning.settings">Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.methods"><code class="docutils literal notranslate"><span class="pre">methods()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.saves"><code class="docutils literal notranslate"><span class="pre">saves()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../machinelearning.html#stoneforge.machine_learning.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="classification.html#module-stoneforge.machine_learning.classification.predict">Predict (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classification.html#stoneforge.machine_learning.classification.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="classification.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-stoneforge.machine_learning.regression.settings">Settings (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.machine_learning.regression.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-stoneforge.machine_learning.regression.fit">Fit (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.machine_learning.regression.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-stoneforge.machine_learning.regression.predict">Predict (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.machine_learning.regression.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -213,10 +218,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../tvdss.html">TVDSS</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tvdss.html#calculate-tvdss">Calculate TVDSS</a></li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -233,9 +234,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+          <li class="breadcrumb-item"><a href="index.html">Machine Learning</a></li>
+      <li class="breadcrumb-item active">Regression</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/modules/rockphysics/elastic_constants.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/modules/machinelearning/regression.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -243,16 +245,152 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="regression">
+<h1>Regression<a class="headerlink" href="#regression" title="Link to this heading"></a></h1>
+<p>This section contains documentation for the Regression module in (machine learning).</p>
+<section id="module-stoneforge.machine_learning.regression.settings">
+<span id="settings-regression"></span><span id="module-stoneforge.machine_learning.regression"></span><h2>Settings (Regression)<a class="headerlink" href="#module-stoneforge.machine_learning.regression.settings" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.machine_learning.regression.settings.settings">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.machine_learning.regression.settings.</span></span><span class="sig-name descname"><span class="pre">settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear_regression'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/machine_learning/regression/settings.html#settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.machine_learning.regression.settings.settings" title="Link to this definition"></a></dt>
+<dd><p>This saves the settings or hyperparameters for a machine learning method into the machine.
+The idea is to be reusable for distinct data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Name of the machine learning method to be used. Should be one of the following:</dt><dd><ul>
+<li><p>’linear_regression’</p></li>
+<li><p>’decision_tree_regression’</p></li>
+<li><p>’support_vector_regression’</p></li>
+<li><p>’random_forest_regression’</p></li>
+<li><p>’lightgbm_regression’</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>filepath</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the file where settings will be saved. If not provided, it defaults to the current directory (“.”).
+if False or None, it will return the settings as a serialized object in the current directory (“.”).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear_regression&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;./lr_project&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is designed to save settings for specific machine learning methods. If the method is not supported,</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.machine_learning.regression.fit">
+<span id="fit-regression"></span><h2>Fit (Regression)<a class="headerlink" href="#module-stoneforge.machine_learning.regression.fit" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.machine_learning.regression.fit.fit">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.machine_learning.regression.fit.</span></span><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear_regression'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/machine_learning/regression/fit.html#fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.machine_learning.regression.fit.fit" title="Link to this definition"></a></dt>
+<dd><p>Fits a machine learning model to the provided data and saves the model to a file Pedregosa <em>et al.</em><a class="footnote-reference brackets" href="#footcite-scikit-learn" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Dias <em>et al.</em><a class="footnote-reference brackets" href="#footcite-dias2023" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.array</em>) – Feature data for training the model.</p></li>
+<li><p><strong>y</strong> (<em>np.array</em>) – Target data for training the model.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – The machine learning method to be used for training. Should be one of the following:
+- ‘linear_regression’
+- ‘decision_tree_regression’
+- ‘support_vector_regression’
+- ‘random_forest_regression’
+- ‘lightgbm_regression’</p></li>
+<li><p><strong>filepath</strong> (<em>str</em>) – The path to the file where the trained model will be saved. If not provided, the model will be returned as a serialized object.</p></li>
+<li><p><strong>gs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, performs grid search for hyperparameter tuning. Defaults to False.</p></li>
+<li><p><strong>settings</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses the provided settings for the model. If False, loads settings from a file if available.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional keyword arguments to be passed to the model’s fit method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If <cite>filepath</cite> is not provided, returns the serialized model as a byte string. Otherwise, saves the model to the specified file and returns None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array or None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fit</span><span class="p">(</span><span class="n">X_fit</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear_regression&quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;./lr_project&quot;</span><span class="p">,</span> <span class="n">gs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the <cite>method</cite> is not supported, a ValueError will be raised.
+If <cite>gs</cite> is True, the model will be trained using grid search for hyperparameter.
+Filenames are standardized to include the method name and a suffix “_fit_property.pkl” for consistency.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-stoneforge.machine_learning.regression.predict">
+<span id="predict-regression"></span><h2>Predict (Regression)<a class="headerlink" href="#module-stoneforge.machine_learning.regression.predict" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.machine_learning.regression.predict.predict">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.machine_learning.regression.predict.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear_regression'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/machine_learning/regression/predict.html#predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.machine_learning.regression.predict.predict" title="Link to this definition"></a></dt>
+<dd><p>Applies preprocessing and runs prediction using a previously trained model Pedregosa <em>et al.</em><a class="footnote-reference brackets" href="#footcite-scikit-learn" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.array</em>) – Input feature data.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – ML method to use for prediction.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Directory with saved model and scalers.</p></li>
+<li><p><strong>fit_info</strong> (<em>bytes</em><em> or </em><em>False</em>) – Serialized model if not using path.</p></li>
+<li><p><strong>scalers</strong> (<em>tuple</em><em> or </em><em>False</em>) – Optional tuple (scaler, scalerp); otherwise loaded from path.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Extra arguments passed to the model’s <cite>.predict()</cite> method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Predicted labels (in original label format).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predict</span><span class="p">(</span><span class="n">X_predict</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;linear_regression&quot;</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;./lr_project&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="docutils container" id="id4">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-scikit-learn" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D. Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay. Scikit-learn: machine learning in Python. <em>Journal of Machine Learning Research</em>, 12:2825–2830, 2011.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-dias2023" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><em>Inteligêcia Artificial Aplicada à Predição de Fácies Evaporíticas na Bacia de Santos: Uma Análise de Árvores de Classificação</em>, SBGF - 18th CISBGf, 2023. URL: <a class="reference external" href="https://sbgf.org.br/mysbgf/eventos/expanded_abstracts/18th_CISBGf/82aa4b0af34c2313a562076992e50aa3INTELIG%C3%8ANCIA%20ARTIFICIAL%20APLICADA%20%C3%80%20PREDI%C3%87%C3%83O%20DE%20F%C3%81CIES%20EVAPOR%C3%8DTICAS%20NA%20BACIA%20DE%20SANTOS.pdf">https://sbgf.org.br/mysbgf/eventos/expanded_abstracts/18th_CISBGf/82aa4b0af34c2313a562076992e50aa3INTELIG%C3%8ANCIA%20ARTIFICIAL%20APLICADA%20%C3%80%20PREDI%C3%87%C3%83O%20DE%20F%C3%81CIES%20EVAPOR%C3%8DTICAS%20NA%20BACIA%20DE%20SANTOS.pdf</a>.</p>
+</aside>
+</aside>
+</div>
+</section>
+</section>
+
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classification.html" class="btn btn-neutral float-left" title="Classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../preprocessing.html" class="btn btn-neutral float-right" title="Preprocessing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024 GIEACAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+    <p>&#169; Copyright 2024 GIECAR Laboratory, Universidade Federal Fluminense (UFF).</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

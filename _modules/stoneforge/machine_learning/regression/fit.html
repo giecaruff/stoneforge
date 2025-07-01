@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stoneforge.machine_learning.regression.fit &mdash; Stoneforge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Stoneforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage/installation.html">Installing Stoneforge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../usage/installation.html#windows-linux-and-macos">Windows, Linux and macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/installation.html#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/petrophysics.html">Petrophysics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/petrophysics.html#module-stoneforge.petrophysics.porosity">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/petrophysics.html#module-stoneforge.petrophysics.shale_volume">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/petrophysics.html#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/petrophysics.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/rockphysics.html">Rock Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/rockphysics.html#module-stoneforge.rock_physics.elastic_constants">Elastic Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.bulk_modulus"><code class="docutils literal notranslate"><span class="pre">bulk_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus"><code class="docutils literal notranslate"><span class="pre">compressional_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity"><code class="docutils literal notranslate"><span class="pre">compressional_wave_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.poisson"><code class="docutils literal notranslate"><span class="pre">poisson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_modulus"><code class="docutils literal notranslate"><span class="pre">shear_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_wave_velocity"><code class="docutils literal notranslate"><span class="pre">shear_wave_velocity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/rockphysics.html#module-stoneforge.rock_physics.fluid_substitution">Fluid Substitution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann"><code class="docutils literal notranslate"><span class="pre">gassmann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann_subs"><code class="docutils literal notranslate"><span class="pre">gassmann_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.kdry"><code class="docutils literal notranslate"><span class="pre">kdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.ksat"><code class="docutils literal notranslate"><span class="pre">ksat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko"><code class="docutils literal notranslate"><span class="pre">mavko()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko_subs"><code class="docutils literal notranslate"><span class="pre">mavko_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.mdry"><code class="docutils literal notranslate"><span class="pre">mdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.msat"><code class="docutils literal notranslate"><span class="pre">msat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/rockphysics.html#module-stoneforge.rock_physics.gem">Gem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.constant_cement"><code class="docutils literal notranslate"><span class="pre">constant_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.contact_cement"><code class="docutils literal notranslate"><span class="pre">contact_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.gem"><code class="docutils literal notranslate"><span class="pre">gem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.gem_model"><code class="docutils literal notranslate"><span class="pre">gem_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.hertz_mindlin"><code class="docutils literal notranslate"><span class="pre">hertz_mindlin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.soft_sand"><code class="docutils literal notranslate"><span class="pre">soft_sand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.gem.stiff_sand"><code class="docutils literal notranslate"><span class="pre">stiff_sand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/rockphysics.html#module-stoneforge.rock_physics.rock_physics_bounds">Rock Physics Bounds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.hill"><code class="docutils literal notranslate"><span class="pre">hill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss"><code class="docutils literal notranslate"><span class="pre">reuss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/rockphysics.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/pseudowells.html">Pseudo Wells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation"><code class="docutils literal notranslate"><span class="pre">MCS_spacial_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram"><code class="docutils literal notranslate"><span class="pre">analytical_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix"><code class="docutils literal notranslate"><span class="pre">cov_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation"><code class="docutils literal notranslate"><span class="pre">experimental_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram"><code class="docutils literal notranslate"><span class="pre">experimental_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model"><code class="docutils literal notranslate"><span class="pre">exponential_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc"><code class="docutils literal notranslate"><span class="pre">gamma_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model"><code class="docutils literal notranslate"><span class="pre">gaussian_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation"><code class="docutils literal notranslate"><span class="pre">modeled_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.p"><code class="docutils literal notranslate"><span class="pre">p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model"><code class="docutils literal notranslate"><span class="pre">spherical_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model"><code class="docutils literal notranslate"><span class="pre">variogram_model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.denormalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_variography()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.variography()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/pseudowells.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/machinelearning/index.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/machinelearning/classification.html">Classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#module-stoneforge.machine_learning.classification.settings">Settings (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#stoneforge.machine_learning.classification.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#module-stoneforge.machine_learning.classification.fit">Fit (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#stoneforge.machine_learning.classification.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#module-stoneforge.machine_learning.classification.predict">Predict (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#stoneforge.machine_learning.classification.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/classification.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/machinelearning/regression.html">Regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#module-stoneforge.machine_learning.regression.settings">Settings (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#stoneforge.machine_learning.regression.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#module-stoneforge.machine_learning.regression.fit">Fit (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#stoneforge.machine_learning.regression.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#module-stoneforge.machine_learning.regression.predict">Predict (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#stoneforge.machine_learning.regression.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/machinelearning/regression.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Stoneforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">stoneforge.machine_learning.regression.fit</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for stoneforge.machine_learning.regression.fit</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Define supported models and their hyperparameter grids</span>
+<span class="n">MODELS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;linear_regression&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">LinearRegression</span><span class="p">,</span> <span class="p">{}),</span>
+    <span class="s2">&quot;decision_tree_regression&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">DecisionTreeRegressor</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+        <span class="s2">&quot;random_state&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">99</span><span class="p">]</span>
+    <span class="p">}),</span>
+    <span class="s2">&quot;support_vector_regression&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">SVR</span><span class="p">,</span> <span class="p">{}),</span>
+    <span class="s2">&quot;random_forest_regression&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span>
+        <span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+        <span class="s2">&quot;random_state&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">99</span><span class="p">]</span>
+    <span class="p">}),</span>
+    <span class="s2">&quot;lightgbm_regression&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">lgb</span><span class="o">.</span><span class="n">LGBMRegressor</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span>
+        <span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+        <span class="s2">&quot;random_state&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">99</span><span class="p">]</span>
+    <span class="p">}),</span>
+<span class="p">}</span>
+
+<span class="c1"># Save model or any object</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_saves</span><span class="p">(</span>
+    <span class="n">info</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;Serialized or dictionary settings&quot;</span><span class="p">],</span>
+    <span class="n">filepath</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path to the file&quot;</span><span class="p">],</span>
+    <span class="n">name</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;File name&quot;</span><span class="p">],</span>
+    <span class="n">suffix</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Suffix of the file to be saved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;_fit_property.pkl&quot;</span><span class="p">,</span>
+    <span class="n">sz</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Serialized option&quot;</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Saves model file in .json or .pkl format.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    info : dict</span>
+<span class="sd">        The settings or model to be saved, either as a dictionary or serialized object.</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        The path where the file will be saved.</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The name of the file to save the settings, without extension.</span>
+<span class="sd">    suffix : str, optional</span>
+<span class="sd">        The suffix to append to the file name. Defaults to &quot;_fit_property.pkl&quot;.</span>
+<span class="sd">    sz : bool, optional</span>
+<span class="sd">        If True, the info is serialized and returned as a .pkl format. Defaults to False, which saves the file.</span>
+<span class="sd">        </span>
+<span class="sd">    Warnings</span>
+<span class="sd">    --------</span>
+<span class="sd">    Don&#39;t change the suffix parameter unless you know what you are doing. The other functions recognize this suffix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sz</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Load settings from JSON</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_settings</span><span class="p">(</span>
+    <span class="n">filepath</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path to the file&quot;</span><span class="p">],</span>
+    <span class="n">method</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;machine learning method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gaussian_naive_bayes&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads settings from a JSON file for the specified machine learning method.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        The path to the directory where the settings file is located.</span>
+<span class="sd">    method : str, optional</span>
+<span class="sd">        The name of the machine learning method for which settings are to be loaded.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        A dictionary containing the settings for the specified machine learning method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">_settings.json&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Core model training function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_train_model</span><span class="p">(</span>
+    <span class="n">X</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;X feature data&quot;</span><span class="p">],</span>
+    <span class="n">y</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;y target data&quot;</span><span class="p">],</span>
+    <span class="n">method</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Machine learning method&quot;</span><span class="p">],</span>
+    <span class="n">filepath</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path to the file where the model will be saved&quot;</span><span class="p">],</span>
+    <span class="n">gs</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;Grid search for hyperparameter tuning&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">settings</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;Settings for the model, if not provided will load from file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal function that trains a machine learning model based on the specified method and saves the training into file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : np.array</span>
+<span class="sd">        Feature data for training the model.</span>
+<span class="sd">    y : np.array</span>
+<span class="sd">        Target data for training the model.</span>
+<span class="sd">    method : str</span>
+<span class="sd">        The machine learning method to be used for training. Should be one of the following:</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        The path to the file where the trained model will be saved. If not provided, the model will be returned as a serialized object.</span>
+<span class="sd">    gs : bool, optional</span>
+<span class="sd">        If True, performs grid search for hyperparameter tuning. Defaults to False.</span>
+<span class="sd">    settings : bool, optional</span>
+<span class="sd">        If True, uses the provided settings for the model. If False, loads settings from a file if available.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional keyword arguments to be passed to the model&#39;s fit method.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array or None</span>
+<span class="sd">        If `filepath` is not provided, returns the serialized model as a byte string. Otherwise, saves the model to the specified file and returns None.</span>
+<span class="sd">        </span>
+<span class="sd">    Warnings</span>
+<span class="sd">    --------</span>
+<span class="sd">    If the `method` is not supported, a ValueError will be raised.</span>
+<span class="sd">    If `gs` is True, the model will be trained using grid search for hyperparameter.</span>
+<span class="sd">    Filenames are standardized to include the method name and a suffix &quot;_fit_property.pkl&quot; for consistency.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ModelClass</span><span class="p">,</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">MODELS</span><span class="p">[</span><span class="n">method</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;. Available: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">MODELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Grid Search if requested</span>
+    <span class="k">if</span> <span class="n">gs</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ModelClass</span><span class="p">()</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;r2&quot;</span><span class="p">)</span>
+        <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">settings</span><span class="p">:</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">_load_settings</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+    <span class="c1"># Set default random_state if applicable</span>
+    <span class="k">if</span> <span class="s2">&quot;random_state&quot;</span> <span class="ow">in</span> <span class="n">ModelClass</span><span class="p">()</span><span class="o">.</span><span class="n">get_params</span><span class="p">():</span>
+        <span class="n">settings</span><span class="p">[</span><span class="s2">&quot;random_state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;random_state&quot;</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ModelClass</span><span class="p">(</span><span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_saves</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span> <span class="k">if</span> <span class="n">filepath</span> <span class="k">else</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># Main interface</span>
+<div class="viewcode-block" id="fit">
+<a class="viewcode-back" href="../../../../modules/machinelearning/regression.html#stoneforge.machine_learning.regression.fit.fit">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
+    <span class="n">X</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;X feature data&quot;</span><span class="p">],</span>
+    <span class="n">y</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;y target data&quot;</span><span class="p">],</span>
+    <span class="n">method</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Machine learning method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;linear_regression&#39;</span><span class="p">,</span>
+    <span class="n">filepath</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Path to the file where the model will be saved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">gs</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;Grid search for hyperparameter tuning&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">settings</span> <span class="p">:</span> <span class="n">Annotated</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;Settings for the model, if not provided will load from file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fits a machine learning model to the provided data and saves the model to a file :footcite:t:`scikit-learn, dias2023`.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : np.array</span>
+<span class="sd">        Feature data for training the model.</span>
+<span class="sd">    y : np.array</span>
+<span class="sd">        Target data for training the model.</span>
+<span class="sd">    method : str</span>
+<span class="sd">        The machine learning method to be used for training. Should be one of the following:</span>
+<span class="sd">        - &#39;linear_regression&#39;</span>
+<span class="sd">        - &#39;decision_tree_regression&#39;</span>
+<span class="sd">        - &#39;support_vector_regression&#39;</span>
+<span class="sd">        - &#39;random_forest_regression&#39;</span>
+<span class="sd">        - &#39;lightgbm_regression&#39;</span>
+<span class="sd">    filepath : str</span>
+<span class="sd">        The path to the file where the trained model will be saved. If not provided, the model will be returned as a serialized object.</span>
+<span class="sd">    gs : bool, optional</span>
+<span class="sd">        If True, performs grid search for hyperparameter tuning. Defaults to False.</span>
+<span class="sd">    settings : bool, optional</span>
+<span class="sd">        If True, uses the provided settings for the model. If False, loads settings from a file if available.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional keyword arguments to be passed to the model&#39;s fit method.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array or None</span>
+<span class="sd">        If `filepath` is not provided, returns the serialized model as a byte string. Otherwise, saves the model to the specified file and returns None.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; X_fit = np.array([[1, 2], [3, 4], [5, 6]])</span>
+<span class="sd">    &gt;&gt;&gt; y_fit = np.array([0, 1, 0])</span>
+<span class="sd">    &gt;&gt;&gt; fit(X_fit, y_fit, method=&quot;linear_regression&quot;, filepath=&quot;./lr_project&quot;, gs=True)</span>
+
+<span class="sd">    Warnings</span>
+<span class="sd">    --------</span>
+<span class="sd">    If the `method` is not supported, a ValueError will be raised.</span>
+<span class="sd">    If `gs` is True, the model will be trained using grid search for hyperparameter.</span>
+<span class="sd">    Filenames are standardized to include the method name and a suffix &quot;_fit_property.pkl&quot; for consistency.  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Preprocessing</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="n">scalerp</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+    <span class="n">X_norm</span> <span class="o">=</span> <span class="n">scalerp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+
+    <span class="c1"># Shortcut to get preprocessors only</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;scalers&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">scaler</span><span class="p">),</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">scalerp</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Save preprocessors</span>
+    <span class="k">if</span> <span class="n">filepath</span><span class="p">:</span>
+        <span class="n">_saves</span><span class="p">(</span><span class="n">scaler</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">_scaler&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.pkl&quot;</span><span class="p">)</span>
+        <span class="n">_saves</span><span class="p">(</span><span class="n">scalerp</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">_scalerp&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.pkl&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Train and return or save model</span>
+    <span class="k">return</span> <span class="n">_train_model</span><span class="p">(</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">gs</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#XgBoost NOTE:(too big, must remain optional)</span>
+
+<span class="c1">#def xgboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):</span>
+<span class="c1">#</span>
+<span class="c1">#    method = &#39;xgboost_regression&#39;</span>
+<span class="c1">#</span>
+<span class="c1">#    if gs:</span>
+<span class="c1">#        parameters =  {&#39;n_estimators&#39;: [100],</span>
+<span class="c1">#        &#39;learning_rate&#39;: [0.5],</span>
+<span class="c1">#        &#39;max_depth&#39;:[5,10,15,30,50,70,100]}</span>
+<span class="c1">#</span>
+<span class="c1">#        xgb = XGBRegressor()</span>
+<span class="c1">#</span>
+<span class="c1">#        bestxgbc = GridSearchCV(xgb,parameters,scoring=&#39;accuracy&#39;)</span>
+<span class="c1">#        bestxgbc.fit(X,y)</span>
+<span class="c1">#        _settings = bestxgbc.best_params_</span>
+<span class="c1">#</span>
+<span class="c1">#    if not gs:</span>
+<span class="c1">#        if path:</span>
+<span class="c1">#            _settings = load_settings(path, method)</span>
+<span class="c1">#        else:</span>
+<span class="c1">#            _settings = pickle.loads(settings)</span>
+<span class="c1">#    </span>
+<span class="c1">#    xg = XGBRegressor(**_settings)</span>
+<span class="c1">#    xg.fit(X, y, **kwargs)</span>
+<span class="c1">#    if not path:</span>
+<span class="c1">#        serialized_model = pickle.dumps(xg)</span>
+<span class="c1">#        return serialized_model</span>
+<span class="c1">#    else:</span>
+<span class="c1">#        saves(xg, path, method)</span>
+
+
+<span class="c1">#LightGBM</span>
+
+
+<span class="c1">#CatBoost</span>
+<span class="c1"># def catboost_regression(X: npt.ArrayLike, y: npt.ArrayLike, path, gs, settings, **kwargs):</span>
+
+<span class="c1">#     method = &#39;catboost_regression&#39;</span>
+
+<span class="c1">#     if y.ndim == 2:</span>
+<span class="c1">#         cb_values = {}</span>
+<span class="c1">#         cb_values[&#39;2dy&#39;] = {}</span>
+
+<span class="c1">#         ii = 0</span>
+<span class="c1">#         for _y in y.T:</span>
+
+<span class="c1">#             # =================================================== #</span>
+
+<span class="c1">#             if gs:</span>
+<span class="c1">#                 parameters =  {&#39;n_estimators&#39;: [100,150,200],</span>
+<span class="c1">#                 &#39;learning_rate&#39;: [0.3,0.5,0.7],</span>
+<span class="c1">#                 &#39;max_depth&#39;:[5,10,15,30,50,70,100],</span>
+<span class="c1">#                 &#39;random_state&#39;:[99]}</span>
+
+<span class="c1">#                 cat = CatBoostRegressor()</span>
+
+<span class="c1">#                 bestcatr = GridSearchCV(cat,parameters,scoring=&#39;accuracy&#39;)</span>
+<span class="c1">#                 bestcatr.fit(X,_y)</span>
+<span class="c1">#                 _settings = bestcatr.best_params_</span>
+
+<span class="c1">#             if not gs:</span>
+<span class="c1">#                 if path:</span>
+<span class="c1">#                     _settings = load_settings(path, method)</span>
+<span class="c1">#                     _settings[&#39;random_state&#39;] = 99</span>
+<span class="c1">#                     _settings[&#39;silent&#39;] = True</span>
+<span class="c1">#                 else:</span>
+<span class="c1">#                     _settings = pickle.loads(settings)</span>
+<span class="c1">#                     _settings[&#39;random_state&#39;] = 99</span>
+<span class="c1">#                     _settings[&#39;silent&#39;] = True</span>
+            
+<span class="c1">#             cb = CatBoostRegressor(**_settings)</span>
+<span class="c1">#             cb.fit(X, _y, **kwargs)</span>
+<span class="c1">#             ii += 1</span>
+<span class="c1">#             cb_values[&#39;2dy&#39;][ii] = cb</span>
+
+<span class="c1">#             # =================================================== #</span>
+
+<span class="c1">#     else:</span>
+
+<span class="c1">#         # =================================================== #</span>
+<span class="c1">#         cb_values = {}</span>
+<span class="c1">#         cb_values[&#39;1dy&#39;] = {}</span>
+<span class="c1">#         if gs:</span>
+<span class="c1">#             parameters =  {&#39;n_estimators&#39;: [100,150,200],</span>
+<span class="c1">#             &#39;learning_rate&#39;: [0.3,0.5,0.7],</span>
+<span class="c1">#             &#39;max_depth&#39;:[5,10,15,30,50,70,100],</span>
+<span class="c1">#             &#39;random_state&#39;:[99]}</span>
+
+<span class="c1">#             cat = CatBoostRegressor()</span>
+
+<span class="c1">#             bestcatr = GridSearchCV(cat,parameters,scoring=&#39;accuracy&#39;)</span>
+<span class="c1">#             bestcatr.fit(X,y)</span>
+<span class="c1">#             _settings = bestcatr.best_params_</span>
+
+<span class="c1">#         if not gs:</span>
+<span class="c1">#             if path:</span>
+<span class="c1">#                 _settings = load_settings(path, method)</span>
+<span class="c1">#                 _settings[&#39;random_state&#39;] = 99</span>
+<span class="c1">#                 _settings[&#39;silent&#39;] = True</span>
+<span class="c1">#             else:</span>
+<span class="c1">#                 _settings = pickle.loads(settings)</span>
+<span class="c1">#                 _settings[&#39;random_state&#39;] = 99</span>
+<span class="c1">#                 _settings[&#39;silent&#39;] = True</span>
+            
+<span class="c1">#             cb = CatBoostRegressor(**_settings)</span>
+<span class="c1">#             cb.fit(X, y, **kwargs)</span>
+<span class="c1">#             cb_values[&#39;1dy&#39;] = cb</span>
+
+<span class="c1">#             # =================================================== #</span>
+
+<span class="c1">#     if not path:</span>
+<span class="c1">#         serialized_model = pickle.dumps(cb_values)</span>
+<span class="c1">#         return serialized_model</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         saves(cb_values, path, method)</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 GIECAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

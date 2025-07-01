@@ -16,3 +16,8 @@ Monte Carlo Simulations
     :members:
     :undoc-members:
     :show-inheritance:
+
+References
+----------------
+
+.. footbibliography::
