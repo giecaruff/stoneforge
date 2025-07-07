@@ -22,8 +22,7 @@ class DLISAccess:
         selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
         selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
         dict_data_info = self._dataframe_to_dict(selected_table)
-        data = self._parse_dlis(self.filename, dict_data_info)
-        return data
+        return self._parse_dlis(self.filename, dict_data_info)
         
     def preview(self):
         selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
