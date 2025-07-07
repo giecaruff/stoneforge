@@ -1,8 +1,8 @@
 import pandas as pd
 import re
-from io import StringIO
 
 def parse_las_file(filepath):
+    "Take the path to a LAS3 file and return a dictionary of DataFrames, one for each section. utf-8 based"
     data_sections = {}
     current_key = None
     current_data_lines = []
@@ -34,6 +34,7 @@ def parse_las_file(filepath):
     return data_sections
 
 def parse_data_block(lines):
+    "Try to read the elements of a data block, first with default tab/space/colon logic, then with comma."
     structured_data = []
 
     # First parse with default (tab/space/colon) logic

@@ -12,8 +12,28 @@ class DLISAccess:
         
         self.dlis_dict_headers = self._dlis_info(filename, verbose=False)
         self.dlis_dataframe_headers = self._dict_to_dataframe(self.dlis_dict_headers)
+        self.header_df = None
+        
+        self.selected_header_df = None
         if vis:
             self._preview_data(self.dlis_dataframe_headers)
+        if not vis:
+            header_data = self.dlis_dict_headers
+            self.header_df = self._dict_to_dataframe(header_data)
+            
+    def get_header(self, idx = None):
+        """get header data from DLIS file in dataframe format."""
+        if self.header_df is not None:
+            if idx is not None:
+                self.selected_header_df = self.header_df.iloc[sorted(idx)]
+            else:
+                self.selected_header_df = self.header_df
+        else:
+            raise ValueError("Header data is not available. Ensure 'vis' parameter is set to True during initialization.")
+        
+    def return_data(self):
+        idx_dict_header = self._dataframe_to_dict(self.selected_header_df)
+        return self._parse_dlis(self.filename, idx_dict_header)
         
     def get_info(self):
         return self.dlis_dict_headers
