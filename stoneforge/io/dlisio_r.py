@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import CheckButtons, Slider
 from dlisio import dlis  # Correct library import
 import pandas as pd
+import os
 
 class DLISAccess:
     def __init__(self, filename, vis=True):
@@ -286,3 +287,47 @@ class DLISAccess:
                             }
 
         return extracted_data
+    
+    # ==================================================================== #
+    
+    def _sanitize_filename(self, name: str) -> str:
+        """Replace unsafe filename characters (like / and \) with underscores."""
+        return name.replace("/", "_").replace("\\", "_")
+
+    def csv_save(self, data: dict, output_dir: str = "."):
+        """
+        Save DLIS-like data structure to CSVs, organized by digital file and frame.
+
+        Parameters
+        ----------
+        data : dict
+            Nested dictionary structured as {frame_name: {digital_file: {mnemonic: {unit, values}}}}.
+        output_dir : str
+            Base directory where the output folders and files will be created.
+        """
+        for frame_name, digital_files in data.items():
+            sanitized_frame_name = self._sanitize_filename(frame_name)
+
+            for digital_file, mnemonics in digital_files.items():
+                # Create directory for the digital file
+                digital_file_path = os.path.join(output_dir, digital_file)
+                os.makedirs(digital_file_path, exist_ok=True)
+
+                # Prepare data and units
+                df_data = {}
+                units = {}
+
+                for mnemonic, content in mnemonics.items():
+                    df_data[mnemonic] = content["values"]
+                    units[mnemonic] = content["unit"]
+
+                # Create DataFrame
+                df = pd.DataFrame(df_data)
+
+                # Insert units as second row
+                units_row = pd.DataFrame([units])
+                df_with_units = pd.concat([units_row, df], ignore_index=True)
+
+                # Save CSV with sanitized frame name
+                csv_path = os.path.join(digital_file_path, f"{sanitized_frame_name}.csv")
+                df_with_units.to_csv(csv_path, index=False)
