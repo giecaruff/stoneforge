@@ -6,53 +6,82 @@ import pandas as pd
 import os
 
 class DLISAccess:
-    def __init__(self, filename, vis=True):
+    def __init__(self, filename, gui=True):
         self.filename = filename
         self.data = None
         self.metadata = None
+        self.gui = gui
         
         self.dlis_dict_headers = self._dlis_info(filename, verbose=False)
         self.dlis_dataframe_headers = self._dict_to_dataframe(self.dlis_dict_headers)
         self.header_df = None
         
         self.selected_header_df = None
-        if vis:
+        if gui:
             self._preview_data(self.dlis_dataframe_headers)
-        if not vis:
+        if not gui:
             header_data = self.dlis_dict_headers
             self.header_df = self._dict_to_dataframe(header_data)
             
-    def get_header(self, idx = None):
-        """get header data from DLIS file in dataframe format."""
-        if self.header_df is not None:
-            if idx is not None:
-                self.selected_header_df = self.header_df.iloc[sorted(idx)]
-            else:
-                self.selected_header_df = self.header_df
-        else:
+    def select_header(self, idx=None):
+        """get header data from DLIS file in dataframe format.
+        
+        Returns
+        -------
+        pd.DataFrame
+            A DataFrame containing the header information from the DLIS file.
+        """
+        if self.header_df is None:
             raise ValueError("Header data is not available. Ensure 'vis' parameter is set to True during initialization.")
-        
-    def return_data(self):
-        idx_dict_header = self._dataframe_to_dict(self.selected_header_df)
-        return self._parse_dlis(self.filename, idx_dict_header)
-        
+        self.selected_header_df = (self.header_df.iloc[sorted(idx)] if idx is not None else self.header_df)
+        return self.selected_header_df
+            
     def get_info(self):
         return self.dlis_dict_headers
         
     def get_data(self):
-        selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
-        selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
-        dict_data_info = self._dataframe_to_dict(selected_table)
-        return self._parse_dlis(self.filename, dict_data_info)
+        """Module to get the data selected in the checkbox.
         
-    def preview(self):
-        selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
-        selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
-        dict_data_info = self._dataframe_to_dict(selected_table)
-        print(f"Selected {len(selected_table)} rows")
-        print("Selected rows data:")
-        print(dict_data_info)
-        print()
+        Returns
+        -------
+        dict
+            A dictionary containing the parsed DLIS data based on the selected checkboxes with the structure:
+            {digital_file: {frame_name: {mnemonic: {unit, values}}}}
+            
+        Example
+        -------
+        >>> %matplotlib widget # Use this line if running in Jupyter Notebook
+        >>> from stoneforge.io.dlisio_r import DLISAccess
+        >>> dlis_manager = DLISAccess("path/to/dlis_file.dlis") # Initialize checkbox interface
+        >>> data = dlis_manager.get_data() # Get data based on selected checkboxes
+        """
+    
+        if self.gui:
+            # If GUI is enabled, show the preview of the data
+            selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
+            selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
+            dict_data_info = self._dataframe_to_dict(selected_table)
+            return self._parse_dlis(self.filename, dict_data_info)
+        else:
+            s_dict_header = self._dataframe_to_dict(self.selected_header_df)
+            return self._parse_dlis(self.filename, s_dict_header)
+        
+    def export(self, output_dir=".", file_format="csv"):
+        """
+        Export the DLIS data to CSV files organized by digital file and frame.
+        
+        Parameters
+        ----------
+        output_dir : str
+            Base directory where the output folders and files will be created.
+        file_format : str
+            Format to save the data, currently only supports 'csv'.
+        """
+        s_data = self.get_data()
+        if file_format.lower() == "csv":
+            self._csv_save(s_data, output_dir)
+        else:
+            raise ValueError("Unsupported file format.")
         
     # ==================================================================== #
     
@@ -294,7 +323,7 @@ class DLISAccess:
         """Replace unsafe filename characters (like / and \) with underscores."""
         return name.replace("/", "_").replace("\\", "_")
 
-    def csv_save(self, data: dict, output_dir: str = "."):
+    def _csv_save(self, data: dict, output_dir: str = "."):
         """
         Save DLIS-like data structure to CSVs, organized by digital file and frame.
 
