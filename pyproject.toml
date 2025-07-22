@@ -85,7 +85,19 @@ convention = "google"
 [tool.pytest.ini_options]
 pythonpath = "stoneforge"
 minversion = "6.0"
-addopts = "-ra -q"
+addopts = [
+    "-ra",
+    "-q",
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+    "--cov=stoneforge",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+    "--cov-fail-under=70",
+]
 testpaths = [
     "tests",
 ]
