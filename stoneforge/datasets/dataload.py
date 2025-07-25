@@ -2,9 +2,13 @@
 
 #from stoneforge.preprocessing import project
 # this maybe be redundant because of preprocessing
-from . import las2
 import os
 import pandas as pd
+
+if __package__:
+    from ..io import las2
+else:
+    from stoneforge.io import las2
 
 def _import_well(fpath):
     

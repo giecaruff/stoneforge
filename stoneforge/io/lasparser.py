@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-def parse_las_file(filepath):
+def parse_las3(filepath):
     "Take the path to a LAS3 file and return a dictionary of DataFrames, one for each section. utf-8 based"
     data_sections = {}
     current_key = None
