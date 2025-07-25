@@ -5,7 +5,7 @@ import numpy as np
 
 # NOTE: The last line in exported csv is empty due to the '\n' at the last iteration.
 
-def read(file_or_path, columns, header, datarow, delimiter, encoding=None):
+def read_csv(file_or_path, columns, header, datarow, delimiter, encoding=None):
     if isinstance(file_or_path, io.IOBase):
         file_or_path.seek(0)
         contextmanager = nullcontext(file_or_path)

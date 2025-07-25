@@ -152,6 +152,8 @@ def read(lasfile):
         close_file = True
 
     for line in lasfile:
+        if not line.strip():  # <--- add this check
+            continue
         if line.lstrip().startswith("#"):
             continue
         elif line.lstrip().startswith("~"):

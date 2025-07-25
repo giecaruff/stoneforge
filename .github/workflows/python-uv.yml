@@ -1,10 +1,6 @@
 name: Pytest and ruff using uv
 
 on:
-  push:
-    branches:
-      - development
-      - main
   pull_request:
     branches:
       - development

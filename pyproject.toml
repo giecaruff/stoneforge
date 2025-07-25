@@ -1,6 +1,6 @@
 [project]
 name = "stoneforge"
-version = "0.2.0-beta.1"
+version = "0.2.0-beta.2"
 authors = [
     {name = "GIECAR - UFF"},
     {name = "Wagner M. Lupinacci"},
@@ -26,8 +26,8 @@ dependencies = [
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
     "lightgbm>=4.5.0",
-    "notebook>=6.4.0",
-    "ipympl>=0.8.4"
+    "ipympl>=0.8.4",
+    "ipykernel>=6.30.0",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -85,7 +85,19 @@ convention = "google"
 [tool.pytest.ini_options]
 pythonpath = "stoneforge"
 minversion = "6.0"
-addopts = "-ra -q"
+addopts = [
+    "-ra",
+    "-q",
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+    "--cov=stoneforge",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+    "--cov-fail-under=30",
+]
 testpaths = [
     "tests",
 ]
