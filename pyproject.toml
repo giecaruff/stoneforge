@@ -26,8 +26,8 @@ dependencies = [
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
     "lightgbm>=4.5.0",
-    "notebook>=6.4.0",
-    "ipympl>=0.8.4"
+    "ipympl>=0.8.4",
+    "ipykernel>=6.30.0",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
