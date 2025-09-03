@@ -373,8 +373,8 @@ class DLISAccess:
                             values = np.array(channel.curves())  # Convert to numpy array
 
                             extracted_data[logical_file_id][frame_name][mnemonic] = {
-                                'unit': unit,
-                                'values': values
+                                'values': values,
+                                'unit': unit
                             }
 
         return extracted_data

@@ -99,8 +99,13 @@ class LAS3Parser:
 
             main_data = converted_data
 
-        units_dict = dict(zip(_mnem, _unit))
-        return (main_data,units_dict)
+        overall_data = {}
+        for i in range(len(_mnem)):
+            _m = _mnem[i]
+            _u = _unit[i]
+            overall_data[_m] = {'values': main_data[_m], 'unit': _u}
+
+        return overall_data
 
     def parse_las3(self):
         "Take the path to a LAS3 file and return a dictionary of DataFrames, one for each section. utf-8 based"
