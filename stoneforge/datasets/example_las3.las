@@ -17,6 +17,7 @@
  CTRY .       CA                               : COUNTRY
  PROV .       ALBERTA                          : PROVINCE 
  SRVC .       ANY LOGGING COMPANY INC.         : SERVICE COMPANY
+ AUTR .       F. VIZEU                         : THIS LAS3 AUTOR 
  DATE .       13/12/1986                       : LOG DATE  {DD/MM/YYYY}
  UWI  .       100123401234W500                 : UNIQUE WELL ID
  LIC  .       0123456                          : LICENSE NUMBER

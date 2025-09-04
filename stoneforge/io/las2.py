@@ -1,11 +1,11 @@
 import re
 import numpy as np
 import io
+import pandas as pd
 
 
 class LAS2Error(Exception):
     pass
-
 
 _default_line_format_format = (
     "{{mnemonic:<{mnemonic}}}."
@@ -84,6 +84,77 @@ _parsers = {
     "data": _parse_data_section,
 }
 
+class LAS2Parser:
+
+    def __init__(self, file_path):
+        """Manages the contents of a LAS 2.0 file
+        
+        Parameters
+        ----------
+        file_path : str
+            The path to the LAS 2.0 file to be read.
+        
+        Attributes
+        ----------
+        data : dict
+            A dictionary containing the well log data and metadata.
+        header : dict
+            A dictionary containing the header information of the LAS file.
+
+        Notes
+        -----
+        The structure of the returned dictionary is specified below.
+        The dictionary keys are the section names: 'version', 'well', 'parameter', 'curve', 'other', 'data'.
+        Not all sections must be present on a LAS 2.0 file.
+        For more information on the contents of each section, please refer to the LAS 2.0 standard [1]_.
+
+        The value of the 'data' section is a numpy ndarray where each row contains the data for a well log.
+
+        The value of the 'other' section is a list of lines exactly as found on the original file.
+
+        For all other sections, the values are dictionaries containing four keys: 'mnemonic', 'unit', 'value' and
+        'description'.
+        For information on the structure of a LAS 2.0 line, please also refer to its specification [1]_.
+
+        References
+        ----------
+        .. [1] LAS 2.0 standard - http://www.cwls.org/wp-content/uploads/2017/02/Las2_Update_Feb2017.pdf -
+        Retrieved August 14, 2019
+        
+        """
+        self.filepath = file_path
+        self.data = {}
+        self.header = {}
+
+        self._parser()
+
+    def _parser(self):
+        las2_file_path = self.filepath
+        las_data = read(las2_file_path)
+        header = {}
+        for key in las_data:
+            if key not in ['data']:
+                df = pd.DataFrame(las_data[key])
+                header[key] = df
+            data_header = list(las_data['curve'])
+        
+        log_main_data = {}
+        ii = 0
+        log_data = las_data['data']
+        for _log in data_header:
+            _mnem = _log['mnemonic']
+            _unit = _log['unit']
+            try:
+                _descr = _log['description']
+            except:
+                _descr = 'NONE'
+            _data = log_data[ii]
+            log_main_data[_mnem] = {'values':_data,'unit':_unit,'description':_descr}
+            ii += 1
+
+        self.data = log_main_data
+        self.header = header
+
 
 def read(lasfile):
     """Reads the contents of a LAS 2.0 file.
@@ -93,12 +164,12 @@ def read(lasfile):
     lasfile : string or file-like object
         The path of the file to read or an existing file-like object to read from.
 
-    Returns:
+    Returns
     -------
     dict
         A dictionary containing the sections of the LAS file.
 
-    Notes:
+    Notes
     -----
     The structure of the returned dictionary is specified below.
     The dictionary keys are the section names: 'version', 'well', 'parameter', 'curve', 'other', 'data'.
@@ -113,7 +184,7 @@ def read(lasfile):
     'description'.
     For information on the structure of a LAS 2.0 line, please also refer to its specification [1]_.
 
-    References:
+    References
     ----------
     .. [1] LAS 2.0 standard - http://www.cwls.org/wp-content/uploads/2017/02/Las2_Update_Feb2017.pdf -
        Retrieved August 14, 2019

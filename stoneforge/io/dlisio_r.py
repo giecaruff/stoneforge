@@ -37,7 +37,69 @@ class DLISAccess:
         return self.selected_header_df
             
     def get_info(self):
-        return self.dlis_dict_headers
+        """Module to get the DLIS file structure in a dictionary format."""
+        info = self.dlis_dict_headers
+        index = 0
+        d_file_data = {}  # store DataFrames per frame
+
+        for d_file in info:
+            frames_data = {}
+            for frame in info[d_file]:
+                rows = []
+                for mnemonic in info[d_file][frame]:
+                    _data_info = info[d_file][frame][mnemonic]
+                    _unit = _data_info['unit']
+                    _dim = _data_info['dim']
+                    _min = _data_info['min']
+                    _max = _data_info['max']
+                    _long_name = _data_info['long_name']
+                    rows.append((index, mnemonic, _unit, _dim, _min, _max, _long_name))
+                    index += 1
+                
+                # Create DataFrame for this frame
+                df = pd.DataFrame(rows, columns=["Index", "Mnemonic", "Unit", "Dim", "Min", "Max", "Long Name"])
+                df.set_index('Index', inplace=True)
+
+                frames_data[frame] = df
+            d_file_data[d_file] = frames_data
+        return d_file_data
+    
+    def mnemonic_search(self, mnemonics_list):
+        """"Module to search for mnemonics in the DLIS file headers. 
+        The search is case-sensitive and returns data for the matching mnemonics.
+        
+        Parameters
+        ----------
+        mnemonics_list : list
+            List of mnemonics to search for in the DLIS file headers.
+            
+        Returns
+        -------
+        dict
+            A dictionary containing the parsed DLIS data based on the searched mnemonics with the structure
+            {digital_file: {frame_name: {mnemonic: {unit, values}}}}
+        """
+        
+        info = self.dlis_dict_headers
+        index = 0
+        full_mnemonics = []  # store DataFrames per frame
+
+        for d_file in info:
+            frames_data = {}
+            for frame in info[d_file]:
+                rows = []
+                for mnemonic in info[d_file][frame]:
+                    full_mnemonics.append(mnemonic)
+
+        # find positions of matches
+        positions = [i for mnemonic in mnemonics_list 
+                    for i, val in enumerate(full_mnemonics) if val == mnemonic]
+        
+        positions = sorted(positions)
+        
+        self.select_header(idx=positions)
+        return self.get_data()
+
         
     def get_data(self):
         """Module to get the data selected in the checkbox.
@@ -311,8 +373,8 @@ class DLISAccess:
                             values = np.array(channel.curves())  # Convert to numpy array
 
                             extracted_data[logical_file_id][frame_name][mnemonic] = {
-                                'unit': unit,
-                                'values': values
+                                'values': values,
+                                'unit': unit
                             }
 
         return extracted_data
