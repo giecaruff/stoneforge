@@ -7,6 +7,21 @@ import os
 
 class DLISAccess:
     def __init__(self, filename, gui=True):
+        """Class to access and parse DLIS files with optional GUI for selecting mnemonics.
+        
+        Parameters
+        ----------
+        filename : str
+            Path to the DLIS file to be accessed.
+        gui : bool, optional
+            If True, a GUI with checkboxes will be displayed for selecting mnemonics. Default is True.
+
+        Example
+        -------
+        >>> %matplotlib widget # Use this line if running in Jupyter Notebook
+        >>> from stoneforge.io.dlisio_r import DLISAccess
+        >>> dlis_manager = DLISAccess("path/to/dlis_file.dlis") # Initialize checkbox interface
+        """
         self.filename = filename
         self.data = None
         self.metadata = None
