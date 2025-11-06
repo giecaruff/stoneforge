@@ -1,6 +1,7 @@
 
 import os
 import pandas as pd
+import warnings
 
 if __package__:
     from ..io.dlisio_r import DLISAccess
@@ -12,6 +13,7 @@ else:
     from stoneforge.io.las2 import LAS2Parser
     from stoneforge.io.las3 import LAS3Parser
     from stoneforge.io.tabr import TABParser
+
 
 
 class DataLoader:
@@ -44,7 +46,10 @@ class DataLoader:
             self.data_obj = DLISAccess(filepath, gui=gui)
 
         if filetype == 'tabr':
-            self.data_obj = TABParser(filepath, sep=sep, std=std)
+            try:
+                self.data_obj = TABParser(filepath, sep=sep, std=std)
+            except:
+                print("Failed to parse tabular data file.")
 
         if filetype is None:
             filext = self._get_file_extension(filepath)
@@ -65,7 +70,10 @@ class DataLoader:
                 self.data_obj = DLISAccess(filepath, gui=gui)
                 print("DLIS parsing successful.")
             elif filext in ['.csv', '.txt', '.dat', '.tsv']:
-                self.data_obj = TABParser(filepath, sep=sep, std=std)
+                try:
+                    self.data_obj = TABParser(filepath, sep=sep, std=std)
+                except:
+                    print("Failed to parse tabular data file.")
             else:
                 raise ValueError(f"Unsupported file extension: {filext}")
     
