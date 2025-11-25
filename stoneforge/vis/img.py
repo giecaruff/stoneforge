@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 
 # based on "PythonParaGeofisicos" from Sep 24, 2020
 
-def wellplot(well, depth, curves, colors, units, size = (12,10)):
+def wellplot(well, depth, curves, colors, units, d_unit='m', size = (12,10)):
 
     n_tracks = len(curves)
 
     fig, ax = plt.subplots(1, n_tracks, sharey=True)
     fig.set_size_inches(size)
 
-    ax[0].set_ylabel(depth + ' (' + units[0] + ')')
+    ax[0].set_ylabel(depth + ' (' + d_unit + ')')
     ax[0].invert_yaxis()
     ii = 0
     for c in curves:

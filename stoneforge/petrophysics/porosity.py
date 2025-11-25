@@ -34,10 +34,10 @@ def effective_porosity(
 
 def density_porosity(
     rhob: Annotated[np.array, "Bulk density log"],
-    rhom: Annotated[float, "Matrix density"],
-    rhof: Annotated[float, "Fluid density"]) -> np.array:
+    rhom: Annotated[float, "Matrix density"] = 2.65,
+    rhof: Annotated[float, "Fluid density"]= 1.10) -> np.array:
     
-    """Estimate the porosity from the bulk density log (:footcite:t:`schon1998physical`).
+    """Estimate the porosity from the bulk density log (:footcite:t:`schon1998physical`). rw: Annotated[float, "Water resistivity"]
 
     Parameters
     ----------
@@ -80,7 +80,7 @@ def density_porosity(
 def neutron_porosity(
     nphi: Annotated[np.array, "Neutron porosity log"],
     vsh: Annotated[np.array, "Shale volume"],
-    phish: Annotated[float, "Apparent porosity in shales"]) -> np.array:
+    phish: Annotated[float, "Apparent porosity in shales"] = 0.480) -> np.array:
     """Estimate the effective porosity from the neutron log (:footcite:t:`schon1998physical`).
 
     Parameters
@@ -153,8 +153,8 @@ def neutron_density_porosity(
 
 def sonic_porosity(
     dt: Annotated[np.array, "Sonic log"],
-    dtma: Annotated[np.array, "Matrix transit time"],
-    dtf: Annotated[np.array, "Fluid transit time"]) -> np.array:
+    dtma: Annotated[np.array, "Matrix transit time"] = 55.5,
+    dtf: Annotated[np.array, "Fluid transit time"] = 175) -> np.array:
     
     """Estimate the Porosity from sonic using the :footcite:t:`wyllie1956` time-average equation.
 
