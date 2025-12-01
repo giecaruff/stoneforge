@@ -49,7 +49,8 @@ class DLISAccess:
         if self.header_df is None:
             raise ValueError("Header data is not available. Ensure 'vis' parameter is set to True during initialization.")
         self.selected_header_df = (self.header_df.iloc[sorted(idx)] if idx is not None else self.header_df)
-        return self.selected_header_df
+        self.get_data()
+        #return self.selected_header_df
             
     def get_info(self):
         """Module to get the DLIS file structure in a dictionary format."""
