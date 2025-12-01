@@ -15,7 +15,6 @@ else:
     from stoneforge.io.tabr import TABParser
 
 
-
 class DataLoader:
     
     def __init__(self, filepath, filetype=None, gui=False, sep="\t", std="US"):
