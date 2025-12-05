@@ -4,10 +4,10 @@ import numpy as np
 
 if __package__:
     from ..machine_learning.regression import *
-    from ..datasets import dataload
+    from .. import datasets
 else:
     from stoneforge.machine_learning.regression import *
-    from stoneforge.datasets import dataload
+    from stoneforge import datasets
 
 # %% ============================================================== #
 
@@ -55,11 +55,12 @@ class setup_methods:
 
 # %% ============================================================== #
 
-IK1,unik1 = dataload.ik1()
+DATA = datasets.NPRAlaska()
+IK1,unik1 = DATA.ik1.dataframe(DATA.ik1.data_obj.data)
 
 IK1_c = IK1[~IK1.isin([-999.0]).any(axis=1)]
 
-DP1,unik1 = dataload.dp1()
+DP1,unik1 = DATA.dp1.dataframe(DATA.ik1.data_obj.data)
 
 DP1_c = DP1[~DP1.isin([-999.0]).any(axis=1)]
 
@@ -83,7 +84,7 @@ GR = data_matrix[:,3]
 
 X = np.array([RHOB,NPHI]).T
 
-ES1,unik1 = dataload.es1()
+ES1,unik1 = DATA.es1.dataframe(DATA.es1.data_obj.data)
 ES1_c = ES1[~ES1.isin([-999.0]).any(axis=1)]
 X_test = np.array([ES1_c["RHOB"],ES1_c["NPHI"]],float).T
 y_test = np.array([ES1_c["DT"],ES1_c["GR"]])
