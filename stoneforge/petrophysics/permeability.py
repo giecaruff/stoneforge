@@ -68,7 +68,7 @@ def timur(
         Estimated permeability (mD) from the Timur empirical relation.
     """
 
-    return 0.136 * (phi ** 4.4) / (sw ** 2)
+    return 0.136 * ((phi**4.4) / (sw**2))
 
 
 def coates_dumanoir(
@@ -111,11 +111,6 @@ def coates_dumanoir(
     """
 
     phi = np.asarray(phi, dtype=float)
-    swirr = np.asarray(swirr, dtype=float)
-
-    # Basic checks
-    if np.any(phi <= 0) or np.any(swirr <= 0):
-        raise ValueError("phi and swirr must be positive fractions (not zero).")
 
     # Determine w:
     if w is None:
@@ -141,7 +136,7 @@ def coates_dumanoir(
     sqrt_k = (C / (w**4)) * ( ((phi) ** (2 * w))/ (rw/resd))
 
     # final permeability
-    k = sqrt_k**2  # equivalent to (C/w^4)^2 * (phi/swirr)^(2*w)
+    k = sqrt_k**2 
     return np.asarray(k, dtype=float)
 
 def coates(
