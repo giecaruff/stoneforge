@@ -7,6 +7,21 @@ import os
 
 class DLISAccess:
     def __init__(self, filename, gui=True):
+        """Class to access and parse DLIS files with optional GUI for selecting mnemonics.
+        
+        Parameters
+        ----------
+        filename : str
+            Path to the DLIS file to be accessed.
+        gui : bool, optional
+            If True, a GUI with checkboxes will be displayed for selecting mnemonics. Default is True.
+
+        Example
+        -------
+        >>> %matplotlib widget # Use this line if running in Jupyter Notebook
+        >>> from stoneforge.io.dlisio_r import DLISAccess
+        >>> dlis_manager = DLISAccess("path/to/dlis_file.dlis") # Initialize checkbox interface
+        """
         self.filename = filename
         self.data = None
         self.metadata = None
@@ -34,7 +49,8 @@ class DLISAccess:
         if self.header_df is None:
             raise ValueError("Header data is not available. Ensure 'vis' parameter is set to True during initialization.")
         self.selected_header_df = (self.header_df.iloc[sorted(idx)] if idx is not None else self.header_df)
-        return self.selected_header_df
+        self.get_data()
+        #return self.selected_header_df
             
     def get_info(self):
         """Module to get the DLIS file structure in a dictionary format."""
@@ -98,7 +114,8 @@ class DLISAccess:
         positions = sorted(positions)
         
         self.select_header(idx=positions)
-        return self.get_data()
+        self.get_data()
+        #return self.get_data()
 
         
     def get_data(self):
@@ -123,10 +140,12 @@ class DLISAccess:
             selected_rows = [i for i, checked in enumerate(ALL_CHECKBOX_STATES) if checked]
             selected_table = self.dlis_dataframe_headers.iloc[selected_rows]
             dict_data_info = self._dataframe_to_dict(selected_table)
-            return self._parse_dlis(self.filename, dict_data_info)
+            self.data = self._parse_dlis(self.filename, dict_data_info)
+            #return self._parse_dlis(self.filename, dict_data_info)
         else:
             s_dict_header = self._dataframe_to_dict(self.selected_header_df)
-            return self._parse_dlis(self.filename, s_dict_header)
+            self.data = self._parse_dlis(self.filename, s_dict_header)
+            #return self._parse_dlis(self.filename, s_dict_header)
         
     def export(self, output_dir=".", file_format="csv"):
         """

@@ -6,15 +6,35 @@ import re
 class LAS3Parser:
 
     def __init__(self, las3_file_path):
+        """
+        Initialize the LAS3Parser with the path to a LAS3 file.
+
+        Parameters
+        ----------
+        las3_file_path : str
+            The file path to the LAS3 file to be parsed.
+        
+        Example
+        -------
+        >>> from stoneforge.io.las3 import LAS3Parser
+        >>> parser = LAS3Parser("path/to/file.las")
+        """
         self.filepath = las3_file_path
-        self.data = self.parse_las3()
+        self.data = self._parse_las3()
         self.tables = list(self.data.keys())
 
     def force_association(self, to_dict = True, forced=True, sep = "|"):
         """
-        Given the parsed data dictionary and a description string,
-        return the associated DataFrame if it exists.
-        This method forces the association even if the description is not found.
+        Given the parsed data dictionary and a description string, return the associated DataFrame if it exists. This method forces the association even if the description is not found.
+
+        Parameters
+        ----------
+        to_dict : bool, optional
+            If True, convert the final DataFrame to a dictionary of numpy arrays. Default is True.
+        forced : bool, optional
+            If True, force the association even if the description is not found. Default is True.
+        sep : str, optional
+            The separator used in the table names to identify associations. Default is "|".
         """
         _data = []
         _desc = []
@@ -24,7 +44,7 @@ class LAS3Parser:
             for j, k2 in enumerate(self.tables):
                 if i != j:
                     # clean k2 if it has "|"
-                    k2_clean = k2.split("|")[0].strip()
+                    k2_clean = k2.split(sep)[0].strip()
                     if k1 in k2:
                         _data.append(k2)
                         _desc.append(k1)
@@ -56,8 +76,23 @@ class LAS3Parser:
 
     def table_association(self, data, description, forced=True, to_dict = True):
         """
-        Given the parsed data dictionary and a description string,
-        return the associated DataFrame if it exists.
+        Given the parsed data dictionary and a description string, return the associated DataFrame if it exists.
+
+        Parameters
+        ----------
+        data : str
+            The key in the data dictionary corresponding to the main data table.
+        description : str
+            The key in the data dictionary corresponding to the description table.
+        forced : bool, optional
+            If True, force the association even if the description is not found. Default is True.
+        to_dict : bool, optional
+            If True, convert the final DataFrame to a dictionary of numpy arrays. Default is True.
+
+        Returns
+        -------
+        dict
+            A dictionary where each key is a mnemonic from the description, and each value is another dictionary with 'values' (numpy array) and 'unit' (string).
         """
         
         if forced:
@@ -107,7 +142,7 @@ class LAS3Parser:
 
         return overall_data
 
-    def parse_las3(self):
+    def _parse_las3(self):
         "Take the path to a LAS3 file and return a dictionary of DataFrames, one for each section. utf-8 based"
         data_sections = {}
         current_key = None

@@ -3,10 +3,10 @@ import numpy as np
 
 if __package__:
     from ..machine_learning.classification import *
-    from ..datasets import dataload
+    from .. import datasets
 else:
     from stoneforge.machine_learning.classification import *
-    from stoneforge.datasets import dataload
+    from stoneforge import datasets
 
 # %% ============================================================== #
 
@@ -29,14 +29,14 @@ class setup_methods:
         d = predict(self.Xte, method = method, filepath = False, fit_info = b, scalers = c)
         print('value:',d,'DONE! \n')
         
-
 # %% ============================================================== #
 
-IK1,unik1 = dataload.ik1()
+DATA = datasets.NPRAlaska()
+IK1,unik1 = DATA.ik1.dataframe(DATA.ik1.data_obj.data)
 
 IK1_c = IK1[~IK1.isin([-999.0]).any(axis=1)]
 
-DP1,unik1 = dataload.dp1()
+DP1,unik1 = DATA.dp1.dataframe(DATA.ik1.data_obj.data)
 
 DP1_c = DP1[~DP1.isin([-999.0]).any(axis=1)]
 
@@ -65,7 +65,7 @@ LITO = data_matrix[:,2]
 
 X = np.array([RHOB,NPHI]).T
 
-ES1,unik1 = dataload.es1()
+ES1,unik1 = DATA.es1.dataframe(DATA.es1.data_obj.data)
 ES1_c = ES1[~ES1.isin([-999.0]).any(axis=1)]
 X_test = np.array([ES1_c["RHOB"],ES1_c["NPHI"]],float).T
 test_vsh = np.array((ES1_c["GR"] - gr_min) / (gr_max - gr_min),float)
