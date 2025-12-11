@@ -19,17 +19,17 @@ def tixier(
 
     Parameters
     ----------
-    RESD : array_like
+    resd : array_like
         Deep resistivity in ohm.m.
-    RESS : array_like
+    ress : array_like
         Shallow resistivity in ohm.m.
-    RW : array_like
+    rw : float, optional
         Water-saturated formation resistivity in ohm.m.
-    RHOW : array_like
+    rhow : float, optional
         Density of formation water in g/cm3.
-    RHOO : array_like
+    rhoo : float, optional
         Density of formation in g/cm3.
-    DDEPTH : array_like
+    inzone : array_like, float, optional
         Invasion radius or change in depth in meters.
     Returns
     -------
@@ -54,12 +54,14 @@ def timur(
     ) -> np.array:
     """
     Estimate permeability using the empirical method of Timur (:footcite:t:`timur1968,mohaghegh1997`).
+
     Parameters
     ----------
     phi : array_like
         Porosity (fraction).
     sw : array_like
         Water saturation (fraction).
+
     Returns
     -------
     k : array_like
@@ -69,18 +71,16 @@ def timur(
     return 0.136 * (phi ** 4.4) / (sw ** 2)
 
 
-def coates_dumanoir_original(
+def coates_dumanoir(
     resd: Annotated[np.array, "Deep resistivity"],
     phi: Annotated[np.array, "Porosity"],
     C: Annotated[float, "Empirical calibration constant"] = 1.0,
     w: Annotated[float, "Empirical porosity resistivity constant"] = None,
     rw: Annotated[float, "Water-saturated formation resistivity"]=0.02,
     compute_w_as_sqrt: bool = True
-) -> np.ndarray:
+    ) -> np.ndarray:
     """
-    Coates & Dumanoir original form (:footcite:t:`dumoir1973,mohaghegh1997`):
-        sqrt(k) = (C / w^4) * (phi / swirr)^w
-    -> k = (C / w^4)^2 * (phi / swirr)^(2*w)
+    Estimate permeability using the empirical method of Coates and Dumanoir equation for (:footcite:t:`dumoir1973,mohaghegh1997`).
 
     Parameters
     ----------
@@ -94,7 +94,7 @@ def coates_dumanoir_original(
     w : array-like or float, optional
         The 'w' parameter used in the original formula. If provided, this is used
         directly. If omitted, and both rw and resd are provided, `w` is computed
-        from the Coates–Dumanoir relation for w^2 (see below).
+        from the Coates-Dumanoir relation for w^2 (see below).
     rw : float, optional
         Formation water resistivity. Required only if `w` is not provided and you
         want to compute `w` from resistivities.
@@ -143,3 +143,27 @@ def coates_dumanoir_original(
     # final permeability
     k = sqrt_k**2  # equivalent to (C/w^4)^2 * (phi/swirr)^(2*w)
     return np.asarray(k, dtype=float)
+
+def coates(
+    phi: Annotated[np.array, "Porosity"],
+    sw: Annotated[np.array, "Water saturation"]
+    ) -> np.array:
+    """
+    Estimate permeability using the empirical method of Coates (:footcite:t:`timur1968,schlumberger2013`).
+
+    Parameters
+    ----------
+    phi : array_like
+        Porosity (fraction).
+    sw : array_like
+        Water saturation (fraction).
+        
+    Returns
+    -------
+    k : array_like
+        Estimated permeability (mD) from the Timur empirical relation.
+    """
+
+    sqrt_k = 100.0*(phi**2)*((1 - sw)/(sw))
+
+    return sqrt_k *sqrt_k 
