@@ -8,10 +8,10 @@ import warnings
 def tixier(
     resd: Annotated[np.array, "Deep resistivity"],
     ress: Annotated[np.array, "Shallow resistivity"], 
-    rw: Annotated[np.array, "Water-saturated formation resistivity"]=0.02,
-    rhow: Annotated[np.array, "Density of formation water"]=1.10,
-    rhoo: Annotated[np.array, "Density of formation oil"]=10000.00,
-    inzone: Annotated[np.array, "Invasion radius"]=0.75,
+    rw: Annotated[float, "Water-saturated formation resistivity"]=0.02,
+    rhow: Annotated[float, "Density of formation water"]=1.10,
+    rhoo: Annotated[float, "Density of formation oil"]=10000.00,
+    inzone: Annotated[float, "Invasion radius"]=0.75,
     ) -> np.array:
     """
     Estimate permeability using the empirical method of Tixier (:footcite:t:`tixier1949,mohaghegh1997`).
@@ -45,3 +45,25 @@ def tixier(
     K = 20 * (term ** 2)
     
     return K
+
+
+def timur(
+    phi: Annotated[np.array, "Porosity"],
+    sw: Annotated[np.array, "Water saturation"]
+    ) -> np.array:
+    """
+    Estimate permeability using the empirical method of Timur (:footcite:t:`timur1968,mohaghegh1997`).
+    Parameters
+    ----------
+    phi : array_like
+        Porosity (fraction).
+    sw : array_like
+        Water saturation (fraction).
+    Returns
+    -------
+    k : array_like
+        Estimated permeability (mD) from the Timur empirical relation.
+    """
+
+    return 0.136 * (phi ** 4.4) / (sw ** 2)
+    
