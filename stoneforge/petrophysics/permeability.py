@@ -159,6 +159,17 @@ def coates(
         Estimated permeability (mD) from the Timur empirical relation.
     """
 
-    sqrt_k = 100.0*(phi**2)*((1 - sw)/(sw))
+    phi = np.asarray(phi, dtype=float)
+    swirr = np.asarray(sw, dtype=float)
 
-    return sqrt_k *sqrt_k 
+    # Basic validity checks
+    if np.any(phi <= 0) or np.any(phi >= 1):
+        print("phi must be in (0, 1) as a fraction.")
+    if np.any(swirr <= 0) or np.any(swirr >= 1):
+        print("swirr must be in (0, 1) as a fraction.")
+
+    numerator = 100 * phi**2 * (1 - swirr)
+    term = numerator / swirr
+    K = term**2
+
+    return K
