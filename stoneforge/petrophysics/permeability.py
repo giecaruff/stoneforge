@@ -68,76 +68,42 @@ def timur(
         Estimated permeability (mD) from the Timur empirical relation.
     """
 
-    return 0.136 * ((phi**4.4) / (sw**2))
+    return (93 * (phi ** 2.2) / (sw)) ** 2
 
 
 def coates_dumanoir(
     resd: Annotated[np.array, "Deep resistivity"],
     phi: Annotated[np.array, "Porosity"],
-    C: Annotated[float, "Empirical calibration constant"] = 1.0,
-    w: Annotated[float, "Empirical porosity resistivity constant"] = None,
+    hd: Annotated[float, "Hidrocarbon density"] = 0.8,
     rw: Annotated[float, "Water-saturated formation resistivity"]=0.02,
-    compute_w_as_sqrt: bool = True
     ) -> np.ndarray:
     """
     Estimate permeability using the empirical method of Coates and Dumanoir equation for (:footcite:t:`dumoir1973,mohaghegh1997`).
 
     Parameters
     ----------
+    resd : array-like
+        Deep (or True) formation resistivity in ohm.m.
     phi : array-like
-        Porosity as fraction (0..1).
-    swirr : array-like
-        Irreducible water saturation (fraction, 0..1).
-    C : float, optional
-        Empirical calibration constant (no units by itself; k units depend on C),
-        default 1.0 (user should set according to calibration).
-    w : array-like or float, optional
-        The 'w' parameter used in the original formula. If provided, this is used
-        directly. If omitted, and both rw and resd are provided, `w` is computed
-        from the Coates-Dumanoir relation for w^2 (see below).
+        Porosity as fraction (m/m).
+    hd : array-like
+        Hidrocarbon density in g/cm3 (standard for 0.8 as crude oil).
     rw : float, optional
-        Formation water resistivity. Required only if `w` is not provided and you
-        want to compute `w` from resistivities.
-    resd : array-like or float, optional
-        Resistivity at irreducible water saturation (resd). Required if computing w.
-    compute_w_as_sqrt : bool, optional
-        When computing w from w^2, set True to take w = sqrt(w^2) (default).
-        If you prefer to use w^2 directly in the formula, set False (less common).
+        Formation water resistivity in ohm.m (standard for 0.02).
 
     Returns
     -------
     k : np.ndarray
         Permeability (in calibration units; e.g. mD if C chosen appropriately).
     """
+    # Calculating C constant
+    c = 23 + 465 * hd - 188 * hd*hd
+    
+    # Calculating W constant
+    w = np.sqrt((((np.log10(rw / resd) + 2.2) ** 2) / 2.0) + (3.75 - phi))
 
-    phi = np.asarray(phi, dtype=float)
-
-    # Determine w:
-    if w is None:
-        if (rw is None) or (resd is None):
-            raise ValueError("Either 'w' or both 'rw' and 'resd' must be provided.")
-        resd = np.asarray(resd, dtype=float)
-        # compute w^2 from Coates & Dumanoir formula:
-        w2 = 3.75 - phi + 0.5 * (np.log10(rw / resd) + 2.2)**2
-        if compute_w_as_sqrt:
-            # take principal square root (w >= 0)
-            w = np.sqrt(np.maximum(w2, 0.0))
-        else:
-            # use w^2 directly - user must understand effect on formula
-            w = w2
-    else:
-        w = np.asarray(w, dtype=float)
-
-    # Prevent zeros in denominator w^4
-    if np.any(w == 0):
-        raise ValueError("Computed or supplied 'w' contains zero values (would divide by zero).")
-
-    # compute sqrt(k)
-    sqrt_k = (C / (w**4)) * ( ((phi) ** (2 * w))/ (rw/resd))
-
-    # final permeability
-    k = sqrt_k**2 
-    return np.asarray(k, dtype=float)
+    # Final permeability
+    return ((c * phi ** (2 * w))/((w ** 4) * (rw / resd))) ** 2
 
 def coates(
     phi: Annotated[np.array, "Porosity"],
