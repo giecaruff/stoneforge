@@ -33,6 +33,14 @@ Water Saturation
     :undoc-members:
     :show-inheritance:
 
+Permeability
+----------------
+
+.. automodule:: stoneforge.petrophysics.permeability
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 References
 ----------------
 
