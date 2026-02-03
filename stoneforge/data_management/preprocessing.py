@@ -2,6 +2,10 @@
 import os
 import pandas as pd
 import warnings
+from urllib.parse import urlparse
+import requests
+import tempfile
+from pathlib import Path
 
 if __package__:
     from ..io.dlisio_r import DLISAccess
@@ -13,6 +17,7 @@ else:
     from stoneforge.io.las2 import LAS2Parser
     from stoneforge.io.las3 import LAS3Parser
     from stoneforge.io.tabr import TABParser
+    
 
 
 class DataLoader:
@@ -34,6 +39,12 @@ class DataLoader:
         - Depending on the file type, it will return:
         """
         self.data_obj = None
+        self._tmpfile = None  # track temp file for cleanup
+        
+        # --- URL handling ---
+        if self._is_url(filepath):
+            self._tmpfile = self._download_to_tempfile(filepath)
+            filepath = self._tmpfile
 
         if filetype == 'las2':
             self.data_obj = LAS2Parser(filepath)
@@ -75,6 +86,32 @@ class DataLoader:
                     print("Failed to parse tabular data file.")
             else:
                 raise ValueError(f"Unsupported file extension: {filext}")
+            
+    def _is_url(self, path):
+        try:
+            result = urlparse(path)
+            return result.scheme in ("http", "https")
+        except Exception:
+            return False
+        
+    def _download_to_tempfile(self, url):
+        response = requests.get(url)
+        response.raise_for_status()
+
+        suffix = Path(url).suffix  # preserves .las, .dlis, etc.
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+
+        tmp.write(response.content)
+        tmp.close()
+
+        return tmp.name
+            
+    def __del__(self):
+        if self._tmpfile and os.path.exists(self._tmpfile):
+            try:
+                os.remove(self._tmpfile)
+            except Exception:
+                pass
     
     def dataframe(self, data):
         """
