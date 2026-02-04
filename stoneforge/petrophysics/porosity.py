@@ -11,7 +11,8 @@ from .helpers import correct_petrophysic_estimation_range
 
 def effective_porosity(
     phi: Annotated[np.array, "Porosity log"],
-    vsh: Annotated[np.array, "Shale volume"]) -> np.array:
+    vsh: Annotated[np.array, "Shale volume"],
+    phi_sh: Annotated[float, "Apparent porosity in shales"] = 0.05) -> np.array:
     """Calculate the effective porosity from the total porosity and shale volume (:footcite:t:`schon1998physical`).
 
     Parameters
@@ -20,6 +21,8 @@ def effective_porosity(
         Porosity log
     vsh : array_like
         Shale volume
+    phi_sh : float
+        Apparent porosity in shales
 
     Returns
     -------
@@ -27,7 +30,7 @@ def effective_porosity(
         Effective porosity for the aimed interval (more suitable for the bulk density porosity)
     """
     
-    phie = phi - vsh
+    phie = phi - (vsh * phi_sh)
     phie = correct_petrophysic_estimation_range(phie)
     return phie
 
@@ -59,12 +62,12 @@ def density_porosity(
 
         return np.nan
 
-    elif rhom < rhof or any(rhom <= rhob):
+    elif rhom <= rhof:
         warnings.warn(UserWarning("rhom must be greater than rhof and rhob"))
 
         phi = (rhom - rhob) / (rhom - rhof)
 
-    elif any(rhom - rhob > rhom - rhof):
+    elif np.any((rhom - rhob) > (rhom - rhof)):
         warnings.warn(UserWarning("rhob value is lower than rhof"))
 
         phi = (rhom - rhob) / (rhom - rhof)
@@ -98,11 +101,11 @@ def neutron_porosity(
         Effective porosity from the neutron log for the aimed interval.
 
     """
-    if any(nphi < (vsh * phish)):
+    if np.any(nphi < (vsh * phish)):
         warnings.warn(UserWarning("phin must be a positive value"))
         phin = nphi - (vsh * phish)
     
-    elif any(nphi - (vsh * phish) > 1):
+    elif np.any(nphi - (vsh * phish) > 1):
         warnings.warn(UserWarning("phin must be a value between 0 and 1"))
         phin = nphi - (vsh * phish)
 
@@ -136,13 +139,13 @@ def neutron_density_porosity(
 
     """
     if squared == False:
-        if any((phid + phin / 2) > 1):
+        if np.any((phid + phin / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
             phi = (phid + phin) / 2
         else:
             phi = (phid + phin) / 2
     elif squared == True:
-        if any((phid**2 + phin**2 / 2) > 1):
+        if np.any((phid**2 + phin**2 / 2) > 1):
             warnings.warn(UserWarning("phi must be a value between 0 and 1"))
             phi = np.sqrt( (phid**2 + phin**2) / 2)
         else:
@@ -177,11 +180,11 @@ def sonic_porosity(
         warnings.warn(UserWarning("This will result in a division by zero"))
         return np.nan
 
-    elif any(dt <= dtma) or dtf <= dtma:
+    elif np.any(dt <= dtma) or dtf <= dtma:
         warnings.warn(UserWarning("dt and dtf must be greater than dtma"))
         phidt = (dt - dtma) / (dtf - dtma)
 
-    elif any(dt - dtma > dtf - dtma):
+    elif np.any(dt - dtma > dtf - dtma):
         warnings.warn(UserWarning("dt value is greather than dtf"))
         phidt = (dt - dtma) / (dtf - dtma)
 
@@ -192,7 +195,7 @@ def sonic_porosity(
     return phidt
 
 
-def gaymard_porosity(
+def gaymard_poupon_porosity(
     phid: Annotated[np.array, "Porosity from density log"],
     phin: Annotated[np.array, "Porosity from neutron log"]) -> np.array:
     
@@ -222,7 +225,7 @@ _porosity_methods = {
     "neutron": neutron_porosity,
     "neutron-density": neutron_density_porosity,
     "sonic": sonic_porosity,
-    "gaymard": gaymard_porosity,
+    "gaymard": gaymard_poupon_porosity,
     "effective": effective_porosity
 }
 
