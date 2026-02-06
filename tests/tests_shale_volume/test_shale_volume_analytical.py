@@ -60,7 +60,7 @@ def test_vshale_clavier_shaliness_scalar():
     grmax = 150.0
 
     expected_igr = (gr - grmin) / (grmax - grmin)
-    expected_vshale = 1.7 - 3.38 * (1 - expected_igr) + 2.12 * (1 - expected_igr) ** 2
+    expected_vshale = 1.7 - np.sqrt(3.38 - (expected_igr + 0.7) ** 2)
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_clavier(gr=gr, grmin=grmin, grmax=grmax)
@@ -81,18 +81,18 @@ def test_vshale_stieber_shaliness_scalar():
 def test_vshale_neutron_density_shaliness_scalar():
     nphi = 0.25
     rhob = 2.4
-    clean_n = -0.15,
-    clean_d = 2.65,
-    fluid_n = 1.00,
-    fluid_d = 1.10,
-    clay_n = 0.47,
+    clean_n = -0.15
+    clean_d = 2.65
+    fluid_n = 1.00
+    fluid_d = 1.10
+    clay_n = 0.47
     clay_d = 2.71
 
     x1 = (fluid_d - clean_d) * (nphi - clean_n)
-    x2 = (clay_d - clean_d) * (clay_n - clean_n)
-    x3 = (clay_d - clean_d) * (rhob - clean_d)
-    x4 = (fluid_d - clean_d) * (fluid_n - clean_n)
-    expected_vshale = (x1 - x3) / (x2 - x4)
+    x2 = (rhob - clean_d) * (fluid_n - clean_n)
+    x3 = (fluid_d - clean_d) * (clay_n - clean_n)
+    x4 = (clay_d - clean_d) * (fluid_n - clean_n)
+    expected_vshale = (x1-x2) / (x3-x4)
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_neu_den(nphi=nphi, rhob=rhob, clean_n=clean_n, clean_d=clean_d, fluid_n=fluid_n, fluid_d=fluid_d, clay_n=clay_n, clay_d=clay_d)    

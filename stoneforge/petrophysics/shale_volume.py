@@ -212,7 +212,7 @@ def vshale_neu_den(
     x3 = (fluid_d - clean_d) * (clay_n - clean_n)
     x4 = (clay_d - clean_d) * (fluid_n - clean_n)
     vshale = (x1-x2) / (x3-x4)
-    vshale = correct_petrophysic_estimation_range(vshale)
+    #vshale = correct_petrophysic_estimation_range(vshale)
     return vshale
 
 def vshale_nrm(
