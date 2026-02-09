@@ -1,17 +1,13 @@
-from stoneforge import datasets
+from stoneforge.data_management.preprocessing import DataLoader
 
 # Tabular example usage
-DATA0 = datasets.test_data()
-DATA0.tcsv
+DATA = DataLoader(r"https://github.com/giecaruff/datasets/blob/main/wells/tab/evaluation/teste_tsv.tsv", filetype='tabr', sep="\t", std="US")
+del(DATA)
 
 # Las2 example usage
-DATA1 = datasets.NPRAlaska()
-DATA1.ik1.data_obj.data
+DATA = DataLoader(r"https://raw.githubusercontent.com/giecaruff/datasets/refs/heads/main/wells/las2/npra/DP1.las", filetype='las2')
+del(DATA)
 
 # Las3 example usage
-DATA2 = datasets.test_data()
-DATA2.tlas3
-
-# Dlis example usage
-DATA3 = datasets.DSDP_leg_96()
-DATA3.original
+DATA = DataLoader(r"https://raw.githubusercontent.com/giecaruff/datasets/refs/heads/main/wells/las3/evalutaion/example_las3.las")
+del(DATA)

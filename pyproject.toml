@@ -25,8 +25,7 @@ dependencies = [
     "scikit-learn>=1.6.1",
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
-    "lightgbm>=4.5.0",
-    "ipympl>=0.8.4",
+    "hypothesis>=6.148.6"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

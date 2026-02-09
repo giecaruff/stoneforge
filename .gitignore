@@ -139,4 +139,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# VS Code settings
 .vscode/
+
+# Well log data (low resource policy)
+*.las
+*.csv
+*.txt
+*.dat
+*.dlis

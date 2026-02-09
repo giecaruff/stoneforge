@@ -37,7 +37,7 @@ def archie(
         Water saturation from Archie equation.
 
     """
-    if any(((a*rw) / (phi**m * rt))**(1/n) > 1):
+    if np.any(((a*rw) / (phi**m * rt))**(1/n) > 1):
         warnings.warn(UserWarning("saturation of water must be a value between 0 and 1"))
         sw = ((a*rw) / (phi**m * rt))**(1/n)
         sw = correct_petrophysic_estimation_range(sw)
@@ -131,7 +131,12 @@ def indonesia(
         Water saturation from Poupon-Leveaux equation.
 
     """
-    sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
+    #sw = ((1/rt)**0.5 / ((vsh**(1 - 0.5*vsh) / (rsh)**0.5) + (phi**m / a*rw)**0.5))**(2/n)
+    C = (1./rt) ** 0.5
+    D = 1 - 0.5*vsh
+    E = (vsh**D)/(rsh**0.5)
+    F = ((phi**m)/(a*rw))**0.5
+    sw = (C/(E+F))**(1/n)
     sw = correct_petrophysic_estimation_range(sw)
 
     return sw

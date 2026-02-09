@@ -110,7 +110,7 @@ def vshale_larionov(
         Shale Volume for the aimed interval using the Larionov method.
     """
     igr = gammarayindex(gr, grmin, grmax)
-    vshale = 0.083 * (2 ** (3.7 * igr) - 1)
+    vshale = 0.083 * (2 ** (3.71 * igr) - 1)
     vshale = correct_petrophysic_estimation_range(vshale)
 
     return vshale

@@ -9,7 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
-import lightgbm as lgb
+#import lightgbm as lgb
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
@@ -27,12 +27,12 @@ MODELS = {
         "max_depth": [10, 30, 50],
         "random_state": [99]
     }),
-    "lightgbm_regression": (lgb.LGBMRegressor, {
-        "n_estimators": [100],
-        "learning_rate": [0.1],
-        "max_depth": [5, 10, 30],
-        "random_state": [99]
-    }),
+    #"lightgbm_regression": (lgb.LGBMRegressor, {
+    #    "n_estimators": [100],
+    #    "learning_rate": [0.1],
+    #    "max_depth": [5, 10, 30],
+    #    "random_state": [99]
+    #}),
 }
 
 # Save model or any object
