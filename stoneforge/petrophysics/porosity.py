@@ -293,7 +293,7 @@ def porosity(
     elif method == "neutron":
         required = ["nphi", "vsh", "phish"]
     elif method == "neutron-density":
-        required = ["phid", "phin"]
+        required = ["phid", "phin", "squared"]
     elif method == "sonic":
         required = ["dt", "dtma", "dtf"]
     elif method == "gaymard":

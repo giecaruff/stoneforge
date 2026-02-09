@@ -17,7 +17,9 @@ def test_gammarayindex_shaliness_scalar():
 
     expected = (gr - grmin) / (grmax - grmin)
     result = shale_volume.gammarayindex(gr=gr, grmin=grmin, grmax=grmax)
+    result2 = shale_volume.vshale(gr=gr, grmin=grmin, grmax=grmax, method='linear')
     assert np.isclose(result, expected, rtol=1e-6)
+    assert np.isclose(expected, result2, rtol=1e-6)
     
 def test_vshale_linear_shaliness_scalar():
     gr = 120.0
@@ -40,7 +42,9 @@ def test_vshale_larionov_old_shaliness_scalar():
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_larionov_old(gr=gr, grmin=grmin, grmax=grmax)
+    result2 = shale_volume.vshale(gr=gr, grmin=grmin, grmax=grmax, method='larionov_old')
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
 
 def test_vshale_larionov_shaliness_scalar():
     gr = 120.0
@@ -52,7 +56,9 @@ def test_vshale_larionov_shaliness_scalar():
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_larionov(gr=gr, grmin=grmin, grmax=grmax)
+    result2 = shale_volume.vshale(gr=gr, grmin=grmin, grmax=grmax, method='larionov')
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
 
 def test_vshale_clavier_shaliness_scalar():
     gr = 120.0
@@ -64,7 +70,9 @@ def test_vshale_clavier_shaliness_scalar():
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_clavier(gr=gr, grmin=grmin, grmax=grmax)
+    result2 = shale_volume.vshale(gr=gr, grmin=grmin, grmax=grmax, method='clavier')
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
 
 def test_vshale_stieber_shaliness_scalar():
     gr = 120.0
@@ -76,7 +84,9 @@ def test_vshale_stieber_shaliness_scalar():
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
     result = shale_volume.vshale_stieber(gr=gr, grmin=grmin, grmax=grmax)
+    result2 = shale_volume.vshale(gr=gr, grmin=grmin, grmax=grmax, method='stieber')
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
 
 def test_vshale_neutron_density_shaliness_scalar():
     nphi = 0.25
@@ -95,8 +105,10 @@ def test_vshale_neutron_density_shaliness_scalar():
     expected_vshale = (x1-x2) / (x3-x4)
     expected_vshale = np.clip(expected_vshale, 0.0, 1.0)
 
-    result = shale_volume.vshale_neu_den(nphi=nphi, rhob=rhob, clean_n=clean_n, clean_d=clean_d, fluid_n=fluid_n, fluid_d=fluid_d, clay_n=clay_n, clay_d=clay_d)    
+    result = shale_volume.vshale_neu_den(nphi=nphi, rhob=rhob, clean_n=clean_n, clean_d=clean_d, fluid_n=fluid_n, fluid_d=fluid_d, clay_n=clay_n, clay_d=clay_d)
+    result2 = shale_volume.vshale(nphi=nphi, rhob=rhob, clean_n=clean_n, clean_d=clean_d, fluid_n=fluid_n, fluid_d=fluid_d, clay_n=clay_n, clay_d=clay_d, method='neu_den')    
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
 
 def test_vshale_nrm_shaliness_scalar():
     phit = 0.25
@@ -106,4 +118,6 @@ def test_vshale_nrm_shaliness_scalar():
     vshale = cbw / phit
     expected_vshale = np.clip(vshale, 0.0, 1.0)
     result = shale_volume.vshale_nrm(phit=phit, phie=phie)
+    result2 = shale_volume.vshale(phit=phit, phie=phie, method='nrm')
     assert np.isclose(result, expected_vshale, rtol=1e-6)
+    assert np.isclose(expected_vshale, result2, rtol=1e-6)
