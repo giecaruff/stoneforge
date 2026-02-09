@@ -1,6 +1,7 @@
 # How to use docs
 
 Verify if you have installed the dev dependencies. The script 'make.bat' (windows) or 'Makefile' (linux) have automatons to build the documentation.
+Verify also if you are in this directory before the commands execution.
 
 **Windows**
 ```
