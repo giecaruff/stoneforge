@@ -55,20 +55,14 @@ def test_coates_dumanoir_scalar():
     assert np.isclose(calculated_k, expected_k), f"Expected {expected_k}, got {calculated_k}"
 
 def test_coates_scalar():
-    resd = 100.0
     phi = 0.25
-    hd = 0.5
-    rw = 0.02
-
-    calculated_k = permeability.coates(resd, phi, hd, rw)
+    sw = 0.5
     
-    # Calculating C constant
-    c = 23 + 465 * hd - 188 * hd*hd
-    
-    # Calculating W constant
-    w = np.sqrt((((np.log10(rw / resd) + 2.2) ** 2) / 2.0) + (3.75 - phi))
+    swirr = np.asarray(sw, dtype=float)
 
-    # Final permeability
-    expected_k = ((c * phi ** (2 * w))/((w ** 4) * (rw / resd))) ** 2
+    calculated_k = permeability.coates(phi, sw)
+    
+    numerator = 100 * phi**2 * (1 - swirr)
+    expected_k = (numerator / swirr) ** 2
 
     assert np.isclose(calculated_k, expected_k), f"Expected {expected_k}, got {calculated_k}"
