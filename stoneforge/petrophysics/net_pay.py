@@ -14,7 +14,7 @@ def net_pay_siliciclastic(
         sw_t: Annotated[np.array, "water saturation threshold"] = 0.3,
         fillzeros: Annotated[bool, "if fill values with zeros; default is False"] = False):
     
-    """Calculates the net pay for siliciclastic reservoirs based on shale volume, porosity, and water saturation logs.
+    """Calculates the net pay for siliciclastic reservoirs based on shale volume, porosity, and water saturation logs (:footcite:t:`crain1999,girao2013`).
     
     Parameters
     ----------
@@ -55,7 +55,7 @@ def cutoff(
         fillzeros: Annotated[bool, "if fill values with zeros; default is False"]=False,
         equal: Annotated[bool, "whether to include equal values in the threshold; default is False"]=False)-> np.array:
     
-    """Applies a cutoff to a well log data based on a specified threshold value. 
+    """Applies a cutoff to a well log data based on a specified threshold value (:footcite:t:`crain1999,girao2013`). 
     
     Parameters
     ----------
