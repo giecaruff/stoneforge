@@ -53,7 +53,6 @@ Where applicable, cross-model relationships are validated (e.g., shaly-sand mode
    porosity
    water_saturation
    permeability
-   net_pay
 
 References
 ----------------

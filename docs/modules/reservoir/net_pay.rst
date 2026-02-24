@@ -1,11 +1,11 @@
 =========================
-Reservoir Analysis
+Net Pay
 =========================
 
 This section is about some methods to stimate some reservoir properties, such as net pay, based on well log data.
 
-Net Pay
-----------------
+Basic Calculations
+------------------
 
 .. automodule:: stoneforge.petrophysics.net_pay
     :members:
