@@ -24,6 +24,7 @@ and develop routines in Python to solve geological and geophysical problems. Mai
    usage/quickstart
 
    modules/petrophysics/index
+   modules/reservoir/index
    modules/rockphysics
    modules/pseudowells
    modules/machinelearning/index

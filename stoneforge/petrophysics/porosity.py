@@ -194,8 +194,8 @@ def sonic_porosity(
     phidt = correct_petrophysic_estimation_range(phidt)
     return phidt
 
-
-def gaymard_poupon_porosity(
+# TODO: change eventually to gaymard_poupon porosity to adress proper reference
+def gaymard_porosity( 
     phid: Annotated[np.array, "Porosity from density log"],
     phin: Annotated[np.array, "Porosity from neutron log"]) -> np.array:
     
@@ -225,7 +225,7 @@ _porosity_methods = {
     "neutron": neutron_porosity,
     "neutron-density": neutron_density_porosity,
     "sonic": sonic_porosity,
-    "gaymard": gaymard_poupon_porosity,
+    "gaymard": gaymard_porosity,
     "effective": effective_porosity
 }
 

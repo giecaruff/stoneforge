@@ -93,7 +93,7 @@ def test_sonic_porosity_physical_behavior(dt, dtma, dtf):
     phin=st.floats(min_value=0.05, max_value=0.45),
 )
 def test_gaymard_poupon_symmetry(phid, phin):
-    gp1 = porosity.gaymard_poupon_porosity(phid=phid, phin=phin)
-    gp2 = porosity.gaymard_poupon_porosity(phid=phin, phin=phid)
+    gp1 = porosity.gaymard_porosity(phid=phid, phin=phin)
+    gp2 = porosity.gaymard_porosity(phid=phin, phin=phid)
 
     assert np.isclose(gp1, gp2, rtol=1e-6)

@@ -83,7 +83,7 @@ def test_gaymard_poupon_porosity_scalar():
     phin = 0.22
 
     expected = np.sqrt((phid**2 + phin**2) / 2)
-    result = porosity.gaymard_poupon_porosity(phid=phid, phin=phin)
+    result = porosity.gaymard_porosity(phid=phid, phin=phin)
     resilt2 = porosity.porosity(phid=phid, phin=phin, method='gaymard')
     assert np.isclose(result, expected, rtol=1e-6)
     assert np.isclose(resilt2, expected, rtol=1e-6)
