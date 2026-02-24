@@ -75,7 +75,7 @@ def test_gaymard_poupon_porosity_nan_behavior():
     phid = np.array([0.18, np.nan, 0.22])
     phin = np.array([0.20, 0.25, np.nan])
 
-    result = porosity.gaymard_poupon_porosity(phid=phid, phin=phin)
+    result = porosity.gaymard_porosity(phid=phid, phin=phin)
 
     assert np.isnan(result[1])
     assert np.isnan(result[2])

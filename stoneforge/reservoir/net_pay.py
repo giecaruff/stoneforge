@@ -3,7 +3,6 @@
 import numpy as np
 from typing import Annotated
 import warnings
-from ..petrophysics.helpers import correct_petrophysic_estimation_range
 
 def net_pay_siliciclastic(
         vsh: Annotated[np.array, "shaliness log data"],
