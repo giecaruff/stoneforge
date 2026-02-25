@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>stoneforge.preprocessing.data_management &mdash; Stoneforge  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -51,38 +51,70 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage/quickstart.html">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/petrophysics.html">Petrophysics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics.html#module-stoneforge.petrophysics.porosity">Porosity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/petrophysics/index.html">Petrophysics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#id1">Shale Volume</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics.html#module-stoneforge.petrophysics.shale_volume">Shale Volume</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/shale_volume.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics.html#module-stoneforge.petrophysics.water_saturation">Water Saturation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics/porosity.html">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#id1">Porosity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics.html#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#id1">Water Saturation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/water_saturation.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics/permeability.html">Permeability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#id1">Permeability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.coates"><code class="docutils literal notranslate"><span class="pre">coates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.coates_dumanoir"><code class="docutils literal notranslate"><span class="pre">coates_dumanoir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.timur"><code class="docutils literal notranslate"><span class="pre">timur()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.tixier"><code class="docutils literal notranslate"><span class="pre">tixier()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/petrophysics/permeability.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/petrophysics/index.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/reservoir/index.html">Reservoir</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/reservoir/net_pay.html">Net Pay</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/reservoir/index.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/rockphysics.html">Rock Physics</a><ul>

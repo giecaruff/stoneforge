@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Permeability &mdash; Stoneforge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reservoir" href="../reservoir/index.html" />
+    <link rel="prev" title="Water Saturation" href="water_saturation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Stoneforge
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installing Stoneforge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../usage/installation.html#windows-linux-and-macos">Windows, Linux and macOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Petrophysics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="shale_volume.html">Shale Volume</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shale_volume.html#id1">Shale Volume</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.gammarayindex"><code class="docutils literal notranslate"><span class="pre">gammarayindex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale"><code class="docutils literal notranslate"><span class="pre">vshale()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_clavier"><code class="docutils literal notranslate"><span class="pre">vshale_clavier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_larionov"><code class="docutils literal notranslate"><span class="pre">vshale_larionov()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_larionov_old"><code class="docutils literal notranslate"><span class="pre">vshale_larionov_old()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_linear"><code class="docutils literal notranslate"><span class="pre">vshale_linear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_neu_den"><code class="docutils literal notranslate"><span class="pre">vshale_neu_den()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_nrm"><code class="docutils literal notranslate"><span class="pre">vshale_nrm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="shale_volume.html#stoneforge.petrophysics.shale_volume.vshale_stieber"><code class="docutils literal notranslate"><span class="pre">vshale_stieber()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="shale_volume.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="porosity.html">Porosity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="porosity.html#id1">Porosity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="porosity.html#stoneforge.petrophysics.porosity.sonic_porosity"><code class="docutils literal notranslate"><span class="pre">sonic_porosity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="porosity.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="water_saturation.html">Water Saturation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="water_saturation.html#id1">Water Saturation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="water_saturation.html#stoneforge.petrophysics.water_saturation.archie"><code class="docutils literal notranslate"><span class="pre">archie()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="water_saturation.html#stoneforge.petrophysics.water_saturation.fertl"><code class="docutils literal notranslate"><span class="pre">fertl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="water_saturation.html#stoneforge.petrophysics.water_saturation.indonesia"><code class="docutils literal notranslate"><span class="pre">indonesia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="water_saturation.html#stoneforge.petrophysics.water_saturation.simandoux"><code class="docutils literal notranslate"><span class="pre">simandoux()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="water_saturation.html#stoneforge.petrophysics.water_saturation.water_saturation"><code class="docutils literal notranslate"><span class="pre">water_saturation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="water_saturation.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Permeability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Permeability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.permeability.coates"><code class="docutils literal notranslate"><span class="pre">coates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.permeability.coates_dumanoir"><code class="docutils literal notranslate"><span class="pre">coates_dumanoir()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.permeability.timur"><code class="docutils literal notranslate"><span class="pre">timur()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.permeability.tixier"><code class="docutils literal notranslate"><span class="pre">tixier()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reservoir/index.html">Reservoir</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reservoir/net_pay.html">Net Pay</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reservoir/index.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rockphysics.html">Rock Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.elastic_constants">Elastic Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.bulk_modulus"><code class="docutils literal notranslate"><span class="pre">bulk_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus"><code class="docutils literal notranslate"><span class="pre">compressional_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity"><code class="docutils literal notranslate"><span class="pre">compressional_wave_velocity()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.poisson"><code class="docutils literal notranslate"><span class="pre">poisson()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_modulus"><code class="docutils literal notranslate"><span class="pre">shear_modulus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_wave_velocity"><code class="docutils literal notranslate"><span class="pre">shear_wave_velocity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.fluid_substitution">Fluid Substitution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann"><code class="docutils literal notranslate"><span class="pre">gassmann()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann_subs"><code class="docutils literal notranslate"><span class="pre">gassmann_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.kdry"><code class="docutils literal notranslate"><span class="pre">kdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.ksat"><code class="docutils literal notranslate"><span class="pre">ksat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko"><code class="docutils literal notranslate"><span class="pre">mavko()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko_subs"><code class="docutils literal notranslate"><span class="pre">mavko_subs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.mdry"><code class="docutils literal notranslate"><span class="pre">mdry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.fluid_substitution.msat"><code class="docutils literal notranslate"><span class="pre">msat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.gem">Gem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.constant_cement"><code class="docutils literal notranslate"><span class="pre">constant_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.contact_cement"><code class="docutils literal notranslate"><span class="pre">contact_cement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.gem"><code class="docutils literal notranslate"><span class="pre">gem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.gem_model"><code class="docutils literal notranslate"><span class="pre">gem_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.hertz_mindlin"><code class="docutils literal notranslate"><span class="pre">hertz_mindlin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.soft_sand"><code class="docutils literal notranslate"><span class="pre">soft_sand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.gem.stiff_sand"><code class="docutils literal notranslate"><span class="pre">stiff_sand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#module-stoneforge.rock_physics.rock_physics_bounds">Rock Physics Bounds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.hill"><code class="docutils literal notranslate"><span class="pre">hill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss"><code class="docutils literal notranslate"><span class="pre">reuss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt"><code class="docutils literal notranslate"><span class="pre">voigt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../rockphysics.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pseudowells.html">Pseudo Wells</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.MCS_spacial_correlation"><code class="docutils literal notranslate"><span class="pre">MCS_spacial_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram"><code class="docutils literal notranslate"><span class="pre">analytical_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix"><code class="docutils literal notranslate"><span class="pre">cov_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_correlation"><code class="docutils literal notranslate"><span class="pre">experimental_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.experimental_variogram"><code class="docutils literal notranslate"><span class="pre">experimental_variogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.exponential_variogram_model"><code class="docutils literal notranslate"><span class="pre">exponential_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gamma_calc"><code class="docutils literal notranslate"><span class="pre">gamma_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model"><code class="docutils literal notranslate"><span class="pre">gaussian_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.modeled_correlation"><code class="docutils literal notranslate"><span class="pre">modeled_correlation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.p"><code class="docutils literal notranslate"><span class="pre">p()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.spherical_variogram_model"><code class="docutils literal notranslate"><span class="pre">spherical_variogram_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model"><code class="docutils literal notranslate"><span class="pre">variogram_model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.denormalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.norm_variography()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.normalization"><code class="docutils literal notranslate"><span class="pre">variogram_model.normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.variography"><code class="docutils literal notranslate"><span class="pre">variogram_model.variography()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../machinelearning/index.html">Machine Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../machinelearning/classification.html">Classification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/classification.html#module-stoneforge.machine_learning.classification.settings">Settings (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/classification.html#stoneforge.machine_learning.classification.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/classification.html#module-stoneforge.machine_learning.classification.fit">Fit (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/classification.html#stoneforge.machine_learning.classification.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/classification.html#module-stoneforge.machine_learning.classification.predict">Predict (Classification)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/classification.html#stoneforge.machine_learning.classification.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/classification.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../machinelearning/regression.html">Regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/regression.html#module-stoneforge.machine_learning.regression.settings">Settings (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/regression.html#stoneforge.machine_learning.regression.settings.settings"><code class="docutils literal notranslate"><span class="pre">settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/regression.html#module-stoneforge.machine_learning.regression.fit">Fit (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/regression.html#stoneforge.machine_learning.regression.fit.fit"><code class="docutils literal notranslate"><span class="pre">fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/regression.html#module-stoneforge.machine_learning.regression.predict">Predict (Regression)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../machinelearning/regression.html#stoneforge.machine_learning.regression.predict.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../machinelearning/regression.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Stoneforge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Petrophysics</a></li>
+      <li class="breadcrumb-item active">Permeability</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/modules/petrophysics/permeability.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="permeability">
+<h1>Permeability<a class="headerlink" href="#permeability" title="Link to this heading"></a></h1>
+<p>The library incorporates several classical empirical permeability (k) estimators derived from porosity, water saturation, and resistivity measurements. These models reflect historically validated correlations between rock storage capacity, fluid distribution, and flow properties, providing practical permeability proxies in the absence of core data. While empirical in nature, these methods remain widely used for quick-look evaluations and comparative reservoir analysis.</p>
+<p>Porosity–saturation–based formulations represent the primary class of estimators:</p>
+<ul class="simple">
+<li><p>Timur Model – A foundational empirical relationship linking permeability to porosity (φ) and irreducible water saturation (Sw). The model captures the intuitive dependence of permeability on pore volume and fluid occupancy, typically predicting higher permeability for well-connected pore systems exhibiting low water saturation.</p></li>
+<li><p>Coates Model – A refinement of the Timur-type approach, incorporating similar dependencies but calibrated to better reflect movable fluid fractions and pore geometry effects. The formulation is frequently applied in conjunction with NMR-derived parameters, although it can be used with conventional porosity and saturation logs.</p></li>
+</ul>
+<p>Resistivity-integrated estimators extend permeability prediction by exploiting electrical responses:</p>
+<ul class="simple">
+<li><p>Coates–Dumanoir Model – Combines deep formation resistivity (Rt or ResD) with porosity to estimate permeability. This model implicitly links pore structure and fluid distribution to electrical behavior, offering an alternative pathway when saturation estimates are uncertain or unavailable. Proper calibration is essential, as unit consistency and formation-specific constants strongly influence results.</p></li>
+<li><p>Tixier Model – Utilizes the contrast between deep and shallow resistivity measurements to infer permeability through invasion-profile behavior. The method is based on the premise that permeability governs mud filtrate invasion dynamics; therefore, resistivity differentials can serve as indirect indicators of pore connectivity and transmissibility.</p></li>
+</ul>
+<p>These empirical methods do not replace laboratory-derived permeability but provide operationally useful approximations, particularly during early-stage interpretation, interval ranking, or uncertainty screening. Their reliability depends on lithology, pore type, fluid system, and calibration against representative core or test data.</p>
+<section id="id1">
+<h2>Permeability<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-stoneforge.petrophysics.permeability">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.coates">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">coates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#coates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.coates" title="Link to this definition"></a></dt>
+<dd><p>Estimate permeability using the empirical method of Coates (Timur<a class="footnote-reference brackets" href="#footcite-timur1968" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Schlumberger<a class="footnote-reference brackets" href="#footcite-schlumberger2013" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity (fraction).</p></li>
+<li><p><strong>sw</strong> (<em>array_like</em>) – Water saturation (fraction).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>k</strong> – Estimated permeability (mD) from the Timur empirical relation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.coates_dumanoir">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">coates_dumanoir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#coates_dumanoir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.coates_dumanoir" title="Link to this definition"></a></dt>
+<dd><p>Estimate permeability using the empirical method of Coates and Dumanoir equation for (Coates and Dumanoir<a class="footnote-reference brackets" href="#footcite-dumoir1973" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resd</strong> (<em>array-like</em>) – Deep (or True) formation resistivity in ohm.m.</p></li>
+<li><p><strong>phi</strong> (<em>array-like</em>) – Porosity as fraction (m/m).</p></li>
+<li><p><strong>hd</strong> (<em>array-like</em>) – Hidrocarbon density in g/cm3 (standard for 0.8 as crude oil).</p></li>
+<li><p><strong>rw</strong> (<em>float</em><em>, </em><em>optional</em>) – Formation water resistivity in ohm.m (standard for 0.02).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>k</strong> – Permeability (in calibration units; e.g. mD if C chosen appropriately).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.timur">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">timur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#timur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.timur" title="Link to this definition"></a></dt>
+<dd><p>Estimate permeability using the empirical method of Timur (Timur<a class="footnote-reference brackets" href="#footcite-timur1968" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity (fraction).</p></li>
+<li><p><strong>sw</strong> (<em>array_like</em>) – Water saturation (fraction).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>k</strong> – Estimated permeability (mD) from the Timur empirical relation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.tixier">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">tixier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhoo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inzone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#tixier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.tixier" title="Link to this definition"></a></dt>
+<dd><p>Estimate permeability using the empirical method of Tixier (Tixier<a class="footnote-reference brackets" href="#footcite-tixier1949" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resd</strong> (<em>array_like</em>) – Deep resistivity in ohm.m.</p></li>
+<li><p><strong>ress</strong> (<em>array_like</em>) – Shallow resistivity in ohm.m.</p></li>
+<li><p><strong>rw</strong> (<em>float</em><em>, </em><em>optional</em>) – Water-saturated formation resistivity in ohm.m.</p></li>
+<li><p><strong>rhow</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation water in g/cm3.</p></li>
+<li><p><strong>rhoo</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation in g/cm3.</p></li>
+<li><p><strong>inzone</strong> (<em>array_like</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Invasion radius or change in depth in meters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>k</strong> – Estimated permeability (mD) from the Tixier empirical relation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="docutils container" id="id10">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-timur1968" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>A Timur. An investigation of permeability, porosity, &amp;amp; residual water saturation relationships for sandstone reservoirs. <em>The Log Analyst</em>, 07 1968. URL: <a class="reference external" href="https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf">https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-schlumberger2013" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Ltd. Schlumberger. <em>Log Interpretation Charts</em>. Schlumberger, 3750 Briarpark Drive, Houston, Texas 77042, 2013. ISBN 978-1-937949-10-5. 13-FE-0034.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-dumoir1973" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p><em>A New Approach To Improved Log-Derived Permeability</em>, volume SPWLA 14th Annual Logging Symposium of SPWLA Annual Logging Symposium, 05 1973. URL: <a class="reference external" href="https://onepetro.org/SPWLAALS/proceedings-pdf/SPWLA-1973/SPWLA-1973/SPWLA-1973-R/2064819/spwla-1973-r.pdf">https://onepetro.org/SPWLAALS/proceedings-pdf/SPWLA-1973/SPWLA-1973/SPWLA-1973-R/2064819/spwla-1973-r.pdf</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-mohaghegh1997" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id7">2</a>,<a role="doc-backlink" href="#id9">3</a>)</span>
+<p>Shahab Mohaghegh, Bogdan Balan, and Samuel Ameri. Permeability determination from well log data. <em>SPE Formation Evaluation</em>, 12(03):170–174, 09 1997. URL: <a class="reference external" href="https://doi.org/10.2118/30978-PA">https://doi.org/10.2118/30978-PA</a>, <a class="reference external" href="https://doi.org/10.2118/30978-PA">doi:10.2118/30978-PA</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-tixier1949" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>
+<p><em>Evaluation of Permeability from Resistivity Gradient on Electric Logs</em>, Oil and Gas Journal, 1949. URL: <a class="reference external" href="https://api.semanticscholar.org/CorpusID:130132968">https://api.semanticscholar.org/CorpusID:130132968</a>.</p>
+</aside>
+</aside>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="water_saturation.html" class="btn btn-neutral float-left" title="Water Saturation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reservoir/index.html" class="btn btn-neutral float-right" title="Reservoir" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 GIECAR Laboratory, Universidade Federal Fluminense (UFF).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
