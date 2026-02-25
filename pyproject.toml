@@ -1,6 +1,6 @@
 [project]
 name = "stoneforge"
-version = "0.2.0-beta.3"
+version = "0.2.0"
 authors = [
     {name = "GIECAR - UFF"},
     {name = "Wagner M. Lupinacci"},
@@ -16,17 +16,16 @@ authors = [
 license = "MIT"
 description = "Geophysics equations, algorithms and methods"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
-    "dlisio>=1.0.3",
+    "dlisio>=1.0.4",
     "numpy>=2.2.0",
     "pytest>=8.3.4",
     "scipy>=1.14.1",
     "scikit-learn>=1.6.1",
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
-    "lightgbm>=4.5.0",
-    "ipympl>=0.8.4",
+    "hypothesis>=6.148.6"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

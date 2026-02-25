@@ -1,6 +1,15 @@
-import warnings
 import re
+import os
+import warnings
 import numpy as np
+
+# Custom formatting for warnings
+def clean_formatwarning(message, category, filename, lineno, line=None):
+    # Get only the filename (no user path)
+    short_filename = os.path.basename(filename)
+    return f"{category.__name__}: {message} (in {short_filename}:{lineno})\n"
+
+warnings.formatwarning = clean_formatwarning
 
 class TABParser:
     def __init__(self, file_path, sep=",", std="US"):
