@@ -2,7 +2,7 @@
 Reservoir
 =========================
 
-**About:** This section contains documentation for the Reservoir analysis module.
+**About:** This section contains documentation for the reservoir analysis module.
 
 .. toctree::
    :maxdepth: 1
