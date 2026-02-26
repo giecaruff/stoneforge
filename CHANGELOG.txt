@@ -1,6 +1,6 @@
 Change Log
 ==========
 
-0.2.0 (25/02/2026)
+0.2.1 (26/02/2026)
 ------------------
-- Major Update 
+- Major Update Corrections

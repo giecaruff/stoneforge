@@ -1,6 +1,6 @@
 [project]
 name = "stoneforge"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
     {name = "GIECAR - UFF"},
     {name = "Wagner M. Lupinacci"},
@@ -10,7 +10,7 @@ authors = [
     {name = "Mario M. Ramos"},
     {name = "Jordan S. Cuno"},
     {name = "João Vitor A. Estrella"},
-    {name = "Ana Carolina"},
+    {name = "Ana Carolina Oliveira de Almeida"},
     {name = "Breno D. Chrispim"},
 ]
 license = "MIT"
