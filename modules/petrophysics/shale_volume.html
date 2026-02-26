@@ -113,7 +113,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -222,34 +226,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -282,16 +258,16 @@
 <p>The library implements a set of established shale volume (Vshale) estimation techniques widely used in petrophysical interpretation. These methods derive shale content from different logging measurements and reflect distinct theoretical assumptions about rock response, mineralogy, and compaction effects. Collectively, they provide flexible alternatives suitable for a variety of geological settings and data availability scenarios.</p>
 <p>Gamma ray–based approaches constitute the primary group of models. The Gamma Ray Index (IGR) serves as the fundamental normalization step, scaling the measured gamma ray log between clean (GRmin) and shale (GRmax) reference values. From this index, several transformation models are provided:</p>
 <ul class="simple">
-<li><p>Linear Model – Assumes a direct proportional relationship between gamma ray response and shale fraction. It is simple, robust, and commonly used as a baseline estimator.</p></li>
-<li><p>Larionov Model (Young Rocks) – Introduces a nonlinear correction to account for the typical gamma ray behavior of Tertiary or weakly compacted formations, where the linear assumption tends to overestimate shale volume.</p></li>
-<li><p>Larionov Model (Old Rocks) – Adapts the nonlinear response for older, more compacted lithologies, reflecting reduced gamma ray sensitivity with increasing diagenesis.</p></li>
-<li><p>Clavier Model – Applies an empirical nonlinear transformation designed to moderate shale volume estimates, particularly in formations exhibiting intermediate gamma ray responses.</p></li>
-<li><p>Stieber Model – Incorporates a correction that limits shale volume inflation at higher gamma ray index values, often producing more conservative estimates in laminated or dispersed shale systems.</p></li>
+<li><p><strong>Linear Model</strong> – Assumes a direct proportional relationship between gamma ray response and shale fraction. It is simple, robust, and commonly used as a baseline estimator.</p></li>
+<li><p><strong>Larionov Model (Young Rocks)</strong> – Introduces a nonlinear correction to account for the typical gamma ray behavior of Tertiary or weakly compacted formations, where the linear assumption tends to overestimate shale volume.</p></li>
+<li><p><strong>Larionov Model (Old Rocks)</strong> – Adapts the nonlinear response for older, more compacted lithologies, reflecting reduced gamma ray sensitivity with increasing diagenesis.</p></li>
+<li><p><strong>Clavier Model</strong> – Applies an empirical nonlinear transformation designed to moderate shale volume estimates, particularly in formations exhibiting intermediate gamma ray responses.</p></li>
+<li><p><strong>Stieber Model</strong> – Incorporates a correction that limits shale volume inflation at higher gamma ray index values, often producing more conservative estimates in laminated or dispersed shale systems.</p></li>
 </ul>
 <p>Beyond gamma ray methods, the library includes multi-log and specialized estimators:</p>
 <ul class="simple">
-<li><p>Neutron–Density Method (Neutron–Density Crossplot) – Computes shale volume using neutron porosity (NPHI) and bulk density (RHOB) measurements via a three-point mixing model. This approach is particularly useful where gamma ray logs are unreliable or where lithology effects must be explicitly handled.</p></li>
-<li><p>NMR-Based Method – Estimates shale volume from the relationship between total and effective porosity derived from nuclear magnetic resonance (NMR) data, leveraging differences in fluid and bound water responses.</p></li>
+<li><p><strong>Neutron–Density Method (Neutron–Density Crossplot)</strong> – Computes shale volume using neutron porosity (NPHI) and bulk density (RHOB) measurements via a three-point mixing model. This approach is particularly useful where gamma ray logs are unreliable or where lithology effects must be explicitly handled.</p></li>
+<li><p><strong>NMR-Based Method</strong> – Estimates shale volume from the relationship between total and effective porosity derived from nuclear magnetic resonance (NMR) data, leveraging differences in fluid and bound water responses.</p></li>
 </ul>
 <p>By offering multiple formulations, the library enables users to select methods consistent with formation age, mineralogical complexity, logging conditions, and calibration strategy. This multi-model design supports comparative analysis and uncertainty assessment in shale volume interpretation workflows.</p>
 <section id="id1">

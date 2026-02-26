@@ -9,7 +9,7 @@ Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-* You have installed Python 3.8 or later (with pip).
+* You have installed Python 3.12 or later (with pip).
 * You have a Windows/Linux/Mac machine.
 
 Installation

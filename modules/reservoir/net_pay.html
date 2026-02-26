@@ -113,7 +113,11 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reservoir</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -222,34 +226,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -279,12 +255,79 @@
              
   <section id="net-pay">
 <h1>Net Pay<a class="headerlink" href="#net-pay" title="Link to this heading"></a></h1>
-<p>This section is about some methods to stimate some reservoir properties, such as net pay, based on well log data.</p>
-<section id="basic-calculations">
-<h2>Basic Calculations<a class="headerlink" href="#basic-calculations" title="Link to this heading"></a></h2>
+<p>This section is about some methods to estimate some reservoir properties, such as net pay, based on siliciclastic well log data, and also a manual method using cutoffs.</p>
+<section id="module-stoneforge.reservoir.net_pay">
+<span id="basic-calculations"></span><h2>Basic Calculations<a class="headerlink" href="#module-stoneforge.reservoir.net_pay" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.reservoir.net_pay.cutoff">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.reservoir.net_pay.</span></span><span class="sig-name descname"><span class="pre">cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillzeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/reservoir/net_pay.html#cutoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.reservoir.net_pay.cutoff" title="Link to this definition"></a></dt>
+<dd><p>Applies a cutoff to a well log data based on a specified threshold value (Crain<a class="footnote-reference brackets" href="#footcite-crain1999" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Nery<a class="footnote-reference brackets" href="#footcite-girao2013" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<em>array_like</em>) – The well log data to which the cutoff will be applied.</p></li>
+<li><p><strong>t</strong> (<em>float</em>) – The threshold value for the cutoff.</p></li>
+<li><p><strong>lower</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to apply the cutoff on lower values (True) or higher values (False). Default is True.</p></li>
+<li><p><strong>fillzeros</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, values that do not meet the cutoff condition will be filled with zeros. If False, they will be filled with NaN. Default is False.</p></li>
+<li><p><strong>equal</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include values equal to the threshold in the cutoff condition. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array where values that meet the cutoff condition are set to 1.0, and values that do not meet the condition are set to 0.0 or NaN based on the fillzeros parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function applies a cutoff to the input log data based on the specified threshold value <cite>t</cite>. The cutoff is applied either to values below or above the threshold, depending on the <cite>lower</cite> parameter. If <cite>equal</cite> is True, values equal to the threshold are included in the cutoff condition. If <cite>fillzeros</cite> is True, values that do not meet the cutoff condition are filled with zeros; otherwise, they are filled with NaN.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.reservoir.net_pay.net_pay_siliciclastic">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.reservoir.net_pay.</span></span><span class="sig-name descname"><span class="pre">net_pay_siliciclastic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillzeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/reservoir/net_pay.html#net_pay_siliciclastic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.reservoir.net_pay.net_pay_siliciclastic" title="Link to this definition"></a></dt>
+<dd><p>Calculates the net pay for siliciclastic reservoirs based on shale volume, porosity, and water saturation logs (Crain<a class="footnote-reference brackets" href="#footcite-crain1999" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Nery<a class="footnote-reference brackets" href="#footcite-girao2013" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vsh</strong> (<em>array_like</em>) – Shaliness log data (dimensionless).</p></li>
+<li><p><strong>phi</strong> (<em>array_like</em>) – Porosity log data (dimensionless).</p></li>
+<li><p><strong>sw</strong> (<em>array_like</em>) – Water saturation log data (dimensionless).</p></li>
+<li><p><strong>vsh_t</strong> (<em>float</em><em>, </em><em>optional</em>) – Shaliness threshold value. Default is 0.3.</p></li>
+<li><p><strong>phi_t</strong> (<em>float</em><em>, </em><em>optional</em>) – Porosity threshold value. Default is 0.20.</p></li>
+<li><p><strong>sw_t</strong> (<em>float</em><em>, </em><em>optional</em>) – Water saturation threshold value. Default is 0.3.</p></li>
+<li><p><strong>fillzeros</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, values that do not meet the cutoff conditions will be filled with zeros. If</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the following keys:
+- ‘rock’: An array indicating the rock presence based on the shaliness threshold.
+- ‘res’: An array indicating the reservoir presence based on the porosity threshold and rock presence.
+- ‘pay’: An array indicating the pay zone based on the water saturation threshold and reservoir presence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<div class="docutils container" id="id5">
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footcite-crain1999" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>E. R. (Ross) Crain. Crain’s petrophysical handbook. 1999. Accessed: 2026-02-23. URL: <a class="reference external" href="https://spec2000.net/index.htm">https://spec2000.net/index.htm</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-girao2013" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>G. G. Nery. <em>Perfilagem Geofísica em Poço Aberto: Fundamentos básicos com ênfase em petróleo</em>. SBGF, 2013. URL: <a class="reference external" href="https://sbgf.org.br/mysbgf/livros/perfilagem.php">https://sbgf.org.br/mysbgf/livros/perfilagem.php</a>.</p>
+</aside>
+</aside>
+</div>
 </section>
 </section>
 

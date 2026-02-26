@@ -113,7 +113,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -222,34 +226,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -281,13 +257,13 @@
 <h1>Water Saturation<a class="headerlink" href="#water-saturation" title="Link to this heading"></a></h1>
 <p>The library implements a suite of widely adopted water saturation (Sw) models derived from resistivity and porosity measurements. These formulations cover both clean and shaly reservoir scenarios, reflecting distinct assumptions about conductive pathways, clay effects, and rock electrical behavior. The available methods enable consistent saturation evaluation across a broad range of lithological and petrophysical conditions.</p>
 <ul class="simple">
-<li><p>The Archie Equation constitutes the fundamental clean-formation model. It relates water saturation to true formation resistivity (Rt), porosity (φ), and water resistivity (Rw), governed by the tortuosity factor (a), cementation exponent (m), and saturation exponent (n). Archie’s model assumes that the rock matrix is non-conductive and that electrical conduction occurs exclusively through the formation water. As such, it is most reliable in clean, clay-free reservoirs where surface conductivity is negligible.</p></li>
+<li><p>The <strong>Archie Equation</strong> constitutes the fundamental clean-formation model. It relates water saturation to true formation resistivity (Rt), porosity (φ), and water resistivity (Rw), governed by the tortuosity factor (a), cementation exponent (m), and saturation exponent (n). Archie’s model assumes that the rock matrix is non-conductive and that electrical conduction occurs exclusively through the formation water. As such, it is most reliable in clean, clay-free reservoirs where surface conductivity is negligible.</p></li>
 </ul>
 <p>For shaly formations, the library provides models that explicitly incorporate clay conductivity effects:</p>
 <ul class="simple">
-<li><p>Simandoux Model – Extends Archie’s formulation by accounting for the parallel conductive contribution of shale. The model integrates shale volume (Vsh) and shale resistivity (Rsh), making it suitable for dispersed clay systems and laminated shaly sands. It remains one of the most commonly applied shaly-sand saturation equations.</p></li>
-<li><p>Indonesia (Poupon–Leveaux) Model – Introduces a nonlinear coupling between matrix and shale conductivity terms. This formulation often produces more stable results in formations with moderate-to-high shale content and is particularly valued where Simandoux may overestimate Sw.</p></li>
-<li><p>Fertl Model – A simplified shaly-formation model designed to reduce sensitivity to shale resistivity uncertainties. Instead of requiring explicit Rsh input, the method uses an empirical correction term controlled by the alpha parameter (α). This approach is operationally convenient when shale resistivity is poorly constrained or unavailable.</p></li>
+<li><p><strong>Simandoux Model</strong> – Extends Archie’s formulation by accounting for the parallel conductive contribution of shale. The model integrates shale volume (Vsh) and shale resistivity (Rsh), making it suitable for dispersed clay systems and laminated shaly sands. It remains one of the most commonly applied shaly-sand saturation equations.</p></li>
+<li><p><strong>Indonesia (Poupon–Leveaux) Model</strong> – Introduces a nonlinear coupling between matrix and shale conductivity terms. This formulation often produces more stable results in formations with moderate-to-high shale content and is particularly valued where Simandoux may overestimate Sw.</p></li>
+<li><p><strong>Fertl Model</strong> – A simplified shaly-formation model designed to reduce sensitivity to shale resistivity uncertainties. Instead of requiring explicit Rsh input, the method uses an empirical correction term controlled by the alpha parameter (α). This approach is operationally convenient when shale resistivity is poorly constrained or unavailable.</p></li>
 </ul>
 <p>All shale-corrected models require effective porosity rather than total porosity, reflecting the need to isolate the interconnected pore space contributing to fluid flow and electrical conduction.</p>
 <p>To streamline interpretation workflows, the library exposes a façade function that unifies all saturation models under a single interface. This design allows users to select the appropriate equation based on reservoir type, shale content, and data quality while preserving parameter consistency.</p>

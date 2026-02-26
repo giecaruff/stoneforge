@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>stoneforge.preprocessing.data_processing &mdash; Stoneforge  documentation</title>
+  <title>stoneforge.reservoir.net_pay &mdash; Stoneforge  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
 
@@ -110,7 +110,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../modules/reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -219,34 +223,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -264,7 +240,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">stoneforge.preprocessing.data_processing</li>
+      <li class="breadcrumb-item active">stoneforge.reservoir.net_pay</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -273,204 +249,104 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for stoneforge.preprocessing.data_processing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+  <h1>Source code for stoneforge.reservoir.net_pay</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
-<div class="viewcode-block" id="predict_processing">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">predict_processing</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processes the data for machine learning predictions.</span>
-<span class="sd">    This class handles the preparation of data for machine learning predictions, including handling NaN values and splitting data into training and testing sets.</span>
-<span class="sd">    </span>
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
-<span class="sd">    &gt;&gt;&gt; pp = predict_processing(data, data_key=&#39;data&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; clean_data = pp.matrix_values() # Returns a dictionary of cleaned data without NaN values.</span>
-<span class="sd">    &gt;&gt;&gt; curves = pp.return_curve(y) # Returns a dictionary of curves with values filled in</span>
-<span class="sd">    &gt;&gt;&gt; train_test_data = pp.train_test_split(X, y) # Splits the data into training and testing sets.</span>
-<span class="sd">    &gt;&gt;&gt; train_data, valid_data = well_train_test_split(well_names, well_database) </span>
-<span class="sd">    &gt;&gt;&gt; mega_data = data_assemble(main_data, data_key=&#39;data&#39;) # Assembles data from multiple wells into a single matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">data</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;Dictionary of well data with well names as keys and data as values&quot;</span><span class="p">],</span>
-        <span class="n">data_key</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Key for the data in the well data dictionary&quot;</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the predict_processing class with well data and a data key.&quot;&quot;&quot;</span>
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_key</span> <span class="o">=</span> <span class="n">data_key</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">clean_data</span> <span class="o">=</span> <span class="p">{}</span>
-
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_nan_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-            <span class="n">local</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">data_key</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">data_key</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-                    <span class="n">local</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">local</span>
-
-
-<div class="viewcode-block" id="predict_processing.matrix_values">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">matrix_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of cleaned data without NaN values.</span>
-<span class="sd">        </span>
-<span class="sd">        Example</span>
-<span class="sd">        -------</span>
-<span class="sd">        &gt;&gt;&gt; clean_data = pp.matrix_values() # Returns a dictionary of cleaned data without NaN&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nan_idx</span><span class="p">()</span>
-
-        <span class="n">clean_data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-           
-           <span class="n">clean_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_dummies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">data_key</span><span class="p">])</span>
-
-        <span class="k">return</span> <span class="n">clean_data</span></div>
-
-
-<div class="viewcode-block" id="predict_processing.return_curve">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">return_curve</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">y</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;Dictionary of values to be filled in the curves&quot;</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of curves with values filled in.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">curves</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-            <span class="n">curve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">data_key</span><span class="p">])[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">curve</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
-                <span class="n">curve</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idx</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">idx</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
-            <span class="n">curves</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">curve</span>
-
-        <span class="k">return</span> <span class="n">curves</span></div>
-
-    
-    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_dummies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-        <span class="n">data_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">data_2</span> <span class="o">=</span> <span class="n">data_1</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data_1</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="n">data_2</span>
-
-<div class="viewcode-block" id="predict_processing.train_test_split">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">train_test_split</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">X</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Feature data for training and testing&quot;</span><span class="p">],</span>
-        <span class="n">y</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Target data for training and testing&quot;</span><span class="p">],</span>
-        <span class="n">test_size</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Split rule&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.30</span><span class="p">,</span>
-        <span class="n">random_state</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Seed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Splits the data into training and testing sets.&quot;&quot;&quot;</span>
-
-        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-        <span class="n">curves</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;X_train&quot;</span><span class="p">:</span><span class="n">X_train</span><span class="p">,</span>
-            <span class="s2">&quot;X_test&quot;</span><span class="p">:</span><span class="n">X_test</span><span class="p">,</span>
-            <span class="s2">&quot;y_train&quot;</span><span class="p">:</span><span class="n">y_train</span><span class="p">,</span>
-            <span class="s2">&quot;y_test&quot;</span><span class="p">:</span><span class="n">y_test</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">curves</span></div>
-
-    
-    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_dummies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-        <span class="n">data_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">data_2</span> <span class="o">=</span> <span class="n">data_1</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data_1</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-
-        <span class="k">return</span> <span class="n">data_2</span></div>
-
-
-<div class="viewcode-block" id="well_train_test_split">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">well_train_test_split</span><span class="p">(</span>
-    <span class="n">well_names</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="s2">&quot;List of well names for validation&quot;</span><span class="p">],</span>
-    <span class="n">well_database</span> <span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="s2">&quot;Dictionary of well data with well names as keys and data as values&quot;</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Splits the well database into training and testing sets based on well names.</span>
+<div class="viewcode-block" id="net_pay_siliciclastic">
+<a class="viewcode-back" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">net_pay_siliciclastic</span><span class="p">(</span>
+        <span class="n">vsh</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;shaliness log data&quot;</span><span class="p">],</span>
+        <span class="n">phi</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;porosity log data&quot;</span><span class="p">],</span>
+        <span class="n">sw</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;water saturation log data&quot;</span><span class="p">],</span>
+        <span class="n">vsh_t</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;shaliness threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">phi_t</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;porosity threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.20</span><span class="p">,</span>
+        <span class="n">sw_t</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;water saturation threshold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">fillzeros</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;if fill values with zeros; default is False&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the net pay for siliciclastic reservoirs based on shale volume, porosity, and water saturation logs (:footcite:t:`crain1999,girao2013`).</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    well_names : list</span>
-<span class="sd">        A list of well names to be used for validation.</span>
-<span class="sd">    well_database : dict</span>
-<span class="sd">        A dictionary containing well data, where keys are well names and values are the corresponding data.</span>
-<span class="sd">        </span>
+<span class="sd">    vsh : array_like</span>
+<span class="sd">        Shaliness log data (dimensionless).</span>
+<span class="sd">    phi : array_like</span>
+<span class="sd">        Porosity log data (dimensionless).</span>
+<span class="sd">    sw : array_like</span>
+<span class="sd">        Water saturation log data (dimensionless).</span>
+<span class="sd">    vsh_t : float, optional</span>
+<span class="sd">        Shaliness threshold value. Default is 0.3.</span>
+<span class="sd">    phi_t : float, optional</span>
+<span class="sd">        Porosity threshold value. Default is 0.20.</span>
+<span class="sd">    sw_t : float, optional</span>
+<span class="sd">        Water saturation threshold value. Default is 0.3.</span>
+<span class="sd">    fillzeros : bool, optional</span>
+<span class="sd">        If True, values that do not meet the cutoff conditions will be filled with zeros. If</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    tuple</span>
-<span class="sd">        A tuple containing two dictionaries: the first for training wells and the second for validation wells.</span>
-<span class="sd">        </span>
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
-<span class="sd">    &gt;&gt;&gt; well_names = [&#39;Well1&#39;, &#39;Well2&#39;]</span>
-<span class="sd">    &gt;&gt;&gt; well_database = {&#39;Well1&#39;: data1, &#39;Well2&#39;: data2, &#39;Well3&#39;: data3}</span>
-<span class="sd">    &gt;&gt;&gt; train_data, valid_data = well_train_test_split(well_names, well_database)</span>
+<span class="sd">    dict</span>
+<span class="sd">        A dictionary containing the following keys:</span>
+<span class="sd">        - &#39;rock&#39;: An array indicating the rock presence based on the shaliness threshold.</span>
+<span class="sd">        - &#39;res&#39;: An array indicating the reservoir presence based on the porosity threshold and rock presence.</span>
+<span class="sd">        - &#39;pay&#39;: An array indicating the pay zone based on the water saturation threshold and reservoir presence.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">rock</span> <span class="o">=</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">vsh</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">vsh_t</span><span class="p">,</span> <span class="n">fillzeros</span><span class="o">=</span><span class="n">fillzeros</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">phi_t</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fillzeros</span><span class="o">=</span><span class="n">fillzeros</span><span class="p">)</span><span class="o">*</span><span class="n">rock</span>
+    <span class="n">pay</span> <span class="o">=</span> <span class="n">cutoff</span><span class="p">(</span><span class="n">sw</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">sw_t</span><span class="p">,</span> <span class="n">fillzeros</span><span class="o">=</span><span class="n">fillzeros</span><span class="p">)</span><span class="o">*</span><span class="n">res</span>
 
-    <span class="n">all_wells</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">well_database</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">v_wells</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">well_names</span><span class="p">)</span>
-    <span class="n">t_wells</span> <span class="o">=</span> <span class="n">all_wells</span> <span class="o">-</span> <span class="n">v_wells</span>
-
-    <span class="n">t_database</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">t_wells</span><span class="p">):</span>
-        <span class="n">t_database</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">well_database</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
-
-    <span class="n">v_database</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">v_wells</span><span class="p">):</span>
-        <span class="n">v_database</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">well_database</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="p">(</span><span class="n">t_database</span><span class="p">,</span><span class="n">v_database</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;rock&#39;</span><span class="p">:</span> <span class="n">rock</span><span class="p">,</span> <span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">,</span> <span class="s1">&#39;pay&#39;</span><span class="p">:</span> <span class="n">pay</span><span class="p">}</span></div>
 
 
-<span class="c1"># ===================================================== #</span>
-
-<div class="viewcode-block" id="data_assemble">
-<a class="viewcode-back" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">data_assemble</span><span class="p">(</span><span class="n">main_data</span><span class="p">,</span> <span class="n">data_key</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform a dictionary of dict[wells][&#39;data_key&#39;][data] into a dictionary of compact data like dict[data], mostly used for machine learning purpose.</span>
+<div class="viewcode-block" id="cutoff">
+<a class="viewcode-back" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cutoff</span><span class="p">(</span>
+        <span class="n">log</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;well log data&quot;</span><span class="p">],</span>
+        <span class="n">t</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;threshold value&quot;</span><span class="p">],</span>
+        <span class="n">lower</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;whether to apply threshold on lower values; default is True&quot;</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">fillzeros</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;if fill values with zeros; default is False&quot;</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">equal</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">&quot;whether to include equal values in the threshold; default is False&quot;</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies a cutoff to a well log data based on a specified threshold value (:footcite:t:`crain1999,girao2013`). </span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    main_data : dict</span>
-<span class="sd">        A dictionary containing well data, where keys are well names and values are dictionaries with data.</span>
-<span class="sd">    data_key : str</span>
-<span class="sd">        The key for the data in the well data dictionary.</span>
-<span class="sd">        </span>
+<span class="sd">    log : array_like</span>
+<span class="sd">        The well log data to which the cutoff will be applied.</span>
+<span class="sd">    t : float</span>
+<span class="sd">        The threshold value for the cutoff.</span>
+<span class="sd">    lower : bool, optional</span>
+<span class="sd">        Whether to apply the cutoff on lower values (True) or higher values (False). Default is True.</span>
+<span class="sd">    fillzeros : bool, optional</span>
+<span class="sd">        If True, values that do not meet the cutoff condition will be filled with zeros. If False, they will be filled with NaN. Default is False.</span>
+<span class="sd">    equal : bool, optional</span>
+<span class="sd">        Whether to include values equal to the threshold in the cutoff condition. Default is False.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    np.array</span>
-<span class="sd">        A numpy array containing the assembled data from all wells, with each row corresponding to a data point from each well.</span>
-<span class="sd">        </span>
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
-<span class="sd">    &gt;&gt;&gt; main_data = {</span>
-<span class="sd">    ...     &#39;Well1&#39;: {&#39;data_key&#39;: [[1, 2], [3, 4]]},</span>
-<span class="sd">    ...     &#39;Well2&#39;: {&#39;data_key&#39;: [[5, 6], [7, 8]]}</span>
-<span class="sd">    ... }</span>
-<span class="sd">    &gt;&gt;&gt; data_key = &#39;data_key&#39;</span>
-<span class="sd">    &gt;&gt;&gt; mega_data = data_assemble(main_data, data_key)</span>
+<span class="sd">    array_like</span>
+<span class="sd">        An array where values that meet the cutoff condition are set to 1.0, and values that do not meet the condition are set to 0.0 or NaN based on the fillzeros parameter.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The function applies a cutoff to the input log data based on the specified threshold value `t`. The cutoff is applied either to values below or above the threshold, depending on the `lower` parameter. If `equal` is True, values equal to the threshold are included in the cutoff condition. If `fillzeros` is True, values that do not meet the cutoff condition are filled with zeros; otherwise, they are filled with NaN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">wells</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">main_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">main_data</span><span class="p">[</span><span class="n">wells</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">data_key</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">mega_data</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">I</span><span class="p">):</span>
-        <span class="n">local</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">main_data</span><span class="p">:</span>
-            <span class="n">local</span> <span class="o">=</span> <span class="n">local</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">main_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">data_key</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
-        <span class="n">mega_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">local</span><span class="p">)</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
-    <span class="n">mega_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mega_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lower</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">log</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="k">if</span> <span class="n">equal</span> <span class="k">else</span> <span class="n">log</span> <span class="o">&lt;</span> <span class="n">t</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">log</span> <span class="o">&gt;=</span> <span class="n">t</span> <span class="k">if</span> <span class="n">equal</span> <span class="k">else</span> <span class="n">log</span> <span class="o">&gt;</span> <span class="n">t</span>
 
-    <span class="k">return</span> <span class="n">mega_data</span></div>
+    <span class="k">if</span> <span class="n">fillzeros</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-
-
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span></div>
 
 </pre></div>
 

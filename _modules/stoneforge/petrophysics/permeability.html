@@ -110,7 +110,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../modules/reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../modules/reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -219,34 +223,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -288,12 +264,12 @@
     <span class="n">resd</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Deep resistivity&quot;</span><span class="p">],</span>
     <span class="n">ress</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Shallow resistivity&quot;</span><span class="p">],</span> 
     <span class="n">rw</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Water-saturated formation resistivity&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
-    <span class="n">rhow</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Density of formation water&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">1.10</span><span class="p">,</span>
-    <span class="n">rhoo</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Density of formation oil&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">10000.00</span><span class="p">,</span>
+    <span class="n">wd</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Density of formation water&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">1.10</span><span class="p">,</span>
+    <span class="n">hd</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Density of formation oil&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
     <span class="n">inzone</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Invasion radius&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Estimate permeability using the empirical method of Tixier (:footcite:t:`tixier1949,mohaghegh1997`).</span>
+<span class="sd">    Estimate permeability using the empirical method of :footcite:t:`tixier1949`,(:footcite:t:mohaghegh1997`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -303,9 +279,9 @@
 <span class="sd">        Shallow resistivity in ohm.m.</span>
 <span class="sd">    rw : float, optional</span>
 <span class="sd">        Water-saturated formation resistivity in ohm.m.</span>
-<span class="sd">    rhow : float, optional</span>
+<span class="sd">    wd : float, optional</span>
 <span class="sd">        Density of formation water in g/cm3.</span>
-<span class="sd">    rhoo : float, optional</span>
+<span class="sd">    hd : float, optional</span>
 <span class="sd">        Density of formation in g/cm3.</span>
 <span class="sd">    inzone : array_like, float, optional</span>
 <span class="sd">        Invasion radius or change in depth in meters.</span>
@@ -318,7 +294,7 @@
     <span class="n">dres</span> <span class="o">=</span> <span class="n">resd</span> <span class="o">-</span> <span class="n">ress</span>  <span class="c1"># Calculate the resistivity difference</span>
 
     <span class="c1"># Calculate the term inside the parentheses</span>
-    <span class="n">term</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.3</span> <span class="o">/</span> <span class="p">(</span><span class="n">rw</span> <span class="o">*</span> <span class="p">(</span><span class="n">rhow</span> <span class="o">-</span> <span class="n">rhoo</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="n">dres</span> <span class="o">/</span> <span class="n">inzone</span><span class="p">)</span>
+    <span class="n">term</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.3</span> <span class="o">/</span> <span class="p">(</span><span class="n">rw</span> <span class="o">*</span> <span class="p">(</span><span class="n">wd</span> <span class="o">-</span> <span class="n">hd</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="n">dres</span> <span class="o">/</span> <span class="n">inzone</span><span class="p">)</span>
     
     <span class="c1"># Square the term and multiply by 20</span>
     <span class="n">K</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="p">(</span><span class="n">term</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
@@ -334,7 +310,7 @@
     <span class="n">sw</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Water saturation&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Estimate permeability using the empirical method of Timur (:footcite:t:`timur1968,mohaghegh1997`).</span>
+<span class="sd">    Estimate permeability using the empirical method of :footcite:t:`timur1968`, (:footcite:t:`mohaghegh1997`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -362,7 +338,7 @@
     <span class="n">rw</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;Water-saturated formation resistivity&quot;</span><span class="p">]</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Estimate permeability using the empirical method of Coates and Dumanoir equation for (:footcite:t:`dumoir1973,mohaghegh1997`).</span>
+<span class="sd">    Estimate permeability using the empirical method of Coates and Dumanoir equation (:footcite:t:`dumoir1973,mohaghegh1997`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -397,7 +373,7 @@
     <span class="n">sw</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">&quot;Water saturation&quot;</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Estimate permeability using the empirical method of Coates (:footcite:t:`timur1968,schlumberger2013`).</span>
+<span class="sd">    Estimate permeability using the empirical method of Coates (:footcite:t:`mohaghegh1997,schlumberger2013`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

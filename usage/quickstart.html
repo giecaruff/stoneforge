@@ -113,7 +113,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../modules/reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../modules/reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -222,34 +226,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -279,26 +255,28 @@
   <section id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h1>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>stoneforge
-
-<span class="o">(</span>...<span class="o">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">stoneforge.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">las_import</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">stoneforge.petrophysics</span><span class="w"> </span><span class="kn">import</span> <span class="n">shale_volume</span><span class="p">,</span> <span class="n">porosity</span><span class="p">,</span> <span class="n">water_saturation</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">stoneforge.data_management.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stoneforge.petrophysics.shale_volume</span><span class="w"> </span><span class="kn">import</span> <span class="n">vshale_larionov_old</span>
 
 <span class="c1"># Import a LAS file</span>
 <span class="c1"># This will return a DataFrame with the data and a dictionary with the units</span>
 <span class="n">data</span><span class="p">,</span><span class="n">units</span> <span class="o">=</span> <span class="n">las_import</span><span class="p">(</span><span class="s2">&quot;..//stoneforge//datasets/DP1.las&quot;</span><span class="p">)</span>
+<span class="n">las2</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;DP1.las&quot;</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="s1">&#39;las2&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;header itens:&#39;</span><span class="p">,</span><span class="n">las2</span><span class="o">.</span><span class="n">data_obj</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">las2</span><span class="o">.</span><span class="n">data_obj</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;well&#39;</span><span class="p">]</span>
+
+<span class="n">data_las2</span><span class="p">,</span> <span class="n">units_las2</span> <span class="o">=</span> <span class="n">las2</span><span class="o">.</span><span class="n">dataframe</span><span class="p">(</span><span class="n">las2</span><span class="o">.</span><span class="n">data_obj</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data_las2</span>
 
 <span class="c1"># Remove non sampling rows</span>
 <span class="n">data_c</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">data</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="o">-</span><span class="mf">999.0</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
 <span class="c1"># Calculate shale volume</span>
 <span class="n">GR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_c</span><span class="p">[</span><span class="s2">&quot;GR&quot;</span><span class="p">])</span>
-<span class="n">GR_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">GR</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">GR_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">GR</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-
-<span class="n">VSH</span> <span class="o">=</span> <span class="n">shale_volume</span><span class="o">.</span><span class="n">vshale_larionov</span><span class="p">(</span><span class="n">GR</span><span class="p">,</span> <span class="n">GR_min</span><span class="p">,</span> <span class="n">GR_max</span><span class="p">,</span> <span class="s2">&quot;larionov&quot;</span><span class="p">)</span>
+<span class="n">VSH</span> <span class="o">=</span> <span class="n">vshale_larionov_old</span><span class="p">(</span><span class="n">gr</span><span class="o">=</span><span class="n">GR</span><span class="p">,</span><span class="n">grmin</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">grmax</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

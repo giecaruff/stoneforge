@@ -113,7 +113,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -222,34 +226,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -282,13 +258,13 @@
 <p>The library incorporates several classical empirical permeability (k) estimators derived from porosity, water saturation, and resistivity measurements. These models reflect historically validated correlations between rock storage capacity, fluid distribution, and flow properties, providing practical permeability proxies in the absence of core data. While empirical in nature, these methods remain widely used for quick-look evaluations and comparative reservoir analysis.</p>
 <p>Porosity–saturation–based formulations represent the primary class of estimators:</p>
 <ul class="simple">
-<li><p>Timur Model – A foundational empirical relationship linking permeability to porosity (φ) and irreducible water saturation (Sw). The model captures the intuitive dependence of permeability on pore volume and fluid occupancy, typically predicting higher permeability for well-connected pore systems exhibiting low water saturation.</p></li>
-<li><p>Coates Model – A refinement of the Timur-type approach, incorporating similar dependencies but calibrated to better reflect movable fluid fractions and pore geometry effects. The formulation is frequently applied in conjunction with NMR-derived parameters, although it can be used with conventional porosity and saturation logs.</p></li>
+<li><p><strong>Timur (1968) Model</strong> – A foundational empirical relationship linking permeability to porosity (φ) and irreducible water saturation (Sw). The model captures the intuitive dependence of permeability on pore volume and fluid occupancy, typically predicting higher permeability for well-connected pore systems exhibiting low water saturation.</p></li>
+<li><p><strong>Coates (1981) Model</strong> – A refinement of the Timur-type approach, incorporating similar dependencies but calibrated to better reflect movable fluid fractions and pore geometry effects. The formulation is frequently applied in conjunction with NMR-derived parameters, although it can be used with conventional porosity and saturation logs.</p></li>
 </ul>
 <p>Resistivity-integrated estimators extend permeability prediction by exploiting electrical responses:</p>
 <ul class="simple">
-<li><p>Coates–Dumanoir Model – Combines deep formation resistivity (Rt or ResD) with porosity to estimate permeability. This model implicitly links pore structure and fluid distribution to electrical behavior, offering an alternative pathway when saturation estimates are uncertain or unavailable. Proper calibration is essential, as unit consistency and formation-specific constants strongly influence results.</p></li>
-<li><p>Tixier Model – Utilizes the contrast between deep and shallow resistivity measurements to infer permeability through invasion-profile behavior. The method is based on the premise that permeability governs mud filtrate invasion dynamics; therefore, resistivity differentials can serve as indirect indicators of pore connectivity and transmissibility.</p></li>
+<li><p><strong>Coates–Dumanoir (1974) Model</strong> – Combines deep formation resistivity (Rt or ResD) with porosity to estimate permeability. This model implicitly links pore structure and fluid distribution to electrical behavior, offering an alternative pathway when saturation estimates are uncertain or unavailable. Proper calibration is essential, as unit consistency and formation-specific constants strongly influence results.</p></li>
+<li><p><strong>Tixier (1949) Model</strong> – Utilizes the contrast between deep and shallow resistivity measurements to infer permeability through invasion-profile behavior. The method is based on the premise that permeability governs mud filtrate invasion dynamics; therefore, resistivity differentials can serve as indirect indicators of pore connectivity and transmissibility.</p></li>
 </ul>
 <p>These empirical methods do not replace laboratory-derived permeability but provide operationally useful approximations, particularly during early-stage interpretation, interval ranking, or uncertainty screening. Their reliability depends on lithology, pore type, fluid system, and calibration against representative core or test data.</p>
 <section id="id1">
@@ -296,7 +272,7 @@
 <dl class="py function" id="module-stoneforge.petrophysics.permeability">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.coates">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">coates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#coates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.coates" title="Link to this definition"></a></dt>
-<dd><p>Estimate permeability using the empirical method of Coates (Timur<a class="footnote-reference brackets" href="#footcite-timur1968" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Schlumberger<a class="footnote-reference brackets" href="#footcite-schlumberger2013" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<dd><p>Estimate permeability using the empirical method of Coates (Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Schlumberger<a class="footnote-reference brackets" href="#footcite-schlumberger2013" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -316,7 +292,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.coates_dumanoir">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">coates_dumanoir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#coates_dumanoir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.coates_dumanoir" title="Link to this definition"></a></dt>
-<dd><p>Estimate permeability using the empirical method of Coates and Dumanoir equation for (Coates and Dumanoir<a class="footnote-reference brackets" href="#footcite-dumoir1973" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<dd><p>Estimate permeability using the empirical method of Coates and Dumanoir equation (Coates and Dumanoir<a class="footnote-reference brackets" href="#footcite-dumoir1973" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -338,7 +314,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.timur">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">timur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#timur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.timur" title="Link to this definition"></a></dt>
-<dd><p>Estimate permeability using the empirical method of Timur (Timur<a class="footnote-reference brackets" href="#footcite-timur1968" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<dd><p>Estimate permeability using the empirical method of Timur<a class="footnote-reference brackets" href="#footcite-timur1968" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, (Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -357,16 +333,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.permeability.tixier">
-<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">tixier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhoo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inzone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#tixier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.tixier" title="Link to this definition"></a></dt>
-<dd><p>Estimate permeability using the empirical method of Tixier (Tixier<a class="footnote-reference brackets" href="#footcite-tixier1949" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>, Mohaghegh <em>et al.</em><a class="footnote-reference brackets" href="#footcite-mohaghegh1997" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.permeability.</span></span><span class="sig-name descname"><span class="pre">tixier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inzone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/permeability.html#tixier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.permeability.tixier" title="Link to this definition"></a></dt>
+<dd><p>Estimate permeability using the empirical method of Tixier<a class="footnote-reference brackets" href="#footcite-tixier1949" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>,(:footcite:t:mohaghegh1997`).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>resd</strong> (<em>array_like</em>) – Deep resistivity in ohm.m.</p></li>
 <li><p><strong>ress</strong> (<em>array_like</em>) – Shallow resistivity in ohm.m.</p></li>
 <li><p><strong>rw</strong> (<em>float</em><em>, </em><em>optional</em>) – Water-saturated formation resistivity in ohm.m.</p></li>
-<li><p><strong>rhow</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation water in g/cm3.</p></li>
-<li><p><strong>rhoo</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation in g/cm3.</p></li>
+<li><p><strong>wd</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation water in g/cm3.</p></li>
+<li><p><strong>hd</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of formation in g/cm3.</p></li>
 <li><p><strong>inzone</strong> (<em>array_like</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Invasion radius or change in depth in meters.</p></li>
 </ul>
 </dd>
@@ -382,12 +358,12 @@
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<div class="docutils container" id="id10">
+<div class="docutils container" id="id9">
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footcite-timur1968" role="doc-footnote">
+<aside class="footnote brackets" id="footcite-mohaghegh1997" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
-<p>A Timur. An investigation of permeability, porosity, &amp;amp; residual water saturation relationships for sandstone reservoirs. <em>The Log Analyst</em>, 07 1968. URL: <a class="reference external" href="https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf">https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf</a>.</p>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
+<p>Shahab Mohaghegh, Bogdan Balan, and Samuel Ameri. Permeability determination from well log data. <em>SPE Formation Evaluation</em>, 12(03):170–174, 09 1997. URL: <a class="reference external" href="https://doi.org/10.2118/30978-PA">https://doi.org/10.2118/30978-PA</a>, <a class="reference external" href="https://doi.org/10.2118/30978-PA">doi:10.2118/30978-PA</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-schlumberger2013" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
@@ -397,10 +373,9 @@
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
 <p><em>A New Approach To Improved Log-Derived Permeability</em>, volume SPWLA 14th Annual Logging Symposium of SPWLA Annual Logging Symposium, 05 1973. URL: <a class="reference external" href="https://onepetro.org/SPWLAALS/proceedings-pdf/SPWLA-1973/SPWLA-1973/SPWLA-1973-R/2064819/spwla-1973-r.pdf">https://onepetro.org/SPWLAALS/proceedings-pdf/SPWLA-1973/SPWLA-1973/SPWLA-1973-R/2064819/spwla-1973-r.pdf</a>.</p>
 </aside>
-<aside class="footnote brackets" id="footcite-mohaghegh1997" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id7">2</a>,<a role="doc-backlink" href="#id9">3</a>)</span>
-<p>Shahab Mohaghegh, Bogdan Balan, and Samuel Ameri. Permeability determination from well log data. <em>SPE Formation Evaluation</em>, 12(03):170–174, 09 1997. URL: <a class="reference external" href="https://doi.org/10.2118/30978-PA">https://doi.org/10.2118/30978-PA</a>, <a class="reference external" href="https://doi.org/10.2118/30978-PA">doi:10.2118/30978-PA</a>.</p>
+<aside class="footnote brackets" id="footcite-timur1968" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
+<p>A Timur. An investigation of permeability, porosity, &amp;amp; residual water saturation relationships for sandstone reservoirs. <em>The Log Analyst</em>, 07 1968. URL: <a class="reference external" href="https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf">https://onepetro.org/petrophysics/article-pdf/2197575/spwla-1968-vixn4a2.pdf</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-tixier1949" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>

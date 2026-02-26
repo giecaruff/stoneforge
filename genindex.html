@@ -110,7 +110,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -219,34 +223,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -319,25 +295,23 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts">class_counts() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
       <li><a href="modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.coates">coates() (in module stoneforge.petrophysics.permeability)</a>
 </li>
       <li><a href="modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.coates_dumanoir">coates_dumanoir() (in module stoneforge.petrophysics.permeability)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus">compressional_modulus() (in module stoneforge.rock_physics.elastic_constants)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity">compressional_wave_velocity() (in module stoneforge.rock_physics.elastic_constants)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.constant_cement">constant_cement() (in module stoneforge.rock_physics.gem)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.contact_cement">contact_cement() (in module stoneforge.rock_physics.gem)</a>
 </li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix">convert_into_matrix() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
       <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.cov_matrix">cov_matrix() (in module stoneforge.pseudo_wells.monte_carlo_simulations)</a>
+</li>
+      <li><a href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff">cutoff() (in module stoneforge.reservoir.net_pay)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -345,17 +319,11 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble">data_assemble() (in module stoneforge.preprocessing.data_processing)</a>
-</li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement">data_replacement() (stoneforge.preprocessing.data_management.project method)</a>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization">denormalization() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization">denormalization() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
-</li>
       <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity">density_porosity() (in module stoneforge.petrophysics.porosity)</a>
-</li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones">depth_zones() (in module stoneforge.preprocessing.data_management)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -433,14 +401,6 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder">import_folder() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells">import_several_wells() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well">import_well() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
       <li><a href="modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.indonesia">indonesia() (in module stoneforge.petrophysics.water_saturation)</a>
 </li>
   </ul></td>
@@ -461,8 +421,6 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values">matrix_values() (stoneforge.preprocessing.data_processing.predict_processing method)</a>
-</li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko">mavko() (in module stoneforge.rock_physics.fluid_substitution)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.mavko_subs">mavko_subs() (in module stoneforge.rock_physics.fluid_substitution)</a>
@@ -501,15 +459,11 @@
 </li>
         <li><a href="modules/petrophysics/water_saturation.html#module-stoneforge.petrophysics.water_saturation">stoneforge.petrophysics.water_saturation</a>
 </li>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing">stoneforge.preprocessing</a>
-</li>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing.data_management">stoneforge.preprocessing.data_management</a>
-</li>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">stoneforge.preprocessing.data_processing</a>
-</li>
         <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells">stoneforge.pseudo_wells</a>
 </li>
         <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">stoneforge.pseudo_wells.monte_carlo_simulations</a>
+</li>
+        <li><a href="modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">stoneforge.reservoir.net_pay</a>
 </li>
         <li><a href="modules/rockphysics.html#module-stoneforge.rock_physics">stoneforge.rock_physics</a>
 </li>
@@ -532,6 +486,8 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic">net_pay_siliciclastic() (in module stoneforge.reservoir.net_pay)</a>
+</li>
       <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity">neutron_density_porosity() (in module stoneforge.petrophysics.porosity)</a>
 </li>
       <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity">neutron_porosity() (in module stoneforge.petrophysics.porosity)</a>
@@ -554,29 +510,21 @@
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.poisson">poisson() (in module stoneforge.rock_physics.elastic_constants)</a>
 </li>
-      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity">porosity() (in module stoneforge.petrophysics.porosity)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity">porosity() (in module stoneforge.petrophysics.porosity)</a>
+</li>
       <li><a href="modules/machinelearning/classification.html#stoneforge.machine_learning.classification.predict.predict">predict() (in module stoneforge.machine_learning.classification.predict)</a>
 
       <ul>
         <li><a href="modules/machinelearning/regression.html#stoneforge.machine_learning.regression.predict.predict">(in module stoneforge.machine_learning.regression.predict)</a>
 </li>
       </ul></li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing">predict_processing (class in stoneforge.preprocessing.data_processing)</a>
-</li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project">project (class in stoneforge.preprocessing.data_management)</a>
-</li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve">return_curve() (stoneforge.preprocessing.data_processing.predict_processing method)</a>
-</li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss">reuss() (in module stoneforge.rock_physics.rock_physics_bounds)</a>
 </li>
@@ -592,8 +540,6 @@
         <li><a href="modules/machinelearning/regression.html#stoneforge.machine_learning.regression.settings.settings">(in module stoneforge.machine_learning.regression.settings)</a>
 </li>
       </ul></li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check">shape_check() (stoneforge.preprocessing.data_management.project method)</a>
-</li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_modulus">shear_modulus() (in module stoneforge.rock_physics.elastic_constants)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.shear_wave_velocity">shear_wave_velocity() (in module stoneforge.rock_physics.elastic_constants)</a>
@@ -664,6 +610,8 @@
         <li><a href="modules/machinelearning/regression.html#module-stoneforge.machine_learning.regression.settings">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     stoneforge.petrophysics.permeability
 
@@ -671,8 +619,6 @@
         <li><a href="modules/petrophysics/permeability.html#module-stoneforge.petrophysics.permeability">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     stoneforge.petrophysics.porosity
 
@@ -695,27 +641,6 @@
 </li>
       </ul></li>
       <li>
-    stoneforge.preprocessing
-
-      <ul>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing">module</a>
-</li>
-      </ul></li>
-      <li>
-    stoneforge.preprocessing.data_management
-
-      <ul>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing.data_management">module</a>
-</li>
-      </ul></li>
-      <li>
-    stoneforge.preprocessing.data_processing
-
-      <ul>
-        <li><a href="modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">module</a>
-</li>
-      </ul></li>
-      <li>
     stoneforge.pseudo_wells
 
       <ul>
@@ -727,6 +652,13 @@
 
       <ul>
         <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">module</a>
+</li>
+      </ul></li>
+      <li>
+    stoneforge.reservoir.net_pay
+
+      <ul>
+        <li><a href="modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">module</a>
 </li>
       </ul></li>
       <li>
@@ -776,8 +708,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.tixier">tixier() (in module stoneforge.petrophysics.permeability)</a>
 </li>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split">train_test_split() (stoneforge.preprocessing.data_processing.predict_processing method)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -815,10 +745,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.water_saturation">water_saturation() (in module stoneforge.petrophysics.water_saturation)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split">well_train_test_split() (in module stoneforge.preprocessing.data_processing)</a>
 </li>
   </ul></td>
 </tr></table>

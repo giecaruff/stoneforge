@@ -112,7 +112,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/reservoir/index.html">Reservoir</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/reservoir/net_pay.html">Net Pay</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#basic-calculations">Basic Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.cutoff"><code class="docutils literal notranslate"><span class="pre">cutoff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic"><code class="docutils literal notranslate"><span class="pre">net_pay_siliciclastic()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="modules/reservoir/net_pay.html#references">References</a></li>
 </ul>
 </li>
@@ -221,34 +225,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.depth_zones"><code class="docutils literal notranslate"><span class="pre">depth_zones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.class_counts"><code class="docutils literal notranslate"><span class="pre">project.class_counts()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.convert_into_matrix"><code class="docutils literal notranslate"><span class="pre">project.convert_into_matrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.data_replacement"><code class="docutils literal notranslate"><span class="pre">project.data_replacement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_folder"><code class="docutils literal notranslate"><span class="pre">project.import_folder()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_several_wells"><code class="docutils literal notranslate"><span class="pre">project.import_several_wells()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.import_well"><code class="docutils literal notranslate"><span class="pre">project.import_well()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_management.project.shape_check"><code class="docutils literal notranslate"><span class="pre">project.shape_check()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.data_assemble"><code class="docutils literal notranslate"><span class="pre">data_assemble()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing"><code class="docutils literal notranslate"><span class="pre">predict_processing</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.matrix_values"><code class="docutils literal notranslate"><span class="pre">predict_processing.matrix_values()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.return_curve"><code class="docutils literal notranslate"><span class="pre">predict_processing.return_curve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.predict_processing.train_test_split"><code class="docutils literal notranslate"><span class="pre">predict_processing.train_test_split()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="modules/preprocessing.html#stoneforge.preprocessing.data_processing.well_train_test_split"><code class="docutils literal notranslate"><span class="pre">well_train_test_split()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -277,14 +253,14 @@
              
   <section id="welcome-to-stoneforge-s-documentation">
 <h1>Welcome to Stoneforge’s documentation!<a class="headerlink" href="#welcome-to-stoneforge-s-documentation" title="Link to this heading"></a></h1>
-<p><strong>Version</strong>: 1.4</p>
+<p><strong>Version</strong>: 0.2.1</p>
 <p><strong>Stoneforge</strong> is a Python library for geophysics equations, algorithms and methods that also,
-are used in the software Appy. It is linked to the GIECAR laboratory at the Universidade Federal
+are used in the software <strong>APPy</strong>. It is linked to the GIECAR laboratory at the Universidade Federal
 Fluminense (UFF) related to the Geology and Geophysics Departament (GGO), and its purpose is to teach
-and develop routines in Python to solve geological and geophysical problems. Main APPy references are Estrella <em>et al.</em><a class="footnote-reference brackets" href="#footcite-estrella2022sbgf" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Estrella <em>et al.</em><a class="footnote-reference brackets" href="#footcite-estrella2022seg" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+and develop routines in Python to solve geological and geophysical problems. Main <strong>APPy</strong> references are Lupinacci <em>et al.</em><a class="footnote-reference brackets" href="#footcite-lupinacci2025" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, Estrella <em>et al.</em><a class="footnote-reference brackets" href="#footcite-estrella2022sbgf" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, Estrella <em>et al.</em><a class="footnote-reference brackets" href="#footcite-estrella2022seg" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This project is under active development as of May 2024.</p>
+<p>This project is under active development as of May 2022.</p>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
@@ -327,11 +303,6 @@ and develop routines in Python to solve geological and geophysical problems. Mai
 <li class="toctree-l2"><a class="reference internal" href="modules/machinelearning/regression.html">Regression</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/preprocessing.html">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_management">Data Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html#module-stoneforge.preprocessing.data_processing">Data Processing</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </section>
@@ -344,14 +315,18 @@ and develop routines in Python to solve geological and geophysical problems. Mai
 </ul>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<div class="docutils container" id="id3">
+<div class="docutils container" id="id4">
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footcite-estrella2022sbgf" role="doc-footnote">
+<aside class="footnote brackets" id="footcite-lupinacci2025" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Wagner Lupinacci, Breno Almeida da Silveira Dultra Chrispim, Jordan Jusbig Salas Cuno, João Vitor Alves Estrella, Fernando Vizeu Santos, Victor Salgado-Campos, Mario Martins Ramos, and Fernando Freire. Appy, petrophysics evaluation software in python: current status and next features. In <em>SBGf Conference — Rio 2025</em>. Rio de Janeiro, RJ, Brazil, November 2025. <a class="reference external" href="https://doi.org/10.13140/RG.2.2.36409.63843">doi:10.13140/RG.2.2.36409.63843</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-estrella2022sbgf" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p><em>Appy, Um software livre para avaliação de formação</em>, SBGF - IX SimBGf, 2022. URL: <a class="reference external" href="https://sbgf.org.br/mysbgf/eventos/expanded_abstracts/IX_SimBGf/session/M%C3%A9todos%20Geof%C3%ADsicos%20e%20Geof%C3%ADsica%20Computacional/Appy%20%E2%80%93%20Um%20software%20livre%20para%20avalia%C3%A7%C3%A3o%20de%20forma%C3%A7%C3%A3o.pdf">https://sbgf.org.br/mysbgf/eventos/expanded_abstracts/IX_SimBGf/session/M%C3%A9todos%20Geof%C3%ADsicos%20e%20Geof%C3%ADsica%20Computacional/Appy%20%E2%80%93%20Um%20software%20livre%20para%20avalia%C3%A7%C3%A3o%20de%20forma%C3%A7%C3%A3o.pdf</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-estrella2022seg" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
 <p><em>The free software APPy as tool for formation evaluation</em>, 3rd SEG Latin American Virtual Student Conference 2022, 2022. URL: <a class="reference external" href="https://www.researchgate.net/publication/364356642_The_free_software_APPy_as_tool_for_formation_evaluation">https://www.researchgate.net/publication/364356642_The_free_software_APPy_as_tool_for_formation_evaluation</a>.</p>
 </aside>
 </aside>
