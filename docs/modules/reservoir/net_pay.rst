@@ -2,12 +2,12 @@
 Net Pay
 =========================
 
-This section is about some methods to stimate some reservoir properties, such as net pay, based on well log data.
+This section is about some methods to estimate some reservoir properties, such as net pay, based on siliciclastic well log data, and also a manual method using cutoffs.
 
 Basic Calculations
 ------------------
 
-.. automodule:: stoneforge.petrophysics.net_pay
+.. automodule:: stoneforge.reservoir.net_pay
     :members:
     :undoc-members:
     :show-inheritance:

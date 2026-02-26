@@ -10,12 +10,12 @@ def tixier(
     resd: Annotated[np.array, "Deep resistivity"],
     ress: Annotated[np.array, "Shallow resistivity"], 
     rw: Annotated[float, "Water-saturated formation resistivity"]=0.02,
-    rhow: Annotated[float, "Density of formation water"]=1.10,
-    rhoo: Annotated[float, "Density of formation oil"]=10000.00,
+    wd: Annotated[float, "Density of formation water"]=1.10,
+    hd: Annotated[float, "Density of formation oil"]=0.8,
     inzone: Annotated[float, "Invasion radius"]=0.75,
     ) -> np.array:
     """
-    Estimate permeability using the empirical method of Tixier (:footcite:t:`tixier1949,mohaghegh1997`).
+    Estimate permeability using the empirical method of :footcite:t:`tixier1949`,(:footcite:t:mohaghegh1997`).
 
     Parameters
     ----------
@@ -25,9 +25,9 @@ def tixier(
         Shallow resistivity in ohm.m.
     rw : float, optional
         Water-saturated formation resistivity in ohm.m.
-    rhow : float, optional
+    wd : float, optional
         Density of formation water in g/cm3.
-    rhoo : float, optional
+    hd : float, optional
         Density of formation in g/cm3.
     inzone : array_like, float, optional
         Invasion radius or change in depth in meters.
@@ -40,7 +40,7 @@ def tixier(
     dres = resd - ress  # Calculate the resistivity difference
 
     # Calculate the term inside the parentheses
-    term = (2.3 / (rw * (rhow - rhoo))) * (dres / inzone)
+    term = (2.3 / (rw * (wd - hd))) * (dres / inzone)
     
     # Square the term and multiply by 20
     K = 20 * (term ** 2)
@@ -53,7 +53,7 @@ def timur(
     sw: Annotated[np.array, "Water saturation"]
     ) -> np.array:
     """
-    Estimate permeability using the empirical method of Timur (:footcite:t:`timur1968,mohaghegh1997`).
+    Estimate permeability using the empirical method of :footcite:t:`timur1968`, (:footcite:t:`mohaghegh1997`).
 
     Parameters
     ----------
@@ -78,7 +78,7 @@ def coates_dumanoir(
     rw: Annotated[float, "Water-saturated formation resistivity"]=0.02,
     ) -> np.ndarray:
     """
-    Estimate permeability using the empirical method of Coates and Dumanoir equation for (:footcite:t:`dumoir1973,mohaghegh1997`).
+    Estimate permeability using the empirical method of Coates and Dumanoir equation (:footcite:t:`dumoir1973,mohaghegh1997`).
 
     Parameters
     ----------
@@ -110,7 +110,7 @@ def coates(
     sw: Annotated[np.array, "Water saturation"]
     ) -> np.array:
     """
-    Estimate permeability using the empirical method of Coates (:footcite:t:`timur1968,schlumberger2013`).
+    Estimate permeability using the empirical method of Coates (:footcite:t:`mohaghegh1997,schlumberger2013`).
 
     Parameters
     ----------
