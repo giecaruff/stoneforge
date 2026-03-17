@@ -13,7 +13,8 @@ def anadrill_siliciclastic(
     random_state: Annotated[bool, "Random state"]=False,
     noise: Annotated[float, "Noise level"]=0.005):
 
-    """Generate synthetic well log data based on the SLB/Anadrill siliciclastic facies model.
+    """Generate synthetic well log data based on the SLB/Anadrill siliciclastic facies model adapted from :footcite:t:`slb1972,freire2020youtube`
+    
     Parameters
     ----------
     structure : dict
