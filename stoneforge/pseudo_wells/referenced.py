@@ -97,6 +97,7 @@ def _generate(
     sample_facies = next(iter(structure))
 
     for k in example:
+        print(k)
         if isinstance(example[k][sample_facies], float):
             header_f.append(k)
         else:
