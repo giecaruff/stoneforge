@@ -34,7 +34,7 @@ def anadrill_siliciclastic(
     dict
         Dictionary containing synthetic well log data, with keys for each curve and facies.
     """
-    return _generate(
+    return (_generate(
         structure,
         data_path='anadrill_siliciclastic.ggf',
         step=step,
@@ -42,7 +42,7 @@ def anadrill_siliciclastic(
         bottom=bottom,
         random_state=random_state,
         noise=noise
-    )
+    ),{'DEPTH':'m','GR':'API','RES':'ohm.m','NPHI':'m3/m3','DEN':'g/cm3','DT':'us/ft','INDEX':'','CODE':'','ROCK':'','FLUID':''})
 
 def _generate(
     structure,
