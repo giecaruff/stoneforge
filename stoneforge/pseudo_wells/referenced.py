@@ -6,7 +6,7 @@ import pickle
 from typing import Annotated
 
 def anadrill_siliciclastic(
-    structure: Annotated[dict, "Data structure"],
+    structure: Annotated[tuple, "Data structure"]=False,
     step: Annotated[float, "Depth step"]=1.0,
     top: Annotated[float, "Top depth"]=None,
     bottom: Annotated[float, "Bottom depth"]=None,
@@ -17,8 +17,8 @@ def anadrill_siliciclastic(
     
     Parameters
     ----------
-    structure : dict
-        Dictionary in format {facies_code: n_samples}
+    structure : tuple
+        Tuple in format (facies_list, counts_list) or list. Standard is false wich display facies index.
     step : float
         Depth step for synthetic log
     top : float or None
@@ -34,7 +34,19 @@ def anadrill_siliciclastic(
     dict
         Dictionary containing synthetic well log data, with keys for each curve and facies.
     """
-    return (_generate(
+    if structure is False:
+        print(0, "shale")
+        print(1, "clean_sandstone with gas")
+        print(2, "clean_sandstone with oil")
+        print(3, "clean_sandstone with brine")
+        print(4, "feldspatic sandstone")
+        print(5, "unconsolidated sandstone with fresh water")
+        print(6, "organic shale")
+        print(7, "siltite")
+        print(8, "dirty sandstone with brine")
+        return
+
+    return (generate(
         structure,
         data_path='anadrill_siliciclastic.ggf',
         step=step,
@@ -42,24 +54,24 @@ def anadrill_siliciclastic(
         bottom=bottom,
         random_state=random_state,
         noise=noise
-    ),{'DEPTH':'m','GR':'API','RES':'ohm.m','NPHI':'m3/m3','DEN':'g/cm3','DT':'us/ft','INDEX':'','CODE':'','ROCK':'','FLUID':''})
+    ),{'DEPTH':'m','GR':'API','RES':'ohm.m','NPHI':'m3/m3','DEN':'g/cm3','DT':'us/ft','CODE':'','ROCK':'','FLUID':''})
 
-def _generate(
-    structure,
-    data_path='anadrill_siliciclastic.ggf',
-    step=1.0,
-    top=None,
-    bottom=None,
-    random_state=False,
-    noise=0.005
+def generate(
+    structure: Annotated[tuple, "Data structure"],
+    data_path: Annotated[str, "Path to GGF file"]='anadrill_siliciclastic.ggf',
+    step: Annotated[float, "Depth step"]=1.0,
+    top: Annotated[float, "Top depth"]=None,
+    bottom: Annotated[float, "Bottom depth"]=None,
+    random_state: Annotated[bool, "Random state"]=False,
+    noise: Annotated[float, "Noise level"]=0.005
 ):
     """
     Generate synthetic well log data based on facies structure.
 
     Parameters
     ----------
-    structure : dict
-        Dictionary in format {facies_code: n_samples}
+    structure : tuple
+        Tuple in format (facies_list, counts_list)
     data_path : str
         Path to GGF file containing statistical data (standard is 'anadrill_siliciclastic.ggf')
     step : float
@@ -78,10 +90,36 @@ def _generate(
     dict
         Dictionary containing synthetic well log data, with keys for each curve and facies.
     """
+
+    # -------------------------
+    # Normalize structure input
+    # -------------------------
+    if isinstance(structure, dict):
+        facies_seq = list(structure.keys())
+        counts_seq = list(structure.values())
+
+    elif isinstance(structure, (list, tuple)) and len(structure) == 2:
+        facies_seq, counts_seq = structure
+
+        if len(facies_seq) != len(counts_seq):
+            raise ValueError("facies and counts must have same length")
+
+    else:
+        raise TypeError(
+            "structure must be either dict or (facies_list, counts_list)"
+        )
     
+    if type(structure) == type([]):
+        _n = len(structure)
+        _s = [1]* _n
+        structure = (structure, _s)
+
+    # -------------------------
+    # Load reference data
+    # -------------------------
     module_dir = Path(__file__).parent
     file_path = module_dir / data_path
-
+    
     with open(file_path, 'rb') as handle:
         example = pickle.load(handle)
 
@@ -90,11 +128,13 @@ def _generate(
     if random_state is not False:
         rng = np.random.default_rng(random_state)
 
+    # -------------------------
     # Detect numeric vs categorical fields
+    # -------------------------
     header_f = []
     header_s = []
 
-    sample_facies = next(iter(structure))
+    sample_facies = facies_seq[0]
 
     for k in example:
         print(k)
@@ -103,14 +143,17 @@ def _generate(
         else:
             header_s.append(k)
 
-    n_total = sum(structure.values())
+    n_total = sum(counts_seq)
 
     curves = np.zeros((n_total, len(header_f)))
     classes = {h: [] for h in header_s}
 
     idx = 0
 
-    for facies, n_samples in structure.items():
+    # -------------------------
+    # Main generation loop
+    # -------------------------
+    for facies, n_samples in zip(facies_seq, counts_seq):
 
         values_f = np.array([example[h][facies] for h in header_f])
         values_s = [example[h][facies] for h in header_s]
@@ -125,15 +168,15 @@ def _generate(
         curves[idx:idx+n_samples, :] = block
 
         for h, v in zip(header_s, values_s):
-            classes[h].extend([v]*n_samples)
+            classes[h].extend([v] * n_samples)
 
         idx += n_samples
-        
-    if top is not None:
-        top = float(top)
-    else:
-        top = 0.0
-        
+
+    # -------------------------
+    # Depth handling
+    # -------------------------
+    top = float(top) if top is not None else 0.0
+
     if bottom is not None:
         bottom = float(bottom)
     else:
