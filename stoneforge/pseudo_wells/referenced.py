@@ -1,9 +1,27 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
-import pandas as pd
 import pickle
 from typing import Annotated
+
+def color_codes():
+
+    lito ={
+        22:"darkgreen",
+        27:"orange",
+        25:"grey",
+        49:"gold",
+        48:"yellow",
+        57:"green",
+        54:"maroon",
+    }
+    fluid = {
+        'brine':'navy',
+        'fresh_water':'blue',
+        'gas':'red',
+        'oil':'green',
+        'none':'white'
+    }
+    return lito, fluid
 
 def anadrill_siliciclastic(
     structure: Annotated[tuple, "Data structure"]=False,
@@ -137,7 +155,6 @@ def generate(
     sample_facies = facies_seq[0]
 
     for k in example:
-        print(k)
         if isinstance(example[k][sample_facies], float):
             header_f.append(k)
         else:
