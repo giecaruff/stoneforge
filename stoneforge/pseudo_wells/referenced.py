@@ -112,6 +112,7 @@ def generate(
     # -------------------------
     # Normalize structure input
     # -------------------------
+    
     if isinstance(structure, dict):
         facies_seq = list(structure.keys())
         counts_seq = list(structure.values())
@@ -198,9 +199,17 @@ def generate(
         bottom = float(bottom)
     else:
         bottom = top + n_total * step
-
+        
     final_data = {}
-    final_data['DEPTH'] = np.linspace(top, bottom, num=n_total)
+    final_data['DEPTH'] = []
+    _ltop = float(top)
+    
+    for i in range(n_total):
+        _ltop = _ltop + step
+        final_data['DEPTH'].append(_ltop)
+        
+    #final_data['DEPTH'] = np.linspace(top, bottom, num=n_total)
+    final_data['DEPTH'] = np.array(final_data['DEPTH'])
 
     for i, h in enumerate(header_f):
         final_data[h] = curves[:, i]

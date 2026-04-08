@@ -9,7 +9,7 @@ def simple(markov_chain, sampling, lithology_code = False, initial_state = 0, se
                         [0.02, 0.97, 0.01, 0.00], # Carbonato Poroso
                         [0.05, 0.10, 0.85, 0.00] # Carbonato Rico em Argila
                         [0.00, 0.00, 0.00, 0.00]] # Carbonato c/ sílica
-                         )
+        )
     """
     initial_state = initial_state
 
