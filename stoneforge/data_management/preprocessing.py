@@ -8,12 +8,14 @@ import tempfile
 from pathlib import Path
 
 if __package__:
-    from ..io.dlisio_r import DLISAccess
+    #from ..io.dlisio_r import DLISAccess
+    from ..io.dlisr import DLISAccess
     from ..io.las2 import LAS2Parser
     from ..io.las3 import LAS3Parser
     from ..io.tabr import TABParser
 else:
-    from stoneforge.io.dlisio_r import DLISAccess
+    #from stoneforge.io.dlisio_r import DLISAccess
+    from stoneforge.io.dlisr import DLISAccess
     from stoneforge.io.las2 import LAS2Parser
     from stoneforge.io.las3 import LAS3Parser
     from stoneforge.io.tabr import TABParser
@@ -22,7 +24,7 @@ else:
 
 class DataLoader:
     
-    def __init__(self, filepath, filetype=None, gui=False, sep="\t", std="US"):
+    def __init__(self, filepath, filetype=None, sep="\t", std="US"):
         """
         Import a file into the project.
         
@@ -53,7 +55,7 @@ class DataLoader:
             self.data_obj = LAS3Parser(filepath)
 
         if filetype == 'dlis':
-            self.data_obj = DLISAccess(filepath, gui=gui)
+            self.data_obj = DLISAccess(filepath)
 
         if filetype == 'tabr':
             try:
@@ -77,7 +79,7 @@ class DataLoader:
                         raise ValueError("Failed to parse .las file as either LAS2 or LAS3.")
             elif filext == '.dlis':
                 print("Trying to parse as DLIS data file due to '.dlis' extention ...")
-                self.data_obj = DLISAccess(filepath, gui=gui)
+                self.data_obj = DLISAccess(filepath)
                 print("DLIS parsing successful.")
             elif filext in ['.csv', '.txt', '.dat', '.tsv']:
                 try:
