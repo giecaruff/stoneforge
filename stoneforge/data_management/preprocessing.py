@@ -9,13 +9,13 @@ from pathlib import Path
 
 if __package__:
     #from ..io.dlisio_r import DLISAccess
-    from ..io.dlisr import DLISAccess
+    from ..io.dlist import DLISAccess
     from ..io.las2 import LAS2Parser
     from ..io.las3 import LAS3Parser
     from ..io.tabr import TABParser
 else:
     #from stoneforge.io.dlisio_r import DLISAccess
-    from stoneforge.io.dlisr import DLISAccess
+    from stoneforge.io.dlist import DLISAccess
     from stoneforge.io.las2 import LAS2Parser
     from stoneforge.io.las3 import LAS3Parser
     from stoneforge.io.tabr import TABParser
