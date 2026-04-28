@@ -175,6 +175,3 @@ def data_assemble(main_data, data_key):
     mega_data = np.array(mega_data)
 
     return mega_data
-
-
-

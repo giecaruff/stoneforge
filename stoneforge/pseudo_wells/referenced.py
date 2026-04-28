@@ -27,7 +27,6 @@ def anadrill_siliciclastic(
     structure: Annotated[tuple, "Data structure"]=False,
     step: Annotated[float, "Depth step"]=1.0,
     top: Annotated[float, "Top depth"]=None,
-    bottom: Annotated[float, "Bottom depth"]=None,
     random_state: Annotated[bool, "Random state"]=False,
     noise: Annotated[float, "Noise level"]=0.005):
 
@@ -69,7 +68,6 @@ def anadrill_siliciclastic(
         data_path='anadrill_siliciclastic.ggf',
         step=step,
         top=top,
-        bottom=bottom,
         random_state=random_state,
         noise=noise
     ),{'DEPTH':'m','GR':'API','RES':'ohm.m','NPHI':'m3/m3','DEN':'g/cm3','DT':'us/ft','CODE':'','ROCK':'','FLUID':''})
@@ -79,7 +77,6 @@ def generate(
     data_path: Annotated[str, "Path to GGF file"]='anadrill_siliciclastic.ggf',
     step: Annotated[float, "Depth step"]=1.0,
     top: Annotated[float, "Top depth"]=None,
-    bottom: Annotated[float, "Bottom depth"]=None,
     random_state: Annotated[bool, "Random state"]=False,
     noise: Annotated[float, "Noise level"]=0.005
 ):
@@ -194,11 +191,6 @@ def generate(
     # Depth handling
     # -------------------------
     top = float(top) if top is not None else 0.0
-
-    if bottom is not None:
-        bottom = float(bottom)
-    else:
-        bottom = top + n_total * step
         
     final_data = {}
     final_data['DEPTH'] = []
