@@ -4,6 +4,7 @@ import pickle
 from typing import Annotated
 
 def color_codes():
+    """Return color codes for lithology and fluid types in the Anadrill siliciclastic facies model."""
 
     lito ={
         22:"darkgreen",

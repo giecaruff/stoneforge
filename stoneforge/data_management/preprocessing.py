@@ -35,7 +35,6 @@ class DataLoader:
             Path to the file to be imported.
         filetype : str, optional
             Type of the file. If None, it will be inferred from the file extension.
-        
 
         Returns
         -------
@@ -154,6 +153,7 @@ def resampling(
     
     """
     Resample well log data to a regular depth grid.
+    
     Parameters
     ----------
     dataframe : pd.DataFrame
