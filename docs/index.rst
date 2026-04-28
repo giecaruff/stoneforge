@@ -28,6 +28,7 @@ and develop routines in Python to solve geological and geophysical problems. Mai
    modules/rockphysics
    modules/pseudowells
    modules/machinelearning/index
+   modules/data_management/index
 
 Indices and tables
 ==================
