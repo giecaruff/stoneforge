@@ -111,7 +111,7 @@ class variogram_model:
             plt.plot(self.dt,self.gm,'r.')
             plt.plot(self.dt,self.var,'b--')
             plt.xlabel('Depth interval - h')
-            plt.ylabel('Variogram - $\gamma(h)$')
+            plt.ylabel('Variogram - $\\gamma(h)$')
             plt.grid()
             plt.show()
         
@@ -133,7 +133,7 @@ class variogram_model:
             plt.plot(self.dt,self.gm,'r.')
             plt.plot(self.dt,self.var,'b--')
             plt.xlabel('Depth interval - h')
-            plt.ylabel('Variogram - $\gamma(h)$')
+            plt.ylabel('Variogram - $\\gamma(h)$')
             plt.grid()
             plt.show()
 
