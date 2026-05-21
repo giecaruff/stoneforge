@@ -22,6 +22,18 @@ else:
     from stoneforge.io.las3 import LAS3Parser
     from stoneforge.io.tabr import TABParser
 
+def _download_to_tempfile(url):
+    response = requests.get(url)
+    response.raise_for_status()
+
+    suffix = Path(url).suffix  # preserves .las, .dlis, etc.
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+
+    tmp.write(response.content)
+    tmp.close()
+
+    return tmp.name
+
 
 class DataLoader:
     
@@ -45,7 +57,7 @@ class DataLoader:
         
         # --- URL handling ---
         if self._is_url(filepath):
-            self._tmpfile = self._download_to_tempfile(filepath)
+            self._tmpfile = _download_to_tempfile(filepath)
             filepath = self._tmpfile
 
         if filetype == 'las2':
@@ -96,17 +108,17 @@ class DataLoader:
         except Exception:
             return False
         
-    def _download_to_tempfile(self, url):
-        response = requests.get(url)
-        response.raise_for_status()
+    #def _download_to_tempfile(self, url):
+    #    response = requests.get(url)
+    #    response.raise_for_status()
 
-        suffix = Path(url).suffix  # preserves .las, .dlis, etc.
-        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    #    suffix = Path(url).suffix  # preserves .las, .dlis, etc.
+    #    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
 
-        tmp.write(response.content)
-        tmp.close()
+    #    tmp.write(response.content)
+    #    tmp.close()
 
-        return tmp.name
+    #    return tmp.name
             
     def __del__(self):
         if self._tmpfile and os.path.exists(self._tmpfile):
