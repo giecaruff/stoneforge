@@ -212,8 +212,8 @@ def resampling(
     df = df.sort_values(by=depth).reset_index(drop=True)
 
     # --- New depth grid ---
-    dmin, dmax = df[depth].min(), df[depth].max()
-    new_depth = np.arange(dmin, dmax + step, step)
+    #dmin, dmax = df[depth].min(), df[depth].max()
+    new_depth = np.arange(top, bottom + step, step)
 
     old_depth = df[depth].values
 
