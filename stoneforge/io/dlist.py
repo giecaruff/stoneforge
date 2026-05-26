@@ -197,7 +197,7 @@ class DLISAccess:
                     )
 
                     arrays.append(
-                        frame_dict[mnemonic]["data"]
+                        frame_dict[mnemonic]["values"]
                     )
 
 
