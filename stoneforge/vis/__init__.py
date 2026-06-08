@@ -1,3 +1,2 @@
-from .img import wellplot
-from .img import plito
-from .img import plotwell
+from . import img  # noqa: F401
+from . import plot_welllog  # noqa: F401

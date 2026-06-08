@@ -1,13 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-from matplotlib.axes import Axes
 import matplotlib.colors as mcolors
-from matplotlib import cm, colors
-from matplotlib.collections import PolyCollection
 import matplotlib.cm as cm
-import pandas as pd
-import numpy.typing as npt
 from typing import Annotated
 
 class LogPlot:

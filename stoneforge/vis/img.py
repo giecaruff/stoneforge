@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import numpy as np
+import matplotlib.pyplot as plt
 
 # based on "PythonParaGeofisicos" from Sep 24, 2020
 
-def wellplot(well, depth, curves, colors, units, d_unit='m', size = (12,10)):
+def fastplot(well, depth, curves, colors, units, d_unit='m', size = (12,10)):
 
     n_tracks = len(curves)
 
@@ -40,8 +42,6 @@ def plito(lithology,depth,colors,linewidth = 1.):
     for _l in lists_dict:
         plt.fill_betweenx(depth, lists_dict[_l], facecolor=colors[_l], linewidth = linewidth)
         
-import matplotlib.pyplot as plt
-import numpy as np
 
 class plotwell:
 
@@ -131,4 +131,3 @@ class plotwell:
 
         plt.tight_layout()
         plt.show()
-        
