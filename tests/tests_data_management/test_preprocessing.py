@@ -1,4 +1,5 @@
-from stoneforge.data_management.preprocessing import DataLoader, _download_to_tempfile, resampling
+from stoneforge.data_management.preprocessing import DataLoader, _download_to_tempfile
+from stoneforge.data_management import resampling
 from stoneforge.pseudo_wells import anadrill_siliciclastic, lithology_generator
 from stoneforge.pseudo_wells.pseudo_tools import merge_lithology
 import numpy as np
