@@ -62,7 +62,6 @@ exclude = ["tests", "docs", "examples"]  # Exclude unnecessary files
 [tool.uv]
 package = true
 
-
 [tool.ruff]
 # Set the maximum line length to 79.
 line-length = 79
