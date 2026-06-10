@@ -1,1 +1,0 @@
-"""Wavelets tests package."""
