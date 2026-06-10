@@ -81,7 +81,7 @@ extend-select = [
 convention = "google"
 
 [tool.pytest.ini_options]
-pythonpath = "stoneforge"
+pythonpath = "."
 minversion = "6.0"
 addopts = [
     "-ra",

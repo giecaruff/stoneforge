@@ -5,7 +5,7 @@ import numpy as np
 if __package__:
     from ..reservoir.net_pay import net_pay_siliciclastic, cutoff
 else:
-    from reservoir.net_pay import net_pay_siliciclastic, cutoff
+    from stoneforge.reservoir.net_pay import net_pay_siliciclastic, cutoff
 
 # -------------------------------------------------------------------------------------------------------------- #
 # test functions

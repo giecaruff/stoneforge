@@ -1,7 +1,5 @@
 import numpy as np
-
 from stoneforge.rock_physics import inclusion
-
 
 def test_theta_and_f_match_reference_calculation():
     alpha = 0.5
