@@ -34,7 +34,6 @@ def _download_to_tempfile(url):
 
     return tmp.name
 
-
 class DataLoader:
     
     def __init__(self, filepath, filetype=None, sep="\t", std="US"):
@@ -153,4 +152,54 @@ class DataLoader:
         Returns the extension of a file from its path
         """
         return os.path.splitext(file_path)[1]
-    
+
+
+class DataManager(DataLoader):
+    def __init__(self, data_source, depth, filetype=None, sep="\t", std="US"):
+        if isinstance(data_source, DataLoader):
+            # Copy attributes from the existing DataLoader instance
+            self.__dict__.update(data_source.__dict__)
+        else:
+            super().__init__(data_source, filetype=filetype, sep=sep, std=std)
+            
+        self.depth_col = depth
+        
+        if hasattr(self, "data_obj") and hasattr(self.data_obj, "data"):
+            self.df, self.units = self.dataframe(self.data_obj.data)
+        else:
+            raise ValueError("Parsed object has no 'data' attribute.")
+            
+        min_depth = self.df[self.depth_col].min()
+        max_depth = self.df[self.depth_col].max()
+        
+        self.facies = {
+            'unidentified': (min_depth, max_depth)
+        }
+
+    def add_facies(self, facies_dict):
+        """
+        Adds multiple facies intervals.
+        
+        Parameters
+        ----------
+        facies_dict : dict
+            Dictionary mapping facies name to a tuple of (top, bottom) depths.
+        """
+        for name, (top, bottom) in facies_dict.items():
+            self.facies[name] = (top, bottom)
+            
+    def add_facie(self, name, top, bottom):
+        """
+        Adds a single facies interval.
+        """
+        self.facies[name] = (top, bottom)
+        
+    def __getattr__(self, name):
+        if name in self.facies:
+            top, bottom = self.facies[name]
+            mask = (self.df[self.depth_col] >= top) & (self.df[self.depth_col] <= bottom)
+            return self.df.loc[mask]
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+        
+    def __dir__(self):
+        return sorted(set(super().__dir__() + list(self.facies.keys())))
