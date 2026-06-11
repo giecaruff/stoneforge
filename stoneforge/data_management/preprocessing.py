@@ -198,7 +198,42 @@ class DataManager(DataLoader):
         if name in self.facies:
             top, bottom = self.facies[name]
             mask = (self.df[self.depth_col] >= top) & (self.df[self.depth_col] <= bottom)
-            return self.df.loc[mask]
+            df_slice = self.df.loc[mask].copy()
+            
+            def add_log(log_name, unit, values):
+                # Update the main DataFrame
+                if log_name not in self.df.columns:
+                    self.df[log_name] = np.nan
+                self.df.loc[mask, log_name] = values
+                
+                # Update units dictionary
+                self.units[log_name] = unit
+                
+                # Update the original data dictionary (from DataLoader)
+                if hasattr(self, "data_obj") and hasattr(self.data_obj, "data"):
+                    if log_name not in self.data_obj.data:
+                        self.data_obj.data[log_name] = {
+                            "values": np.full(len(self.df), np.nan),
+                            "unit": unit,
+                            "description": "Calculated by DataManager"
+                        }
+                    
+                    import pandas as pd
+                    if isinstance(values, (pd.Series, pd.DataFrame)):
+                        np_values = values.to_numpy().squeeze()
+                    else:
+                        np_values = values
+                        
+                    self.data_obj.data[log_name]["values"][mask.values] = np_values
+                    self.data_obj.data[log_name]["unit"] = unit
+                    
+                # Update the current slice so it's immediately available
+                df_slice[log_name] = values
+                
+            # Bind the add_log method to this specific DataFrame instance
+            df_slice.add_log = add_log
+            return df_slice
+            
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
         
     def __dir__(self):
