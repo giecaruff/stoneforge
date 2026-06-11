@@ -172,9 +172,16 @@ class DataManager(DataLoader):
         min_depth = self.df[self.depth_col].min()
         max_depth = self.df[self.depth_col].max()
         
-        self.facies = {
-            'unidentified': (min_depth, max_depth)
+        self._facies_dict = {
+            'unidentified': (min_depth, max_depth),
+            'ALL': (min_depth, max_depth)
         }
+
+    def facies(self):
+        """
+        Returns a list of all added facies names.
+        """
+        return list(self._facies_dict.keys())
 
     def add_facies(self, facies_dict):
         """
@@ -186,17 +193,17 @@ class DataManager(DataLoader):
             Dictionary mapping facies name to a tuple of (top, bottom) depths.
         """
         for name, (top, bottom) in facies_dict.items():
-            self.facies[name] = (top, bottom)
+            self._facies_dict[name] = (top, bottom)
             
     def add_facie(self, name, top, bottom):
         """
         Adds a single facies interval.
         """
-        self.facies[name] = (top, bottom)
+        self._facies_dict[name] = (top, bottom)
         
     def __getattr__(self, name):
-        if name in self.facies:
-            top, bottom = self.facies[name]
+        if name in self._facies_dict:
+            top, bottom = self._facies_dict[name]
             mask = (self.df[self.depth_col] >= top) & (self.df[self.depth_col] <= bottom)
             df_slice = self.df.loc[mask].copy()
             
@@ -237,4 +244,4 @@ class DataManager(DataLoader):
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
         
     def __dir__(self):
-        return sorted(set(super().__dir__() + list(self.facies.keys())))
+        return sorted(set(super().__dir__() + list(self._facies_dict.keys())))
