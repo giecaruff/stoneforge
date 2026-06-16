@@ -4,7 +4,9 @@ import numpy as np
 from typing import Annotated
 #from stoneforge.petrophysics.helpers import correct_petrophysic_estimation_range
 from .helpers import correct_petrophysic_estimation_range
+from stoneforge.chat.forge_chat import tool
 
+@tool()
 def gammarayindex(
     gr: Annotated[np.array, "Gamma Ray log"],
     grmin: Annotated[float, "Clean GR value"],
