@@ -1,4 +1,16 @@
 import numpy as np
+from itertools import groupby
+
+def merge_lithology(litho_ref):
+
+    values = []
+    counts = []
+
+    for value, group in groupby(litho_ref):
+        values.append(value)
+        counts.append(len(list(group)))
+
+    return (values, counts)
 
 
 def log_statstics(log,lito):

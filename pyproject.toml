@@ -1,6 +1,6 @@
 [project]
 name = "stoneforge"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
     {name = "GIECAR - UFF"},
     {name = "Wagner M. Lupinacci"},
@@ -18,14 +18,15 @@ description = "Geophysics equations, algorithms and methods"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "dlisio>=1.0.4",
     "numpy>=2.2.0",
     "pytest>=8.3.4",
+    "requests>=2.34.2",
     "scipy>=1.14.1",
     "scikit-learn>=1.6.1",
     "matplotlib>=3.10.0",
     "pandas>=2.2.2",
-    "hypothesis>=6.148.6"
+    "hypothesis>=6.148.6",
+    "dlispy-uff @ git+https://github.com/giecaruff/dlispy.git"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -62,7 +63,6 @@ exclude = ["tests", "docs", "examples"]  # Exclude unnecessary files
 [tool.uv]
 package = true
 
-
 [tool.ruff]
 # Set the maximum line length to 79.
 line-length = 79
@@ -81,7 +81,7 @@ extend-select = [
 convention = "google"
 
 [tool.pytest.ini_options]
-pythonpath = "stoneforge"
+pythonpath = "."
 minversion = "6.0"
 addopts = [
     "-ra",
@@ -94,7 +94,7 @@ addopts = [
     "--cov-report=term-missing:skip-covered",
     "--cov-report=html:htmlcov",
     "--cov-report=xml",
-    "--cov-fail-under=30",
+    "--cov-fail-under=75",
 ]
 testpaths = [
     "tests",
