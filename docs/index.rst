@@ -6,7 +6,7 @@
 Welcome to Stoneforge's documentation!
 ======================================
 
-**Version**: 0.2.1
+**Version**: 0.2.2
 
 **Stoneforge** is a Python library for geophysics equations, algorithms and methods that also,
 are used in the software **APPy**. It is linked to the GIECAR laboratory at the Universidade Federal
