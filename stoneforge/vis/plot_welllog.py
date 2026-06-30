@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-import matplotlib.cm as cm
+import matplotlib as mpl
 from typing import Annotated
 
 class LogPlot:
@@ -106,7 +106,8 @@ class LogPlot:
             fontsize   : font size
             y          : vertical position relative to axis (default 1.02)
         """
-        cmap = cm.get_cmap(cmap_name)
+        # Use the new registry access instead of get_cmap
+        cmap = mpl.colormaps[cmap_name] 
         n = len(text)
 
         # Normalize character positions into [0,1]
