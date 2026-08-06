@@ -1,7 +1,13 @@
+import os
+import matplotlib
+if os.environ.get("DISPLAY", "") == "":
+    backend = matplotlib.get_backend().lower()
+    if backend in {"tkagg", "qt5agg", "qtagg", "wxagg", "gtk3agg", "gtkagg"}:
+        matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy as np
-import matplotlib.pyplot as plt
 
 # based on "PythonParaGeofisicos" from Sep 24, 2020
 

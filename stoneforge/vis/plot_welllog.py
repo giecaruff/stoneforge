@@ -1,4 +1,11 @@
+import os
 import numpy as np
+import matplotlib
+if os.environ.get("DISPLAY", "") == "":
+    backend = matplotlib.get_backend().lower()
+    if backend in {"tkagg", "qt5agg", "qtagg", "wxagg", "gtk3agg", "gtkagg"}:
+        matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib as mpl
