@@ -1,4 +1,3 @@
-
 from stoneforge.reservoir import toc
 
 a = toc.content()

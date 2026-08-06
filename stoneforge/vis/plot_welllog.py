@@ -207,6 +207,7 @@ class LogPlot:
                     track: Annotated[bool, "new track or not"]=False,
                     c: Annotated[str, "log color"]='black',
                     s: Annotated[str, "log line style"]='-',
+                    m: Annotated[str, "marker"]='',
                     lw: Annotated[float, "line width"]=.5,
                     w: Annotated[float, "track proportion"]=.2,
                     vmin: Annotated[float, "log minimum value"]=None,
@@ -227,6 +228,8 @@ class LogPlot:
             Color of the log line, standard is 'black'.
         s : str
             Line style of the log line, standard is '-'.
+        m : str
+            Line style marker of the log line, standard is ''.
         lw : float
             Line width of the log line, standard is 0.5.
         w : float
@@ -266,7 +269,7 @@ class LogPlot:
         _title = self._format_bar(vmin, vmax, label)
         self.ax.set_xticks(np.linspace(vmin,vmax,step+1))
         self.ax.set_yticks(self.depth_range)
-        self.ax.plot(x, self.y, color=c, linestyle=s, linewidth=lw)
+        self.ax.plot(x, self.y, color=c, linestyle=s, linewidth=lw, marker = m)
         self.ax.set_xlim(vmin,vmax)
         self.ax.set_ylim(self.bot,self.top)
         if label:
