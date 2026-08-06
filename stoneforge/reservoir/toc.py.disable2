@@ -23,7 +23,6 @@ else:
     raw_input = input
 
 import matplotlib
-matplotlib.use('TkAgg')
 
 import os
 import numpy as np
