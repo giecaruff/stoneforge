@@ -36,7 +36,7 @@ def _download_to_tempfile(url):
 
 class DataLoader:
     
-    def __init__(self, filepath, filetype=None, sep="\t", std="US"):
+    def __init__(self, filepath, filetype=None, sep=",", std="US"):
         """
         Import a file into the project.
         
@@ -93,10 +93,10 @@ class DataLoader:
                 self.data_obj = DLISAccess(filepath)
                 print("DLIS parsing successful.")
             elif filext in ['.csv', '.txt', '.dat', '.tsv']:
-                try:
-                    self.data_obj = TABParser(filepath, sep=sep, std=std)
-                except:
-                    print("Failed to parse tabular data file.")
+                #try:
+                self.data_obj = TABParser(filepath, sep=sep, std=std)
+                #except:
+                print("Failed to parse tabular data file.")
             else:
                 raise ValueError(f"Unsupported file extension: {filext}")
             

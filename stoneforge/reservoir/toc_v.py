@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import numpy as np
 import pandas as pd
+from scipy import signal
 
 if __package__:
     from ..data_management.preprocessing import DataLoader
@@ -26,29 +27,33 @@ class TOCProcessor(object):
 
     def __init__(
         self,
-        csv_path,
-        las_path,
-        mnemonics,
-        cot_position=None,
-        cot_depth_position=None,
+        depth,
+        dt,
+        gr,
+        logrt,
+        cali,
+        measured_cot_depth,
+        measured_cot,
         lom=10.0,
         dt_baseline=100.0,
         logrt_baseline=0.0,
+        window_value = 100,
         skip=()
     ):
-        self.csv_path = csv_path
-        self.las_path = las_path
-        self.mnemonics = mnemonics
-        self.cot_position = cot_position
-        self.cot_depth_position = cot_depth_position
+        self.depth = depth
+        self.dt = dt
+        self.gr = gr
+        self.logrt = logrt
+        self.cali = cali
         self.lom = lom
         self.dt_baseline = dt_baseline
         self.logrt_baseline = logrt_baseline
         self.skip = skip
+        self.window_value = window_value
 
         self.lab_df = None
-        self.measured_cot = None
-        self.measured_cot_depth = None
+        self.measured_cot = measured_cot
+        self.measured_cot_depth = measured_cot_depth
         self.log_data = None
         self.result = {}
 
@@ -103,23 +108,6 @@ class TOCProcessor(object):
 
         return self.lab_df
 
-    def load_las_data(self):
-        """
-        Load the LAS curves using lasio.
-        """
-
-        data = {}
-        for key in ["depth", "dt", "logrt", "gr", "cali"]:
-            mnemonic = self.mnemonics.get(key)
-            if not mnemonic:
-                continue
-
-            las2 = DataLoader(self.las_path, filetype='las2')
-            data[key] = las2.data_obj.data[mnemonic]['values']
-
-        self.log_data = data
-        return data
-
     def calculate(self):
         """
         Compute the three requested outputs:
@@ -127,43 +115,30 @@ class TOCProcessor(object):
         2) -0.02 x (DT - baseline)
         3) calculated COT in %
         """
-        self.load_lab_data()
-        self.load_las_data()
 
-        depth = np.asarray(self.log_data["depth"], dtype=float)
-        dt = np.asarray(self.log_data["dt"], dtype=float)
-        gr = np.asarray(self.log_data["gr"], dtype=float)
-        logrt = np.asarray(self.log_data["logrt"], dtype=float)
-        cali = np.asarray(self.log_data["cali"], dtype=float)
+        depth = np.asarray(self.depth, dtype=float)
+        dt = np.asarray(self.dt, dtype=float)
+        gr = np.asarray(self.gr, dtype=float)
+        logrt = np.asarray(self.logrt, dtype=float)
+        cali = np.asarray(self.cali, dtype=float)
 
-        # Avoid log(0) issues
-        logrt = np.where(logrt > 0, np.log10(logrt), np.nan)
+        windowtype = ["gaussian", 20.0]
+        windowtype = tuple(windowtype)
+        windowdata = signal.windows.get_window(windowtype, self.window_value, False)
+        windowdata /= np.sum(windowdata)
 
-        # Keep only finite values
-        mask = np.isfinite(depth) & np.isfinite(dt) & np.isfinite(logrt)
-        depth = depth[mask]
-        dt = dt[mask]
-        gr = gr[mask]
-        logrt = logrt[mask]
-        cali= cali[mask]
+        dt2 = np.convolve(dt, windowdata, 'same')
+        logrt2 = np.convolve(logrt, windowdata, 'same')
 
         def passeymethod(dt, logrt, dtbaseline, logrtbaseline, lom):
                     dlogrt = (logrt - logrtbaseline) + 0.02*(dt - dtbaseline)
                     toc = dlogrt*10**(2.297 - 0.1688*lom)
                     return np.clip(toc, 0.0, 100.0)
 
-        # To remove in future
         logrt_minus_baseline = logrt - self.logrt_baseline
         dt_minus_baseline_scaled = -0.02 * (dt - self.dt_baseline)
 
-        #dlogrt = logrt_minus_baseline + dt_minus_baseline_scaled
-        #calculated_cot = np.clip(
-        #    dlogrt * 10 ** (2.297 - 0.1688 * self.lom),
-        #    0.0,
-        #    100.0,
-        #)
-        calculated_cot = passeymethod(dt, logrt, self.dt_baseline, self.logrt_baseline, self.lom)
-
+        calculated_cot = passeymethod(dt2, logrt2, self.dt_baseline, self.logrt_baseline, self.lom)
 
         measured_cot_aligned = None
         if self.measured_cot is not None:
