@@ -1,3 +1,4 @@
+# Wagner M. Lupinacci
 # Author: João V. A. Estrella
 
 from . import rock_physics_bounds  # noqa: F401
