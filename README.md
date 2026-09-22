@@ -27,8 +27,9 @@ Part of the <strong>Appy</strong> project
   
 ## About
 
-The Stoneforge library is linked to the GIECAR laboratory at the Universidade Federal Fluminense (UFF) related to the Geology and Geophysics Departmnet <a href="http://geologiaegeofisica.sites.uff.br/"> (GGO)</a>, and its purpose is to teach and develop routines in Python to solve geological and geophysical problems.
+The Stoneforge library is an institutional software library associated with the reservoir characterization and scientific research activities of the GIECAR laboratory at the <a href="https://www.uff.br/">Universidade Federal Fluminense (UFF)</a>, particularly within the <a href="http://geologiaegeofisica.sites.uff.br/">Department of Geology and Geophysics (GGO)</a>.
 
+The library aims to support the teaching and development of Python routines for solving geological and geophysical problems, with a particular focus on well-log data, laboratory measurements, and the integration of well and seismic data.
 
 ## Installation and first steps
 
@@ -44,8 +45,8 @@ and them verify the installation using the following command in Python:
 >>> import stoneforge
 ```
 
+you can view and access more examples at: https://github.com/giecaruff/stoneforge/tree/main/examples
 
-  
 ## Dataset
 
 The stoneforge dataset comprises the following data: 
