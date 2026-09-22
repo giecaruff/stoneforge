@@ -72,7 +72,7 @@ class DataLoader:
             try:
                 self.data_obj = TABParser(filepath, sep=sep, std=std)
             except:
-                print("Failed to parse tabular data file.")
+                print("Failed to parse tabular data file described as 'tabr'.")
 
         if filetype is None:
             filext = self._get_file_extension(filepath)
@@ -93,10 +93,10 @@ class DataLoader:
                 self.data_obj = DLISAccess(filepath)
                 print("DLIS parsing successful.")
             elif filext in ['.csv', '.txt', '.dat', '.tsv']:
-                #try:
-                self.data_obj = TABParser(filepath, sep=sep, std=std)
-                #except:
-                print("Failed to parse tabular data file.")
+                try:
+                    self.data_obj = TABParser(filepath, sep=sep, std=std)
+                except:
+                    print("Failed to parse tabular data file.")
             else:
                 raise ValueError(f"Unsupported file extension: {filext}")
             
