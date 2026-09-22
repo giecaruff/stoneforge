@@ -1,104 +1,79 @@
 import re
-import os
-import warnings
+
 import numpy as np
+import pandas as pd
 
-# Custom formatting for warnings
-def clean_formatwarning(message, category, filename, lineno, line=None):
-    # Get only the filename (no user path)
-    short_filename = os.path.basename(filename)
-    return f"{category.__name__}: {message} (in {short_filename}:{lineno})\n"
-
-warnings.formatwarning = clean_formatwarning
 
 class TABParser:
+    """Read tabular files with a header row, units row, and data rows."""
+
     def __init__(self, file_path, sep=",", std="US"):
-        """
-        Initializes the TabularDataLoader with the given file path, separator, and numeric format.
-        
-        Args:
-            file_path (str): Path to the CSV/TSV file.
-            sep (str): Field separator (default is ",").
-            std (str): Numeric formatting standard, either "US" [standard one] (1,234.56) or "BR" (1.234,56).
-        
-        Returns:
-            None
-        """
         self.file_path = file_path
-        self.data = self._load_csv_as_dict(file_path = file_path, sep=sep, std=std)
+        self.data = self._load(file_path, sep=sep, std=std)
 
-    def _load_csv_as_dict(self, file_path, sep=",", std="US"):
-        """
-        Reads a CSV/TSV file line by line, robust against malformed rows.
+    def _load(self, file_path, sep=",", std="US"):
+        if std not in {"US", "BR"}:
+            raise ValueError("std must be either 'US' or 'BR'")
 
-        Args:
-            file_path (str): path to file
-            sep (str): field separator (default ",")
-            std (str): "US" (1,234.56) or "BR" (1.234,56) numeric formatting
+        df = pd.read_csv(
+            file_path,
+            sep=sep,
+            header=0,
+            dtype=str,
+            keep_default_na=False,
+            encoding="utf-8",
+        )
 
-        Returns:
-            dict: { column_name: {"unit": str, "values": np.ndarray or list[str]} }
-        """
-        data_dict = {}
+        if len(df) < 1:
+            raise ValueError(
+                f"File '{file_path}' must contain a units row"
+            )
 
-        with open(file_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
+        headers = [str(column).strip() for column in df.columns]
+        units = [str(value).strip() for value in df.iloc[0]]
 
-        # --- Step 1: extract header
-        header_line = lines[0].strip()
-        headers = header_line.split(sep)
+        result = {
+            header: {
+                "unit": unit,
+                "values": [],
+                "description": "",
+            }
+            for header, unit in zip(headers, units)
+        }
 
-        for col in headers:
-            col = col.strip()
-            name = col.split(" ", 1)[0].strip()
-            data_dict[name] = {"unit": "", "values": []}
+        data = df.iloc[1:]
 
-        # --- Step 2: normalization helper
-        def normalize_value(val):
-            val = val.strip().strip('"')
-            if re.match(r"^-?\d+[.,]?\d*$", val):  # numeric-like
-                if std.upper() == "US":
-                    val = val.replace(",", "")
-                elif std.upper() == "BR":
-                    val = val.replace(".", "").replace(",", ".")
-            return val
+        for index, header in enumerate(headers):
+            values = data.iloc[:, index].map(str.strip).tolist()
+            result[header]["values"] = self._convert_values(values, std)
 
-        # --- Step 3: process rows
-        for i, line in enumerate(lines[1:], start=2):
-            row = line.strip().split(sep)
-            if len(row) != len(headers):
-                warnings.warn(
-                    f"Skipping line {i}: expected {len(headers)} fields, got {len(row)}"
-                )
-                continue
+        return result
 
-            # units row
-            if i == 2:
-                for col_name, value in zip(headers, row):
-                    col_name = col_name.split(" ", 1)[0].strip()
-                    data_dict[col_name]["unit"] = value.strip().strip('"')
-                continue
+    @staticmethod
+    def _convert_values(values, std):
+        if not values:
+            return np.array([], dtype=str)
 
-            # values rows
-            for col_name, value in zip(headers, row):
-                col_name = col_name.split(" ", 1)[0].strip()
-                data_dict[col_name]["values"].append(normalize_value(value))
+        normalized = []
 
-        # --- Step 4: convert lists to numpy arrays
-        for col, content in data_dict.items():
-            vals = content["values"]
-            try:
-                arr = np.array(vals, dtype=int)
-                data_dict[col]["values"] = arr
-            except ValueError:
-                try:
-                    arr = np.array(vals, dtype=float)
-                    data_dict[col]["values"] = arr
-                except ValueError:
-                    data_dict[col]["values"] = np.array(vals, dtype=str)
+        for value in values:
+            value = value.strip()
 
-        ordered_data_dict = {}
-        for k in data_dict.keys():
-            ordered_data_dict[k] = {'values' : data_dict[k]['values'], 'unit' : data_dict[k]['unit'], 'description' : ''}
+            if std == "BR":
+                value = value.replace(".", "").replace(",", ".")
+            else:
+                value = value.replace(",", "")
 
-        return ordered_data_dict
+            normalized.append(value)
+
+        numeric = pd.Series(
+            pd.to_numeric(normalized, errors="coerce")
+        )
+
+        if numeric.notna().all():
+            if (numeric % 1 == 0).all():
+                return numeric.astype(int).to_numpy()
+
+            return numeric.to_numpy()
+
+        return np.array(values, dtype=str)

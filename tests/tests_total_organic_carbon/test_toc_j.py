@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from stoneforge.petrophysics import total_organic_carbon_content
+from stoneforge.reservoir import total_organic_carbon_content
 
 def test_passey():
     dt = np.array([80.0, 90.0])

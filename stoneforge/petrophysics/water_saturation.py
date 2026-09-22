@@ -260,6 +260,6 @@ def water_saturation(rw: float, rt: np.array, phi: np.array,
     fun = _sw_methods[method]
 
 
-    sw = fun(rw, rt, phi, a, m, **options)
+    sw = fun(rt=rt, phi=phi, rw=rw, a=a, m=m, **options)
     
     return sw

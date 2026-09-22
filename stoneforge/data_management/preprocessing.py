@@ -36,7 +36,7 @@ def _download_to_tempfile(url):
 
 class DataLoader:
     
-    def __init__(self, filepath, filetype=None, sep="\t", std="US"):
+    def __init__(self, filepath, filetype=None, sep=",", std="US"):
         """
         Import a file into the project.
         
@@ -72,7 +72,7 @@ class DataLoader:
             try:
                 self.data_obj = TABParser(filepath, sep=sep, std=std)
             except:
-                print("Failed to parse tabular data file.")
+                print("Failed to parse tabular data file described as 'tabr'.")
 
         if filetype is None:
             filext = self._get_file_extension(filepath)
