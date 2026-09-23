@@ -116,6 +116,40 @@ def neutron_porosity(
     return phin
 
 
+def neutron_correction_porosity(
+    nphi: Annotated[np.array, "Neutron porosity log in decimal units"],
+    lito: Annotated[np.array, "Lithology log"],
+    sandstone: Annotated[bool, "Flag indicating if the lithology is sandstone"] = 49,
+    dolomite: Annotated[bool, "Flag indicating if the lithology is dolomite"] = 30) -> np.array:
+    """Estimate the effective porosity from the neutron log (:footcite:t:`schon1998physical`).
+
+    Parameters
+    ----------
+    nphi : array_like
+        Neutron porosity log.
+    lito : array_like
+        Lithology log.
+    sandstone : int, float
+        Flag indicating if the lithology is sandstone.
+    dolomite : int, float
+        Flag indicating if the lithology is dolomite.
+
+    Returns
+    -------
+    phin : array_like
+        Effective porosity from the neutron log for the aimed interval.
+
+    """
+    phin = []
+    for i in range(len(nphi)):
+        if lito[i] == sandstone:
+            phin.append(nphi[i]+0.04)
+        if lito[i] == dolomite:
+            phin.append(nphi[i]-0.06)
+        
+    return np.array(phin)
+
+
 def neutron_density_porosity(
     phid: Annotated[np.array, "Porosity from density log"],
     phin: Annotated[np.array, "Porosity from neutron log"],

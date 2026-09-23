@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "Stoneforge: Algorithms, methods and equations for geophysics in Python"
+message: "If you use this software, please cite it as below."
+type: software
+date-released: 2020-10-23
+authors:
+  - name: "GIECAR - UFF"
+  - given-names: "Wagner M."
+    family-names: "Lupinacci"
+  - given-names: "Fernando"
+    family-names: "Vizeu"
+  - given-names: "Fábio Júnior D"
+    family-names: "Fernandes"
+  - given-names: "José A. V."
+    family-names: "Dias"
+  - given-names: "Mario M."
+    family-names: "Ramos"
+  - given-names: "Jordan S."
+    family-names: "Cuno"
+  - given-names: "João Vitor A."
+    family-names: "Estrella"
+  - given-names: "Ana Carolina"
+    family-names: "Oliveira de Almeida"
+  - given-names: "Breno D."
+    family-names: "Chrispim"
+    

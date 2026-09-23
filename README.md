@@ -27,8 +27,11 @@ Part of the <strong>Appy</strong> project
   
 ## About
 
-The Stoneforge library is linked to the GIECAR laboratory at the Universidade Federal Fluminense (UFF) related to the Geology and Geophysics Departmnet <a href="http://geologiaegeofisica.sites.uff.br/"> (GGO)</a>, and its purpose is to teach and develop routines in Python to solve geological and geophysical problems.
+!!! Welcome to the Stoneforge Library !!!
 
+The Stoneforge library is an institutional software library associated with the reservoir characterization and scientific research activities of the GIECAR laboratory at the <a href="https://www.uff.br/">Universidade Federal Fluminense (UFF)</a>, particularly within the <a href="http://geologiaegeofisica.sites.uff.br/">Department of Geology and Geophysics (GGO)</a>.
+
+The library aims to support the teaching and development of Python routines for solving geological and geophysical problems, with a particular focus on well-log data, laboratory measurements, and the integration of well and seismic data.
 
 ## Installation and first steps
 
@@ -44,17 +47,15 @@ and them verify the installation using the following command in Python:
 >>> import stoneforge
 ```
 
+you can view and access more examples at: https://github.com/giecaruff/stoneforge/tree/main/examples
 
-  
 ## Dataset
 
-The stoneforge dataset comprises the following data: 
+### The stoneforge dataset comprises the following: 
 
-Four .las data from wildcat wells in the National Petroleum Reserve in Alaska. Those where drilled in the National Petroleum Reserve in Alaska (NPRA). </br>
-[USGS Well Index](https://pubs.usgs.gov/of/1999/ofr-99-0015/Wells/WellIdx.htm)
+[National Agency of Petroleum, Natural Gas and Biofuels (ANP)](https://reate.cprm.gov.br/anp/TERRESTRE): Recôncavo Basin Well log data from free access of onshore public data.
 
-Two .dlis data from the Mississippi Fan (Gulf of Mexico) from the DSDP (Deep Sea Drilling Project); DSDP Leg 96 - Hole 616; Processed and Original data. </br>
-[DSDP Leg 96 - Hole 616](https://mlp.ldeo.columbia.edu/data/dsdp/leg96/616/)
+[USGS Well Index](https://pubs.usgs.gov/of/1999/ofr-99-0015/Wells/WellIdx.htm): Wildcat wells data in the National Petroleum Reserve in Alaska. </br>
 
-Zihlman, F. N creator ; Oliver, H. L ; Geological Survey (U.S.)
-Reston, Va. : Denver, Colo : U.S. Dept. of the Interior, U.S. Geological Survey1999
+[DSDP Leg 96 - Hole 616](https://mlp.ldeo.columbia.edu/data/dsdp/leg96/616/): Mississippi data from the fan (Gulf of Mexico - Processed and Original) from the DSDP (Deep Sea Drilling Project).</br>
+

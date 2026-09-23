@@ -17,6 +17,15 @@ Monte Carlo Simulations
     :undoc-members:
     :show-inheritance:
 
+Referenced-Based Generation
+---------------------------
+
+.. automodule:: stoneforge.pseudo_wells.referenced
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 References
 ----------------
 
