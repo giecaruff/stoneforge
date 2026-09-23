@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import os
 
-from dlispy import parse
+from stoneforge._vendor.dlispy import parse
+#from dlispy import parse
 
 class DLISAccess:
 
