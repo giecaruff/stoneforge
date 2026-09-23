@@ -27,6 +27,8 @@ Part of the <strong>Appy</strong> project
   
 ## About
 
+!!! Welcome to the Stoneforge Library !!!
+
 The Stoneforge library is an institutional software library associated with the reservoir characterization and scientific research activities of the GIECAR laboratory at the <a href="https://www.uff.br/">Universidade Federal Fluminense (UFF)</a>, particularly within the <a href="http://geologiaegeofisica.sites.uff.br/">Department of Geology and Geophysics (GGO)</a>.
 
 The library aims to support the teaching and development of Python routines for solving geological and geophysical problems, with a particular focus on well-log data, laboratory measurements, and the integration of well and seismic data.
